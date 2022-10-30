@@ -462,53 +462,6 @@ function UnlockManager.postPlayerInit(player)
 	end
 end
 
-function UnlockManager.familiarInit(familiar)
-	if familiar.Variant ~= FamiliarVariant.ITEM_WISP then return end
-
-	local tab = collectibleUnlocks[familiar.SubType]
-	local prefix = ""
-	local unlocked = false
-
-	if tab == nil then return end
-
-	if tab.Special then
-		unlocked = tab.Special()
-	else
-		if tab.Tainted then
-			prefix = "T_"
-		end
-		unlocked = SaveData.UnlockData[prefix .. "Andromeda"][tab.Unlock]
-	end
-
-	if not unlocked then
-		local seed = game:GetSeeds():GetStartSeed()
-		local pool = ItemPoolType.POOL_TREASURE
-
-		if familiar.SubType == Collectible.HARMONIC_CONVERGENCE then
-			pool = ItemPoolType.POOL_ANGEL
-		end
-
-		if familiar.SubType == Collectible.JUNO
-		or familiar.SubType == Collectible.PALLAS
-		or familiar.SubType == Collectible.CERES
-		or familiar.SubType == Collectible.VESTA
-		or familiar.SubType == Collectible.CHIRON
-		then
-			pool = ItemPoolType.POOL_PLANETARIUM
-		end
-		
-		local newItem = game:GetItemPool():GetCollectible(pool, false, familiar.InitSeed)
-		local itemConfig = Isaac.GetItemConfig():GetCollectible(newItem)
-		
-		while itemConfig.Type == ItemType.ITEM_ACTIVE do
-			newItem = game:GetItemPool():GetCollectible(pool, false, seed)
-			itemConfig = Isaac.GetItemConfig():GetCollectible(newItem)
-		end
-
-		familiar.SubType = newItem
-	end
-end
-
 function UnlockManager.postPickupInit(pickup)
 	local room = game:GetRoom()
 	local roomType = room:GetType()
