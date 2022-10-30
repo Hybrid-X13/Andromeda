@@ -304,12 +304,12 @@ function Character.postPlayerInit(player)
 end
 
 function Character.preRoomEntitySpawn(entity, variant, subType, gIndex, seed)
+	local room = game:GetRoom()
+	
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 
 		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
-
-		local room = game:GetRoom()
 
 		if entity == EntityType.ENTITY_PICKUP
 		and variant == PickupVariant.PICKUP_COLLECTIBLE
@@ -462,13 +462,13 @@ function Character.postNewLevel()
 end
 
 function Character.preSpawnCleanAward()
+	local room = game:GetRoom()
+	local level = game:GetLevel()
+	
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 
 		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
-
-		local room = game:GetRoom()
-		local level = game:GetLevel()
 
 		if (room:GetType() == RoomType.ROOM_BOSS or room:GetType() == RoomType.ROOM_BOSSRUSH)
 		and level:GetStage() ~= LevelStage.STAGE7
@@ -541,90 +541,87 @@ function Character.preTearCollision(tear, collider, low)
 end
 
 function Character.postLaserInit(laser)
+	if laser.SpawnerEntity == nil then return end
 	if laser.SpawnerType ~= EntityType.ENTITY_PLAYER then return end
 
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
+	local player = laser.SpawnerEntity:ToPlayer()
 
-		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+	if player == nil then return end
+	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
 
-		local room = game:GetRoom()
+	local room = game:GetRoom()
 
-		if (laser.SubType == 0 or ((laser.Variant == 1 or laser.Variant == 11 or laser.Variant == 14) and laser.SubType == 2))
-		and laser.Variant ~= 7
-		and laser.Variant ~= 8
-		and laser.Variant ~= 10
-		and laser.Variant ~= 12
-		and (not laser:GetData().isSolarFlare or laser:GetData().isSolarFlare == nil)
-		then
-			laser.Position = room:GetCenterPos()
-			local vec = laser.Position - player.Position
-			laser.Angle = vec:GetAngleDegrees()
-			laser.ParentOffset = room:GetCenterPos() - player.Position
-		end
-		
-		if (laser.Variant == 2 and laser.SubType == 2) --Tech X
-		or laser.Variant == 9
-		then
-			laser.Position = room:GetCenterPos()
-		end
-				
-		if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-		and laser.Variant ~= 3
-		and laser.Variant ~= 7
-		and laser.Variant ~= 8
-		and laser.Variant ~= 10
-		then
-			local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-			local randNum = rng:RandomInt(360)
-			Functions.ConvergingTears(laser, player, room:GetCenterPos(), randNum, 1, true)
-		end
+	if (laser.SubType == 0 or ((laser.Variant == 1 or laser.Variant == 11 or laser.Variant == 14) and laser.SubType == 2))
+	and laser.Variant ~= 7
+	and laser.Variant ~= 8
+	and laser.Variant ~= 10
+	and laser.Variant ~= 12
+	then
+		laser.Position = room:GetCenterPos()
+		local vec = laser.Position - player.Position
+		laser.Angle = vec:GetAngleDegrees()
+		laser.ParentOffset = room:GetCenterPos() - player.Position
+	end
+	
+	if (laser.Variant == 2 and laser.SubType == 2) --Tech X
+	or laser.Variant == 9
+	then
+		laser.Position = room:GetCenterPos()
+	end
+			
+	if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+	and laser.Variant ~= 3
+	and laser.Variant ~= 7
+	and laser.Variant ~= 8
+	and laser.Variant ~= 10
+	then
+		local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+		local randNum = rng:RandomInt(360)
+		Functions.ConvergingTears(laser, player, room:GetCenterPos(), randNum, 1, true)
 	end
 end
 
 function Character.postLaserUpdate(laser)
-	if laser.SpawnerType ~= EntityType.ENTITY_PLAYER then return end
+	if laser.Parent == nil then return end
+	if laser.Parent.Type ~= EntityType.ENTITY_PLAYER then return end
+
+	local player = laser.Parent:ToPlayer()
+
+	if player == nil then return end
+	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+
+	local room = game:GetRoom()
+	Functions.ChangeLaserColor(laser, player)
 	
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-
-		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
-
-		local room = game:GetRoom()
-		Functions.ChangeLaserColor(laser, player)
-		
-		--Exlude ring lasers, Technology, Trisagion, Tractor Beam, Jacob's Ladder/Tech 0, Montezuma's Revenge, laser from Luminary Flare
-		if laser.SubType == 0
-		and laser.Variant ~= 2
-		and laser.Variant ~= 3
-		and laser.Variant ~= 7
-		and laser.Variant ~= 10
-		and laser.Variant ~= 12
-		and (not laser:GetData().isSolarFlare or laser:GetData().isSolarFlare == nil)
-		then
-			laser.Position = room:GetCenterPos()
-			local vec = laser.Position - player.Position
-			laser.Angle = vec:GetAngleDegrees()
-			laser.ParentOffset = room:GetCenterPos() - player.Position
-		end
+	--Exlude ring lasers, Technology, Trisagion, Tractor Beam, Jacob's Ladder/Tech 0, Montezuma's Revenge
+	if laser.SubType == 0
+	and laser.Variant ~= 2
+	and laser.Variant ~= 3
+	and laser.Variant ~= 7
+	and laser.Variant ~= 10
+	and laser.Variant ~= 12
+	then
+		laser.Position = room:GetCenterPos()
+		local vec = laser.Position - player.Position
+		laser.Angle = vec:GetAngleDegrees()
+		laser.ParentOffset = room:GetCenterPos() - player.Position
 	end
 end
 
 function Character.postBombUpdate(bomb)
-	if bomb.SpawnerType ~= EntityType.ENTITY_PLAYER then return end
 	if not bomb.IsFetus then return end
+	if bomb.Parent == nil then return end
+	if bomb.Parent.Type ~= EntityType.ENTITY_PLAYER then return end
 
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
+	local player = bomb.Parent:ToPlayer()
 
-		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+	if player == nil then return end
+	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+	if bomb.FrameCount ~= 1 then return end
 
-		local room = game:GetRoom()
+	local room = game:GetRoom()
 
-		if bomb.FrameCount == 1 then
-			bomb.Position = room:GetCenterPos()
-		end
-	end
+	bomb.Position = room:GetCenterPos()
 end
 
 function Character.postPickupInit(pickup)
