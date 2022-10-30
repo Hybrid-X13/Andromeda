@@ -1,6 +1,6 @@
 # Andromeda
 
-A mod for the game The Binding of Isaac.
+A mod for the game The Binding of Isaac: Rebirth.
 
 Adds:
 - Andromeda, a new character with a tainted version
