@@ -1,0 +1,48 @@
+<ItemPools>
+	<Pool Name="treasure">
+		<Item Name="Gravity Shift" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Extinction Event" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="​Ophiuchus" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Baby Pluto" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Book of Cosmos" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Celestial Crown" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Luminary Flare" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="secret">
+		<Item Name="Singularity" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="angel">
+		<Item Name="Harmonic Convergence" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="planetarium">
+		<Item Name="Ceres" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Pallas" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Juno" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Vesta" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Chiron" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="library">
+		<Item Name="Book of Cosmos" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="craneGame">
+		<Item Name="Extinction Event" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="babyShop">
+		<Item Name="Baby Pluto" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="greedTreasure">
+		<Item Name="Gravity Shift" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Extinction Event" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="​Ophiuchus" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Baby Pluto" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Book of Cosmos" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Celestial Crown" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Luminary Flare" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="greedAngel">
+		<Item Name="Harmonic Convergence" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="greedSecret">
+		<Item Name="Singularity" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+</ItemPools>

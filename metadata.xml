@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>Andromeda</name>
+    <directory>andromeda</directory>
+    <id>2722017893</id>
+    <description>[h1][b]Features[/b][/h1]
+Here’s a quick look at what this mod has to offer:
+[list]
+[*] Andromeda, a unique character based around Planetariums with a tainted version
+[*] Full unlocks for both characters, including new items, trinkets, runes, and more
+[*] Hundreds of custom costumes
+[*] Mod support for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=836319872&amp;searchtext=eid]EID[/url] (ENG and RUS), [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2376005362&amp;searchtext=encyclopedia]Encyclopedia[/url], and [url= https://steamcommunity.com/sharedfiles/filedetails/?id=2490515687&amp;searchtext=pog]POG for Good Items[/url]
+[/list]
+
+[b]Make sure you've unlocked Planetariums before trying this character![/b]
+
+[h1][b]Andromeda[/b][/h1]
+Reach for the stars as Andromeda, a new character that [i]revolves[/i] around Planetariums. Normally, Planetariums are rare and not usually worth skipping treasure rooms for, but Andromeda makes them much more worthwhile and easier to get. You’ll almost always be able find at least one during a run, sometimes even two or three.
+
+Andromeda starts with a new item called Gravity Shift, which can stop all tears and projectiles in midair, making them fall down after some time. It’s also Andromeda’s ticket to more Planetariums. All you need to do is [i]shift[/i] reality in the right place.
+
+[h1][b]Tainted Andromeda[/b][/h1]
+When a massive star dies, it collapses onto itself and creates a black hole...
+
+[h1][b]Unlocks[/b][/h1]
+Just like the vanilla game, each character has unlocks for getting completion marks, which includes:
+[list] 
+[*] 14 items, including 5 new Planetarium items
+[*] 7 trinkets
+[*] 4 runes
+[*] 1 new card
+[*] And more!
+[/list] 
+
+You can track your progress with any mod that does so, such as [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2376005362&amp;searchtext=encyclopedia]Encyclopedia[/url] or [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2503022727]Completion Marks for All Modded Characters[/url]. There’s also built-in commands. Open the debug console and type [b]andromedahelp[/b] for the full command list.
+- The mod also has its own Fandom wiki for all the content, check it out [url=https://andromeda-mod.fandom.com/wiki/Andromeda_Mod_Wiki] here[/url] (eng). 
+
+[h1][b]Additional Known Mod Compatabilities:[/b][/h1]
+[list]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2658281562]Character Portrait Overhaul[/url] (only regular Andromeda)
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2690434875]Unique Birthrights[/url]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2622137368]Unique Minisaacs[/url]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2697721144]Unique MEGAIsaacs[/url]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2826041132]MORE No More Symbols[/url] (Addon which adds modded symbols for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553379545]No More Symbols[/url])
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2814218324]Unique Animated Spirit Swords[/url]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2796769583]Custom Character Menu[/url]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2748584047]Planetariums in Greed Mode[/url]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2487456972]Better Doors [Repentance][/url]
+[/list]
+
+[b]For another cool character, check out[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2548070298] Mastema[/url].
+
+[h1][b]Credits[/b][/h1]
+[b]Hybrid:[/b] Coder and original idea behind the mod.
+[b]Warhamm2000:[/b] Designer and spriter for all the mod’s art.
+[b]Pupzables:[/b] Thumbnail artist.
+[b]DejuiceTD:[/b] Artist for regular Andromeda’s boss portrait. 
+[b]Nihil:[/b] Made the custom room song titled &quot;Gazing At the End Of The Universe&quot;, which can be found [url=https://soundcloud.com/user-433732349/sets/the-planetarium-collection]here on Soundcloud[/url].
+[b]Ridiculon[/b]: Voiceovers for all of the mod's consumables (and [b]popjam[/b] for help commissioning him!).</description>
+    <version>1.46</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+    <tag id="Items"/>
+    <tag id="Active Items"/>
+    <tag id="Trinkets"/>
+    <tag id="Cards"/>
+    <tag id="Player Characters"/>
+    <tag id="Familiars"/>
+    <tag id="Rooms"/>
+    <tag id="Graphics"/>
+</metadata>

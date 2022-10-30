@@ -1,0 +1,7 @@
+<pocketitems>
+	<card type="tarot" pickup="1" description="Untold answers" hud="theunknown" name="XXII - The Unknown" mimiccharge="3" />
+	<card type="rune" pickup="273" description="Reach for the stars" hud="soulofandromeda" name="Soul of Andromeda" mimiccharge="6" />
+	<card type="rune" pickup="274" description="Supernova!" hud="betelgeuse" name="Betelgeuse" mimiccharge="12" />
+	<card type="rune" pickup="275" description="Ever bright" hud="sirius" name="Sirius" mimiccharge="1" />
+	<card type="rune" pickup="276" description="Stellar formation" hud="alphacentauri" name="Alpha Centauri" mimiccharge="6" />
+</pocketitems>

@@ -1,0 +1,21 @@
+<sounds root="sfx/">
+	<sound name="PlutoPowerup">
+		<sample weight="1" path="pluto_powerup.wav" />
+	</sound>
+	<sound name="AbductionBeam">
+		<sample weight="1" path="abduction_beam.wav" />
+	</sound>
+	<sound name="AlphaCentauri">
+		<sample weight="1" path="Alpha Centauri.wav" />
+	</sound>
+	<sound name="Betelgeuse">
+		<sample weight="1" path="Betelgeuse 1.wav" />
+		<sample weight="1" path="Betelgeuse 2.wav" />
+	</sound>
+	<sound name="Sirius">
+		<sample weight="1" path="Sirius.wav" />
+	</sound>
+	<sound name="SoulOfAndromeda">
+		<sample weight="1" path="Soul Of Andromeda.wav" />
+	</sound>
+</sounds>

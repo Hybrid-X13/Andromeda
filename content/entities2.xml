@@ -1,0 +1,57 @@
+<entities anm2root="gfx/" version="5">
+    <entity anm2path="cosmic_beggar.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" id="6" name="Wisp Wizard" numGridCollisionPoints="24" shadowSize="15" stageHP="0" variant="84">
+        <gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0" />
+    </entity>
+	
+	<entity anm2path="soulofandromeda.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" id="5"
+        name="Soul of Andromeda" numGridCollisionPoints="24" shadowSize="16" stageHP="0" variant="300" subtype="273">
+            <preload-snd id="8" />
+    </entity>
+	<entity anm2path="starrune5.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" id="5"
+        name="Betelgeuse" numGridCollisionPoints="24" shadowSize="16" stageHP="0" variant="300" subtype="274">
+            <preload-snd id="8" />
+    </entity>
+	<entity anm2path="starrune5.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" id="5"
+        name="Sirius" numGridCollisionPoints="24" shadowSize="16" stageHP="0" variant="300" subtype="275">
+            <preload-snd id="8" />
+    </entity>
+	<entity anm2path="starrune4.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="12" friction="1" id="5"
+        name="Alpha Centauri" numGridCollisionPoints="24" shadowSize="16" stageHP="0" variant="300" subtype="276">
+            <preload-snd id="8" />
+    </entity>
+	
+	<entity name="Baby Pluto" anm2path="babypluto.anm2" baseHP="0" boss="0" champion="0" collisionMass="3" collisionRadius="10" friction="1" id="3" numGridCollisionPoints="12" shadowSize="13" stageHP="0" tags="cansacrifice" variant="3177">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
+    </entity>
+	<entity name="Plutonium" anm2path="babypluto2.anm2" baseHP="0" boss="0" champion="0" collisionMass="3" collisionRadius="11" friction="1" id="3" numGridCollisionPoints="12" shadowSize="15" stageHP="0" tags="cansacrifice" variant="3178">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
+    </entity>
+	<entity name="Mega Plutonium" anm2path="babypluto3.anm2" baseHP="0" boss="0" champion="0" collisionMass="3" collisionRadius="13" friction="1" id="3" numGridCollisionPoints="12" shadowSize="17" stageHP="0" tags="cansacrifice" variant="3179">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
+    </entity>
+	<entity name="Charon" anm2path="babycharon.anm2" baseHP="0" boss="0" champion="0" collisionMass="3" friction="1" id="3" numGridCollisionPoints="12" shadowSize="10" stageHP="0" tags="cansacrifice" variant="3180">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
+    </entity>
+	<entity name="Nix" anm2path="babynix.anm2" baseHP="0" boss="0" champion="0" collisionMass="3" collisionRadius="8" friction="1" id="3" numGridCollisionPoints="12" shadowSize="14" stageHP="0" tags="cansacrifice" variant="3181">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
+    </entity>
+	<entity name="Celestial Crown Star" anm2path="celestialcrownstar.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="3" collisionRadius="10" friction="1" id="3" numGridCollisionPoints="12" shadowSize="10" stageHP="0" variant="3182">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
+    </entity>
+	<entity name="Vesta Flame" anm2path="vesta.anm2" baseHP="0" boss="0" champion="0" collisionMass="3" friction="1" id="3" numGridCollisionPoints="12" shadowSize="13" stageHP="0" variant="3183">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0"/>
+    </entity>
+	
+	<entity name="Grav Shift Indicator" anm2path="gravity_shift.anm2" id="1000" variant="4437" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+	<entity name="Andromeda Black Hole" anm2path="andromedabblackhole.anm2" id="1000" variant="4438" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+	<entity name="Luminary Flare" anm2path="luminaryflare.anm2" id="1000" variant="4439" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="Planetarium Icon" anm2path="planetarium_icons.anm2" id="1000" variant="4440" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+</entities>

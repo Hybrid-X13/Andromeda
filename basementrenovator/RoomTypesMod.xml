@@ -1,0 +1,6 @@
+<data>
+	<room Name="Abandoned Planetarium" >
+		<Gfx BGPrefix="andromeda/Abandoned Planetarium Floor" />
+		<Entity ID="1000" Image="andromeda/rocks_abplanetarium.png" />
+	</room>
+</data>

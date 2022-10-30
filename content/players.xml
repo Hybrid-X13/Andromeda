@@ -1,0 +1,18 @@
+<players nameimageroot="gfx/ui/boss/" portraitroot="gfx/ui/stage/" root="gfx/characters/costumes/">
+	<player hp="0" armor="6" birthright="Coming home" name="Andromeda"
+	nameimage="playername_andromeda.png" portrait="playerportrait_andromeda.png" skin="character_andromeda.png" skinColor="2" costumeSuffix="andromeda"
+	/>
+	<player hp="0" black="6" birthright="Fall in the void" bSkinParent="Andromeda" name="AndromedaB"
+	nameimage="playername_andromeda_b.png" portrait="notaintedandromeda.png" extraportrait="andromeda_b.anm2" skin="character_andromeda_b.png" skinColor="-1" costumeSuffix="andromedab"
+	/>
+</players>
+<!--
+	Skin Colors:
+	"-1": "Default",
+	"0": "White",
+	"1": "Black", 
+	"2": "Blue", 
+	"3": "Red", 
+	"4": "Green", 
+	"5": "Grey"
+!-->

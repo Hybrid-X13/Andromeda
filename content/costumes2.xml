@@ -1,0 +1,38 @@
+<costumes anm2root="gfx/characters/">
+	<costume anm2path="character_andromeda_head.anm2" type="none" />
+	<costume anm2path="character_andromeda_body.anm2" type="none" />
+	<costume anm2path="andromedapog.anm2" priority="900" type="none" />
+	<costume anm2path="andromedabpog.anm2" priority="900" type="none" hasSkinAlt="true" />
+	<costume anm2path="andromedabhead.anm2" priority="500" type="none" hasSkinAlt="true" />
+	<costume anm2path="andromedabheadeyes.anm2" priority="99" type="none" hasSkinAlt="true" />
+	<costume anm2path="andromedabhead_blood.anm2" priority="500" type="none" />
+	<costume anm2path="andromedabheadeyes_blood.anm2" priority="99" type="none" />
+	<costume anm2path="transformation_cosmicgod.anm2" priority="400" type="none" hasSkinAlt="true" isFlying="true" />
+	
+	<costume anm2path="costume_611_larynx.anm2" priority="200" type="none" hasSkinAlt="true" />
+	<costume anm2path="costume_611_larynx_blood.anm2" priority="200" type="none" />
+	<costume anm2path="costume_029_theinnereye.anm2" priority="100" type="none" hasSkinAlt="true" /> 
+	<costume anm2path="costume_029_theinnereye_blood.anm2" priority="100" type="none" /> 
+	<costume anm2path="costume_061_skeletonkey.anm2" priority="100" type="none" hasSkinAlt="true" />
+	<costume anm2path="costume_061_skeletonkey_blood.anm2" priority="100" type="none" />
+	<costume anm2path="costume_103_mutantspider.anm2" priority="100" type="none" hasSkinAlt="true" />
+	<costume anm2path="costume_103_mutantspider_blood.anm2" priority="100" type="none" />
+	<costume anm2path="costume_249_theresoptions.anm2" priority="100" type="none" hasSkinAlt="true" />
+	<costume anm2path="costume_249_theresoptions_blood.anm2" priority="100" type="none" />
+	<costume anm2path="costume_379_pupuladuplex.anm2" priority="100" type="none" hasSkinAlt="true" />
+	<costume anm2path="costume_379_pupuladuplex_blood.anm2" priority="100" type="none" />
+	<costume anm2path="costume_414_moreoptions.anm2" priority="100" type="none" hasSkinAlt="true" />
+	<costume anm2path="costume_414_moreoptions_blood.anm2" priority="100" type="none" />
+	<costume anm2path="costume_069x_sosig.anm2" priority="100" type="none" hasSkinAlt="true" />
+	<costume anm2path="costume_069x_sosig_blood.anm2" priority="100" type="none" />
+	<costume anm2path="costume_670_options.anm2" priority="100" type="none" hasSkinAlt="true" />
+	<costume anm2path="costume_670_options_blood.anm2" priority="100" type="none" />
+	
+	<costume id="5" anm2path="spacetume_juno.anm2" type="passive" />
+	<costume id="6" anm2path="spacetume_pallas.anm2" type="passive" hasSkinAlt="true" />
+	<costume id="7" anm2path="spacetume_ceres.anm2" type="passive" />
+	<costume id="9" anm2path="spacetume_chiron.anm2" type="passive" hasSkinAlt="true" />
+	<costume id="10" anm2path="spacetume_ophiuchus.anm2" type="passive" />
+	<costume id="14" anm2path="spacetume_harmonicconvergence.anm2" type="passive" />
+	<costume id="15" anm2path="spacetume_celestialcrown.anm2" type="familiar" />
+</costumes>

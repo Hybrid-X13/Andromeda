@@ -1,0 +1,32 @@
+<items gfxroot="gfx/items/" version="1" deathanm2="gfx/death items.anm2">
+	<active id="1" name="Gravity Shift" description="What goes up must come down" gfx="andromeda_gravityshift.png" maxcharges="360" chargetype="timed" quality="1" />
+	<active id="2" name="Singularity" description="Infinite possibilities" gfx="andromeda_singularity.png" maxcharges="12" chargetype="special" quality="4" tags="offensive" />
+	<active id="3" name="Extinction Event" description="The sky is falling!" gfx="andromeda_meteorshower.png" maxcharges="4" quality="2" tags="offensive" />
+	<active id="4" name="Book of Cosmos" description="A universe of knowledge" gfx="andromeda_bookofcosmos.png" maxcharges="4" quality="2" tags="book offensive" />
+	
+	<passive id="5" name="Juno" description="Until death brings us closer" gfx="andromeda_juno.png" soulhearts="2" quality="3" tags="summonable offensive stars" />
+	<passive id="6" name="Pallas" description="Wisdom is power" gfx="andromeda_pallas.png" quality="3" tags="summonable offensive nocantrip stars" />
+	<passive id="7" name="Ceres" description="Nurture and protect" gfx="andromeda_ceres.png" coins="1" bombs="1" keys="1" quality="3" tags="summonable nocantrip stars" />
+	<passive id="8" name="Vesta" description="Eternal flame" gfx="andromeda_vesta.png" quality="3" tags="summonable stars" />
+	<passive id="9" name="Chiron" description="Wounded healer" gfx="andromeda_chiron.png" maxhearts="2" quality="4" tags="summonable nolostbr stars" />
+	<passive id="10" name="​Ophiuchus" description="Snake tears" gfx="andromeda_ophiuchus.png" quality="2" tags="summonable offensive stars" />
+	<passive id="14" name="Harmonic Convergence" description="Everything aligns" gfx="andromeda_harmonicconvergence.png" devilprice="2" quality="4" tags="summonable offensive" />
+	<passive id="16" name="Luminary Flare" description="Burning sun" gfx="andromeda_solarflare.png" quality="3" tags="summonable offensive nocantrip" />
+	<passive id="28" name="Andromeda Technology" description="Laser tears" gfx="collectibles_068_technology.png" quality="3" tags="hidden" hidden="true" />
+	<passive id="29" name="Andromeda Brimstone" description="Blood laser barrage" gfx="collectibles_118_brimstone.png" quality="4" tags="hidden" hidden="true" />
+	<passive id="30" name="Andromeda Knife" description="Stab stab stab" gfx="collectibles_114_momsknife.png" cache="damage firedelay tearflag" quality="4" tags="hidden" hidden="true" />
+	<passive id="31" name="Andromeda TechX" description="Laser ring tears" gfx="collectibles_395_techx.png" cache="firedelay tearflag" quality="4" tags="hidden" hidden="true" />
+	
+	<familiar id="11" name="Baby Pluto" description="Orbiting around your heart" gfx="andromeda_babypluto.png" quality="2" tags="offensive nocantrip baby" />
+	<familiar id="12" name="Planet 10" description="???" gfx="andromeda_plutonium.png" quality="3" tags="baby nocantrip hidden" hidden="true" />
+	<familiar id="13" name="Planet 11" description="???" gfx="andromeda_megaplutonium.png" quality="4" tags="baby nocantrip hidden" hidden="true" />
+	<familiar id="15" name="Celestial Crown" description="Ruler of the cosmos" gfx="andromeda_celestialcrown.png" quality="3" tags="summonable offensive" />
+	
+	<trinket name="Stardust" description="It twinkles like a clear night sky" gfx="andromeda_stardust.png" />
+	<trinket name="Meteorite" description="Where'd this come from?" gfx="andromeda_meteorite.png" />
+	<trinket name="Crying Pebble" description="Dwarf plight" gfx="andromeda_cryingpebble.png" />
+	<trinket name="Moonstone" description="Luminescent wisdom" gfx="andromeda_moonstone.png" />
+	<trinket name="Polaris" description="Shining in the darkest hour" gfx="andromeda_polaris.png" tags="nogreed" />
+	<trinket name="Sextant" description="Navigate the unknown" gfx="andromeda_sextant.png" tags="nogreed" />
+	<trinket name="Alien Transmitter" description="It wasn't designed for your hand" gfx="andromeda_alientransmitter.png" />
+</items>
