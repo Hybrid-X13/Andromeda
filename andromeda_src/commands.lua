@@ -12,7 +12,7 @@ function Commands.executeCMD(cmd)
 		print("andromedaunlockall: Unlocks all items for both characters")
 		print("andromedareset: Resets item progress for both characters")
 	elseif string == "andromedamarks"
-	or cmd == "tandromedamarks"
+	or string == "tandromedamarks"
 	then
 		local completionCount = 0
 		local boss = {
