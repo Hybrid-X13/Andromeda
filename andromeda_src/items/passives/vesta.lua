@@ -3,6 +3,35 @@ local Functions = require("andromeda_src.functions")
 local game = Game()
 local vestaCounter = 0
 
+local familiarSpriteMap = {
+	[Enums.Characters.ANDROMEDA] = "andromeda",
+	[PlayerType.PLAYER_BETHANY] = "bethany",
+	[PlayerType.PLAYER_BETHANY_B] = "bethanyb",
+	[PlayerType.PLAYER_BLACKJUDAS] = "shadow",
+	[PlayerType.PLAYER_JUDAS_B] = "shadow",
+	[PlayerType.PLAYER_THELOST] = "lost",
+	[PlayerType.PLAYER_THELOST_B] = "lostb",
+}
+
+local flameSpriteMap = {
+	[PlayerType.PLAYER_BETHANY] = "virtuewisp",
+	[PlayerType.PLAYER_BETHANY_B] = "lemegetonwisp",
+	[PlayerType.PLAYER_BLACKJUDAS] = "shadowflame",
+	[PlayerType.PLAYER_JUDAS_B] = "shadowflame",
+	[PlayerType.PLAYER_THELOST] = "ghostflame",
+	[PlayerType.PLAYER_THELOST_B] = "atticghostflame",
+}
+
+local andromedaBMap = {
+	[SkinColor.SKIN_PINK] = "default",
+	[SkinColor.SKIN_WHITE] = "white",
+	[SkinColor.SKIN_BLACK] = "black",
+	[SkinColor.SKIN_BLUE] = "blue",
+	[SkinColor.SKIN_RED] = "red",
+	[SkinColor.SKIN_GREEN] = "green",
+	[SkinColor.SKIN_GREY] = "grey",
+}
+
 local Item = {}
 
 --Adjusts the familiar's color to match T Andromeda's current color
@@ -15,42 +44,16 @@ local function ChangeFamiliarColor(player, familiar, sprite)
 		sprite:Load("gfx/vesta_andromedab_blood.anm2", true)
 		familiar:GetData().vestaColor = "blood"
 	elseif not Functions.HasBloodTears(player) then
-		if familiar:GetData().vestaColor ~= "white"
-		and skinColor == SkinColor.SKIN_WHITE
-		then
-			sprite:Load("gfx/vesta_andromedab_white.anm2", true)
-			familiar:GetData().vestaColor = "white"
-		elseif familiar:GetData().vestaColor ~= "black"
-		and skinColor == SkinColor.SKIN_BLACK
-		then
-			sprite:Load("gfx/vesta_andromedab_black.anm2", true)
-			familiar:GetData().vestaColor = "black"
-		elseif familiar:GetData().vestaColor ~= "blue"
-		and skinColor == SkinColor.SKIN_BLUE
-		then
-			sprite:Load("gfx/vesta_andromedab_blue.anm2", true)
-			familiar:GetData().vestaColor = "blue"
-		elseif familiar:GetData().vestaColor ~= "red"
-		and skinColor == SkinColor.SKIN_RED
-		then
-			sprite:Load("gfx/vesta_andromedab_red.anm2", true)
-			familiar:GetData().vestaColor = "red"
-		elseif familiar:GetData().vestaColor ~= "green"
-		and skinColor == SkinColor.SKIN_GREEN
-		then
-			sprite:Load("gfx/vesta_andromedab_green.anm2", true)
-			familiar:GetData().vestaColor = "green"
-		elseif familiar:GetData().vestaColor ~= "grey"
-		and skinColor == SkinColor.SKIN_GREY
-		then
-			sprite:Load("gfx/vesta_andromedab_grey.anm2", true)
-			familiar:GetData().vestaColor = "grey"
-		elseif familiar:GetData().vestaColor ~= "default"
-		and skinColor == SkinColor.SKIN_PINK
+		if skinColor == SkinColor.SKIN_PINK
+		and familiar:GetData().vestaColor ~= "default"
 		then
 			sprite:Load("gfx/vesta_andromedab.anm2", true)
-			familiar:GetData().vestaColor = "default"
+		elseif andromedaBMap[skinColor]
+		and familiar:GetData().vestaColor ~= andromedaBMap[skinColor]
+		then
+			sprite:Load("gfx/vesta_andromedab_" .. andromedaBMap[skinColor] .. ".anm2", true)
 		end
+		familiar:GetData().vestaColor = andromedaBMap[skinColor]
 	end
 end
 
@@ -58,28 +61,17 @@ function Item.familiarInit(familiar)
 	if familiar.Variant ~= Enums.Familiars.VESTA_FLAME then return end
 		
 	local player = familiar.Player
+	local playerType = player:GetPlayerType()
 	local sprite = familiar:GetSprite()
 	
 	familiar:AddToFollowers()
-	
-	if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
-		sprite:Load("gfx/vesta_andromeda.anm2", true)
-	elseif player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
+
+	if playerType == Enums.Characters.T_ANDROMEDA then
 		ChangeFamiliarColor(player, familiar, sprite)
-	elseif player:GetPlayerType() == Isaac.GetPlayerTypeByName("MastemaB", true) then
+	elseif playerType == Isaac.GetPlayerTypeByName("MastemaB", true) then
 		sprite:Load("gfx/vesta_mastemab.anm2", true)
-	elseif player:GetPlayerType() == PlayerType.PLAYER_BETHANY then
-		sprite:Load("gfx/vesta_bethany.anm2", true)
-	elseif player:GetPlayerType() == PlayerType.PLAYER_BETHANY_B then
-		sprite:Load("gfx/vesta_bethanyb.anm2", true)
-	elseif player:GetPlayerType() == PlayerType.PLAYER_BLACKJUDAS
-	or player:GetPlayerType() == PlayerType.PLAYER_JUDAS_B
-	then
-		sprite:Load("gfx/vesta_shadow.anm2", true)
-	elseif player:GetPlayerType() == PlayerType.PLAYER_THELOST then
-		sprite:Load("gfx/vesta_lost.anm2", true)
-	elseif player:GetPlayerType() == PlayerType.PLAYER_THELOST_B then
-		sprite:Load("gfx/vesta_lostb.anm2", true)
+	elseif familiarSpriteMap[playerType] then
+		sprite:Load("gfx/vesta_" .. familiarSpriteMap[playerType] .. ".anm2", true)
 	end
 	sprite:Play("Float")
 end
@@ -105,9 +97,10 @@ function Item.postEffectInit(effect)
 	
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
+		local playerType = player:GetPlayerType()
 		
 		if not player:HasCollectible(Enums.Collectibles.VESTA) then return end
-		
+
 		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
 			local skinColor = player:GetHeadColor()
 			local colors = {
@@ -122,21 +115,11 @@ function Item.postEffectInit(effect)
 			
 			if Functions.HasBloodTears(player) then
 				sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_shadowflame.png")
-			else
+			elseif not Functions.HasBloodTears(player) then
 				sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_" .. colors[skinColor + 2] .. ".png")
 			end
-		elseif player:GetPlayerType() == PlayerType.PLAYER_BETHANY then
-			sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_virtuewisp.png")
-		elseif player:GetPlayerType() == PlayerType.PLAYER_BETHANY_B then
-			sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_lemegetonwisp.png")
-		elseif player:GetPlayerType() == PlayerType.PLAYER_BLACKJUDAS
-		or player:GetPlayerType() == PlayerType.PLAYER_JUDAS_B
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_shadowflame.png")
-		elseif player:GetPlayerType() == PlayerType.PLAYER_THELOST then
-			sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_ghostflame.png")
-		elseif player:GetPlayerType() == PlayerType.PLAYER_THELOST_B then
-			sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_atticghostflame.png")
+		elseif flameSpriteMap[playerType] then
+			sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_" .. flameSpriteMap[playerType] .. ".png")
 		end
 		sprite:LoadGraphics()
 	end
