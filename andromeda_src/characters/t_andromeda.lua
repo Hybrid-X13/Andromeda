@@ -5,12 +5,16 @@ local game = Game()
 local sfx = SFXManager()
 local rng = RNG()
 local itemPool = game:GetItemPool()
+
+local SINGULARITY_MAX = 12
+
 local frameCount = 0
 local bossRoomCleared = false
-local SINGULARITY_MAX = 12
 
 local headCostume = Isaac.GetCostumeIdByPath("gfx/characters/andromedabhead.anm2")
 local eyeCostume = Isaac.GetCostumeIdByPath("gfx/characters/andromedabheadeyes.anm2")
+local bloodHeadCostume = Isaac.GetCostumeIdByPath("gfx/characters/andromedabhead_blood.anm2")
+local bloodEyeCostume = Isaac.GetCostumeIdByPath("gfx/characters/andromedabheadeyes_blood.anm2")
 
 local Stats = {
 	Speed = -0.1,
@@ -189,14 +193,14 @@ local function ChangeCostume(player)
 	if SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] ~= 1
 	and Functions.HasBloodTears(player)
 	then
-		player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/andromedabhead_blood.anm2"))
-		player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/andromedabheadeyes_blood.anm2"))
+		player:AddNullCostume(bloodHeadCostume)
+		player:AddNullCostume(bloodEyeCostume)
 		SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] = 1
 	elseif SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] ~= 0
 	and not Functions.HasBloodTears(player)
 	then
-		player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/andromedabhead.anm2"))
-		player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/andromedabheadeyes.anm2"))
+		player:AddNullCostume(headCostume)
+		player:AddNullCostume(eyeCostume)
 		SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] = 0
 	end
 	
@@ -866,8 +870,8 @@ function Character.preUseItem(item, rng, player, flags, activeSlot, customVarDat
 	
 	player:TryRemoveNullCostume(headCostume)
 	player:TryRemoveNullCostume(eyeCostume)
-	player:TryRemoveNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/andromedabhead_blood.anm2"))
-	player:TryRemoveNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/andromedabheadeyes_blood.anm2"))
+	player:TryRemoveNullCostume(bloodHeadCostume)
+	player:TryRemoveNullCostume(bloodEyeCostume)
 end
 
 function Character.useItem(item, rng, player, flags, activeSlot, customVarData)
@@ -877,8 +881,8 @@ function Character.useItem(item, rng, player, flags, activeSlot, customVarData)
 	or item == CollectibleType.COLLECTIBLE_D100
 	then
 		if Functions.HasBloodTears(player) then
-			player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/andromedabhead_blood.anm2"))
-			player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/andromedabheadeyes_blood.anm2"))
+			player:AddNullCostume(bloodHeadCostume)
+			player:AddNullCostume(bloodEyeCostume)
 			SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] = 1
 		else
 			player:AddNullCostume(headCostume)
