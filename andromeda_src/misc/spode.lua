@@ -217,15 +217,17 @@ function Spode.postBombUpdate(bomb)
 end
 
 function Spode.postPEffectUpdate(player)
-	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Sodom", false) then return end
-	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Sodom", true) then return end
-	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Gomorrah", false) then return end
-	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Gomorrah", true) then return end
+	local playerType = player:GetPlayerType()
+	
+	if playerType == Isaac.GetPlayerTypeByName("Sodom", false) then return end
+	if playerType == Isaac.GetPlayerTypeByName("Sodom", true) then return end
+	if playerType == Isaac.GetPlayerTypeByName("Gomorrah", false) then return end
+	if playerType == Isaac.GetPlayerTypeByName("Gomorrah", true) then return end
 	if player:IsCoopGhost() then return end
 
 	if Functions.HasFullCompletion(Enums.Characters.ANDROMEDA)
-	or player:GetPlayerType() == Enums.Characters.ANDROMEDA
-	or player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
+	or playerType == Enums.Characters.ANDROMEDA
+	or playerType == Enums.Characters.T_ANDROMEDA
 	then
 		local itemCount = 0
 		local cassiopeia = Isaac.GetItemIdByName("Cassiopeia")
@@ -245,8 +247,8 @@ function Spode.postPEffectUpdate(player)
 				end
 			end
 
-			if ((itemCount >= 4 or player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) and player:GetPlayerType() == Enums.Characters.ANDROMEDA)
-			or (itemCount >= 3 and player:GetPlayerType() ~= Enums.Characters.ANDROMEDA)
+			if ((itemCount >= 4 or player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) and playerType == Enums.Characters.ANDROMEDA)
+			or (itemCount >= 3 and playerType ~= Enums.Characters.ANDROMEDA)
 			then
 				game:GetHUD():ShowItemText("Spode!")
 				sfx:Play(SoundEffect.SOUND_POWERUP_SPEWER)
@@ -270,8 +272,8 @@ function Spode.postPEffectUpdate(player)
 				end
 			end
 
-			if (itemCount < 4 and not player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) and player:GetPlayerType() == Enums.Characters.ANDROMEDA)
-			or (itemCount < 3 and player:GetPlayerType() ~= Enums.Characters.ANDROMEDA)
+			if (itemCount < 4 and not player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) and playerType == Enums.Characters.ANDROMEDA)
+			or (itemCount < 3 and playerType ~= Enums.Characters.ANDROMEDA)
 			then
 				player:GetData().hasSpode = false
 				player:TryRemoveNullCostume(spodeCostume)
