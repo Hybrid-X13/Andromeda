@@ -203,30 +203,25 @@ function Room.postUpdate()
 	if roomConfig.Variant == 4652 then
 		game:UpdateStrangeAttractor(room:GetCenterPos(), 7, 9999)
 	end
+end
 
-	if FiendFolio then
-		local d12Floor = Isaac.FindByType(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("D12 Room Floor"))
-		local d12FloorActive = Isaac.FindByType(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("D12 Room Floor (Activated)"))
-		local d12Pal = Isaac.FindByType(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("D12 Pal"))
-
-		if #d12Floor > 0 then
-			for i = 1, #d12Floor do
-				d12Floor[i]:Remove()
-			end
-		end
-
-		if #d12FloorActive > 0 then
-			for i = 1, #d12FloorActive do
-				d12FloorActive[i]:Remove()
-			end
-		end
-
-		if #d12Pal > 0 then
-			for i = 1, #d12Pal do
-				d12Pal[i]:Remove()
-			end
-		end
+function Room.postEffectUpdate(effect)
+	if not Functions.IsAbandonedPlanetarium() then return end
+	
+	if effect.Variant == EffectVariant.DICE_FLOOR
+	or effect.Variant == Isaac.GetEntityVariantByName("D12 Room Floor")
+	or effect.Variant == Isaac.GetEntityVariantByName("D12 Room Floor (Activated)")
+	or effect.Variant == Isaac.GetEntityVariantByName("D12 Pal")
+	then
+		effect:Remove()
 	end
+end
+
+function Room.preUseItem(item, rng, player, flags, activeSlot, customVarData)
+	if not Functions.IsAbandonedPlanetarium() then return end
+	if item ~= CollectibleType.COLLECTIBLE_VENTRICLE_RAZOR then return end
+
+	return true
 end
 
 return Room

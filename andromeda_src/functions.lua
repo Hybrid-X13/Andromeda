@@ -738,15 +738,8 @@ end
 function Functions.SetAbandonedPlanetarium(player, setDoor)
 	local room = game:GetRoom()
 	local level = game:GetLevel()
-	local dice = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.DICE_FLOOR)
 	local effect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.WOMB_TELEPORT, 0, Vector(-20, 60), Vector.Zero, nil) --We do a little hacking
 	local sprite = effect:GetSprite()
-
-	if #dice > 0 then
-		for i = 1, #dice do
-			dice[i]:Remove()
-		end
-	end
 
 	game:ShowHallucination(0, BackdropType.ERROR_ROOM)
 	sfx:Stop(SoundEffect.SOUND_DEATH_CARD)

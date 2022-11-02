@@ -1,6 +1,7 @@
 local Andromeda = require("andromeda_src.characters.andromeda")
 local T_Andromeda = require("andromeda_src.characters.t_andromeda")
 local Singularity = require("andromeda_src.items.actives.singularity")
+local AbandonedPlanetarium = require("andromeda_src.misc.abandoned_planetarium")
 
 local function MC_PRE_USE_ITEM(_, item, rng, player, flags, activeSlot, customVarData)
 	local returned = Andromeda.preUseItem(item, rng, player, flags, activeSlot, customVarData)
@@ -10,6 +11,9 @@ local function MC_PRE_USE_ITEM(_, item, rng, player, flags, activeSlot, customVa
 	if returned ~= nil then return returned end
 
 	local returned = Singularity.preUseItem(item, rng, player, flags, activeSlot, customVarData)
+	if returned ~= nil then return returned end
+
+	local returned = AbandonedPlanetarium.preUseItem(item, rng, player, flags, activeSlot, customVarData)
 	if returned ~= nil then return returned end
 end
 
