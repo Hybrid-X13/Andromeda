@@ -150,44 +150,29 @@ function Functions.ChangeTear(tear, player)
 	local sprite = tear:GetSprite()
 	
 	if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
-		if tear.Variant == TearVariant.BLUE
-		or tear.Variant == TearVariant.BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_cosmic.png")
-		elseif tear.Variant == TearVariant.CUPID_BLUE
-		or tear.Variant == TearVariant.CUPID_BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/cupids_arrow_tears_cosmic.png")
-		elseif tear.Variant == TearVariant.PUPULA
-		or tear.Variant == TearVariant.PUPULA_BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/pupula_tears_cosmic.png")
-		elseif tear.Variant == TearVariant.GODS_FLESH
-		or tear.Variant == TearVariant.GODS_FLESH_BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/godsflesh_tears_cosmic.png")
-		elseif tear.Variant == TearVariant.GLAUCOMA
-		or tear.Variant == TearVariant.GLAUCOMA_BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/glaucoma_tears_cosmic.png")
-		elseif tear.Variant == TearVariant.EYE
-		or tear.Variant == TearVariant.EYE_BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_pop_cosmic.png")
-		elseif tear.Variant == TearVariant.DIAMOND then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/diamond_tears_cosmic.png")
-		elseif tear.Variant == TearVariant.LOST_CONTACT then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/lost_contact_tears_cosmic.png")
-		elseif tear.Variant == TearVariant.HUNGRY then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_hungry_cosmic.png")
-		elseif tear.Variant == TearVariant.EXPLOSIVO then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_explosivo_cosmic.png")
-		elseif tear.Variant == TearVariant.BALLOON then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_balloon_cosmic.png")
-		elseif tear.Variant == TearVariant.BALLOON_BRIMSTONE then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_balloon_brimstone_cosmic.png")
-		elseif tear.Variant == TearVariant.FIRE_MIND then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/fire_mind_tears_cosmic.png")
+		local andromedaMap = {
+			[TearVariant.BLUE] = "tears_cosmic",
+			[TearVariant.BLOOD] = "tears_cosmic",
+			[TearVariant.CUPID_BLUE] = "cupids_arrow_tears_cosmic",
+			[TearVariant.CUPID_BLOOD] = "cupids_arrow_tears_cosmic",
+			[TearVariant.PUPULA] = "pupula_tears_cosmic",
+			[TearVariant.PUPULA_BLOOD] = "pupula_tears_cosmic",
+			[TearVariant.GODS_FLESH] = "godsflesh_tears_cosmic",
+			[TearVariant.GODS_FLESH_BLOOD] = "godsflesh_tears_cosmic",
+			[TearVariant.GLAUCOMA] = "glaucoma_tears_cosmic",
+			[TearVariant.EYE] = "tears_pop_cosmic",
+			[TearVariant.EYE_BLOOD] = "tears_pop_cosmic",
+			[TearVariant.DIAMOND] = "diamond_tears_cosmic",
+			[TearVariant.LOST_CONTACT] = "lost_contact_tears_cosmic",
+			[TearVariant.HUNGRY] = "tears_hungry_cosmic",
+			[TearVariant.EXPLOSIVO] = "tears_explosivo_cosmic",
+			[TearVariant.BALLOON] = "tears_balloon_cosmic",
+			[TearVariant.BALLOON_BRIMSTONE] = "tears_balloon_brimstone_cosmic",
+			[TearVariant.FIRE_MIND] = "fire_mind_tears_cosmic",
+		}
+
+		if andromedaMap[tear.Variant] then
+			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/" .. andromedaMap[tear.Variant] .. ".png")
 		end
 	elseif player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
 		local skinColor = player:GetHeadColor()
@@ -200,45 +185,29 @@ function Functions.ChangeTear(tear, player)
 			"green",
 			"gray",
 		}
-		
-		if tear.Variant == TearVariant.BLUE
-		or tear.Variant == TearVariant.BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/tears_solar.png")
-		elseif tear.Variant == TearVariant.CUPID_BLUE
-		or tear.Variant == TearVariant.CUPID_BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/cupids_arrow_tears_solar.png")
-		elseif tear.Variant == TearVariant.PUPULA
-		or tear.Variant == TearVariant.PUPULA_BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/pupula_tears_solar.png")
-		elseif tear.Variant == TearVariant.GODS_FLESH
-		or tear.Variant == TearVariant.GODS_FLESH_BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/godsflesh_tears_solar.png")
-		elseif tear.Variant == TearVariant.GLAUCOMA
-		or tear.Variant == TearVariant.GLAUCOMA_BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/glaucoma_tears_solar.png")
-		elseif tear.Variant == TearVariant.EYE
-		or tear.Variant == TearVariant.EYE_BLOOD
-		then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/tears_pop_solar.png")
-		elseif tear.Variant == TearVariant.DIAMOND then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/diamond_tears_solar.png")
-		elseif tear.Variant == TearVariant.LOST_CONTACT then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/lost_contact_tears_solar.png")
-		elseif tear.Variant == TearVariant.HUNGRY then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/tears_hungry_solar.png")
-		elseif tear.Variant == TearVariant.EXPLOSIVO then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/tears_explosivo_solar.png")
-		elseif tear.Variant == TearVariant.BALLOON then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/tears_balloon_solar.png")
-		elseif tear.Variant == TearVariant.BALLOON_BRIMSTONE then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/tears_balloon_brimstone_solar.png")
-		elseif tear.Variant == TearVariant.FIRE_MIND then
-			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/fire_mind_tears_solar.png")
+		local tAndromedaMap = {
+			[TearVariant.BLUE] = "tears_solar",
+			[TearVariant.BLOOD] = "tears_solar",
+			[TearVariant.CUPID_BLUE] = "cupids_arrow_tears_solar",
+			[TearVariant.CUPID_BLOOD] = "cupids_arrow_tears_solar",
+			[TearVariant.PUPULA] = "pupula_tears_solar",
+			[TearVariant.PUPULA_BLOOD] = "pupula_tears_solar",
+			[TearVariant.GODS_FLESH] = "godsflesh_tears_solar",
+			[TearVariant.GODS_FLESH_BLOOD] = "godsflesh_tears_solar",
+			[TearVariant.GLAUCOMA] = "glaucoma_tears_solar",
+			[TearVariant.EYE] = "tears_pop_solar",
+			[TearVariant.EYE_BLOOD] = "tears_pop_solar",
+			[TearVariant.DIAMOND] = "diamond_tears_solar",
+			[TearVariant.LOST_CONTACT] = "lost_contact_tears_solar",
+			[TearVariant.HUNGRY] = "tears_hungry_solar",
+			[TearVariant.EXPLOSIVO] = "tears_explosivo_solar",
+			[TearVariant.BALLOON] = "tears_balloon_solar",
+			[TearVariant.BALLOON_BRIMSTONE] = "tears_balloon_brimstone_solar",
+			[TearVariant.FIRE_MIND] = "fire_mind_tears_solar",
+		}
+
+		if tAndromedaMap[tear.Variant] then
+			sprite:ReplaceSpritesheet(0, "gfx/tears/solar/" .. colors[skinColor + 2] .. "/" .. tAndromedaMap[tear.Variant] .. ".png")
 		end
 	end
 	sprite:LoadGraphics()
@@ -452,21 +421,23 @@ function Functions.GetDimension(roomDesc)
 end
 
 function Functions.GetRandomChest(spawnpos, randNum)
+	local variant = PickupVariant.PICKUP_CHEST
+
 	if randNum == 0 then
-		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_OLDCHEST, 0, spawnpos, Vector.Zero, nil)
+		variant = PickupVariant.PICKUP_OLDCHEST
 	elseif randNum < 5 then
-		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_ETERNALCHEST, 0, spawnpos, Vector.Zero, nil)
+		variant = PickupVariant.PICKUP_ETERNALCHEST
 	elseif randNum < 14 then
-		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_SPIKEDCHEST, 0, spawnpos, Vector.Zero, nil)
+		variant = PickupVariant.PICKUP_SPIKEDCHEST
 	elseif randNum < 26 then
-		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_REDCHEST, 0, spawnpos, Vector.Zero, nil)
+		variant = PickupVariant.PICKUP_REDCHEST
 	elseif randNum < 38 then
-		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMBCHEST, 0, spawnpos, Vector.Zero, nil)
+		variant = PickupVariant.PICKUP_BOMBCHEST
 	elseif randNum < 50 then
-		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LOCKEDCHEST, 0, spawnpos, Vector.Zero, nil)
-	else
-		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, 0, spawnpos, Vector.Zero, nil)
+		variant = PickupVariant.PICKUP_LOCKEDCHEST
 	end
+
+	Isaac.Spawn(EntityType.ENTITY_PICKUP, variant, 0, spawnpos, Vector.Zero, nil)
 end
 
 function Functions.GetRandomWisp(player, pos, rng)
@@ -670,7 +641,7 @@ function Functions.HasFullCompletion(andromeda)
 		marks = SaveData.UnlockData.T_Andromeda
 	end
 	
-	for completion, val in pairs(marks) do
+	for _, val in pairs(marks) do
 		if not val then
 			return false
 		end

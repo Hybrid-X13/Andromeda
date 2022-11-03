@@ -508,6 +508,18 @@ function Character.entityTakeDmg(target, amount, flags, source, countdown)
 	end
 end
 
+function Character.postTearInit(tear)
+	if tear.SpawnerEntity == nil then return end
+	if tear.SpawnerEntity.Type ~= EntityType.ENTITY_PLAYER then return end
+
+	local player = tear.SpawnerEntity:ToPlayer()
+
+	if player == nil then return end
+	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+
+	Functions.ChangeTear(tear, player)
+end
+
 function Character.postFireTear(tear)
 	local player = tear.Parent:ToPlayer()
 
@@ -517,7 +529,6 @@ function Character.postFireTear(tear)
 	local room = game:GetRoom()
 	tear.Position = room:GetCenterPos()
 	tear.Scale = tear.Scale + 0.37
-	Functions.ChangeTear(tear, player)
 	
 	--Tainted Andromeda Birthright effect. Spawn additional tears that converge toward the black hole
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then

@@ -247,16 +247,16 @@ function Character.preTearCollision(tear, collider, low)
 	return true
 end
 
-function Character.postFireTear(tear)
-	local player = tear.Parent:ToPlayer()
+function Character.postTearInit(tear)
+	if tear.SpawnerEntity == nil then return end
+	if tear.SpawnerEntity.Type ~= EntityType.ENTITY_PLAYER then return end
 
+	local player = tear.SpawnerEntity:ToPlayer()
+
+	if player == nil then return end
 	if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
 
 	Functions.ChangeTear(tear, player)
-		
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_SPOON_BENDER) then
-		tear.Color = Color(1, 0, 1, 1, 0, 0, 0)
-	end
 end
 
 function Character.postLaserUpdate(laser)
