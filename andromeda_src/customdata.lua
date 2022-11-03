@@ -187,10 +187,7 @@ CustomData.SingularityPickups = {
 		SubType = HeartSubType.HEART_HALF_SOUL,
 		NumCharges = 1,
 		CanPickUp = function()
-			if ANDROMEDA.player:CanPickSoulHearts() then
-				return true
-			end
-			return false
+			return ANDROMEDA.player:CanPickSoulHearts()
 		end,
 	},
 	{

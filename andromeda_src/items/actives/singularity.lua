@@ -64,10 +64,9 @@ local Item = {}
 
 local function SingularityPortal(pos)
 	local portal = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BRIMSTONE_SWIRL, 0, pos, Vector.Zero, nil)
-	local color = Color(0, 0, 0, 1.0, 0, 0, 0)
 	local sprite = portal:GetSprite()
 	portal.SpriteScale = Vector(1.5, 1.5)
-	sprite.Color = color
+	sprite.Color = Color(0, 0, 0, 1, 0, 0, 0)
 	sfx:Play(SoundEffect.SOUND_LAZARUS_FLIP_ALIVE, 1.3, 2, false, 0.5)
 end
 
@@ -248,19 +247,19 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		end
 		
 		if player:HasTrinket(TrinketType.TRINKET_ADOPTION_PAPERS)
-		and room:GetType() == RoomType.ROOM_SHOP
+		and roomType == RoomType.ROOM_SHOP
 		then
 			pool = ItemPoolType.POOL_BABY_SHOP
 		end
 		
 		if player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
-		and room:GetType() == RoomType.ROOM_TREASURE
+		and roomType == RoomType.ROOM_TREASURE
 		then
 			pool = ItemPoolType.POOL_DEVIL
 		end
 		
 		if game:IsGreedMode()
-		and room:GetType() == RoomType.ROOM_TREASURE
+		and roomType == RoomType.ROOM_TREASURE
 		and level:GetCurrentRoomIndex() == 98
 		then
 			pool = ItemPoolType.POOL_GREED_BOSS
@@ -270,8 +269,8 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
 			spawnpos = Isaac.GetFreeNearPosition(player.Position, 40)
 			
-			if room:GetType() == RoomType.ROOM_SECRET
-			or room:GetType() == RoomType.ROOM_SUPERSECRET
+			if roomType == RoomType.ROOM_SECRET
+			or roomType == RoomType.ROOM_SUPERSECRET
 			then
 				if secretRNG >= SaveData.PlayerData.T_Andromeda.SecretChance then
 					if SaveData.PlayerData.T_Andromeda.SecretChance == 1 then
@@ -283,7 +282,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 					pool = ItemPoolType.POOL_NULL
 				end
 				SaveData.PlayerData.T_Andromeda.SecretChance = math.ceil(SaveData.PlayerData.T_Andromeda.SecretChance / 2)
-			elseif room:GetType() == RoomType.ROOM_PLANETARIUM then
+			elseif roomType == RoomType.ROOM_PLANETARIUM then
 				if SaveData.PlayerData.T_Andromeda.PlanetariumChance < 100 then
 					if #CustomData.AbPlPoolCopy > 0 then
 						local zodiac = rng:RandomInt(#CustomData.AbPlPoolCopy) + 1
@@ -304,19 +303,19 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		if pool ~= ItemPoolType.POOL_NULL then
 			--Synergies
 			if player:HasCollectible(CollectibleType.COLLECTIBLE_THERES_OPTIONS)
-			and room:GetType() == RoomType.ROOM_BOSS
+			and roomType == RoomType.ROOM_BOSS
 			then
 				numItems = numItems + 1
 			end
 			
 			if player:HasCollectible(CollectibleType.COLLECTIBLE_MORE_OPTIONS)
-			and (pool == ItemPoolType.POOL_TREASURE or pool == ItemPoolType.POOL_GREED_TREASURE or room:GetType() == RoomType.ROOM_TREASURE)
+			and (pool == ItemPoolType.POOL_TREASURE or pool == ItemPoolType.POOL_GREED_TREASURE or roomType == RoomType.ROOM_TREASURE)
 			then
 				numItems = numItems + 1
 			end
 
 			if player:HasTrinket(TrinketType.TRINKET_GOLDEN_HORSE_SHOE)
-			and (pool == ItemPoolType.POOL_TREASURE or pool == ItemPoolType.POOL_GREED_TREASURE or room:GetType() == RoomType.ROOM_TREASURE)
+			and (pool == ItemPoolType.POOL_TREASURE or pool == ItemPoolType.POOL_GREED_TREASURE or roomType == RoomType.ROOM_TREASURE)
 			then
 				local trinketMultiplier = player:GetTrinketMultiplier(TrinketType.TRINKET_GOLDEN_HORSE_SHOE)
 				local rngMax = 60 / trinketMultiplier
@@ -334,7 +333,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				pool = rng:RandomInt(ItemPoolType.NUM_ITEMPOOLS)
 			end
 			
-			if room:GetType() == RoomType.ROOM_ERROR then
+			if roomType == RoomType.ROOM_ERROR then
 				player:AddCollectible(CollectibleType.COLLECTIBLE_TMTRAINER)
 			end
 			
@@ -358,7 +357,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				local pickup = item:ToPickup()
 				
 				if player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
-				and room:GetType() == RoomType.ROOM_TREASURE
+				and roomType == RoomType.ROOM_TREASURE
 				then
 					local trinketMultiplier = player:GetTrinketMultiplier(TrinketType.TRINKET_DEVILS_CROWN)
 					
@@ -382,7 +381,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				SingularityPortal(spawnpos)
 			end
 			
-			if room:GetType() == RoomType.ROOM_ERROR then
+			if roomType == RoomType.ROOM_ERROR then
 				player:RemoveCollectible(CollectibleType.COLLECTIBLE_TMTRAINER)
 			end
 		end
@@ -439,7 +438,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		end
 		SingularityPortal(spawnpos)
 		
-		if room:GetType() == RoomType.ROOM_PLANETARIUM
+		if roomType == RoomType.ROOM_PLANETARIUM
 		and player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
 		then
 			SaveData.PlayerData.T_Andromeda.PlanetariumChance = math.ceil(SaveData.PlayerData.T_Andromeda.PlanetariumChance / 2)
