@@ -354,7 +354,7 @@ if Encyclopedia then
 				{str = "Keys", clr = 3, halign = 0},
 				{str = "Normal -> Doublepack -> Charged -> Golden -> Cracked key (only if you currently have a golden key)"},
 				{str = "Batteries", clr = 3, halign = 0},
-				{str = "Micro -> Normal -> Mega -> Mega -> Golden"},
+				{str = "Micro -> Normal -> Mega -> Golden"},
 			},
 			{ -- Trivia
 				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
