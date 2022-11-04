@@ -93,8 +93,8 @@ function Functions.CanPickUpItem(player, pickup)
 	if pickup.Price == PickupPrice.PRICE_ONE_HEART and player:GetEffectiveMaxHearts() < 2 then return false end
     if pickup.Price == PickupPrice.PRICE_TWO_HEARTS and player:GetEffectiveMaxHearts() < 2 then return false end
     if pickup.Price == PickupPrice.PRICE_THREE_SOULHEARTS and player:GetSoulHearts() < 1 then return false end
-	if pickup.Price == -8 and player:GetSoulHearts() < 1 then return false end
-    if pickup.Price == -9 and player:GetSoulHearts() < 1 then return false end
+	if pickup.Price == PickupPrice.PRICE_TWO_SOUL_HEARTS and player:GetSoulHearts() < 1 then return false end
+    if pickup.Price == PickupPrice.PRICE_ONE_HEART_AND_ONE_SOUL_HEART and player:GetSoulHearts() < 1 then return false end
     if pickup.Price == PickupPrice.PRICE_ONE_HEART_AND_TWO_SOULHEARTS and player:GetEffectiveMaxHearts() < 2 then return false end
 
 	return true

@@ -108,9 +108,9 @@ function Trinket.postPEffectUpdate(player)
 							else
 								if player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY then
 									if devilPrice == 2 then
-										collectible.Price = -8
+										collectible.Price = PickupPrice.PRICE_TWO_SOUL_HEARTS
 									else
-										collectible.Price = -7
+										collectible.Price = PickupPrice.PRICE_ONE_SOUL_HEART
 									end
 								else
 									collectible.Price = PickupPrice.PRICE_THREE_SOULHEARTS
@@ -162,9 +162,9 @@ function Trinket.postPEffectUpdate(player)
 					else
 						if player:GetPlayerType() == PlayerType.PLAYER_BLUEBABY then
 							if devilPrice == 2 then
-								collectible.Price = -8
+								collectible.Price = PickupPrice.PRICE_TWO_SOUL_HEARTS
 							else
-								collectible.Price = -7
+								collectible.Price = PickupPrice.PRICE_ONE_SOUL_HEART
 							end
 						else
 							collectible.Price = PickupPrice.PRICE_THREE_SOULHEARTS

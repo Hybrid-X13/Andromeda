@@ -364,10 +364,10 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 					if trinketMultiplier > 3 then
 						pickup.Price = 0
 					elseif trinketMultiplier == 3 then
-						pickup.Price = -7
+						pickup.Price = PickupPrice.PRICE_ONE_SOUL_HEART
 						pickup.AutoUpdatePrice = false
 					elseif trinketMultiplier == 2 then
-						pickup.Price = -8
+						pickup.Price = PickupPrice.PRICE_TWO_SOUL_HEARTS
 						pickup.AutoUpdatePrice = false
 					else
 						pickup.Price = PickupPrice.PRICE_SOUL
