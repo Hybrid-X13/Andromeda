@@ -335,7 +335,7 @@ if Encyclopedia then
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
 				{str = "+1 coin, bomb, and key"},
-				{str = "Pickups have a 20% chance to spawn as a better version of that pickup."},
+				{str = "Pickups have a 20% chance to be upgraded into a better variant."},
 				{str = "Chance to gain a holy mantle shield when taking damage based on the total number of pickups you have."},
 			},
 			{ -- Interactions
@@ -368,7 +368,7 @@ if Encyclopedia then
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
 				{str = "Jets of fire emit from you every 10 seconds, dealing your damage + 10 and burning enemies."},
 				{str = "The more enemies in the room, the more frequent the flames come out."},
-				{str = "Grants fire immunity to you and your familiars."},
+				{str = "Grants immunity to fire."},
 			},
 			{ -- Trivia
 				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
