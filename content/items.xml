@@ -7,7 +7,7 @@
 	<passive id="5" name="Juno" description="Until death brings us closer" gfx="andromeda_juno.png" soulhearts="2" quality="3" tags="summonable offensive stars" />
 	<passive id="6" name="Pallas" description="Wisdom is power" gfx="andromeda_pallas.png" quality="3" tags="summonable offensive nocantrip stars" />
 	<passive id="7" name="Ceres" description="Nurture and protect" gfx="andromeda_ceres.png" coins="1" bombs="1" keys="1" quality="3" tags="summonable nocantrip stars" />
-	<passive id="8" name="Vesta" description="Eternal flame" gfx="andromeda_vesta.png" quality="3" tags="summonable stars" />
+	<passive id="8" name="Vesta" description="Eternal flame" gfx="andromeda_vesta.png" quality="3" tags="summonable offensive stars" />
 	<passive id="9" name="Chiron" description="Wounded healer" gfx="andromeda_chiron.png" maxhearts="2" quality="4" tags="summonable nolostbr stars" />
 	<passive id="10" name="​Ophiuchus" description="Snake tears" gfx="andromeda_ophiuchus.png" quality="2" tags="summonable offensive stars" />
 	<passive id="14" name="Harmonic Convergence" description="Everything aligns" gfx="andromeda_harmonicconvergence.png" devilprice="2" quality="4" tags="summonable offensive" />
