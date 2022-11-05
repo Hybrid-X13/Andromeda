@@ -166,19 +166,14 @@ function Item.postPEffectUpdate(player)
 		end
 		
 		if vestaCounter == frequency then
-			-- Fix the flames breaking holy mantle shields
-			if player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE) then
-				player:SetMinDamageCooldown(60)
-				player:AddEntityFlags(EntityFlag.FLAG_NO_DAMAGE_BLINK)
-			end
-			
 			for i = 0, 3 do
 				local effect
 				
 				if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
-					local color = Color(0.464, 0.996, 1, 1, 0, 0, 0)
 					effect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.FIRE_WAVE, 1, player.Position, Vector.Zero, player)
+
 					local sprite = effect:GetSprite()
+					local color = Color(0.464, 0.996, 1, 1, 0, 0, 0)
 					color:SetColorize(4, 10, 14, 0.5)
 					sprite.Color = color
 				elseif player:GetPlayerType() == Isaac.GetPlayerTypeByName("MastemaB", true) then
@@ -188,6 +183,7 @@ function Item.postPEffectUpdate(player)
 				end
 				
 				local fire = effect:ToEffect()
+				fire:AddEntityFlags(EntityFlag.FLAG_FRIENDLY)
 				fire.Rotation = 90 * i
 				local velocity
 				
@@ -223,8 +219,7 @@ function Item.preTearCollision(tear, collider, low)
 end
 
 function Item.entityTakeDmg(target, amount, flag, source, countdown)
-	if (target.Type == EntityType.ENTITY_PLAYER or target.Type == EntityType.ENTITY_FAMILIAR)
-	and Functions.AnyPlayerHasCollectible(Enums.Collectibles.VESTA)
+	if target.Type == EntityType.ENTITY_PLAYER
 	and flag & DamageFlag.DAMAGE_FIRE == DamageFlag.DAMAGE_FIRE
 	then
 		return false
@@ -232,17 +227,19 @@ function Item.entityTakeDmg(target, amount, flag, source, countdown)
 		local enemy = target:ToNPC()
 		
 		if enemy == nil then return end
-		
-		for i = 0, game:GetNumPlayers() - 1 do
-			local player = Isaac.GetPlayer(i)
-			
-			if player:HasCollectible(Enums.Collectibles.VESTA)
-			and source.Type == EntityType.ENTITY_EFFECT
-			and source.Variant == EffectVariant.FIRE_JET
-			then
-				target:AddBurn(EntityRef(player), 60, player.Damage)
-			end
-		end
+		if source.Type ~= EntityType.ENTITY_EFFECT then return end
+		if source.Variant ~= EffectVariant.FIRE_JET then return end
+
+		local spawner = source.Entity.SpawnerEntity
+
+		if spawner == nil then return end
+
+		local player = spawner:ToPlayer()
+
+		if player == nil then return end
+		if not player:HasCollectible(Enums.Collectibles.VESTA) then return end
+
+		target:AddBurn(EntityRef(player), 60, player.Damage)
 	end
 end
 
