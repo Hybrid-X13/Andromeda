@@ -230,7 +230,6 @@ function Spode.postPEffectUpdate(player)
 	or playerType == Enums.Characters.T_ANDROMEDA
 	then
 		local itemCount = 0
-		local cassiopeia = Isaac.GetItemIdByName("Cassiopeia")
 		
 		if not player:GetData().hasSpode
 		or player:GetData().hasSpode == nil
@@ -238,12 +237,6 @@ function Spode.postPEffectUpdate(player)
 			for i = 1, #CustomData.SpodeList do
 				if player:HasCollectible(CustomData.SpodeList[i], true) then
 					itemCount = itemCount + player:GetCollectibleNum(CustomData.SpodeList[i], true)
-				end
-			end
-			
-			if cassiopeia > 0 then
-				if player:HasCollectible(cassiopeia, true) then
-					itemCount = itemCount + player:GetCollectibleNum(cassiopeia, true)
 				end
 			end
 
@@ -263,12 +256,6 @@ function Spode.postPEffectUpdate(player)
 			for i = 1, #CustomData.SpodeList do
 				if player:HasCollectible(CustomData.SpodeList[i], true) then
 					itemCount = itemCount + player:GetCollectibleNum(CustomData.SpodeList[i], true)
-				end
-			end
-			
-			if cassiopeia > 0 then
-				if player:HasCollectible(cassiopeia, true) then
-					itemCount = itemCount + player:GetCollectibleNum(cassiopeia, true)
 				end
 			end
 
