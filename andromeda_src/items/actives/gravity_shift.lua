@@ -24,24 +24,27 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	local projectiles = Isaac.FindByType(EntityType.ENTITY_PROJECTILE, -1)
 	
 	if #tears > 0 then
-		for i = 1, #tears do
-			local tear = tears[i]:ToTear()
+		for _, tear in pairs(tears) do
+			local tear = tear:ToTear()
 			tear.Velocity = Vector.Zero
 			tear.WaitFrames = 0
 			tear:ClearTearFlags(TearFlags.TEAR_ORBIT | TearFlags.TEAR_BOOMERANG | TearFlags.TEAR_ORBIT_ADVANCED)
+
+			local sprite = tear:GetSprite()
+			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_cosmic.png")
+			sprite:LoadGraphics()
 		end
 	end
 	
 	if #projectiles > 0 then
-		for i = 1, #projectiles do
-			local projectile = projectiles[i]:ToProjectile()
+		for _, projectile in pairs(projectiles) do
+			local projectile = projectile:ToProjectile()
 			projectile.Velocity = Vector.Zero
-			projectile:AddProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER)
-			
-			--For projectiles that take forever to fall
-			if projectile.FallingSpeed < 0.3 then
-				projectile.FallingSpeed = 3
-			end
+			projectile:AddProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER | ProjectileFlags.HIT_ENEMIES)
+
+			local sprite = projectile:GetSprite()
+			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_cosmic.png")
+			sprite:LoadGraphics()
 		end
 	end
 	
