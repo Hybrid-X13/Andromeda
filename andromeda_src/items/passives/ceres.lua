@@ -102,4 +102,14 @@ function Item.entityTakeDmg(target, amount, flag, source, countdown)
 	end
 end
 
+function Item.postEffectUpdate(effect)
+	if effect.Variant ~= Enums.Effects.PLANETARIUM_ICON then return end
+	
+	local sprite = effect:GetSprite()
+
+	if not sprite:IsFinished("Ceres") then return end
+	
+	effect:Remove()
+end
+
 return Item
