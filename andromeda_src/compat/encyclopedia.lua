@@ -121,10 +121,10 @@ if Encyclopedia then
 				{str = "Enemy projectiles that are stopped can't damage you and can damage other enemies."},
 				{str = "This item has additional effects when used by Andromeda. See the character page for more info."},
 			},
-			{ -- Interactions
-				{str = "Interactions", fsize = 2, clr = 3, halign = 0},
+			{ -- Synergies
+				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
 				{str = "Car Battery", clr = 3, halign = 0},
-				{str = "Has no effect."},
+				{str = "Tears/projectiles linger in the air for longer."},
 			},
 		},
 		EXTINCTION_EVENT = {
