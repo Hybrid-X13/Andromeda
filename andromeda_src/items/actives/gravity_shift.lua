@@ -30,6 +30,10 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			tear.WaitFrames = 0
 			tear:ClearTearFlags(TearFlags.TEAR_ORBIT | TearFlags.TEAR_BOOMERANG | TearFlags.TEAR_ORBIT_ADVANCED)
 
+			if player:HasCollectible(CollectibleType.COLLECTIBLE_CAR_BATTERY) then
+				tear.FallingSpeed = tear.FallingSpeed - 1.5
+			end
+
 			local sprite = tear:GetSprite()
 			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_cosmic.png")
 			sprite:LoadGraphics()
@@ -41,6 +45,10 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			local projectile = projectile:ToProjectile()
 			projectile.Velocity = Vector.Zero
 			projectile:AddProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER | ProjectileFlags.HIT_ENEMIES)
+
+			if player:HasCollectible(CollectibleType.COLLECTIBLE_CAR_BATTERY) then
+				projectile.FallingSpeed = projectile.FallingSpeed - 1.5
+			end
 
 			local sprite = projectile:GetSprite()
 			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_cosmic.png")
