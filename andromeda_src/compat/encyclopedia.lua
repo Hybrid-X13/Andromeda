@@ -118,7 +118,7 @@ if Encyclopedia then
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
 				{str = "Causes all tears and projectiles to stop in midair, falling down after some time."},
-				{str = "Enemy projectiles that are stopped can't damage you."},
+				{str = "Enemy projectiles that are stopped can't damage you and can damage other enemies."},
 				{str = "This item has additional effects when used by Andromeda. See the character page for more info."},
 			},
 			{ -- Interactions

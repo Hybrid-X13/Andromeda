@@ -50,7 +50,7 @@ if EID then
 	EID:addBirthright(Enums.Characters.T_ANDROMEDA, "Each tear fired creates an additional tear that starts from far away and is pulled in towards the black hole#Enemies can also be pulled in", "Tainted Andromeda")
 	--Actives
 	EID:addCollectible(Enums.Collectibles.SINGULARITY, "Upon use, spawns a random pickup or chest#All pickup variants and chests have an equal chance of spawning#10% chance to spawn an item from a random pool instead#{{Warneeng}} {{ColorYellow}}Only charges by collecting pickups or using consumables", "Singularity")
-	EID:addCollectible(Enums.Collectibles.GRAVITY_SHIFT, "Upon use, causes all tears and projectiles to stop in midair, falling down after some time#Enemy projectiles that are stopped can't damage you", "Gravity Shift")
+	EID:addCollectible(Enums.Collectibles.GRAVITY_SHIFT, "Upon use, causes all tears and projectiles to stop in midair, falling down after some time#Enemy projectiles that are stopped can't damage you and can damage other enemies", "Gravity Shift")
 	EID:addCollectible(Enums.Collectibles.EXTINCTION_EVENT, "Upon use, causes meteors to fall from the sky for the duration of the current room#The meteors explode on impact, can burn enemies, and vary in damage, dealing up to 2x your current damage#Meteors and their explosions can't damage you", "Extinction Event")
 	EID:addCollectible(Enums.Collectibles.BOOK_OF_COSMOS, "Summons a random Zodiac or Planetarium item wisp, granting you its effect#The wisp lasts for the current room", "Book of Cosmos")
 	--Passives
