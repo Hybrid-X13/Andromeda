@@ -131,25 +131,16 @@ function Item.postPEffectUpdate(player)
 	end
 	
 	if player:HasCollectible(Enums.Collectibles.VESTA) then
-		local enemies = {}
+		local numEnemies = Isaac.CountEnemies()
 		local frequency
 		local divisor
 		
 		player:CheckFamiliar(Enums.Familiars.VESTA_FLAME, 1, player:GetCollectibleRNG(Enums.Collectibles.VESTA), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.VESTA))
 		
-		for i, entity in pairs(Isaac.GetRoomEntities()) do
-			if not entity:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
-			and entity:IsActiveEnemy()
-			and entity:IsVulnerableEnemy()
-			then
-				table.insert(enemies, entity)
-			end
-		end
-		
-		if #enemies < 1 then
+		if numEnemies < 1 then
 			divisor = 1
 		else
-			divisor = #enemies
+			divisor = numEnemies
 		end
 		frequency = math.ceil(300 / divisor)
 		
