@@ -192,16 +192,25 @@ function Room.postUpdate()
 	
 	local room = game:GetRoom()
 	local level = game:GetLevel()
+	local stageType = level:GetStageType()
 	local roomDesc = level:GetCurrentRoomDesc()
 	local roomConfig = roomDesc.Data
 	
+	if roomConfig.Variant == 4652 then
+		game:UpdateStrangeAttractor(room:GetCenterPos(), 7, 9999)
+	end
+
+	--Fix music conflict with StageAPI
+	if StageAPI
+	and (level:GetStage() == LevelStage.STAGE2_1 or level:GetStage() == LevelStage.STAGE2_2)
+	and stageType == StageType.STAGETYPE_WOTL
+	then
+		return
+	end
+
 	if MusicManager():GetCurrentMusicID() ~= Enums.Music.EDGE_OF_THE_UNIVERSE then
 		MusicManager():Play(Enums.Music.EDGE_OF_THE_UNIVERSE, 0)
 		MusicManager():UpdateVolume()
-	end
-
-	if roomConfig.Variant == 4652 then
-		game:UpdateStrangeAttractor(room:GetCenterPos(), 7, 9999)
 	end
 end
 
