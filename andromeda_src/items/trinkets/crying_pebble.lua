@@ -15,10 +15,6 @@ function Trinket.evaluateCache(player, cacheFlag)
 		Enums.Collectibles.MEGA_PLUTONIUM,
 		Enums.Collectibles.BOOK_OF_COSMOS,
 	}
-
-	if Isaac.GetItemIdByName("Cassiopeia") > 0 then
-		table.insert(extraItems, Isaac.GetItemIdByName("Cassiopeia"))
-	end
 		
 	for i = 1, #CustomData.SpodeList do
 		if player:HasCollectible(CustomData.SpodeList[i]) then
