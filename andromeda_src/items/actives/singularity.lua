@@ -5,6 +5,7 @@ local CustomData = require("andromeda_src.customdata")
 local game = Game()
 local sfx = SFXManager()
 local rng = RNG()
+local getHeldPill = 0
 
 local goodPills = {
 	PillEffect.PILLEFFECT_HEALTH_UP,
@@ -453,7 +454,7 @@ function Item.usePill(pill, player, flag)
 	if flag & UseFlag.USE_MIMIC == UseFlag.USE_MIMIC then return end
 	
 	if pill == PillEffect.PILLEFFECT_48HOUR_ENERGY then
-		if player:GetPill(0) > PillColor.PILL_GIANT_FLAG then
+		if getHeldPill > PillColor.PILL_GIANT_FLAG then
 			if player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) then
 				Functions.ChargeSingularity(player, 8)
 			else
@@ -466,14 +467,14 @@ function Item.usePill(pill, player, flag)
 				Functions.ChargeSingularity(player, 2)
 			end
 		end
-	elseif player:GetPill(0) == PillColor.PILL_GOLD
-	or player:GetPill(0) == PillColor.PILL_GOLD + PillColor.PILL_GIANT_FLAG
+	elseif getHeldPill == PillColor.PILL_GOLD
+	or getHeldPill == PillColor.PILL_GOLD + PillColor.PILL_GIANT_FLAG
 	then
 		local rng = player:GetCollectibleRNG(Enums.Collectibles.SINGULARITY)
 		local randNum = rng:RandomInt(2)
 		
 		if randNum == 0 then
-			if player:GetPill(0) == PillColor.PILL_GOLD + PillColor.PILL_GIANT_FLAG then
+			if getHeldPill == PillColor.PILL_GOLD + PillColor.PILL_GIANT_FLAG then
 				if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill(pill))
 				or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill(pill))
 				then
@@ -483,14 +484,15 @@ function Item.usePill(pill, player, flag)
 				end
 			else
 				if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill(pill))
-				or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill(pill)) then
+				or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill(pill))
+				then
 					Functions.ChargeSingularity(player, 2)
 				else
 					Functions.ChargeSingularity(player, 1)
 				end
 			end
 		end
-	elseif player:GetPill(0) > PillColor.PILL_GIANT_FLAG then
+	elseif getHeldPill > PillColor.PILL_GIANT_FLAG then
 		if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill(pill))
 		or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill(pill))
 		then
@@ -524,6 +526,7 @@ function Item.useCard(card, player, flag)
 
 	if card == Isaac.GetCardIdByName("Quasar Shard") then
 		local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
+
 		if #items > 0 then
 			Functions.ChargeSingularity(player, 6)
 		else
@@ -533,6 +536,7 @@ function Item.useCard(card, player, flag)
 	or card == Enums.Cards.ALPHA_CENTAURI
 	then
 		local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1)
+
 		if #items > 0 then
 			Functions.ChargeSingularity(player, 6)
 		else
@@ -547,6 +551,12 @@ function Item.useCard(card, player, flag)
 			Functions.ChargeSingularity(player, 1)
 		end
 	end
+end
+
+function Item.postPEffectUpdate(player)
+	if not player:HasCollectible(Enums.Collectibles.SINGULARITY) then return end
+
+	getHeldPill = player:GetPill(0)
 end
 
 function Item.prePickupCollision(pickup, collider, low)
