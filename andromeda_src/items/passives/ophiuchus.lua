@@ -30,42 +30,33 @@ function Item.entityTakeDmg(target, amount, flag, source, countdown)
 	local enemy = target:ToNPC()
 	
 	if enemy == nil then return end
+	if not Functions.AnyPlayerHasCollectible(Enums.Collectibles.OPHIUCHUS) then return end
+		
+	local health = enemy.HitPoints - amount
+	local data
 
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-		
-		if not player:HasCollectible(Enums.Collectibles.OPHIUCHUS) then return end
-		
-		local health = enemy.HitPoints - amount
-		local data
-
-		if source.Entity then
-			data = source.Entity:GetData().isBarrageTear
-		end
-		
-		if health <= 0
-		and data
-		then
-			enemy:GetData().dropHalfSoul = true
-		end
+	if source.Entity then
+		data = source.Entity:GetData().isBarrageTear
+	end
+	
+	if health <= 0
+	and data
+	then
+		enemy:GetData().dropHalfSoul = true
 	end
 end
 
 function Item.postEntityKill(npc)
-	rng:SetSeed(npc.InitSeed, 35)
+	if not Functions.AnyPlayerHasCollectible(Enums.Collectibles.OPHIUCHUS) then return end
 	
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
+	rng:SetSeed(npc.InitSeed, 35)
 		
-		if not player:HasCollectible(Enums.Collectibles.OPHIUCHUS) then return end
-		
-		local randNum = rng:RandomInt(20)
-		
-		if npc:GetData().dropHalfSoul
-		and randNum == 0
-		then
-			Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF_SOUL, npc.Position, Vector.Zero, player)
-		end
+	local randNum = rng:RandomInt(20)
+	
+	if npc:GetData().dropHalfSoul
+	and randNum == 0
+	then
+		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF_SOUL, npc.Position, Vector.Zero, nil)
 	end
 end
 

@@ -624,6 +624,7 @@ function Character.postLaserUpdate(laser)
 end
 
 function Character.postBombUpdate(bomb)
+	if bomb.FrameCount ~= 1 then return end
 	if not bomb.IsFetus then return end
 	if bomb.Parent == nil then return end
 	if bomb.Parent.Type ~= EntityType.ENTITY_PLAYER then return end
@@ -632,7 +633,6 @@ function Character.postBombUpdate(bomb)
 
 	if player == nil then return end
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
-	if bomb.FrameCount ~= 1 then return end
 
 	local room = game:GetRoom()
 
