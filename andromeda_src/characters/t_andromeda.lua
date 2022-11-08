@@ -548,8 +548,11 @@ function Character.preTearCollision(tear, collider, low)
 	if player == nil then return end
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
 	
+	local bishops = Isaac.FindByType(EntityType.ENTITY_BISHOP, -1)
+
 	if (collider:IsActiveEnemy() and not collider:IsVulnerableEnemy())
 	or collider.Type == EntityType.ENTITY_MINECART
+	or (#bishops > 0 and collider.Type ~= EntityType.ENTITY_BISHOP and collider:IsEnemy())
 	then
 		return true
 	end
