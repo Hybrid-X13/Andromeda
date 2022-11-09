@@ -103,7 +103,7 @@ end
 function Functions.ChangeLaserColor(laser, player)
 	local sprite = laser:GetSprite()
 	local color = laser.Color
-	local transparency
+	local transparency = 1
 
 	if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
 		if laser.Variant == 5
@@ -112,8 +112,6 @@ function Functions.ChangeLaserColor(laser, player)
 		or laser.Variant == 12
 		then
 			transparency = 0.1
-		else
-			transparency = 1
 		end
 		color = Color(0.464, 0.996, 1, transparency, 0, 0, 0)
 		color:SetColorize(4, 11, 14, 1)
@@ -122,8 +120,6 @@ function Functions.ChangeLaserColor(laser, player)
 		or laser.Variant == 8
 		then
 			transparency = 0.15
-		else
-			transparency = 1
 		end
 
 		if SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] ~= 1 then
