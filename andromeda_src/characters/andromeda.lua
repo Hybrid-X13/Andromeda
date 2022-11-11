@@ -322,9 +322,9 @@ function Character.prePickupCollision(pickup, collider, low)
 	local level = game:GetLevel()
 	local roomIndex = level:GetCurrentRoomIndex()
 
-	if not Functions.CanPickUpItem(player, pickup) then return end
-	
-	if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+	if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE
+	and Functions.CanPickUpItem(player, pickup)
+	then
 		if room:GetType() == RoomType.ROOM_TREASURE
 		and not Functions.CheckTreasureTaken(roomIndex)
 		then
@@ -363,6 +363,9 @@ function Character.prePickupCollision(pickup, collider, low)
 		end
 	else
 		if room:GetType() == RoomType.ROOM_SHOP
+		and pickup.Price ~= 0
+		and player:GetNumCoins() >= pickup.Price
+		and not player:IsHoldingItem()
 		and SaveData.PlayerData.Andromeda.GravShift.Shop == 0
 		then
 			SaveData.PlayerData.Andromeda.GravShift.Shop = -1
