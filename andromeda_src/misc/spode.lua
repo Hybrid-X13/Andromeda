@@ -25,6 +25,7 @@ local tearBlacklist = {
 	TearFlags.TEAR_EXPLOSIVE,
 	TearFlags.TEAR_LASER,
 	TearFlags.TEAR_STICKY,
+	TearFlags.TEAR_FETUS_TECH,
 }
 
 local Spode = {}
