@@ -643,10 +643,10 @@ function Character.postPickupInit(pickup)
 	if not Functions.AnyPlayerIsType(Enums.Characters.T_ANDROMEDA) then return end
 
 	local room = game:GetRoom()
+	local roomType = room:GetType()
 
 	if pickup.SubType == Enums.Collectibles.SINGULARITY then
 		rng:SetSeed(pickup.InitSeed, 35)
-		local roomType = room:GetType()
 		local seed = game:GetSeeds():GetStartSeed()
 		local pool = game:GetItemPool():GetPoolForRoom(roomType, seed)
 		
@@ -659,8 +659,8 @@ function Character.postPickupInit(pickup)
 		pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, CollectibleType.COLLECTIBLE_COUPON, true, false, false)
 	end
 
-	if (room:GetType() == RoomType.ROOM_BOSS and not room:IsClear())
-	or (room:GetType() == RoomType.ROOM_BOSSRUSH and room:IsAmbushActive())
+	if (roomType == RoomType.ROOM_BOSS and not room:IsClear())
+	or (roomType == RoomType.ROOM_BOSSRUSH and room:IsAmbushActive())
 	then
 		pickup:GetData().dontRemove = true
 	end

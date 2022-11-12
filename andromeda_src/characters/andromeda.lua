@@ -194,21 +194,17 @@ function Character.postNewRoom()
 end
 
 function Character.postNewLevel()
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
+	if not Functions.AnyPlayerIsType(Enums.Characters.ANDROMEDA) then return end
 
-		if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
-
-		SaveData.PlayerData.Andromeda.GravShift = {
-			Treasure = {},
-			Shop = 0,
-			Secret = 0,
-			SuperSecret = 0,
-			Angel = 0,
-			Devil = 0,
-			Planetarium = 0,
-		}
-	end
+	SaveData.PlayerData.Andromeda.GravShift = {
+		Treasure = {},
+		Shop = 0,
+		Secret = 0,
+		SuperSecret = 0,
+		Angel = 0,
+		Devil = 0,
+		Planetarium = 0,
+	}
 end
 
 function Character.entityTakeDmg(target, amount, flags, source, countdown)
@@ -276,36 +272,33 @@ function Character.postLaserUpdate(laser)
 end
 
 function Character.postPickupInit(pickup)
+	if not Functions.AnyPlayerIsType(Enums.Characters.ANDROMEDA) then return end
+	
 	rng:SetSeed(pickup.InitSeed, 35)
 	local room = game:GetRoom()
 	local roomType = room:GetType()
-	
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
 
-		if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
-
-		if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE
-		and pickup.SubType == Enums.Collectibles.GRAVITY_SHIFT
-		then
-			local seed = game:GetSeeds():GetStartSeed()
-			local pool = itemPool:GetPoolForRoom(roomType, seed)
-			
-			if pool == ItemPoolType.POOL_NULL then
-				pool = ItemPoolType.POOL_TREASURE
-			end
-			local newItem = itemPool:GetCollectible(pool, true, pickup.InitSeed)
-			pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
+	if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE
+	and pickup.SubType == Enums.Collectibles.GRAVITY_SHIFT
+	then
+		local seed = game:GetSeeds():GetStartSeed()
+		local pool = itemPool:GetPoolForRoom(roomType, seed)
+		
+		if pool == ItemPoolType.POOL_NULL then
+			pool = ItemPoolType.POOL_TREASURE
 		end
 
-		if pickup.Variant == PickupVariant.PICKUP_TRINKET then
-			if pickup.SubType == TrinketType.TRINKET_TELESCOPE_LENS
-			or pickup.SubType == (TrinketType.TRINKET_TELESCOPE_LENS + TrinketType.TRINKET_GOLDEN_FLAG)
-			or pickup.SubType == TrinketType.TRINKET_FRIENDSHIP_NECKLACE
-			or pickup.SubType == (TrinketType.TRINKET_FRIENDSHIP_NECKLACE + TrinketType.TRINKET_GOLDEN_FLAG)
-			then
-				pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, 0, true, false, false)
-			end
+		local newItem = itemPool:GetCollectible(pool, true, pickup.InitSeed)
+		pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
+	end
+
+	if pickup.Variant == PickupVariant.PICKUP_TRINKET then
+		if pickup.SubType == TrinketType.TRINKET_TELESCOPE_LENS
+		or pickup.SubType == (TrinketType.TRINKET_TELESCOPE_LENS + TrinketType.TRINKET_GOLDEN_FLAG)
+		or pickup.SubType == TrinketType.TRINKET_FRIENDSHIP_NECKLACE
+		or pickup.SubType == (TrinketType.TRINKET_FRIENDSHIP_NECKLACE + TrinketType.TRINKET_GOLDEN_FLAG)
+		then
+			pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, 0, true, false, false)
 		end
 	end
 end
