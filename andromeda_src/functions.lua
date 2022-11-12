@@ -81,6 +81,18 @@ function Functions.AnyPlayerHasCollectible(itemID, ignoreModifiers)
 	return false
 end
 
+function Functions.AnyPlayerIsType(playerType)
+	for i = 0, game:GetNumPlayers() - 1 do
+		local player = Isaac.GetPlayer(i)
+
+		if player:GetPlayerType() == playerType then
+			return true
+		end
+	end
+
+	return false
+end
+
 --Function provided by KingBobson. Prevents PRE_PICKUP_COLLISION from being executed multiple times when colliding with a pedestal item
 function Functions.CanPickUpItem(player, pickup)
     if pickup.SubType == CollectibleType.COLLECTIBLE_NULL then return false end
