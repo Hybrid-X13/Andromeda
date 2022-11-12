@@ -37,7 +37,7 @@ function Trinket.evaluateCache(player, cacheFlag)
 			if player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK) then
 				player.Damage = player.Damage + (0.6 * trinketMultiplier * itemCount * 0.2)
 			elseif player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK) then
-				player.Damage = player.Damage + (0.6 * trinketMultiplier * itemCount * 0.33)
+				player.Damage = player.Damage + (0.6 * trinketMultiplier * itemCount * 0.3)
 			else
 				player.Damage = player.Damage + (0.6 * trinketMultiplier * itemCount)
 			end
@@ -45,7 +45,7 @@ function Trinket.evaluateCache(player, cacheFlag)
 			if player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK) then
 				player.Damage = player.Damage + (0.3 * trinketMultiplier * itemCount * 0.2)
 			elseif player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK) then
-				player.Damage = player.Damage + (0.3 * trinketMultiplier * itemCount * 0.33)
+				player.Damage = player.Damage + (0.3 * trinketMultiplier * itemCount * 0.3)
 			else
 				player.Damage = player.Damage + (0.3 * trinketMultiplier * itemCount)
 			end
