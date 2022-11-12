@@ -308,24 +308,20 @@ function Character.postPlayerInit(player)
 end
 
 function Character.preRoomEntitySpawn(entity, variant, subType, gIndex, seed)
-	local room = game:GetRoom()
+	if not Functions.AnyPlayerIsType(Enums.Characters.T_ANDROMEDA) then return end
 	
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
+	local room = game:GetRoom()
 
-		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
-
-		if entity == EntityType.ENTITY_PICKUP
-		and variant == PickupVariant.PICKUP_COLLECTIBLE
-		and room:GetType() ~= RoomType.ROOM_BOSS
-		and room:GetType() ~= RoomType.ROOM_DUNGEON
-		and room:GetType() ~= RoomType.ROOM_ULTRASECRET
-		and room:GetType() ~= RoomType.ROOM_CHALLENGE
-		and not room:IsMirrorWorld()
-		and not room:HasCurseMist()
-		then
-			return {0, 0, 0}
-		end
+	if entity == EntityType.ENTITY_PICKUP
+	and variant == PickupVariant.PICKUP_COLLECTIBLE
+	and room:GetType() ~= RoomType.ROOM_BOSS
+	and room:GetType() ~= RoomType.ROOM_DUNGEON
+	and room:GetType() ~= RoomType.ROOM_ULTRASECRET
+	and room:GetType() ~= RoomType.ROOM_CHALLENGE
+	and not room:IsMirrorWorld()
+	and not room:HasCurseMist()
+	then
+		return {0, 0, 0}
 	end
 end
 
@@ -644,33 +640,29 @@ end
 
 function Character.postPickupInit(pickup)
 	if pickup.Variant ~= PickupVariant.PICKUP_COLLECTIBLE then return end
+	if not Functions.AnyPlayerIsType(Enums.Characters.T_ANDROMEDA) then return end
 
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-		local room = game:GetRoom()
+	local room = game:GetRoom()
 
-		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
-
-		if pickup.SubType == Enums.Collectibles.SINGULARITY then
-			rng:SetSeed(pickup.InitSeed, 35)
-			local roomType = room:GetType()
-			local seed = game:GetSeeds():GetStartSeed()
-			local pool = game:GetItemPool():GetPoolForRoom(roomType, seed)
-			
-			if pool == ItemPoolType.POOL_NULL then
-				pool = ItemPoolType.POOL_TREASURE
-			end
-			local newItem = game:GetItemPool():GetCollectible(pool, true, pickup.InitSeed)
-			pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
-		elseif pickup.SubType == CollectibleType.COLLECTIBLE_HEAD_OF_THE_KEEPER then
-			pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, CollectibleType.COLLECTIBLE_COUPON, true, false, false)
+	if pickup.SubType == Enums.Collectibles.SINGULARITY then
+		rng:SetSeed(pickup.InitSeed, 35)
+		local roomType = room:GetType()
+		local seed = game:GetSeeds():GetStartSeed()
+		local pool = game:GetItemPool():GetPoolForRoom(roomType, seed)
+		
+		if pool == ItemPoolType.POOL_NULL then
+			pool = ItemPoolType.POOL_TREASURE
 		end
+		local newItem = game:GetItemPool():GetCollectible(pool, true, pickup.InitSeed)
+		pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
+	elseif pickup.SubType == CollectibleType.COLLECTIBLE_HEAD_OF_THE_KEEPER then
+		pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, CollectibleType.COLLECTIBLE_COUPON, true, false, false)
+	end
 
-		if (room:GetType() == RoomType.ROOM_BOSS and not room:IsClear())
-		or (room:GetType() == RoomType.ROOM_BOSSRUSH and room:IsAmbushActive())
-		then
-			pickup:GetData().dontRemove = true
-		end
+	if (room:GetType() == RoomType.ROOM_BOSS and not room:IsClear())
+	or (room:GetType() == RoomType.ROOM_BOSSRUSH and room:IsAmbushActive())
+	then
+		pickup:GetData().dontRemove = true
 	end
 end
 
@@ -908,14 +900,9 @@ end
 
 function Character.NPCUpdate(npc)
 	if npc:HasEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK) then return end
-	
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-
-		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+	if not Functions.AnyPlayerIsType(Enums.Characters.T_ANDROMEDA) then return end
 		
-		npc:AddEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
-	end
+	npc:AddEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
 end
 
 return Character
