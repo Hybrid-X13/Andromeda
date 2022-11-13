@@ -15,7 +15,9 @@ function Item.evaluateCache(player, cacheFlag)
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK) then
 		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.2 * itemNum) + (SaveData.ItemData.Pallas.newFloorDMG * 0.2)
 	elseif player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK) then
-		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.33 * itemNum) + (SaveData.ItemData.Pallas.newFloorDMG * 0.3)
+		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.3 * itemNum) + (SaveData.ItemData.Pallas.newFloorDMG * 0.3)
+	elseif player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) then
+		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.8 * itemNum) + (SaveData.ItemData.Pallas.newFloorDMG * 0.8)
 	else
 		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * itemNum) + SaveData.ItemData.Pallas.newFloorDMG
 	end
