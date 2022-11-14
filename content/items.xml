@@ -11,7 +11,7 @@
 	<passive id="9" name="Chiron" description="Wounded healer" gfx="andromeda_chiron.png" maxhearts="2" quality="4" tags="summonable nolostbr stars" />
 	<passive id="10" name="​Ophiuchus" description="Snake tears" gfx="andromeda_ophiuchus.png" quality="2" tags="summonable offensive stars" />
 	<passive id="14" name="Harmonic Convergence" description="Everything aligns" gfx="andromeda_harmonicconvergence.png" devilprice="2" quality="4" tags="summonable offensive" />
-	<passive id="16" name="Luminary Flare" description="Burning sun" gfx="andromeda_solarflare.png" quality="3" tags="summonable offensive nocantrip" />
+	<passive id="16" name="Luminary Flare" description="Burning sun" gfx="andromeda_luminaryflare.png" quality="3" tags="summonable offensive" />
 	<passive id="28" name="Andromeda Technology" description="Laser tears" gfx="collectibles_068_technology.png" quality="3" tags="hidden" hidden="true" />
 	<passive id="29" name="Andromeda Brimstone" description="Blood laser barrage" gfx="collectibles_118_brimstone.png" quality="4" tags="hidden" hidden="true" />
 	<passive id="30" name="Andromeda Knife" description="Stab stab stab" gfx="collectibles_114_momsknife.png" cache="damage firedelay tearflag" quality="4" tags="hidden" hidden="true" />
