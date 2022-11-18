@@ -489,7 +489,7 @@ if Encyclopedia then
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
 				{str = "Consumes all items and pickups in the room."},
 				{str = "Each pickup has a 50% chance of turning into a wisp."},
-				{str = "Pedestal items are guaranteed to give 5 special wisps based on the current room."},
+				{str = "Pedestal items grant a random, permanent wisp that respawns on room clear if it was destroyed."},
 			},
 			{ -- Trivia
 				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
