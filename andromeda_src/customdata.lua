@@ -128,10 +128,13 @@ CustomData.SingularityPickups = {
 			local maxHearts = ANDROMEDA.player:GetMaxHearts()
 			local heartLimit = ANDROMEDA.player:GetHeartLimit()
 
-			return not (
-				eternalHearts > 0
-				and maxHearts == heartLimit
-			)
+			if eternalHearts > 0
+			and maxHearts == heartLimit
+			then
+				return false
+			end
+
+			return true
 		end,
 	},
 	{
