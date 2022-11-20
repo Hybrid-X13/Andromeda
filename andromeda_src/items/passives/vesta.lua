@@ -191,7 +191,7 @@ function Item.postPEffectUpdate(player)
 				--Can't change flame damage, so shoot invisible tears as a workaround
 				local spawnTear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, player.Position, velocity, nil)
 				local newTear = spawnTear:ToTear()
-				newTear.Color = Color(0, 0, 0, 0, 0, 0, 0)
+				newTear.Visible = false
 				newTear:AddTearFlags(TearFlags.TEAR_PIERCING)
 				newTear.CollisionDamage = player.Damage
 				newTear:GetData().vestaTear = true
