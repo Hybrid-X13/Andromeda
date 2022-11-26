@@ -35,42 +35,14 @@ function Item.postFireTear(tear)
 	end
 	
 	local laser = player:FireTechXLaser(tear.Position, tear.Velocity, 40 * tear.Scale, nil, dmgMultiplier)
-	--[[
-	local spawnLaser
-	
-	if player:HasCollectible(ANDROMEDA_TECHNOLOGY)
-	and player:HasCollectible(ANDROMEDA_BRIMSTONE)
-	then
-		if player:GetCollectibleNum(ANDROMEDA_BRIMSTONE) > 1 then
-			spawnLaser = Isaac.Spawn(EntityType.ENTITY_LASER, 14, 3, tear.Position, tear.Velocity, player)
-		else
-			spawnLaser = Isaac.Spawn(EntityType.ENTITY_LASER, 9, 3, tear.Position, tear.Velocity, player)
-		end
-	elseif player:HasCollectible(ANDROMEDA_BRIMSTONE)
-	and not player:HasCollectible(ANDROMEDA_TECHNOLOGY)
-	then
-		if player:GetCollectibleNum(ANDROMEDA_BRIMSTONE) > 1 then
-			spawnLaser = Isaac.Spawn(EntityType.ENTITY_LASER, 11, 3, tear.Position, tear.Velocity, player)
-		else
-			spawnLaser = Isaac.Spawn(EntityType.ENTITY_LASER, 1, 3, tear.Position, tear.Velocity, player)
-		end
-	elseif player:HasCollectible(ANDROMEDA_TECHNOLOGY)
-	and not player:HasCollectible(ANDROMEDA_BRIMSTONE)
-	then
-		spawnLaser = Isaac.Spawn(EntityType.ENTITY_LASER, 9, 3, tear.Position, tear.Velocity, player)
-	else
-		spawnLaser = Isaac.Spawn(EntityType.ENTITY_LASER, 2, 3, tear.Position, tear.Velocity, player)
-	end
-	
-	local laser = spawnLaser:ToLaser()]]
+
 	laser.Variant = 2
 	laser.SubType = 3
 	laser.Parent = tear
 	laser.Radius = 40 * tear.Scale
-	--laser.CollisionDamage = tear.CollisionDamage / 2
 	laser.TearFlags = tear.TearFlags
 	laser:GetData().andromedaTechX = true
-	tear.Color = Color(1, 1, 1, 0, 0, 0, 0)
+	tear.Visible = false
 	tear.CollisionDamage = 0
 end
 

@@ -31,7 +31,7 @@ function Item.postFireTear(tear)
 	knife.Scale = tear.Scale
 	knife.Color = player.TearColor
 	knife:GetData().andromedaKnife = true
-	tear.Color = Color(1, 1, 1, 0, 0, 0, 0)
+	tear.Visible = false
 	
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then
 		tear.CollisionDamage = 0.1
