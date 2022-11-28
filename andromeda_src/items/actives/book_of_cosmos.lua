@@ -88,9 +88,9 @@ end
 function Item.postNewRoom()
 	local lemegetonWisps = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ITEM_WISP)
 
-	if lemegetonWisps == 0 then return end
+	if #lemegetonWisps == 0 then return end
 
-	for i, wisp in pairs(lemegetonWisps) do
+	for _, wisp in pairs(lemegetonWisps) do
 		if wisp:GetData().isCosmoWisp then
 			wisp:Kill()
 		end
