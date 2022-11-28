@@ -1,6 +1,5 @@
 local Andromeda = require("andromeda_src.characters.andromeda")
 local T_Andromeda = require("andromeda_src.characters.t_andromeda")
-local ExtinctionEvent = require("andromeda_src.items.actives.extinction_event")
 local BookOfCosmos = require("andromeda_src.items.actives.book_of_cosmos")
 local Pallas = require("andromeda_src.items.passives.pallas")
 local Juno = require("andromeda_src.items.passives.juno")
@@ -14,7 +13,6 @@ local function MC_POST_NEW_ROOM()
 	Andromeda.postNewRoom()
 	T_Andromeda.postNewRoom()
 
-	ExtinctionEvent.postNewRoom()
 	BookOfCosmos.postNewRoom()
 	
 	Pallas.postNewRoom()

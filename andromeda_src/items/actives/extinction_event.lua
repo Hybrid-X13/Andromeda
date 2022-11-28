@@ -2,21 +2,13 @@ local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
 local game = Game()
 local rng = RNG()
-local meteorShower = false
 
 local Item = {}
 
 function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	if item ~= Enums.Collectibles.EXTINCTION_EVENT then return end
 	
-	meteorShower = true
 	return true
-end
-
-function Item.postNewRoom()
-	if meteorShower then
-		meteorShower = false
-	end
 end
 
 function Item.postEntityRemove(entity)
@@ -34,10 +26,10 @@ function Item.postEntityRemove(entity)
 end
 
 function Item.postPEffectUpdate(player)
-	if not meteorShower then return end
+	if not player:GetEffects():HasCollectibleEffect(Enums.Collectibles.EXTINCTION_EVENT) then return end
 	
 	local rng = player:GetCollectibleRNG(Enums.Collectibles.EXTINCTION_EVENT)
-	local fire = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.RED_CANDLE_FLAME)
+	local fireEffect = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.RED_CANDLE_FLAME)
 	local randNum = rng:RandomInt(16)
 	
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_CAR_BATTERY) then
@@ -48,11 +40,11 @@ function Item.postPEffectUpdate(player)
 		Functions.SpawnMeteor(player, rng)
 	end
 	
-	if #fire == 0 then return end
+	if #fireEffect == 0 then return end
 	
-	for i = 1, #fire do
-		if fire[i].SpawnerType == EntityType.ENTITY_TEAR then
-			fire[i]:Remove()
+	for _, fire in pairs(fireEffect) do
+		if fire.SpawnerType == EntityType.ENTITY_TEAR then
+			fire:Remove()
 		end
 	end
 end
