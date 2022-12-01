@@ -355,7 +355,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				end
 				
 				local item = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, spawnpos, Vector.Zero, nil)
-				local pickup = item:ToPickup()
+				local collectible = item:ToPickup()
 				
 				if player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
 				and roomType == RoomType.ROOM_TREASURE
@@ -363,22 +363,23 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 					local trinketMultiplier = player:GetTrinketMultiplier(TrinketType.TRINKET_DEVILS_CROWN)
 					
 					if trinketMultiplier > 3 then
-						pickup.Price = 0
+						collectible.Price = 0
 					elseif trinketMultiplier == 3 then
-						pickup.Price = PickupPrice.PRICE_ONE_SOUL_HEART
-						pickup.AutoUpdatePrice = false
+						collectible.Price = PickupPrice.PRICE_ONE_SOUL_HEART
+						collectible.AutoUpdatePrice = false
 					elseif trinketMultiplier == 2 then
-						pickup.Price = PickupPrice.PRICE_TWO_SOUL_HEARTS
-						pickup.AutoUpdatePrice = false
+						collectible.Price = PickupPrice.PRICE_TWO_SOUL_HEARTS
+						collectible.AutoUpdatePrice = false
 					else
-						pickup.Price = PickupPrice.PRICE_SOUL
+						collectible.Price = PickupPrice.PRICE_SOUL
 					end
-					pickup.ShopItemId = -1
+					collectible.ShopItemId = -1
 				end
 					
 				if numItems > 1 then
-					pickup.OptionsPickupIndex = optionsIndex
+					collectible.OptionsPickupIndex = optionsIndex
 				end
+
 				SingularityPortal(spawnpos)
 			end
 			
