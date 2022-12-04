@@ -1,6 +1,5 @@
 local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
-local game = Game()
 local rng = RNG()
 local convergence = 0
 
@@ -81,6 +80,34 @@ function Item.postBombUpdate(bomb)
 		Functions.ConvergingTears(bomb, player, player.Position, angle, 4, false)
 	end
 	convergence = convergence + 1
+end
+
+function Item.postEffectUpdate(effect)
+	if effect.Variant ~= EffectVariant.ROCKET then return end
+	if effect.SpawnerEntity == nil then return end
+
+	local player = effect.SpawnerEntity:ToPlayer()
+
+  	if player == nil then return end
+	if not player:HasCollectible(Enums.Collectibles.HARMONIC_CONVERGENCE) then return end
+
+	if effect:IsDead()
+	and not effect:Exists()
+	then
+		local angle = 0
+		
+		if convergence % 2 ~= 0 then
+			angle = 45
+		end
+		
+		for i = 0, 3 do
+			local dmgDivider = 1
+			angle = angle + (90 * i)
+			
+			Functions.ConvergingTears(effect, player, player.Position, angle, dmgDivider, false)
+		end
+		convergence = convergence + 1
+	end
 end
 
 function Item.preTearCollision(tear, collider, low)

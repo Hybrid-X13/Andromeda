@@ -37,7 +37,9 @@ local function CosmicTears(entity, player, pos)
 	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_TINY_PLANET)
 	local randNum = rng:RandomInt(6) + 1
 	
-	if entity.Type == EntityType.ENTITY_BOMBDROP then
+	if entity.Type == EntityType.ENTITY_BOMBDROP
+	or entity.Type == EntityType.ENTITY_EFFECT
+	then
 		newTear:AddTearFlags(player.TearFlags | TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_HOMING)
 	else
 		newTear:AddTearFlags(entity.TearFlags | TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_HOMING)
@@ -214,6 +216,34 @@ function Spode.postBombUpdate(bomb)
 		randNum = rng:RandomInt(360)
 		local pos = player.Position + Vector.FromAngle(randNum):Resized(40)
 		CosmicTears(bomb, player, pos)
+	end
+end
+
+function Spode.postEffectUpdate(effect)
+	if effect.Variant ~= EffectVariant.ROCKET then return end
+	if effect.SpawnerEntity == nil then return end
+
+	local player = effect.SpawnerEntity:ToPlayer()
+
+  	if player == nil then return end
+	if player:HasCurseMistEffect() then return end
+	if player:GetData().hasSpode == nil or not player:GetData().hasSpode then return end
+
+	if effect:IsDead()
+	and not effect:Exists()
+	then
+		local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_TINY_PLANET)
+		local numStars = rng:RandomInt(10) + 5
+
+		for i = 1, numStars do
+			local randNum = rng:RandomInt(50)
+			local randAngle = rng:RandomInt(360)
+			local pos
+			
+			pos = effect.Position + Vector.FromAngle(randAngle):Resized(randNum)
+
+			CosmicTears(effect, player, pos)
+		end
 	end
 end
 
