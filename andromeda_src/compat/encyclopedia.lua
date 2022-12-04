@@ -50,7 +50,6 @@ if Encyclopedia then
 				{str = "The tears can fly over obstacles, home in on enemies, and retain any other tear effects you have."},
 				{str = "The transformation also grants flight and -0.4 shot speed down."},
 				{str = "It can be unlocked for all characters by getting full completion as normal Andromeda."},
-				{str = "The tears from the transformation are overridden if you have Epic Fetus."},
 				{str = "Spode is a reference to the game Spore, which is about creating a creature and bringing it from a single cell all the way to a sentient space-faring empire. In it there's a deity called Spode, which is thought to be the creator of all these creatures and everything in the universe."},
 				{str = "The transformation's appearance is also a reference to the very first creation made in Spore, known as the debug squid."},
 			},
@@ -180,10 +179,12 @@ if Encyclopedia then
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
 				{str = "Lasers", clr = 3, halign = 0},
 				{str = "Each tear deals your full damage when a laser is fired (excluding tech lasers)."},
+				{str = "Epic Fetus", clr = 3, halign = 0},
+				{str = "Each tear deals your full damage when a rocket explodes."},
 			},
 			{ -- Interactions
 				{str = "Interactions", fsize = 2, clr = 3, halign = 0},
-				{str = "Overridden by the Ludovico Technique, Mom's Knife, and Epic Fetus."},
+				{str = "Overridden by the Ludovico Technique and Mom's Knife."},
 			},
 		},
 		JUNO = {
