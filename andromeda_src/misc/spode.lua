@@ -238,9 +238,7 @@ function Spode.postEffectUpdate(effect)
 		for i = 1, numStars do
 			local randNum = rng:RandomInt(50)
 			local randAngle = rng:RandomInt(360)
-			local pos
-			
-			pos = effect.Position + Vector.FromAngle(randAngle):Resized(randNum)
+			local pos = effect.Position + Vector.FromAngle(randAngle):Resized(randNum)
 
 			CosmicTears(effect, player, pos)
 		end
