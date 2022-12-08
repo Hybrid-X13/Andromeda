@@ -567,11 +567,11 @@ function Character.postLaserInit(laser)
 
 	local room = game:GetRoom()
 
-	if (laser.SubType == 0 or ((laser.Variant == 1 or laser.Variant == 11 or laser.Variant == 14) and laser.SubType == 2))
-	and laser.Variant ~= 7
-	and laser.Variant ~= 8
-	and laser.Variant ~= 10
-	and laser.Variant ~= 12
+	if (laser.SubType == 0 or ((laser.Variant == LaserVariant.THICK_RED or laser.Variant == LaserVariant.THICKER_RED or laser.Variant == LaserVariant.THICKER_BRIM_TECH) and laser.SubType == 2))
+	and laser.Variant ~= LaserVariant.TRACTOR_BEAM
+	and laser.Variant ~= LaserVariant.LIGHT_RING
+	and laser.Variant ~= LaserVariant.ELECTRIC
+	and laser.Variant ~= LaserVariant.THICK_BROWN
 	then
 		laser.Position = room:GetCenterPos()
 		local vec = laser.Position - player.Position
@@ -579,17 +579,17 @@ function Character.postLaserInit(laser)
 		laser.ParentOffset = room:GetCenterPos() - player.Position
 	end
 	
-	if (laser.Variant == 2 and laser.SubType == 2) --Tech X
-	or laser.Variant == 9
+	if (laser.Variant == LaserVariant.THIN_RED and laser.SubType == 2) --Tech X
+	or laser.Variant == LaserVariant.BRIM_TECH
 	then
 		laser.Position = room:GetCenterPos()
 	end
 			
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-	and laser.Variant ~= 3
-	and laser.Variant ~= 7
-	and laser.Variant ~= 8
-	and laser.Variant ~= 10
+	and laser.Variant ~= LaserVariant.SHOOP
+	and laser.Variant ~= LaserVariant.TRACTOR_BEAM
+	and laser.Variant ~= LaserVariant.LIGHT_RING
+	and laser.Variant ~= LaserVariant.ELECTRIC
 	then
 		local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 		local randNum = rng:RandomInt(360)
@@ -611,11 +611,11 @@ function Character.postLaserUpdate(laser)
 	
 	--Exlude ring lasers, Technology, Trisagion, Tractor Beam, Jacob's Ladder/Tech 0, Montezuma's Revenge
 	if laser.SubType == 0
-	and laser.Variant ~= 2
-	and laser.Variant ~= 3
-	and laser.Variant ~= 7
-	and laser.Variant ~= 10
-	and laser.Variant ~= 12
+	and laser.Variant ~= LaserVariant.THIN_RED
+	and laser.Variant ~= LaserVariant.SHOOP
+	and laser.Variant ~= LaserVariant.TRACTOR_BEAM
+	and laser.Variant ~= LaserVariant.ELECTRIC
+	and laser.Variant ~= LaserVariant.THICK_BROWN
 	then
 		laser.Position = room:GetCenterPos()
 		local vec = laser.Position - player.Position

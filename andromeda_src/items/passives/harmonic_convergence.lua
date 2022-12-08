@@ -33,10 +33,10 @@ function Item.postLaserInit(laser)
 	if player == nil then return end
 	if not player:HasCollectible(Enums.Collectibles.HARMONIC_CONVERGENCE) then return end
 	
-	if laser.Variant ~= 3
-	and laser.Variant ~= 7
-	and laser.Variant ~= 8
-	and laser.Variant ~= 10
+	if laser.Variant ~= LaserVariant.SHOOP
+	and laser.Variant ~= LaserVariant.TRACTOR_BEAM
+	and laser.Variant ~= LaserVariant.LIGHT_RING
+	and laser.Variant ~= LaserVariant.ELECTRIC
 	then
 		local angle = 0
 	
@@ -48,7 +48,7 @@ function Item.postLaserInit(laser)
 			local dmgDivider = 1
 			angle = angle + (90 * i)
 			
-			if laser.Variant == 2 then
+			if laser.Variant == LaserVariant.THIN_RED then
 				dmgDivider = 4
 			end
 			
