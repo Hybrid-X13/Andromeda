@@ -41,13 +41,41 @@ function Beggar.postNewRoom()
 			local wispWizards = Isaac.FindByType(EntityType.ENTITY_SLOT, Enums.Slots.WISP_WIZARD)
 			
 			if #wispWizards > 0 then
-				for i = 1, #wispWizards do
-					local pos = wispWizards[i].Position
-					wispWizards[i]:Remove()
+				for _, beggar in pairs(wispWizards) do
+					local pos = beggar.Position
+					beggar:Remove()
 					Isaac.Spawn(EntityType.ENTITY_SLOT, 7, 0, pos, Vector.Zero, nil)
 				end
 			end
 		end
+	end
+end
+
+function Beggar.prePlayerCollision(player, collider, low)
+	if collider.Type ~= EntityType.ENTITY_SLOT then return end
+	if collider.Variant ~= Enums.Slots.WISP_WIZARD then return end
+	
+	local sprite = collider:GetSprite()
+	
+	if not sprite:IsPlaying("Idle") then return end
+	if player:GetNumCoins() == 0 then return end
+
+	rng:SetSeed(collider:GetDropRNG():Next(), 35)
+	local randNum = rng:RandomInt(3)
+
+	player:AddCoins(-1)
+	sfx:Play(SoundEffect.SOUND_SCAMPER)
+	
+	if randNum == 0 then
+		sprite:Play("PayPrize")
+		player:GetData().isPayoutTarget = true
+
+		if tmmc then
+			tmmc:find_slot()
+			sprite.PlaybackSpeed = 1.5
+		end
+	else
+		sprite:Play("PayNothing")
 	end
 end
 
@@ -60,12 +88,19 @@ function Beggar.postPEffectUpdate(player)
 	local explosions = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.BOMB_EXPLOSION)
 	local mamaMega = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.MAMA_MEGA_EXPLOSION)
 	
-	for i = 1, #wispWizards do
-		local beggar = wispWizards[i]
+	for _, beggar in pairs (wispWizards) do
 		local sprite = beggar:GetSprite()
 		rng:SetSeed(beggar:GetDropRNG():Next(), 35)
 		local randNum = rng:RandomInt(100)
 		
+		if tmmc
+		and (beggar.Position - player.Position):Length() >= 22
+		then
+			tmmc.enable[Enums.Slots.WISP_WIZARD] = true
+			tmmc:find_slot()
+			beggar:GetSprite().PlaybackSpeed = 1
+		end
+
 		if sprite:IsFinished("PayNothing") then sprite:Play("Idle")	end
 		if sprite:IsFinished("PayPrize") then sprite:Play("Prize") end
 		
@@ -75,7 +110,6 @@ function Beggar.postPEffectUpdate(player)
 				sprite:Play("Teleport")
 				
 				if #CustomData.AbPlPoolCopy == 0 then
-					local rng = player:GetCollectibleRNG(Enums.Collectibles.CHIRON)
 					local seed = game:GetSeeds():GetStartSeed()
 					local itemID = game:GetItemPool():GetCollectible(ItemPoolType.POOL_PLANETARIUM, true, seed)
 					Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, spawnpos, Vector.Zero, beggar)
@@ -126,7 +160,7 @@ function Beggar.postPEffectUpdate(player)
 				sprite:Play("Teleport")
 				Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, trinketID, spawnpos, Vector(1, 1), beggar)
 				sfx:Play(SoundEffect.SOUND_SLOTSPAWN)
-			elseif randNum < 43 then --Give random wisp
+			elseif randNum < 45 then --Give random wisp
 				if player:GetData().isPayoutTarget then
 					Functions.GetRandomWisp(player, beggar.Position, player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES))
 					sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
@@ -141,27 +175,9 @@ function Beggar.postPEffectUpdate(player)
 			end
 			player:GetData().isPayoutTarget = false
 		end
-		
+
 		if sprite:IsFinished("Teleport") then
 			beggar:Remove()
-		end
-		
-		if (beggar.Position - player.Position):Length() <= 20 then
-			randNum = rng:RandomInt(3)
-			
-			if sprite:IsPlaying("Idle")
-			and player:GetNumCoins() > 0
-			then
-				player:AddCoins(-1)
-				sfx:Play(SoundEffect.SOUND_SCAMPER)
-				
-				if randNum == 0 then
-					sprite:Play("PayPrize")
-					player:GetData().isPayoutTarget = true
-				else
-					sprite:Play("PayNothing")
-				end
-			end
 		end
 		
 		for _, splosion in pairs(explosions) do
