@@ -118,18 +118,18 @@ function Functions.ChangeLaserColor(laser, player)
 	local transparency = 1
 
 	if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
-		if laser.Variant == 5
-		or laser.Variant == 7
-		or laser.Variant == 8
-		or laser.Variant == 12
+		if laser.Variant == LaserVariant.LIGHT_BEAM
+		or laser.Variant == LaserVariant.TRACTOR_BEAM
+		or laser.Variant == LaserVariant.LIGHT_RING
+		or laser.Variant == LaserVariant.THICK_BROWN
 		then
 			transparency = 0.1
 		end
 		color = Color(0.464, 0.996, 1, transparency, 0, 0, 0)
 		color:SetColorize(4, 11, 14, 1)
 	elseif player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
-		if laser.Variant == 7
-		or laser.Variant == 8
+		if laser.Variant == LaserVariant.TRACTOR_BEAM
+		or laser.Variant == LaserVariant.LIGHT_RING
 		then
 			transparency = 0.15
 		end
@@ -498,7 +498,6 @@ function Functions.GetRandomWisp(player, pos, rng)
 		CollectibleType.COLLECTIBLE_DIPLOPIA,
 		CollectibleType.COLLECTIBLE_DOCTORS_REMOTE,
 		CollectibleType.COLLECTIBLE_DULL_RAZOR,
-		CollectibleType.COLLECTIBLE_MYSTERY_GIFT,
 		CollectibleType.COLLECTIBLE_ERASER,
 		CollectibleType.COLLECTIBLE_FLIP,
 		CollectibleType.COLLECTIBLE_FLUSH,
@@ -562,6 +561,9 @@ function Functions.GetRandomWisp(player, pos, rng)
 		CollectibleType.COLLECTIBLE_WOODEN_NICKEL,
 		CollectibleType.COLLECTIBLE_YUCK_HEART,
 		CollectibleType.COLLECTIBLE_YUM_HEART,
+		Enums.Collectibles.SINGULARITY,
+		Enums.Collectibles.EXTINCTION_EVENT,
+		Enums.Collectibles.BOOK_OF_COSMOS,
 	}
 	local randNum = rng:RandomInt(#actives) + 1
 	local wisp = player:AddWisp(actives[randNum], pos, true, false)
@@ -798,6 +800,7 @@ function Functions.SpawnMeteor(player, rng)
 	meteor.FallingSpeed = 100
 	meteor.FallingAcceleration = 1
 	meteor.SpawnerEntity = player
+	meteor.Color = Color(0.82, 0.62, 0.62, 1, 0, 0, 0)
 end
 
 function Functions.TearsUp(firedelay, val)
