@@ -21,18 +21,22 @@ function Item.postEntityRemove(entity)
 	then
 		local player = tear.SpawnerEntity:ToPlayer()
 		local radius = (0.5345 * math.sqrt(tear.CollisionDamage)) / 2
-		game:BombExplosionEffects(tear.Position, tear.CollisionDamage, tear.TearFlags, tear.Color, player, radius)
+		game:BombExplosionEffects(tear.Position, tear.CollisionDamage, tear.TearFlags, Color(1, 1, 1, 1, 0, 0, 0), player, radius)
 	end
 end
 
 function Item.postPEffectUpdate(player)
-	if not player:GetEffects():HasCollectibleEffect(Enums.Collectibles.EXTINCTION_EVENT) then return end
+	local tempEffects = player:GetEffects()
+	
+	if not tempEffects:HasCollectibleEffect(Enums.Collectibles.EXTINCTION_EVENT) then return end
 	
 	local rng = player:GetCollectibleRNG(Enums.Collectibles.EXTINCTION_EVENT)
 	local fireEffect = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.RED_CANDLE_FLAME)
 	local randNum = rng:RandomInt(16)
 	
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_CAR_BATTERY) then
+	if player:HasCollectible(CollectibleType.COLLECTIBLE_CAR_BATTERY)
+	or tempEffects:GetCollectibleEffectNum(Enums.Collectibles.EXTINCTION_EVENT) > 1
+	then
 		randNum = rng:RandomInt(8)
 	end
 
