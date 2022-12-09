@@ -5,6 +5,7 @@ local game = Game()
 local sfx = SFXManager()
 local rng = RNG()
 local spodeCostume = Isaac.GetCostumeIdByPath("gfx/characters/transformation_cosmicgod.anm2")
+local LAST_FRAME = 26
 
 local colors = {
 	"red",
@@ -35,7 +36,7 @@ local function CosmicTears(entity, player, pos)
 	local newTear = spawnTear:ToTear()
 	local sprite = newTear:GetSprite()
 	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_TINY_PLANET)
-	local randNum = rng:RandomInt(6) + 1
+	local randNum = rng:RandomInt(#colors) + 1
 	
 	if entity.Type == EntityType.ENTITY_BOMBDROP
 	or entity.Type == EntityType.ENTITY_EFFECT
@@ -59,6 +60,14 @@ local function CosmicTears(entity, player, pos)
 	if entity.Type == EntityType.ENTITY_TEAR then
 		newTear.FallingAcceleration = entity.FallingAcceleration
 		newTear.FallingSpeed = entity.FallingSpeed
+	elseif entity.Type == EntityType.ENTITY_EFFECT then
+		randNum = rng:RandomInt(LAST_FRAME) + 1
+		
+		for i = 1, randNum do
+			sprite:Update()
+		end
+
+		newTear.FallingSpeed = newTear.FallingSpeed - (2 * rng:RandomFloat())
 	else
 		newTear.FallingAcceleration = 0
 		newTear.FallingSpeed = -3
@@ -135,14 +144,14 @@ function Spode.postLaserUpdate(laser)
 	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_TINY_PLANET)
 	local randNum = rng:RandomInt(6)
 			
-	if laser.Variant ~= 7
-	and laser.Variant ~= 8
-	and laser.Variant ~= 10
+	if laser.Variant ~= LaserVariant.TRACTOR_BEAM
+	and laser.Variant ~= LaserVariant.LIGHT_RING
+	and laser.Variant ~= LaserVariant.ELECTRIC
 	and (not laser:GetData().isSolarFlare or laser:GetData().isSolarFlare == nil)
 	then
-		if laser.Variant == 3 and laser.SubType == 0 then --Trisagion
+		if laser.Variant == LaserVariant.SHOOP and laser.SubType == 0 then --Trisagion
 			randNum = rng:RandomInt(1000)
-		elseif laser.Variant == 2 and laser.SubType == 2 then --Tech X
+		elseif laser.Variant == LaserVariant.THIN_RED and laser.SubType == 2 then --Tech X
 			randNum = rng:RandomInt(50)
 		elseif player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK)
 		or player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK)
@@ -152,14 +161,14 @@ function Spode.postLaserUpdate(laser)
 		or player:HasCollectible(CollectibleType.COLLECTIBLE_HAEMOLACRIA)
 		then
 			if player:GetPlayerType() == Enums.Characters.ANDROMEDA
-			and laser.Variant == 2
-			and laser.SubType == 3
+			and laser.Variant == LaserVariant.THIN_RED
+			and laser.SubType == LaserVariant.SHOOP
 			then
 				randNum = rng:RandomInt(225)
 			else
 				randNum = rng:RandomInt(25)
 			end
-		elseif laser.Variant == 2
+		elseif laser.Variant == LaserVariant.THIN_RED
 		and laser.SubType == 0
 		then
 			randNum = rng:RandomInt(10)
