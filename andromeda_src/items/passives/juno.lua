@@ -62,7 +62,7 @@ function Item.postNPCDeath(npc)
 				revivedEnemy:ToNPC():MakeChampion(npc.InitSeed, champColor)
 			end
 			
-			revivedEnemy:SetColor(Color(1, 1, 1, 0.5, 0.2, 0, 0.2), 99999, 1, false, false)
+			revivedEnemy:SetColor(Color(1, 1, 1, 0.4, 0.2, 0, 0.2), 99999, 1, false, false)
 			revivedEnemy:GetData().junoFriendly = true
 		end
 	end
@@ -74,28 +74,28 @@ function Item.NPCUpdate(npc)
 	if npc.SpawnerEntity:GetData().junoFriendly == nil then return end
 	if npc:GetData().junoFriendly then return end
 
-	npc:SetColor(Color(1, 1, 1, 0.5, 0.2, 0, 0.2), 99999, 1, false, false)
+	npc:SetColor(Color(1, 1, 1, 0.4, 0.2, 0, 0.2), 99999, 1, false, false)
 	npc:GetData().junoFriendly = true
 end
 
 function Item.postProjectileUpdate(projectile)
-	if projectile.Parent == nil then return end
+	if projectile.SpawnerEntity == nil then return end
 	
 	if projectile:GetData().colorSet == nil
-	and projectile.Parent:GetData().junoFriendly
+	and projectile.SpawnerEntity:GetData().junoFriendly
 	then
-		projectile:SetColor(Color(1, 1, 1, 0.5, 0.2, 0, 0.2), 99999, 1, false, false)
+		projectile:SetColor(Color(1, 1, 1, 0.4, 0.2, 0, 0.2), 99999, 1, false, false)
 		projectile:GetData().colorSet = true
 	end
 end
 
 function Item.postLaserUpdate(laser)
-	if laser.Parent == nil then return end
+	if laser.SpawnerEntity == nil then return end
 	
 	if laser:GetData().colorSet == nil
-	and laser.Parent:GetData().junoFriendly
+	and laser.SpawnerEntity:GetData().junoFriendly
 	then
-		laser:SetColor(Color(0.5, 0, 0.5, 0.5, 0.5, 0, 0.5), 99999, 1, false, false)
+		laser:SetColor(Color(0.5, 0, 0.5, 0.4, 0.5, 0, 0.5), 99999, 1, false, false)
 		laser:GetData().colorSet = true
 	end
 end
