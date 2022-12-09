@@ -131,31 +131,44 @@ function Functions.ChangeLaserColor(laser, player)
 		if laser.Variant == LaserVariant.TRACTOR_BEAM
 		or laser.Variant == LaserVariant.LIGHT_RING
 		then
-			transparency = 0.15
+			if SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] == 1 then
+				transparency = 0.45
+			else
+				transparency = 0.15
+			end
 		end
 
-		if SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] ~= 1 then
-			if player:GetHeadColor() == SkinColor.SKIN_WHITE then
-				color = Color(1, 1, 1, transparency, 1, 1, 1)
-				color:SetColorize(1, 1, 1, 1)
-			elseif player:GetHeadColor() == SkinColor.SKIN_BLACK then
-				color = Color(0, 0, 0, transparency, 0, 0, 0)
-			elseif player:GetHeadColor() == SkinColor.SKIN_BLUE then
-				color = Color(0.464, 0.5, 1, transparency, 0, 0, 0)
-				color:SetColorize(4, 7, 14, 1)
-			elseif player:GetHeadColor() == SkinColor.SKIN_RED then
-				color = Color(1, 0.5, 0.4, transparency, 0, 0, 0)
-				color:SetColorize(14, 4, 4, 1)
-			elseif player:GetHeadColor() == SkinColor.SKIN_GREEN then
-				color = Color(0.5, 1, 0.4, transparency, 0, 0, 0)
-				color:SetColorize(4, 10, 4, 1)
-			elseif player:GetHeadColor() == SkinColor.SKIN_GREY then
-				color = Color(1, 1, 1, transparency, 0, 0, 0)
-				color:SetColorize(4, 4, 4, 1)
-			else
-				color = Color(1, 1, 0.36, transparency, 1, 1, 0.76)
-				color:SetColorize(1, 1, 0, 1)
+		if SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] == 1 then
+			if laser.Variant == LaserVariant.SHOOP
+			or laser.Variant == LaserVariant.LIGHT_BEAM
+			or laser.Variant == LaserVariant.TRACTOR_BEAM
+			or laser.Variant == LaserVariant.LIGHT_RING
+			or laser.Variant == LaserVariant.ELECTRIC
+			or laser.Variant == LaserVariant.THICK_BROWN
+			then
+				color = Color(1, 0, 0, transparency, 0, 0, 0)
+				color:SetColorize(5, 0, 0, 1)
 			end
+		elseif player:GetHeadColor() == SkinColor.SKIN_WHITE then
+			color = Color(1, 1, 1, transparency, 1, 1, 1)
+			color:SetColorize(1, 1, 1, 1)
+		elseif player:GetHeadColor() == SkinColor.SKIN_BLACK then
+			color = Color(0, 0, 0, transparency, 0, 0, 0)
+		elseif player:GetHeadColor() == SkinColor.SKIN_BLUE then
+			color = Color(0.464, 0.5, 1, transparency, 0, 0, 0)
+			color:SetColorize(4, 7, 14, 1)
+		elseif player:GetHeadColor() == SkinColor.SKIN_RED then
+			color = Color(1, 0.5, 0.4, transparency, 0, 0, 0)
+			color:SetColorize(14, 4, 4, 1)
+		elseif player:GetHeadColor() == SkinColor.SKIN_GREEN then
+			color = Color(0.5, 1, 0.4, transparency, 0, 0, 0)
+			color:SetColorize(4, 10, 4, 1)
+		elseif player:GetHeadColor() == SkinColor.SKIN_GREY then
+			color = Color(1, 1, 1, transparency, 0, 0, 0)
+			color:SetColorize(4, 4, 4, 1)
+		else
+			color = Color(1, 1, 0.36, transparency, 1, 1, 0.76)
+			color:SetColorize(1, 1, 0, 1)
 		end
 	end
 	sprite.Color = color
