@@ -113,12 +113,15 @@ local function AddEffect(familiar, entity, rng)
 		local varType = type(StarEffects[curAnim].Variant[randNum])
 
 		if entity.Type == EntityType.ENTITY_TEAR then
-			if entity.Type == EntityType.ENTITY_TEAR
-			and varType == "table" then
-				entity:ChangeVariant(StarEffects[curAnim].Variant[randNum][1])
+			if varType == "table" then
+				if entity:GetData():isSpodeTear() == nil then
+					entity:ChangeVariant(StarEffects[curAnim].Variant[randNum][1])
+				end
 				entity.Color = StarEffects[curAnim].Variant[randNum][2]
 			elseif varType == "number" then
-				entity:ChangeVariant(StarEffects[curAnim].Variant[randNum])
+				if entity:GetData():isSpodeTear() == nil then
+					entity:ChangeVariant(StarEffects[curAnim].Variant[randNum])
+				end
 			else
 				entity.Color = StarEffects[curAnim].Variant[randNum]
 			end
@@ -193,9 +196,7 @@ function Item.familiarUpdate(familiar)
 		for _, tear in ipairs(tears) do
 			local tear = tear:ToTear()
 
-			if tear.Parent then
-				AddEffect(familiar, tear, rng)
-			end
+			AddEffect(familiar, tear, rng)
 		end
 	end
 
