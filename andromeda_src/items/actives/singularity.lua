@@ -55,10 +55,27 @@ local buffedCards = {
 	Card.CARD_CHARIOT,
 	Card.CARD_JUSTICE,
 	Card.CARD_HERMIT,
+	Card.CARD_WHEEL_OF_FORTUNE,
+	Card.CARD_STRENGTH,
+	Card.CARD_DEATH,
+	Card.CARD_TEMPERANCE,
+	Card.CARD_DEVIL,
+	Card.CARD_TOWER,
+	Card.CARD_STARS,
+	Card.CARD_SUN,
+	Card.CARD_JUDGEMENT,
+	Card.CARD_REVERSE_FOOL,
+	Card.CARD_REVERSE_EMPRESS,
 	Card.CARD_REVERSE_HIEROPHANT,
 	Card.CARD_REVERSE_LOVERS,
 	Card.CARD_REVERSE_JUSTICE,
+	Card.CARD_REVERSE_WHEEL_OF_FORTUNE,
+	Card.CARD_REVERSE_HANGED_MAN,
 	Card.CARD_REVERSE_TEMPERANCE,
+	Card.CARD_REVERSE_TOWER,
+	Card.CARD_REVERSE_STARS,
+	Card.CARD_REVERSE_JUDGEMENT,
+	Enums.Cards.THE_UNKNOWN,
 }
 
 local Item = {}
@@ -515,9 +532,9 @@ end
 function Item.useCard(card, player, flag)
 	if not player:HasCollectible(Enums.Collectibles.SINGULARITY) then return end
 	if flag & UseFlag.USE_MIMIC == UseFlag.USE_MIMIC then return end
+	if flag & UseFlag.USE_OWNED ~= UseFlag.USE_OWNED then return end
 	if card == Card.CARD_ANCIENT_RECALL then return end
 	if card == Card.RUNE_BLANK then return end
-	if card == Enums.Cards.THE_UNKNOWN then return end
 	if card == Isaac.GetCardIdByName("Red Rune") then return end
 	if card == Isaac.GetCardIdByName("Storage Battery") then return end
 	if card == Isaac.GetCardIdByName("Storage Battery (1)") then return end
