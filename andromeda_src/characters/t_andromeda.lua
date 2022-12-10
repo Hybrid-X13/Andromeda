@@ -755,27 +755,6 @@ function Character.postPEffectUpdate(player)
 		MusicManager():Play(Enums.Music.EDGE_OF_THE_UNIVERSE, 0)
 		MusicManager():UpdateVolume()
 	end
-
-	if not player:HasCollectible(CollectibleType.COLLECTIBLE_PLAYDOUGH_COOKIE) then
-		local brimSwirl = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.BRIMSTONE_SWIRL, -1)
-		local techDot = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.TECH_DOT, -1)
-		
-		if #brimSwirl > 0 then
-			for i = 1, #brimSwirl do
-				if brimSwirl[i].SpawnerType == EntityType.ENTITY_PLAYER then
-					Functions.ChangeLaserColor(brimSwirl[i], player)
-				end
-			end
-		end
-		
-		if #techDot > 0 then
-			for i = 1, #techDot do
-				if techDot[i].SpawnerType == EntityType.ENTITY_PLAYER then
-					Functions.ChangeLaserColor(techDot[i], player)
-				end
-			end
-		end
-	end
 end
 
 function Character.postPlayerUpdate(player)
@@ -796,27 +775,28 @@ function Character.postPlayerUpdate(player)
 end
 
 function Character.postEffectUpdate(effect)
+	if effect.SpawnerEntity == nil then return end
+
+	local player = effect.SpawnerEntity:ToPlayer()
+
+  	if player == nil then return end
+	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+	
 	local room = game:GetRoom()
 	local sprite = effect:GetSprite()
 
 	if effect.Variant == Enums.Effects.BLACK_HOLE then
+		local skinColor = player:GetHeadColor()
+		
 		effect.Position = room:GetCenterPos() + Vector(0, -20)
 
-		for i = 0, game:GetNumPlayers() - 1 do
-			local player = Isaac.GetPlayer(i)
-			
-			if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
-
-			local skinColor = player:GetHeadColor()
-			
-			if not sprite:IsPlaying("IdleVoidBlood")
-			and Functions.HasBloodTears(player)
-			then
-				sprite:Play("IdleVoidBlood")
-			elseif not Functions.HasBloodTears(player) then
-				if not sprite:IsPlaying(blackHoleAnims[skinColor + 2]) then
-					sprite:Play(blackHoleAnims[skinColor + 2])
-				end
+		if not sprite:IsPlaying("IdleVoidBlood")
+		and Functions.HasBloodTears(player)
+		then
+			sprite:Play("IdleVoidBlood")
+		elseif not Functions.HasBloodTears(player) then
+			if not sprite:IsPlaying(blackHoleAnims[skinColor + 2]) then
+				sprite:Play(blackHoleAnims[skinColor + 2])
 			end
 		end
 
@@ -832,51 +812,57 @@ function Character.postEffectUpdate(effect)
 			end
 		end
 	elseif effect.Variant == EffectVariant.BLACK_HOLE then
-		for i = 0, game:GetNumPlayers() - 1 do
-			local player = Isaac.GetPlayer(i)
-			local tempEffects = player:GetEffects()
-			
-			if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
-	
-			if effect.FrameCount == 1
-			and not tempEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_LEO)
-			then
-				tempEffects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_LEO, false, 1)
-				tempEffects:AddNullEffect(NullItemID.ID_TOOTH_AND_NAIL, false, 1)
-			end
+		local tempEffects = player:GetEffects()
 
-			effect.Position = player.Position
-			effect.TargetPosition = player.Position
+		if effect.FrameCount == 1
+		and not tempEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_LEO)
+		then
+			tempEffects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_LEO, false, 1)
+			tempEffects:AddNullEffect(NullItemID.ID_TOOTH_AND_NAIL, false, 1)
 		end
+
+		effect.Position = player.Position
+		effect.TargetPosition = player.Position
+	elseif (effect.Variant == EffectVariant.BRIMSTONE_SWIRL or effect.Variant == EffectVariant.TECH_DOT)
+	and not player:HasCollectible(CollectibleType.COLLECTIBLE_PLAYDOUGH_COOKIE)
+	then
+		Functions.ChangeLaserColor(effect, player)
 	end
 end
 
 function Character.postEntityRemove(entity)
 	if entity.Type ~= EntityType.ENTITY_EFFECT then return end
 	if entity.Variant ~= EffectVariant.BLACK_HOLE then return end
-	
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-		local tempEffects = player:GetEffects()
-		
-		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+	if entity.SpawnerEntity == nil then return end
 
-		if entity.FrameCount == 206 then
-			tempEffects:RemoveCollectibleEffect(CollectibleType.COLLECTIBLE_LEO, 1)
-			tempEffects:RemoveNullEffect(NullItemID.ID_TOOTH_AND_NAIL, 1)
-			player:SetMinDamageCooldown(60)
-		end
+	local player = entity.SpawnerEntity:ToPlayer()
+
+  	if player == nil then return end
+	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+	
+	local tempEffects = player:GetEffects()
+
+	if entity.FrameCount == 206 then
+		tempEffects:RemoveCollectibleEffect(CollectibleType.COLLECTIBLE_LEO, 1)
+		tempEffects:RemoveNullEffect(NullItemID.ID_TOOTH_AND_NAIL, 1)
+		player:SetMinDamageCooldown(60)
 	end
 end
 
 function Character.preUseItem(item, rng, player, flags, activeSlot, customVarData)
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
 	if item ~= CollectibleType.COLLECTIBLE_CLICKER then return end
+
+	local costumes = {
+		headCostume,
+		eyeCostume,
+		bloodHeadCostume,
+		bloodEyeCostume,
+	}
 	
-	player:TryRemoveNullCostume(headCostume)
-	player:TryRemoveNullCostume(eyeCostume)
-	player:TryRemoveNullCostume(bloodHeadCostume)
-	player:TryRemoveNullCostume(bloodEyeCostume)
+	for _, costume in pairs(costumes) do
+		player:TryRemoveNullCostume(costume)
+	end
 end
 
 function Character.useItem(item, rng, player, flags, activeSlot, customVarData)

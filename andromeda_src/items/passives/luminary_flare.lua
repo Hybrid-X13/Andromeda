@@ -76,18 +76,24 @@ end
 
 function Item.postEffectInit(effect)
 	if effect.Variant ~= Enums.Effects.LUMINARY_SUN then return end
+	if effect.SpawnerEntity == nil then return end
+
+	local player = effect.SpawnerEntity:ToPlayer()
+
+  	if player == nil then return end
 
 	local sprite = effect:GetSprite()
 	sprite:Play("IdleBody")
-
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-		PlayRandomOverlay(player, sprite)
-	end
+	PlayRandomOverlay(player, sprite)
 end
 
 function Item.postEffectUpdate(effect)
 	if effect.Variant ~= Enums.Effects.LUMINARY_SUN then return end
+	if effect.SpawnerEntity == nil then return end
+
+	local player = effect.SpawnerEntity:ToPlayer()
+
+  	if player == nil then return end
 		
 	local room = game:GetRoom()
 	local sprite = effect:GetSprite()
@@ -99,11 +105,7 @@ function Item.postEffectUpdate(effect)
 	end
 
 	if sprite:IsOverlayFinished("FaceFire") then
-		for i = 0, game:GetNumPlayers() - 1 do
-			local player = Isaac.GetPlayer(i)
-			
-			PlayRandomOverlay(player, sprite)
-		end
+		PlayRandomOverlay(player, sprite)
 	end
 
 	for i = 0, room:GetGridSize() do
@@ -127,14 +129,14 @@ function Item.postPEffectUpdate(player)
 	local luminarySun = Isaac.FindByType(EntityType.ENTITY_EFFECT, Enums.Effects.LUMINARY_SUN)
 	
 	if #enemies > 0 then
-		for i = 1, #enemies do
-			if not enemies[i]:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
-			and not enemies[i]:HasEntityFlags(EntityFlag.FLAG_BURN)
-			and enemies[i]:IsActiveEnemy()
-			and enemies[i]:IsVulnerableEnemy()
+		for _, enemy in pairs(enemies) do
+			if not enemy:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
+			and not enemy:HasEntityFlags(EntityFlag.FLAG_BURN)
+			and enemy:IsActiveEnemy()
+			and enemy:IsVulnerableEnemy()
 			then
 				local dmg = 3.15 + (player.Damage / 10)
-				enemies[i]:AddBurn(EntityRef(player), 60, dmg)
+				enemy:AddBurn(EntityRef(player), 60, dmg)
 			end
 		end
 	end

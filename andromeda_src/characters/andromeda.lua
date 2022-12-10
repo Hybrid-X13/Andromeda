@@ -108,7 +108,7 @@ function Character.postNewRoom()
 			and not Functions.ContainsQuestItem()
 			and not game:GetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH)
 			then
-				Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, nil)
+				Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, player)
 			end
 			
 			--Remove treasure room items if the abandoned planetarium was visited
@@ -120,7 +120,7 @@ function Character.postNewRoom()
 		if room:GetType() == RoomType.ROOM_PLANETARIUM
 		and SaveData.PlayerData.Andromeda.GravShift.Planetarium == 0
 		then
-			Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, nil)
+			Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, player)
 		end
 		
 		--Change backdrop of rooms where Gravity Shift was used
@@ -382,27 +382,6 @@ function Character.postPEffectUpdate(player)
 			player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false)
 		end
 	end
-
-	if not player:HasCollectible(CollectibleType.COLLECTIBLE_PLAYDOUGH_COOKIE) then
-		local brimSwirl = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.BRIMSTONE_SWIRL, -1)
-		local techDot = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.TECH_DOT, -1)
-		
-		if #brimSwirl > 0 then
-			for i = 1, #brimSwirl do
-				if brimSwirl[i].SpawnerType == EntityType.ENTITY_PLAYER then
-					Functions.ChangeLaserColor(brimSwirl[i], player)
-				end
-			end
-		end
-		
-		if #techDot > 0 then
-			for i = 1, #techDot do
-				if techDot[i].SpawnerType == EntityType.ENTITY_PLAYER then
-					Functions.ChangeLaserColor(techDot[i], player)
-				end
-			end
-		end
-	end
 end
 
 function Character.postPlayerUpdate(player)
@@ -423,17 +402,18 @@ function Character.postPlayerUpdate(player)
 end
 
 function Character.postEffectUpdate(effect)
-	if effect.Variant ~= Enums.Effects.GRAV_SHIFT_INDICATOR then return end
-	
+	if effect.SpawnerEntity == nil then return end
+
+	local player = effect.SpawnerEntity:ToPlayer()
+
+  	if player == nil then return end
+	if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
+
 	local room = game:GetRoom()
 	local level = game:GetLevel()
 	local roomIndex = level:GetCurrentRoomIndex()
 	
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-
-		if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
-
+	if effect.Variant == Enums.Effects.GRAV_SHIFT_INDICATOR then
 		effect.Position = player.Position
 
 		if (room:GetType() == RoomType.ROOM_TREASURE and (Functions.CheckAbandonedPlanetarium(roomIndex) or Functions.CheckTreasureTaken(roomIndex)))
@@ -441,6 +421,10 @@ function Character.postEffectUpdate(effect)
 		then
 			effect:Remove()
 		end
+	elseif (effect.Variant == EffectVariant.BRIMSTONE_SWIRL or effect.Variant == EffectVariant.TECH_DOT)
+	and not player:HasCollectible(CollectibleType.COLLECTIBLE_PLAYDOUGH_COOKIE)
+	then
+		Functions.ChangeLaserColor(effect, player)
 	end
 end
 

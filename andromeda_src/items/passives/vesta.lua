@@ -92,37 +92,37 @@ end
 
 function Item.postEffectInit(effect)
 	if effect.Variant ~= EffectVariant.FIRE_JET then return end
+	if effect.SpawnerEntity == nil then return end
+
+	local player = effect.SpawnerEntity:ToPlayer()
+
+  	if player == nil then return end
+	if not player:HasCollectible(Enums.Collectibles.VESTA) then return end
 	
 	local sprite = effect:GetSprite()
-	
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-		local playerType = player:GetPlayerType()
-		
-		if not player:HasCollectible(Enums.Collectibles.VESTA) then return end
+	local playerType = player:GetPlayerType()	
 
-		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
-			local skinColor = player:GetHeadColor()
-			local colors = {
-				"bugnanga",
-				"white",
-				"blackberry",
-				"blueberry",
-				"strawberry",
-				"grass",
-				"grey",
-			}
-			
-			if Functions.HasBloodTears(player) then
-				sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_shadowflame.png")
-			elseif not Functions.HasBloodTears(player) then
-				sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_" .. colors[skinColor + 2] .. ".png")
-			end
-		elseif flameSpriteMap[playerType] then
-			sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_" .. flameSpriteMap[playerType] .. ".png")
+	if playerType == Enums.Characters.T_ANDROMEDA then
+		local skinColor = player:GetHeadColor()
+		local colors = {
+			"bugnanga",
+			"white",
+			"blackberry",
+			"blueberry",
+			"strawberry",
+			"grass",
+			"grey",
+		}
+		
+		if Functions.HasBloodTears(player) then
+			sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_shadowflame.png")
+		elseif not Functions.HasBloodTears(player) then
+			sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_" .. colors[skinColor + 2] .. ".png")
 		end
-		sprite:LoadGraphics()
+	elseif flameSpriteMap[playerType] then
+		sprite:ReplaceSpritesheet(0, "gfx/effects/fire_jet_" .. flameSpriteMap[playerType] .. ".png")
 	end
+	sprite:LoadGraphics()
 end
 
 function Item.postPEffectUpdate(player)
@@ -214,6 +214,10 @@ function Item.entityTakeDmg(target, amount, flag, source, countdown)
 	if target.Type == EntityType.ENTITY_PLAYER
 	and flag & DamageFlag.DAMAGE_FIRE == DamageFlag.DAMAGE_FIRE
 	then
+		local player = target:ToPlayer()
+
+		if not player:HasCollectible(Enums.Collectibles.VESTA) then return end
+
 		return false
 	else
 		local enemy = target:ToNPC()
