@@ -43,7 +43,7 @@ function Trinket.NPCUpdate(npc)
 end
 
 function Trinket.postUpdate()
-	for i, entity in pairs(Isaac.GetRoomEntities()) do
+	for _, entity in pairs(Isaac.GetRoomEntities()) do
 		if entity:GetData().isAbducted then
 			entity.SpriteOffset = entity.SpriteOffset + Vector(0, -3)
 			
@@ -56,21 +56,20 @@ end
 
 function Trinket.postEffectUpdate(effect)
 	if effect.Variant ~= EffectVariant.SHOP_SPIKES then return end
+	if effect:GetData().isAbductionBeam == nil then return end
 	
 	local sprite = effect:GetSprite()
+
+	if sprite:IsFinished("Appear")
+	and not sprite:IsPlaying("Disappear")
+	then
+		sprite:Play("Loop")
+	end
 	
-	if effect:GetData().isAbductionBeam then
-		if sprite:IsFinished("Appear")
-		and not sprite:IsPlaying("Disappear")
-		then
-			sprite:Play("Loop")
-		end
-		
-		if effect:GetData().effectTimer == 0 then
-			sprite:Play("Disappear")
-		else
-			effect:GetData().effectTimer = effect:GetData().effectTimer - 1
-		end
+	if effect:GetData().effectTimer == 0 then
+		sprite:Play("Disappear")
+	else
+		effect:GetData().effectTimer = effect:GetData().effectTimer - 1
 	end
 end
 
