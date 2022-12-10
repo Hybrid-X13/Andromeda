@@ -232,11 +232,9 @@ function Character.entityTakeDmg(target, amount, flags, source, countdown)
 end
 
 function Character.preTearCollision(tear, collider, low)
-	if tear.Parent == nil then return end
 	if tear.SpawnerEntity == nil then return end
-	if tear.SpawnerEntity.Type ~= EntityType.ENTITY_PLAYER then return end
 
-	local player = tear.Parent:ToPlayer()
+	local player = tear.SpawnerEntity:ToPlayer()
 
 	if player == nil then return end
 	if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
@@ -247,7 +245,6 @@ end
 
 function Character.postTearInit(tear)
 	if tear.SpawnerEntity == nil then return end
-	if tear.SpawnerEntity.Type ~= EntityType.ENTITY_PLAYER then return end
 
 	local player = tear.SpawnerEntity:ToPlayer()
 
@@ -258,19 +255,16 @@ function Character.postTearInit(tear)
 end
 
 function Character.postLaserUpdate(laser)
-	if laser.SpawnerType ~= EntityType.ENTITY_PLAYER then return end
+	if laser.SpawnerEntity == nil then return end
 	
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
+	local player = laser.SpawnerEntity:ToPlayer()
 
-		if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
-
-		if not player:HasCollectible(CollectibleType.COLLECTIBLE_PLAYDOUGH_COOKIE)
-		and (not laser:GetData().isSolarFlare or laser:GetData().isSolarFlare == nil)
-		then
-			Functions.ChangeLaserColor(laser, player)
-		end
-	end
+	if player == nil then return end
+	if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
+	if player:HasCollectible(CollectibleType.COLLECTIBLE_PLAYDOUGH_COOKIE) then return end
+	if laser:GetData().isSolarFlare then return end
+	
+	Functions.ChangeLaserColor(laser, player)
 end
 
 function Character.postPickupInit(pickup)

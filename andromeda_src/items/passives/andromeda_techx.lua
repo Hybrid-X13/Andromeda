@@ -15,9 +15,12 @@ function Item.evaluateCache(player, cacheFlag)
 end
 
 function Item.postFireTear(tear)
-	local player = tear.Parent:ToPlayer()
-	
+	if tear.SpawnerEntity == nil then return end
 	if tear.SpawnerType ~= EntityType.ENTITY_PLAYER then return end
+
+	local player = tear.SpawnerEntity:ToPlayer()
+
+	if player == nil then return end
 	if not player:HasCollectible(Enums.Collectibles.ANDROMEDA_TECHX) then return end
 		
 	local dmgMultiplier = 0.5
@@ -39,9 +42,11 @@ function Item.postFireTear(tear)
 	laser.Variant = LaserVariant.THIN_RED
 	laser.SubType = 3
 	laser.Parent = tear
+	laser.SpawnerEntity = player
 	laser.Radius = 40 * tear.Scale
 	laser.TearFlags = tear.TearFlags
 	laser:GetData().andromedaTechX = true
+	tear.Color = Color(1, 1, 1, 0, 0, 0, 0)
 	tear.Visible = false
 	tear.CollisionDamage = 0
 end

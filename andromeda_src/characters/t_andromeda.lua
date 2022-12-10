@@ -508,7 +508,6 @@ end
 
 function Character.postTearInit(tear)
 	if tear.SpawnerEntity == nil then return end
-	if tear.SpawnerEntity.Type ~= EntityType.ENTITY_PLAYER then return end
 
 	local player = tear.SpawnerEntity:ToPlayer()
 
@@ -519,9 +518,11 @@ function Character.postTearInit(tear)
 end
 
 function Character.postFireTear(tear)
-	local player = tear.Parent:ToPlayer()
+	if tear.SpawnerEntity == nil then return end
+	
+	local player = tear.SpawnerEntity:ToPlayer()
 
-	if tear.SpawnerType ~= EntityType.ENTITY_PLAYER then return end
+	if player == nil then return end
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
 
 	local room = game:GetRoom()
@@ -537,11 +538,9 @@ function Character.postFireTear(tear)
 end
 
 function Character.preTearCollision(tear, collider, low)
-	if tear.Parent == nil then return end
 	if tear.SpawnerEntity == nil then return end
-	if tear.SpawnerEntity.Type ~= EntityType.ENTITY_PLAYER then return end
 
-	local player = tear.Parent:ToPlayer()
+	local player = tear.SpawnerEntity:ToPlayer()
 
 	if player == nil then return end
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
@@ -558,7 +557,6 @@ end
 
 function Character.postLaserInit(laser)
 	if laser.SpawnerEntity == nil then return end
-	if laser.SpawnerType ~= EntityType.ENTITY_PLAYER then return end
 
 	local player = laser.SpawnerEntity:ToPlayer()
 
@@ -580,6 +578,7 @@ function Character.postLaserInit(laser)
 	end
 	
 	if (laser.Variant == LaserVariant.THIN_RED and laser.SubType == 2) --Tech X
+	or laser.Variant == LaserVariant.SHOOP
 	or laser.Variant == LaserVariant.BRIM_TECH
 	then
 		laser.Position = room:GetCenterPos()
@@ -598,10 +597,9 @@ function Character.postLaserInit(laser)
 end
 
 function Character.postLaserUpdate(laser)
-	if laser.Parent == nil then return end
-	if laser.Parent.Type ~= EntityType.ENTITY_PLAYER then return end
+	if laser.SpawnerEntity == nil then return end
 
-	local player = laser.Parent:ToPlayer()
+	local player = laser.SpawnerEntity:ToPlayer()
 
 	if player == nil then return end
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
@@ -627,10 +625,9 @@ end
 function Character.postBombUpdate(bomb)
 	if bomb.FrameCount ~= 1 then return end
 	if not bomb.IsFetus then return end
-	if bomb.Parent == nil then return end
-	if bomb.Parent.Type ~= EntityType.ENTITY_PLAYER then return end
+	if bomb.SpawnerEntity == nil then return end
 
-	local player = bomb.Parent:ToPlayer()
+	local player = bomb.SpawnerEntity:ToPlayer()
 
 	if player == nil then return end
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end

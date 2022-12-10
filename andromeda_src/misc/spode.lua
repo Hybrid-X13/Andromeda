@@ -92,10 +92,9 @@ function Spode.evaluateCache(player, cacheFlag)
 end
 
 function Spode.postTearUpdate(tear)
-	if tear.Parent == nil then return end
-	if tear.Parent.Type ~= EntityType.ENTITY_PLAYER then return end
-
-	local player = tear.Parent:ToPlayer()
+	if tear.SpawnerEntity == nil then return end
+	
+	local player = tear.SpawnerEntity:ToPlayer()
 
 	if player == nil then return end
 	if player:HasCurseMistEffect() then return end
@@ -132,10 +131,9 @@ function Spode.postTearUpdate(tear)
 end
 
 function Spode.postLaserUpdate(laser)
-	if laser.Parent == nil then return end
-	if laser.Parent.Type ~= EntityType.ENTITY_PLAYER then return end
+	if laser.SpawnerEntity == nil then return end
 
-	local player = laser.Parent:ToPlayer()
+	local player = laser.SpawnerEntity:ToPlayer()
 
 	if player == nil then return end
 	if player:HasCurseMistEffect() then return end
@@ -190,10 +188,9 @@ function Spode.postLaserUpdate(laser)
 end
 
 function Spode.postKnifeUpdate(knife)
-	if knife.Parent == nil then return end
-	if knife.Parent.Type ~= EntityType.ENTITY_PLAYER then return end
+	if knife.SpawnerEntity == nil then return end
 
-	local player = knife.Parent:ToPlayer()
+	local player = knife.SpawnerEntity:ToPlayer()
 
 	if player == nil then return end
 	if player:HasCurseMistEffect() then return end
@@ -209,10 +206,9 @@ end
 
 function Spode.postBombUpdate(bomb)
 	if not bomb.IsFetus then return end
-	if bomb.Parent == nil then return end
-	if bomb.Parent.Type ~= EntityType.ENTITY_PLAYER then return end
+	if bomb.SpawnerEntity == nil then return end
 
-	local player = bomb.Parent:ToPlayer()
+	local player = bomb.SpawnerEntity:ToPlayer()
 
 	if player == nil then return end
 	if player:HasCurseMistEffect() then return end

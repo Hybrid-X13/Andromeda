@@ -19,18 +19,21 @@ function Item.evaluateCache(player, cacheFlag)
 end
 
 function Item.postFireTear(tear)
-	local player = tear.Parent:ToPlayer()
-	
+	if tear.SpawnerEntity == nil then return end
+
+	local player = tear.SpawnerEntity:ToPlayer()
+
 	if player == nil then return end
-	if tear.SpawnerType ~= EntityType.ENTITY_PLAYER then return end
 	if not player:HasCollectible(Enums.Collectibles.ANDROMEDA_KNIFE) then return end
 		
 	local knife = player:FireKnife(tear, tear.Velocity:GetAngleDegrees(), false, 0, 0)
 	
+	knife.SpawnerEntity = player
 	knife.TearFlags = tear.TearFlags
 	knife.Scale = tear.Scale
 	knife.Color = player.TearColor
 	knife:GetData().andromedaKnife = true
+	tear.Color = Color(1, 1, 1, 0, 0, 0, 0)
 	tear.Visible = false
 	
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then
@@ -41,11 +44,9 @@ function Item.postFireTear(tear)
 end
 
 function Item.postKnifeUpdate(knife)
-	if knife.SpawnerType == EntityType.ENTITY_PLAYER
-	and knife:GetData().andromedaKnife
-	then
-		knife.RotationOffset = knife.Parent.Velocity:GetAngleDegrees()
-	end
+	if knife:GetData().andromedaKnife == nil then return end
+	
+	knife.RotationOffset = knife.Parent.Velocity:GetAngleDegrees()
 end
 
 function Item.postPEffectUpdate(player)

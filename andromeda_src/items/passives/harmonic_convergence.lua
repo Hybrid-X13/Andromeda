@@ -6,10 +6,13 @@ local convergence = 0
 local Item = {}
 
 function Item.postFireTear(tear)
-	local player = tear.Parent:ToPlayer()
-	
+	if not tear.Visible then return end
+	if tear.SpawnerEntity == nil then return end
+
+	local player = tear.SpawnerEntity:ToPlayer()
+
+	if player == nil then return end
 	if not player:HasCollectible(Enums.Collectibles.HARMONIC_CONVERGENCE) then return end
-	if player:HasCollectible(Enums.Collectibles.ANDROMEDA_TECHX) then return end
 	
 	local angle = 0
 	
@@ -26,7 +29,6 @@ end
 
 function Item.postLaserInit(laser)
 	if laser.SpawnerEntity == nil then return end
-	if laser.SpawnerType ~= EntityType.ENTITY_PLAYER then return end
 
 	local player = laser.SpawnerEntity:ToPlayer()
 
@@ -61,10 +63,9 @@ end
 function Item.postBombUpdate(bomb)
 	if bomb.FrameCount ~= 1 then return end
 	if not bomb.IsFetus then return end
-	if bomb.Parent == nil then return end
-	if bomb.Parent.Type ~= EntityType.ENTITY_PLAYER then return end
+	if bomb.SpawnerEntity == nil then return end
 
-	local player = bomb.Parent:ToPlayer()
+	local player = bomb.SpawnerEntity:ToPlayer()
 
 	if player == nil then return end
 	if not player:HasCollectible(Enums.Collectibles.HARMONIC_CONVERGENCE) then return end

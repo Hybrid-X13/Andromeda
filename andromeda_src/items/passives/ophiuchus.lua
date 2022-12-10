@@ -6,8 +6,11 @@ local rng = RNG()
 local Item = {}
 
 function Item.postFireTear(tear)
-	local player = tear.Parent:ToPlayer()
+	if tear.SpawnerEntity == nil then return end
 	
+	local player = tear.SpawnerEntity:ToPlayer()
+
+	if player == nil then return end
 	if not player:HasCollectible(Enums.Collectibles.OPHIUCHUS) then return end
 	
 	local rng = player:GetCollectibleRNG(Enums.Collectibles.OPHIUCHUS)
