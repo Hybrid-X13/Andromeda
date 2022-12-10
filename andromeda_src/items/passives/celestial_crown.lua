@@ -102,6 +102,7 @@ local Item = {}
 
 local function AddEffect(familiar, entity, rng)
 	if entity:GetData().addedEffect then return end
+	if not entity.Visible then return end
 
 	local sprite = familiar:GetSprite()
 	local curAnim = sprite:GetAnimation()
@@ -114,12 +115,12 @@ local function AddEffect(familiar, entity, rng)
 
 		if entity.Type == EntityType.ENTITY_TEAR then
 			if varType == "table" then
-				if entity:GetData():isSpodeTear() == nil then
+				if entity:GetData().isSpodeTear == nil then
 					entity:ChangeVariant(StarEffects[curAnim].Variant[randNum][1])
 				end
 				entity.Color = StarEffects[curAnim].Variant[randNum][2]
 			elseif varType == "number" then
-				if entity:GetData():isSpodeTear() == nil then
+				if entity:GetData().isSpodeTear == nil then
 					entity:ChangeVariant(StarEffects[curAnim].Variant[randNum])
 				end
 			else
