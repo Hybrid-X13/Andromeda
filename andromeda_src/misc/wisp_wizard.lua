@@ -122,38 +122,33 @@ function Beggar.postPEffectUpdate(player)
 				sfx:Play(SoundEffect.SOUND_SLOTSPAWN)
 			elseif randNum < 10 then --Spawn trinket
 				local spawnpos = Isaac.GetFreeNearPosition(beggar.Position, 40)
-				local trinkets = {}
-				local trinketID
+				local trinketID = 0
+				local trinkets = {
+					{TrinketType.TRINKET_TELESCOPE_LENS, true},
+					{Enums.Trinkets.METEORITE, SaveData.UnlockData.Andromeda.Satan},
+					{Enums.Trinkets.STARDUST, SaveData.UnlockData.Andromeda.Greed},
+					{Enums.Trinkets.MOON_STONE, SaveData.UnlockData.T_Andromeda.Satan},
+					{Enums.Trinkets.POLARIS, SaveData.UnlockData.T_Andromeda.BossRush},
+					{Enums.Trinkets.SEXTANT, SaveData.UnlockData.T_Andromeda.Greed},
+				}
+				local trinketPool = {}
 				
-				if not player:HasTrinket(TrinketType.TRINKET_TELESCOPE_LENS) then
-					table.insert(trinkets, TrinketType.TRINKET_TELESCOPE_LENS)
+				for i = 1, #trinkets do
+					local trinketType = trinkets[i][1]
+					local isUnlocked = trinkets[i][2]
+					local itemConfig = Isaac.GetItemConfig():GetTrinket(trinketType)
+					
+					if not player:HasTrinket(trinketType)
+					and itemConfig:IsAvailable()
+					and isUnlocked
+					then
+						table.insert(trinketPool, i, trinketType)
+					end
 				end
 				
-				if SaveData.UnlockData.Andromeda.Satan then
-					table.insert(trinkets, Enums.Trinkets.METEORITE)
-				end
-				
-				if SaveData.UnlockData.Andromeda.Greed then
-					table.insert(trinkets, Enums.Trinkets.STARDUST)
-				end
-				
-				if SaveData.UnlockData.T_Andromeda.Satan then
-					table.insert(trinkets, Enums.Trinkets.MOONSTONE)
-				end
-				
-				if SaveData.UnlockData.T_Andromeda.BossRush then
-					table.insert(trinkets, Enums.Trinkets.POLARIS)
-				end
-				
-				if SaveData.UnlockData.T_Andromeda.Greed then
-					table.insert(trinkets, Enums.Trinkets.SEXTANT)
-				end
-				
-				if #trinkets == 0 then
-					trinketID = 0
-				else
-					randNum = rng:RandomInt(#trinkets) + 1
-					trinketID = trinkets[randNum]
+				if #trinketPool > 0 then
+					randNum = rng:RandomInt(#trinketPool) + 1
+					trinketID = trinketPool[randNum]
 					itemPool:RemoveTrinket(trinketID)
 				end
 				
