@@ -257,6 +257,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 
 		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
 		and player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
+		and activeSlot == ActiveSlot.SLOT_POCKET
 		then
 			player:AddWisp(Enums.Collectibles.GRAVITY_SHIFT, player.Position, false)
 		end

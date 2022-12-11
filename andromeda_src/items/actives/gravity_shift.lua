@@ -60,7 +60,9 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
 		local roomIndex = level:GetCurrentRoomIndex()
 
-		if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) then
+		if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
+		and activeSlot == ActiveSlot.SLOT_POCKET
+		then
 			player:AddWisp(Enums.Collectibles.GRAVITY_SHIFT, player.Position, false)
 		end
 		
