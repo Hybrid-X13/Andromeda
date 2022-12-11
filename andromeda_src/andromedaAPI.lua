@@ -98,7 +98,7 @@ function ANDROMEDA:IsItemUnlocked(item)
 		[Enums.Collectibles.OPHIUCHUS] = SaveData.UnlockData.Andromeda.Greedier,
 		[Enums.Trinkets.ALIEN_TRANSMITTER] = SaveData.UnlockData.T_Andromeda.Isaac,
 		[Enums.Collectibles.BOOK_OF_COSMOS] = SaveData.UnlockData.T_Andromeda.BlueBaby,
-		[Enums.Trinkets.MOONSTONE] = SaveData.UnlockData.T_Andromeda.Satan,
+		[Enums.Trinkets.MOON_STONE] = SaveData.UnlockData.T_Andromeda.Satan,
 		[Enums.Collectibles.LUMINARY_FLARE] = SaveData.UnlockData.T_Andromeda.TheLamb,
 		[Enums.Cards.SIRIUS] = SaveData.UnlockData.T_Andromeda.BossRush,
 		[Enums.Trinkets.POLARIS] = SaveData.UnlockData.T_Andromeda.BossRush,

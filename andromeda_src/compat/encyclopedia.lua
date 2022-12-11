@@ -442,7 +442,7 @@ if Encyclopedia then
 				{str = "Enemies have a chance to be abducted by aliens."},
 			},
 		},
-		MOONSTONE = {
+		MOON_STONE = {
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
 				{str = "Chance for an extra rune or soul stone drop from opening chests, blowing up tinted rocks, and destroying slot machines."},
@@ -451,7 +451,7 @@ if Encyclopedia then
 			},
 			{ -- Trivia
 				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
-				{str = "This item is a reference to moonstones from Pokemon."},
+				{str = "This item is a reference to moon stones from Pokemon."},
 			},
 		},
 		POLARIS = {
@@ -830,8 +830,8 @@ if Encyclopedia then
 	Encyclopedia.AddTrinket({
 		Class = "Andromeda",
 		ModName = "Andromeda",
-		ID = Enums.Trinkets.MOONSTONE,
-		WikiDesc = Wiki.MOONSTONE,
+		ID = Enums.Trinkets.MOON_STONE,
+		WikiDesc = Wiki.MOON_STONE,
 		UnlockFunc = function(self)
 			if not SaveData.UnlockData.T_Andromeda.Satan then
 				self.Desc = "Defeat Satan as Tainted Andromeda."

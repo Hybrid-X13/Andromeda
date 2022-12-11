@@ -89,7 +89,7 @@ local trinketUnlocks = {
 		Unlock = "Isaac",
 		Tainted = true,
 	},
-	[Trinket.MOONSTONE] = {
+	[Trinket.MOON_STONE] = {
 		Unlock = "Satan",
 		Tainted = true,
 	},

@@ -48,7 +48,7 @@ function Commands.executeCMD(cmd)
 		local completionB = {
 			Isaac = "Unlocked Alien Transmitter",
 			BlueBaby = "Unlocked Book of Cosmos",
-			Satan = "Unlocked Moonstone",
+			Satan = "Unlocked Moon Stone",
 			TheLamb = "Unlocked Luminary Flare",
 			BossRush = "Unlocked Sirius & Polaris",
 			Hush = "Unlocked Soul of Andromeda",
