@@ -5,6 +5,7 @@ local MegaPlutonium = require("andromeda_src.items.familiars.mega_plutonium")
 local Nix = require("andromeda_src.items.familiars.nix")
 local CelestialCrown = require("andromeda_src.items.passives.celestial_crown")
 local Vesta = require("andromeda_src.items.passives.vesta")
+local Wisp = require("andromeda_src.misc.custom_wisps")
 
 local function MC_FAMILIAR_INIT(_, familiar)
 	BabyPluto.familiarInit(familiar)
@@ -15,6 +16,8 @@ local function MC_FAMILIAR_INIT(_, familiar)
 	
 	CelestialCrown.familiarInit(familiar)
 	Vesta.familiarInit(familiar)
+
+	Wisp.familiarInit(familiar)
 end
 
 return MC_FAMILIAR_INIT

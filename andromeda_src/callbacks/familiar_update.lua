@@ -6,6 +6,7 @@ local MegaPlutonium = require("andromeda_src.items.familiars.mega_plutonium")
 local Nix = require("andromeda_src.items.familiars.nix")
 local CelestialCrown = require("andromeda_src.items.passives.celestial_crown")
 local Vesta = require("andromeda_src.items.passives.vesta")
+local Wisp = require("andromeda_src.misc.custom_wisps")
 
 local function MC_FAMILIAR_UPDATE(_, familiar)
 	T_Andromeda.familiarUpdate(familiar)
@@ -18,6 +19,8 @@ local function MC_FAMILIAR_UPDATE(_, familiar)
 	
 	CelestialCrown.familiarUpdate(familiar)
 	Vesta.familiarUpdate(familiar)
+
+	Wisp.familiarUpdate(familiar)
 end
 
 return MC_FAMILIAR_UPDATE

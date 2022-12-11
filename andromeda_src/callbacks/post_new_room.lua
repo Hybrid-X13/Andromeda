@@ -8,6 +8,7 @@ local Sextant = require("andromeda_src.items.trinkets.sextant")
 local Moonstone = require("andromeda_src.items.trinkets.moonstone")
 local AbandonedPlanetarium = require("andromeda_src.misc.abandoned_planetarium")
 local WispWizard = require("andromeda_src.misc.wisp_wizard")
+local Wisp = require("andromeda_src.misc.custom_wisps")
 
 local function MC_POST_NEW_ROOM()
 	Andromeda.postNewRoom()
@@ -24,6 +25,7 @@ local function MC_POST_NEW_ROOM()
 	
 	AbandonedPlanetarium.postNewRoom()
 	WispWizard.postNewRoom()
+	Wisp.postNewRoom()
 end
 
 return MC_POST_NEW_ROOM

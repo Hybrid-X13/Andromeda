@@ -254,6 +254,12 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	and not forcePickup
 	then
 		local secretRNG = rng:RandomInt(100)
+
+		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
+		and player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
+		then
+			player:AddWisp(Enums.Collectibles.GRAVITY_SHIFT, player.Position, false)
+		end
 		
 		--Pull from treasure pool if room has no pool
 		if pool == ItemPoolType.POOL_NULL then

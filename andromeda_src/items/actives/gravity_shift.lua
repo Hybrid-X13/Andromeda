@@ -59,6 +59,10 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	--Andromeda's room-changing effects
 	if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
 		local roomIndex = level:GetCurrentRoomIndex()
+
+		if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) then
+			player:AddWisp(Enums.Collectibles.GRAVITY_SHIFT, player.Position, false)
+		end
 		
 		--Rewind to keep planetarium chance intact
 		if room:GetType() == RoomType.ROOM_TREASURE

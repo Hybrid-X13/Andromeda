@@ -124,6 +124,8 @@ if Encyclopedia then
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
 				{str = "Car Battery", clr = 3, halign = 0},
 				{str = "Tears/projectiles linger in the air for longer."},
+				{str = "Book of Virtues", clr = 3, halign = 0},
+				{str = "Spawns a stationary blue wisp that can't shoot but causes all enemy projectiles that get near it to stop in midair. Only one of these wisps can exist at a time and it does not persist between rooms."},
 			},
 		},
 		EXTINCTION_EVENT = {
@@ -137,6 +139,8 @@ if Encyclopedia then
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
 				{str = "Car Battery", clr = 3, halign = 0},
 				{str = "Meteors fall more frequently."},
+				{str = "Book of Virtues", clr = 3, halign = 0},
+				{str = "Spawns a rock wisp that shoots fire mind tears which vary in damage."},
 			},
 		},
 		CELESTIAL_CROWN = {
@@ -237,6 +241,11 @@ if Encyclopedia then
 				{str = "Summons a random Zodiac or Planetarium item wisp, granting you its effect."},
 				{str = "The wisp is invincible and lasts for the current room."},
 			},
+			{ -- Synergies
+				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
+				{str = "Book of Virtues", clr = 3, halign = 0},
+				{str = "Spawns a star wisp that shoots slow moving homing stars."},
+			},
 		},
 		LUMINARY_FLARE = {
 			{ -- Effect
@@ -295,7 +304,9 @@ if Encyclopedia then
 			},
 			{ -- Synergies
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
-				{str = "The following synergies only occur when Singularity spawns a pedestal item."},
+				{str = "Book of Virtues", clr = 3, halign = 0},
+				{str = "Spawns a black wisp that has a 5% chance to shoot an occular rift tear. Also activates a weaker Singularity effect upon death, spawning a random pickup."},
+				{str = "The following synergies only occur when Singularity spawns a pedestal item:"},
 				{str = "There's Options", clr = 3, halign = 0},
 				{str = "Spawns 2 items in the boss room but only one can be taken."},
 				{str = "More Options", clr = 3, halign = 0},
