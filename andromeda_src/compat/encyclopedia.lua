@@ -500,8 +500,13 @@ if Encyclopedia then
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
 				{str = "Consumes all items and pickups in the room."},
-				{str = "Each pickup has a 50% chance of turning into a wisp."},
-				{str = "Pedestal items grant a random, permanent wisp that respawns on room clear if it was destroyed."},
+				{str = "Each pickup has a 50% chance of turning into a random wisp."},
+				{str = "Pedestal items grant a permanent star wisp that has a unique effect based on the quality of the item consumed:"},
+				{str = "- Quality 0: A white star wisp that blocks projectiles but can't shoot or deal contact damage."},
+				{str = "- Quality 1: A red star wisp that blocks projectiles and deals contact damage but can't shoot."},
+				{str = "- Quality 2: An orange star wisp that blocks projectiles, deals contact damage, and shoots tears that deal 3 damage."},
+				{str = "- Quality 3: A blue star wisp that blocks projectiles, deals contact damage, and shoots homing tears that deal 3 damage."},
+				{str = "- Quality 4: A yellow star wisp that blocks projectiles, deals contact damage, shoots homing star tears that deal 3 damage, and tears shot by the wisp have a chance to spawn additional homing star tears (similar to Spode)."},
 			},
 			{ -- Trivia
 				{str = "Trivia", fsize = 2, clr = 3, halign = 0},

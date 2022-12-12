@@ -84,7 +84,7 @@ if EID then
 	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} Activates a random tarot card effect, normal or reversed#Small chance to teleport you to the I AM ERROR room instead", "XXII - The Unknown")
 	EID:addCard(Enums.Cards.BETELGEUSE, "{{Collectible483}} Creates a Mama Mega explosion in the current room", "Betelgeuse")
 	EID:addCard(Enums.Cards.SIRIUS, "{{Battery}} Overcharges all your active items", "Sirius")
-	EID:addCard(Enums.Cards.ALPHA_CENTAURI, "Consumes all items and pickups in the room#Each pickup has a 50% chance of turning into a wisp#Pedestal items grant a random, permanent wisp that respawns on room clear when destroyed", "Alpha Centauri")
+	EID:addCard(Enums.Cards.ALPHA_CENTAURI, "Consumes all items and pickups in the room#Each pickup has a 50% chance of turning into a random wisp#Pedestal items grant a permanent, unique wisp based on the quality of the item consumed", "Alpha Centauri")
 	--Golden trinket effects
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.CRYING_PEBBLE, nil, 0.35, 3)
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.METEORITE)
