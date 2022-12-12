@@ -28,6 +28,7 @@ function Item.postFireTear(tear)
 		
 	local knife = player:FireKnife(tear, tear.Velocity:GetAngleDegrees(), false, 0, 0)
 	
+	knife.Position = tear.Position + tear.Velocity:Normalized()
 	knife.SpawnerEntity = player
 	knife.TearFlags = tear.TearFlags
 	knife.Scale = tear.Scale
