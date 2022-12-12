@@ -5,6 +5,7 @@ local Ophiuchus = require("andromeda_src.items.passives.ophiuchus")
 local Ceres = require("andromeda_src.items.passives.ceres")
 local Vesta = require("andromeda_src.items.passives.vesta")
 local Chiron = require("andromeda_src.items.passives.chiron")
+local Wisp = require("andromeda_src.misc.custom_wisps")
 
 local function MC_ENTITY_TAKE_DMG(_, entity, amount, flags, source, countdown)
 	local returned = Vesta.entityTakeDmg(entity, amount, flags, source, countdown)
@@ -26,6 +27,9 @@ local function MC_ENTITY_TAKE_DMG(_, entity, amount, flags, source, countdown)
 	if returned ~= nil then return returned end
 
 	local returned = Ophiuchus.entityTakeDmg(entity, amount, flags, source, countdown)
+	if returned ~= nil then return returned end
+
+	local returned = Wisp.entityTakeDmg(entity, amount, flags, source, countdown)
 	if returned ~= nil then return returned end
 end
 
