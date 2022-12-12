@@ -1,6 +1,15 @@
 local Enums = require("andromeda_src.enums")
+local Functions = require("andromeda_src.functions")
 local sfx = SFXManager()
 local rng = RNG()
+
+local wisps = {
+	Enums.Collectibles.ALPHA_CENTAURI_Q0,
+	Enums.Collectibles.ALPHA_CENTAURI_Q1,
+	Enums.Collectibles.ALPHA_CENTAURI_Q2,
+	Enums.Collectibles.ALPHA_CENTAURI_Q3,
+	Enums.Collectibles.ALPHA_CENTAURI_Q4,
+}
 
 local Card = {}
 
@@ -30,21 +39,30 @@ function Card.useCard(card, player, flag)
 	
 	if #items == 0 then return end
 	
-	for i, j in pairs(items) do
+	for _, j in pairs(items) do
 		local pickup = j:ToPickup()
 		
 		if pickup.Price == 0 then
 			if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE
 			and pickup.SubType > 0
 			then
-				player:AddWisp(CollectibleType.COLLECTIBLE_MYSTERY_GIFT, pickup.Position, true, false)
+				local itemConfig = Isaac.GetItemConfig():GetCollectible(pickup.SubType)
+				local quality = itemConfig.Quality + 1
+
+				player:AddWisp(wisps[quality], pickup.Position, true, false)
 				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, pickup)
 				pickup:Remove()
 			elseif IsValidPickup(pickup) then
 				local randNum = rng:RandomInt(2)
 				
 				if randNum == 0 then
-					player:AddWisp(0, pickup.Position, true, false)
+					randNum = rng:RandomInt(100)
+
+					if randNum < 35 then
+						Functions.GetRandomWisp(player, pickup.Position, rng)
+					else
+						player:AddWisp(0, pickup.Position, true, false)
+					end
 				end
 
 				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, pickup)
