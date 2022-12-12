@@ -6,6 +6,7 @@ local rng = RNG()
 local Item = {}
 
 function Item.postFireTear(tear)
+	if not tear.Visible then return end
 	if tear.SpawnerEntity == nil then return end
 	
 	local player = tear.SpawnerEntity:ToPlayer()
