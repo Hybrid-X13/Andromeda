@@ -29,13 +29,19 @@ Enums.Collectibles = {
 	ANDROMEDA_BRIMSTONE = Isaac.GetItemIdByName("Andromeda Brimstone"),
 	ANDROMEDA_TECHNOLOGY = Isaac.GetItemIdByName("Andromeda Technology"),
 	ANDROMEDA_KNIFE = Isaac.GetItemIdByName("Andromeda Knife"),
+	--Dummy actives for custom Alpha Centauri wisps
+	ALPHA_CENTAURI_Q0 = Isaac.GetItemIdByName("Alpha Centarui Q0"),
+	ALPHA_CENTAURI_Q1 = Isaac.GetItemIdByName("Alpha Centarui Q1"),
+	ALPHA_CENTAURI_Q2 = Isaac.GetItemIdByName("Alpha Centarui Q2"),
+	ALPHA_CENTAURI_Q3 = Isaac.GetItemIdByName("Alpha Centarui Q3"),
+	ALPHA_CENTAURI_Q4 = Isaac.GetItemIdByName("Alpha Centarui Q4"),
 }
 
 Enums.Trinkets = {
 	STARDUST = Isaac.GetTrinketIdByName("Stardust"),
 	METEORITE = Isaac.GetTrinketIdByName("Meteorite"),
 	CRYING_PEBBLE = Isaac.GetTrinketIdByName("Crying Pebble"),
-	MOONSTONE = Isaac.GetTrinketIdByName("Moonstone"),
+	MOON_STONE = Isaac.GetTrinketIdByName("Moon Stone"),
 	SEXTANT = Isaac.GetTrinketIdByName("Sextant"),
 	ALIEN_TRANSMITTER = Isaac.GetTrinketIdByName("Alien Transmitter"),
 	POLARIS = Isaac.GetTrinketIdByName("Polaris"),
@@ -61,6 +67,21 @@ Enums.Familiars = {
 	NIX = Isaac.GetEntityVariantByName("Nix"),
 	CELESTIAL_CROWN_STAR = Isaac.GetEntityVariantByName("Celestial Crown Star"),
 	VESTA_FLAME = Isaac.GetEntityVariantByName("Vesta Flame"),
+}
+
+Enums.Wisps = {
+	NOTCHED_AXE_COAL = 65536,
+	NOTCHED_AXE_IRON = 65537,
+	NOTCHED_AXE_GOLD = 65538,
+	NOTCHED_AXE_DIAMOND = 65539,
+	NOTCHED_AXE_REDSTONE = 65540,
+	JAR_OF_FLIES = 65545,
+	FRIENDLY_BALL_EXPLOSIVE = 65547,
+	FRIENDLY_BALL_BRIMSTONE = 65549,
+	DELIRIOUS_MONSTRO = 655450,
+	DELIRIOUS_DUKE_OF_FLIES = 655451,
+	DELIRIOUS_LOKI = 655452,
+	DELIRIOUS_HAUNT = 655453,
 }
 
 Enums.Effects = {
