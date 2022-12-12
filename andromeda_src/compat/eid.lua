@@ -55,7 +55,7 @@ if EID then
 	EID:addCollectible(Enums.Collectibles.BOOK_OF_COSMOS, "Summons a random Zodiac or Planetarium item wisp, granting you its effect#The wisp lasts for the current room", "Book of Cosmos")
 	--Passives
 	EID:addCollectible(Enums.Collectibles.OPHIUCHUS, "Chance to shoot a barrage of 5 tears that each deal a third of your damage#{{HalfSoulHeart}} Enemies killed by the barrage have a 5% chance to drop half a soul heart", "Ophiuchus")
-	EID:addCollectible(Enums.Collectibles.CERES, "+1 coin, bomb, and key#Pickups have a 20% chance to be upgraded#{{Collectible313}} Chance to gain a Holy Mantle shield when taking damage based on the total number of pickups you have", "Ceres")
+	EID:addCollectible(Enums.Collectibles.CERES, "+1 coin, bomb, and key#Pickups have a 20% chance to be upgraded into a better variant#{{Collectible313}} Chance to gain a Holy Mantle shield when taking damage based on the total number of pickups you have", "Ceres")
 	EID:addCollectible(Enums.Collectibles.PALLAS, "↑ Damage up for each new room explored#Special rooms give higher damage#10% of the damage gained becomes permanent when moving to the next floor#{{CurseLost}} Grants immunity to Curse of the Lost", "Pallas")
 	EID:addCollectible(Enums.Collectibles.JUNO, "{{SoulHeart}} +1 Soul heart#{{Charm}} Enemies have a chance to revive as perma-charmed friendlies upon death#{{Charm}} Chance to shoot charming tears", "Juno")
 	EID:addCollectible(Enums.Collectibles.VESTA, "{{Burning}} Jets of fire emit from you every 10 seconds, dealing your damage + 10 and burning enemies#The more enemies in the room, the more frequent the flames come out#Grants immunity to fire", "Vesta")
