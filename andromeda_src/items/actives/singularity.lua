@@ -541,8 +541,6 @@ function Item.useCard(card, player, flag)
 	if flag & UseFlag.USE_MIMIC == UseFlag.USE_MIMIC then return end
 	if flag & UseFlag.USE_OWNED ~= UseFlag.USE_OWNED then return end
 	if card == Card.CARD_ANCIENT_RECALL then return end
-	if card == Card.RUNE_BLANK then return end
-	if card == Isaac.GetCardIdByName("Red Rune") then return end
 	if card == Isaac.GetCardIdByName("Storage Battery") then return end
 	if card == Isaac.GetCardIdByName("Storage Battery (1)") then return end
 	if card == Isaac.GetCardIdByName("Storage Battery (2)") then return end
@@ -555,6 +553,12 @@ function Item.useCard(card, player, flag)
 		if #items > 0 then
 			Functions.ChargeSingularity(player, 6)
 		else
+			Functions.ChargeSingularity(player, 1)
+		end
+	elseif card == Isaac.GetCardIdByName("Red Rune") then
+		local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1)
+
+		if #items == 0 then
 			Functions.ChargeSingularity(player, 1)
 		end
 	elseif card == Card.RUNE_BLACK
