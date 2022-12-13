@@ -91,6 +91,7 @@ function Wisp.postTearInit(tear)
 		rng:SetSeed(tear.InitSeed, 35)
 		local randNum = rng:RandomInt(#colors) + 1
 		sprite:Load("gfx/tears/tears_spode_" .. colors[randNum] .. ".anm2", true)
+		tear:GetData().isSpodeTear = true
 	end
 end
 
@@ -126,6 +127,7 @@ function Wisp.postTearUpdate(tear)
 		starTear.CollisionDamage = 3
 		starTear.Scale = tear.Scale
 		starTear.FallingSpeed = starTear.FallingSpeed - 1
+		starTear:GetData().isSpodeTear = true
 	end
 end
 
