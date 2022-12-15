@@ -44,7 +44,7 @@ function Item.postNPCDeath(npc)
 		local randNum = rng:RandomInt(5)
 		
 		if randNum == 0 then
-			local spawnLaser = Isaac.Spawn(EntityType.ENTITY_LASER, 11, 0, room:GetCenterPos(), Vector.Zero, player)
+			local spawnLaser = Isaac.Spawn(EntityType.ENTITY_LASER, 11, 0, room:GetCenterPos() + Vector(0, -20), Vector.Zero, player)
 			local laser = spawnLaser:ToLaser()
 			local sprite = laser:GetSprite()
 			local sun = Isaac.FindByType(EntityType.ENTITY_EFFECT, Enums.Effects.LUMINARY_SUN)
