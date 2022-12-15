@@ -232,12 +232,7 @@ function Character.entityTakeDmg(target, amount, flags, source, countdown)
 end
 
 function Character.preTearCollision(tear, collider, low)
-	if tear.SpawnerEntity == nil then return end
-
-	local player = tear.SpawnerEntity:ToPlayer()
-
-	if player == nil then return end
-	if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
+	if not (tear:HasTearFlags(TearFlags.TEAR_ORBIT) or tear:HasTearFlags(TearFlags.TEAR_ORBIT_ADVANCED)) then return end
 	if collider.Type ~= EntityType.ENTITY_BOMBDROP then return end
 	
 	return true
