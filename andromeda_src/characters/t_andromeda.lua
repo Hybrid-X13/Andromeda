@@ -557,6 +557,10 @@ end
 
 function Character.postLaserInit(laser)
 	if laser.SpawnerEntity == nil then return end
+	if laser:GetData().isSolarFlare then return end
+	if laser.Variant == LaserVariant.TRACTOR_BEAM then return end
+	if laser.Variant == LaserVariant.LIGHT_RING then return end
+	if laser.Variant == LaserVariant.ELECTRIC then return end
 
 	local player = laser.SpawnerEntity:ToPlayer()
 
@@ -565,11 +569,10 @@ function Character.postLaserInit(laser)
 
 	local room = game:GetRoom()
 
-	if (laser.SubType == 0 or ((laser.Variant == LaserVariant.THICK_RED or laser.Variant == LaserVariant.THICKER_RED or laser.Variant == LaserVariant.THICKER_BRIM_TECH) and laser.SubType == 2))
-	and laser.Variant ~= LaserVariant.TRACTOR_BEAM
-	and laser.Variant ~= LaserVariant.LIGHT_RING
-	and laser.Variant ~= LaserVariant.ELECTRIC
-	and laser.Variant ~= LaserVariant.THICK_BROWN
+	if laser.Variant ~= LaserVariant.THICK_BROWN
+	and (laser.SubType == 0
+		or ((laser.Variant == LaserVariant.THICK_RED or laser.Variant == LaserVariant.THICKER_RED or laser.Variant == LaserVariant.THICKER_BRIM_TECH) and laser.SubType == 2)
+		or (laser.Variant == LaserVariant.SHOOP and laser.MaxDistance == 0))
 	then
 		laser.Position = room:GetCenterPos()
 		local vec = laser.Position - player.Position
@@ -579,16 +582,12 @@ function Character.postLaserInit(laser)
 	
 	if (laser.Variant == LaserVariant.THIN_RED and laser.SubType == 2) --Tech X
 	or laser.Variant == LaserVariant.SHOOP
-	or laser.Variant == LaserVariant.BRIM_TECH
 	then
 		laser.Position = room:GetCenterPos()
 	end
 			
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 	and laser.Variant ~= LaserVariant.SHOOP
-	and laser.Variant ~= LaserVariant.TRACTOR_BEAM
-	and laser.Variant ~= LaserVariant.LIGHT_RING
-	and laser.Variant ~= LaserVariant.ELECTRIC
 	then
 		local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
 		local randNum = rng:RandomInt(360)
@@ -606,20 +605,20 @@ function Character.postLaserUpdate(laser)
 
 	local room = game:GetRoom()
 	Functions.ChangeLaserColor(laser, player)
+
+	if laser:GetData().isSolarFlare then return end
+	if laser.Variant == LaserVariant.THIN_RED then return end
+	if laser.Variant == LaserVariant.SHOOP and laser.MaxDistance ~= 0 then return end
+	if laser.Variant == LaserVariant.TRACTOR_BEAM then return end
+	if laser.Variant == LaserVariant.LIGHT_RING then return end
+	if laser.Variant == LaserVariant.ELECTRIC then return end
+	if laser.Variant == LaserVariant.THICK_BROWN then return end
+	if laser.SubType > 0 then return end
 	
-	--Exlude ring lasers, Technology, Trisagion, Tractor Beam, Jacob's Ladder/Tech 0, Montezuma's Revenge
-	if laser.SubType == 0
-	and laser.Variant ~= LaserVariant.THIN_RED
-	and laser.Variant ~= LaserVariant.SHOOP
-	and laser.Variant ~= LaserVariant.TRACTOR_BEAM
-	and laser.Variant ~= LaserVariant.ELECTRIC
-	and laser.Variant ~= LaserVariant.THICK_BROWN
-	then
-		laser.Position = room:GetCenterPos()
-		local vec = laser.Position - player.Position
-		laser.Angle = vec:GetAngleDegrees()
-		laser.ParentOffset = room:GetCenterPos() - player.Position
-	end
+	laser.Position = room:GetCenterPos()
+	local vec = laser.Position - player.Position
+	laser.Angle = vec:GetAngleDegrees()
+	laser.ParentOffset = room:GetCenterPos() - player.Position
 end
 
 function Character.postBombUpdate(bomb)

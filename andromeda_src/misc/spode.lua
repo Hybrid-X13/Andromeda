@@ -132,6 +132,10 @@ end
 
 function Spode.postLaserUpdate(laser)
 	if laser.SpawnerEntity == nil then return end
+	if laser:GetData().isSolarFlare then return end
+	if laser.Variant == LaserVariant.TRACTOR_BEAM then return end
+	if laser.Variant == LaserVariant.LIGHT_RING then return end
+	if laser.Variant == LaserVariant.ELECTRIC then return end
 
 	local player = laser.SpawnerEntity:ToPlayer()
 
@@ -141,49 +145,43 @@ function Spode.postLaserUpdate(laser)
 	
 	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_TINY_PLANET)
 	local randNum = rng:RandomInt(6)
-			
-	if laser.Variant ~= LaserVariant.TRACTOR_BEAM
-	and laser.Variant ~= LaserVariant.LIGHT_RING
-	and laser.Variant ~= LaserVariant.ELECTRIC
-	and (not laser:GetData().isSolarFlare or laser:GetData().isSolarFlare == nil)
+		
+	if laser.Variant == LaserVariant.SHOOP and laser.SubType == 0 then --Trisagion
+		randNum = rng:RandomInt(1000)
+	elseif laser.Variant == LaserVariant.THIN_RED and laser.SubType == 2 then --Tech X
+		randNum = rng:RandomInt(50)
+	elseif player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK)
+	or player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK)
 	then
-		if laser.Variant == LaserVariant.SHOOP and laser.SubType == 0 then --Trisagion
-			randNum = rng:RandomInt(1000)
-		elseif laser.Variant == LaserVariant.THIN_RED and laser.SubType == 2 then --Tech X
-			randNum = rng:RandomInt(50)
-		elseif player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK)
-		or player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK)
+		randNum = rng:RandomInt(30)
+	elseif laser.SubType > 0 --Ring lasers
+	or player:HasCollectible(CollectibleType.COLLECTIBLE_HAEMOLACRIA)
+	then
+		if player:GetPlayerType() == Enums.Characters.ANDROMEDA
+		and laser.Variant == LaserVariant.THIN_RED
+		and laser.SubType == LaserVariant.SHOOP
 		then
-			randNum = rng:RandomInt(30)
-		elseif laser.SubType > 0 --Ring lasers
-		or player:HasCollectible(CollectibleType.COLLECTIBLE_HAEMOLACRIA)
-		then
-			if player:GetPlayerType() == Enums.Characters.ANDROMEDA
-			and laser.Variant == LaserVariant.THIN_RED
-			and laser.SubType == LaserVariant.SHOOP
-			then
-				randNum = rng:RandomInt(225)
-			else
-				randNum = rng:RandomInt(25)
-			end
-		elseif laser.Variant == LaserVariant.THIN_RED
-		and laser.SubType == 0
-		then
-			randNum = rng:RandomInt(10)
+			randNum = rng:RandomInt(225)
+		else
+			randNum = rng:RandomInt(25)
+		end
+	elseif laser.Variant == LaserVariant.THIN_RED
+	and laser.SubType == 0
+	then
+		randNum = rng:RandomInt(10)
+	end
+	
+	if randNum == 0 then
+		local pos
+		randNum = rng:RandomInt(360)
+		
+		if player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then
+			pos = laser.Position
+		else
+			pos = player.Position + Vector.FromAngle(randNum):Resized(40)
 		end
 		
-		if randNum == 0 then
-			local pos
-			randNum = rng:RandomInt(360)
-			
-			if player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then
-				pos = laser.Position
-			else
-				pos = player.Position + Vector.FromAngle(randNum):Resized(40)
-			end
-			
-			CosmicTears(laser, player, pos)
-		end
+		CosmicTears(laser, player, pos)
 	end
 end
 
