@@ -115,12 +115,16 @@ local function AddEffect(familiar, entity, rng)
 
 		if entity.Type == EntityType.ENTITY_TEAR then
 			if varType == "table" then
-				if entity:GetData().isSpodeTear == nil then
+				if entity.Variant ~= StarEffects[curAnim].Variant[randNum][1]
+				and entity:GetData().isSpodeTear == nil
+				then
 					entity:ChangeVariant(StarEffects[curAnim].Variant[randNum][1])
 				end
 				entity.Color = StarEffects[curAnim].Variant[randNum][2]
 			elseif varType == "number" then
-				if entity:GetData().isSpodeTear == nil then
+				if entity.Variant ~= StarEffects[curAnim].Variant[randNum]
+				and entity:GetData().isSpodeTear == nil
+				then
 					entity:ChangeVariant(StarEffects[curAnim].Variant[randNum])
 				end
 			else
