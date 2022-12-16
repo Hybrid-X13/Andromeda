@@ -305,7 +305,7 @@ if Encyclopedia then
 			{ -- Synergies
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
 				{str = "Book of Virtues", clr = 3, halign = 0},
-				{str = "Spawns a black wisp that has a 5% chance to shoot an occular rift tear. Also activates a weaker Singularity effect upon death, spawning a random pickup."},
+				{str = "Spawns a black wisp that has a 5% chance to shoot an occular rift tear. Also activates a weaker Singularity effect when destroyed, spawning a random pickup."},
 				{str = "The following synergies only occur when Singularity spawns a pedestal item:"},
 				{str = "There's Options", clr = 3, halign = 0},
 				{str = "Spawns 2 items in the boss room but only one can be taken."},
