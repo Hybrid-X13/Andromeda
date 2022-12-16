@@ -159,7 +159,7 @@ function Spode.postLaserUpdate(laser)
 	then
 		if player:GetPlayerType() == Enums.Characters.ANDROMEDA
 		and laser.Variant == LaserVariant.THIN_RED
-		and laser.SubType == LaserVariant.SHOOP
+		and laser.SubType == 3
 		then
 			randNum = rng:RandomInt(225)
 		else
