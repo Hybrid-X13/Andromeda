@@ -46,7 +46,7 @@ function Item.entityTakeDmg(target, amount, flag, source, countdown)
 	if health <= 0
 	and data
 	then
-		enemy:GetData().dropHalfSoul = true
+		enemy:GetData().killedByOphiuchus = true
 	end
 end
 
@@ -57,7 +57,7 @@ function Item.postEntityKill(npc)
 		
 	local randNum = rng:RandomInt(20)
 	
-	if npc:GetData().dropHalfSoul
+	if npc:GetData().killedByOphiuchus
 	and randNum == 0
 	then
 		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF_SOUL, npc.Position, Vector.Zero, nil)
