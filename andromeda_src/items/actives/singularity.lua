@@ -259,7 +259,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		and player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES)
 		and activeSlot == ActiveSlot.SLOT_POCKET
 		then
-			player:AddWisp(Enums.Collectibles.GRAVITY_SHIFT, player.Position, false)
+			player:AddWisp(Enums.Collectibles.SINGULARITY, player.Position, false)
 		end
 		
 		--Pull from treasure pool if room has no pool
