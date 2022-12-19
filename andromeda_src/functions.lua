@@ -260,6 +260,8 @@ function Functions.ChargeSingularity(player, numCharges)
 		end
 	end
 	
+	if activeSlot == nil then return end
+
 	curCharge = player:GetActiveCharge(activeSlot) + player:GetBatteryCharge(activeSlot)
 	
 	if --[[curCharge < singularityMax
