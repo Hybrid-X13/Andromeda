@@ -591,6 +591,14 @@ function Functions.GetRandomWisp(player, pos, rng)
 		Enums.Collectibles.EXTINCTION_EVENT,
 		Enums.Collectibles.BOOK_OF_COSMOS,
 	}
+
+	if MASTEMA then
+		table.insert(actives, Isaac.GetItemIdByName("Bloody Harvest"))
+		table.insert(actives, Isaac.GetItemIdByName("Raven Beak"))
+		table.insert(actives, Isaac.GetItemIdByName("Broken Dice"))
+		table.insert(actives, Isaac.GetItemIdByName("Devil's Bargain"))
+	end
+
 	local randNum = rng:RandomInt(#actives) + 1
 	local wisp = player:AddWisp(actives[randNum], pos, true, false)
 	return wisp
