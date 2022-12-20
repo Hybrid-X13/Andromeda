@@ -313,15 +313,23 @@ function Character.preRoomEntitySpawn(entity, variant, subType, gIndex, seed)
 	if not Functions.AnyPlayerIsType(Enums.Characters.T_ANDROMEDA) then return end
 	
 	local room = game:GetRoom()
+	local roomType = room:GetType()
 
 	if entity == EntityType.ENTITY_PICKUP
 	and variant == PickupVariant.PICKUP_COLLECTIBLE
-	and room:GetType() ~= RoomType.ROOM_BOSS
-	and room:GetType() ~= RoomType.ROOM_DUNGEON
-	and room:GetType() ~= RoomType.ROOM_ULTRASECRET
-	and room:GetType() ~= RoomType.ROOM_CHALLENGE
+	and roomType ~= RoomType.ROOM_DUNGEON
+	and roomType ~= RoomType.ROOM_ULTRASECRET
+	and roomType ~= RoomType.ROOM_CHALLENGE
 	and not room:IsMirrorWorld()
 	and not room:HasCurseMist()
+	then
+		return {0, 0, 0}
+	end
+
+	--Remove restock boxes
+	if entity == EntityType.ENTITY_SLOT
+	and variant == 10
+	and (roomType == RoomType.ROOM_SHOP or roomType == RoomType.ROOM_BLACK_MARKET)
 	then
 		return {0, 0, 0}
 	end
@@ -431,19 +439,6 @@ function Character.postNewRoom()
 					for i = 1, 3 do
 						local randNum = rng:RandomInt(100)
 						Functions.GetRandomChest(pos[i], randNum)
-					end
-				end
-			end
-			
-			--Remove restock machines in shops and black markets
-			if room:GetType() == RoomType.ROOM_SHOP
-			or room:GetType() == RoomType.ROOM_BLACK_MARKET
-			then
-				local restock = Isaac.FindByType(EntityType.ENTITY_SLOT, 10)
-				
-				if #restock > 0 then
-					for i = 1, #restock do
-						restock[i]:Remove()
 					end
 				end
 			end
