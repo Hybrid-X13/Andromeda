@@ -23,12 +23,13 @@ local pickups = {
 
 local Wisp = {}
 
-local function DestroyWisps(wispSubType)
+local function RemoveWisps(wispSubType)
 	local wisps = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.WISP, wispSubType)
 
 	if #wisps == 0 then return end
 
 	for _, wisp in pairs(wisps) do
+		wisp:Remove()
 		wisp:Kill()
 	end
 end
@@ -37,7 +38,7 @@ function Wisp.familiarInit(familiar)
 	if familiar.Variant ~= FamiliarVariant.WISP then return end
 	if familiar.SubType ~= Enums.Collectibles.GRAVITY_SHIFT then return end
 
-	DestroyWisps(Enums.Collectibles.GRAVITY_SHIFT)
+	RemoveWisps(Enums.Collectibles.GRAVITY_SHIFT)
 end
 
 function Wisp.familiarUpdate(familiar)
@@ -69,7 +70,7 @@ function Wisp.familiarUpdate(familiar)
 end
 
 function Wisp.postNewRoom()
-	DestroyWisps(Enums.Collectibles.GRAVITY_SHIFT)
+	RemoveWisps(Enums.Collectibles.GRAVITY_SHIFT)
 end
 
 function Wisp.postTearInit(tear)
