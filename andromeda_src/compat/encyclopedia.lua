@@ -446,7 +446,7 @@ if Encyclopedia then
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
 				{str = "Chance for an extra rune or soul stone drop from opening chests, blowing up tinted rocks, and destroying slot machines."},
-				{str = "Guarantees a rune/soul stone to appear in Planetariums and the Abandoned Planetarium."},
+				{str = "Guarantees a rune/soul stone to appear in Planetariums and Abandoned Planetariums."},
 				{str = "Has a unique interaction with a certain item."},
 			},
 			{ -- Trivia
