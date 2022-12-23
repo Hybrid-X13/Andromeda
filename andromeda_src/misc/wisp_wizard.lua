@@ -61,12 +61,12 @@ function Beggar.prePlayerCollision(player, collider, low)
 	if player:GetNumCoins() == 0 then return end
 
 	rng:SetSeed(collider:GetDropRNG():Next(), 35)
-	local randNum = rng:RandomInt(3)
+	local randNum = rng:RandomInt(100)
 
 	player:AddCoins(-1)
 	sfx:Play(SoundEffect.SOUND_SCAMPER)
 	
-	if randNum == 0 then
+	if randNum < 35 then
 		sprite:Play("PayPrize")
 		player:GetData().isPayoutTarget = true
 
