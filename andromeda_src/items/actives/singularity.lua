@@ -260,6 +260,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		and activeSlot == ActiveSlot.SLOT_POCKET
 		then
 			player:AddWisp(Enums.Collectibles.SINGULARITY, player.Position, false)
+			sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
 		end
 		
 		--Pull from treasure pool if room has no pool
@@ -586,6 +587,42 @@ function Item.postPEffectUpdate(player)
 	if not player:HasCollectible(Enums.Collectibles.SINGULARITY) then return end
 
 	getHeldPill = player:GetPill(0)
+
+	if not player:HasTrinket(TrinketType.TRINKET_SAFETY_SCISSORS) then return end
+
+	local bombBums = Isaac.FindByType(EntityType.ENTITY_SLOT, 9)
+
+	if #bombBums == 0 then return end
+
+	for _, beggar in pairs(bombBums) do
+		local explosions = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.BOMB_EXPLOSION)
+		local mamaMega = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.MAMA_MEGA_EXPLOSION)
+
+		for _, splosion in pairs(explosions) do
+			local frame = splosion:GetSprite():GetFrame()
+
+			if frame < 3 then
+				local size = splosion.SpriteScale.X
+				local nearby = Isaac.FindInRadius(splosion.Position, 75 * size)
+
+				for _, ent in pairs(nearby) do
+					if ent.Type == EntityType.ENTITY_SLOT
+					and ent.Variant == 9
+					then
+						beggar:Kill()
+						beggar:Remove()
+						game:GetLevel():SetStateFlag(LevelStateFlag.STATE_BUM_KILLED, true)
+					end
+				end
+			end
+		end
+		
+		if #mamaMega > 0 then
+			beggar:Kill()
+			beggar:Remove()
+			game:GetLevel():SetStateFlag(LevelStateFlag.STATE_BUM_KILLED, true)
+		end
+	end
 end
 
 function Item.prePickupCollision(pickup, collider, low)
