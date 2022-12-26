@@ -64,6 +64,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		and activeSlot == ActiveSlot.SLOT_POCKET
 		then
 			player:AddWisp(Enums.Collectibles.GRAVITY_SHIFT, player.Position, false)
+			sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
 		end
 		
 		--Rewind to keep planetarium chance intact
@@ -89,7 +90,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			local seed = game:GetSeeds():GetStartSeed()
 			
 			if #pickups > 0 then
-				for i, j in pairs(pickups) do
+				for _, j in pairs(pickups) do
 					local pickup = j:ToPickup()
 					
 					if pickup.Price ~= 0 then
@@ -106,19 +107,19 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				local donation = Isaac.FindByType(EntityType.ENTITY_SLOT, 8)
 				local backdrop = rng:RandomInt(#backdrops) + 1
 				
-				for i = 1, #shopItems do
-					shopItems[i]:Remove()
+				for _, shopItem in pairs(shopItems) do
+					shopItem:Remove()
 				end
 				
 				if #restock > 0 then
-					for i = 1, #restock do
-						restock[i]:Remove()
+					for _, restockBox in pairs(restock) do
+						restockBox:Remove()
 					end
 				end
 
 				if #donation > 0 then
-					for i = 1, #donation do
-						donation[i]:Remove()
+					for _, donationMachine in pairs(donation) do
+						donationMachine:Remove()
 					end
 				end
 				
@@ -156,7 +157,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			if room:IsClear()
 			and #items > 0
 			then
-				for i, j in pairs(items) do
+				for _, j in pairs(items) do
 					local pickup = j:ToPickup()
 
 					if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE
@@ -218,12 +219,12 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			if room:IsClear()
 			and #items > 0
 			then
-				for i = 1, #items do
-					if items[i].SubType > 0 then
-						player:AddWisp(CollectibleType.COLLECTIBLE_BIBLE, items[i].Position, true, false)
-						player:AddWisp(CollectibleType.COLLECTIBLE_BIBLE, items[i].Position, true, false)
-						items[i]:Remove()
-						Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, items[i].Position, Vector.Zero, items[i])
+				for _, collectible in pairs(items) do
+					if collectible.SubType > 0 then
+						player:AddWisp(CollectibleType.COLLECTIBLE_BIBLE, collectible.Position, true, false)
+						player:AddWisp(CollectibleType.COLLECTIBLE_BIBLE, collectible.Position, true, false)
+						collectible:Remove()
+						Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, collectible.Position, Vector.Zero, collectible)
 					end
 				end
 				
@@ -244,7 +245,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			if room:IsClear()
 			and #items > 0
 			then
-				for i, j in pairs(items) do
+				for _, j in pairs(items) do
 					local pickup = j:ToPickup()
 
 					if pickup.Price ~= 0
@@ -277,18 +278,18 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			if room:IsClear()
 			and #items > 0
 			then
-				for i = 1, #items do
-					if items[i].SubType > 0 then
+				for _, collectible in pairs(items) do
+					if collectible.SubType > 0 then
 						player:UseActiveItem(CollectibleType.COLLECTIBLE_LEMEGETON, false)
-						items[i]:Remove()
-						Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, items[i].Position, Vector.Zero, items[i])
+						collectible:Remove()
+						Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, collectible.Position, Vector.Zero, collectible)
 					end
 				end
 				
 				for i = 1, 4 do
 					local pool = ItemPoolType.POOL_TREASURE
 					local seed = game:GetSeeds():GetStartSeed()
-					local pos = {Vector(280, 240), Vector(360, 240), Vector(280, 320), Vector(360, 320)}
+					local positions = {Vector(280, 240), Vector(360, 240), Vector(280, 320), Vector(360, 320)}
 					
 					if player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS) then
 						pool = rng:RandomInt(ItemPoolType.NUM_ITEMPOOLS)
@@ -296,8 +297,9 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 					end
 					
 					local itemID = game:GetItemPool():GetCollectible(pool, true, seed)
-					local item = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, pos[i], Vector.Zero, nil)
-					local pickup = item:ToPickup()
+					local pos = room:FindFreePickupSpawnPosition(positions[i], 0)
+					local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, pos, Vector.Zero, nil)
+					local pickup = collectible:ToPickup()
 					pickup.OptionsPickupIndex = 1
 				end
 				
