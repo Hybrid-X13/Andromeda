@@ -142,7 +142,7 @@ function Beggar.postPEffectUpdate(player)
 					and itemConfig:IsAvailable()
 					and isUnlocked
 					then
-						table.insert(trinketPool, i, trinketType)
+						table.insert(trinketPool, trinketType)
 					end
 				end
 				
@@ -161,7 +161,7 @@ function Beggar.postPEffectUpdate(player)
 					sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
 					sprite:Play("Idle")
 				end
-			else -- Give normal wisp
+			else --Give normal wisp
 				if player:GetData().isPayoutTarget then
 					player:AddWisp(0, beggar.Position, true, false)
 					sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
