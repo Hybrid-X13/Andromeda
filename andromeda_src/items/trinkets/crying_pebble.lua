@@ -1,6 +1,12 @@
 local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
 local CustomData = require("andromeda_src.customdata")
+local extraItems = {
+	Enums.Collectibles.BABY_PLUTO,
+	Enums.Collectibles.PLUTONIUM,
+	Enums.Collectibles.MEGA_PLUTONIUM,
+	Enums.Collectibles.BOOK_OF_COSMOS,
+}
 
 local Trinket = {}
 
@@ -9,12 +15,6 @@ function Trinket.evaluateCache(player, cacheFlag)
 	
 	local itemCount = 0
 	local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.CRYING_PEBBLE)
-	local extraItems = {
-		Enums.Collectibles.BABY_PLUTO,
-		Enums.Collectibles.PLUTONIUM,
-		Enums.Collectibles.MEGA_PLUTONIUM,
-		Enums.Collectibles.BOOK_OF_COSMOS,
-	}
 		
 	for i = 1, #CustomData.SpodeList do
 		if player:HasCollectible(CustomData.SpodeList[i]) then
@@ -54,21 +54,6 @@ function Trinket.evaluateCache(player, cacheFlag)
 				player.Damage = player.Damage + (0.3 * trinketMultiplier * itemCount)
 			end
 		end
-	end
-end
-
-function Trinket.postPEffectUpdate(player)
-	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Sodom", false) then return end
-	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Sodom", true) then return end
-	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Gomorrah", false) then return end
-	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Gomorrah", true) then return end
-	
-	if player:HasTrinket(Enums.Trinkets.CRYING_PEBBLE) then
-		player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY | CacheFlag.CACHE_DAMAGE)
-		player:EvaluateItems()
-	else
-		player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY | CacheFlag.CACHE_DAMAGE)
-		player:EvaluateItems()
 	end
 end
 
