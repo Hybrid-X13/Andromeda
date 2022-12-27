@@ -3,18 +3,36 @@ local Functions = require("andromeda_src.functions")
 local game = Game()
 local sfx = SFXManager()
 local rng = RNG()
+local goldenMoonStone = Enums.Trinkets.MOON_STONE + TrinketType.TRINKET_GOLDEN_FLAG
 
 local Trinket = {}
 
+local function IsChest(pickup)
+	if pickup.Variant == PickupVariant.PICKUP_CHEST
+	and pickup.Variant == PickupVariant.PICKUP_BOMBCHEST
+	and pickup.Variant == PickupVariant.PICKUP_SPIKEDCHEST
+	and pickup.Variant == PickupVariant.PICKUP_ETERNALCHEST
+	and pickup.Variant == PickupVariant.PICKUP_MIMICCHEST
+	and pickup.Variant == PickupVariant.PICKUP_WOODENCHEST
+	and pickup.Variant == PickupVariant.PICKUP_HAUNTEDCHEST
+	and pickup.Variant == PickupVariant.PICKUP_LOCKEDCHEST
+	then
+		return true
+	end
+
+	return false
+end
+
 function Trinket.postNewRoom()
 	local room = game:GetRoom()
+
+	if not room:IsFirstVisit() then return end
 	
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		
 		if player:HasTrinket(Enums.Trinkets.MOON_STONE)
 		and (room:GetType() == RoomType.ROOM_PLANETARIUM or Functions.IsAbandonedPlanetarium())
-		and room:IsFirstVisit()
 		then
 			local rng = player:GetTrinketRNG(Enums.Trinkets.MOON_STONE)
 			local runeSeed = rng:RandomInt(1000) + 1
@@ -27,17 +45,7 @@ function Trinket.postNewRoom()
 end
 
 function Trinket.postPickupUpdate(pickup)
-	if pickup.Variant ~= PickupVariant.PICKUP_CHEST
-	and pickup.Variant ~= PickupVariant.PICKUP_BOMBCHEST
-	and pickup.Variant ~= PickupVariant.PICKUP_SPIKEDCHEST
-	and pickup.Variant ~= PickupVariant.PICKUP_ETERNALCHEST
-	and pickup.Variant ~= PickupVariant.PICKUP_MIMICCHEST
-	and pickup.Variant ~= PickupVariant.PICKUP_WOODENCHEST
-	and pickup.Variant ~= PickupVariant.PICKUP_HAUNTEDCHEST
-	and pickup.Variant ~= PickupVariant.PICKUP_LOCKEDCHEST
-	then
-		return
-	end
+	if not IsChest(pickup) then return end
 	
 	rng:SetSeed(pickup.InitSeed, 35)
 	
@@ -115,11 +123,11 @@ function Trinket.postPEffectUpdate(player)
 		end
 
 		if #slots > 0 then
-			for i = 1, #slots do
-				local sprite = slots[i]:GetSprite()
+			for _, slot in pairs(slots) do
+				local sprite = slot:GetSprite()
 
 				if sprite:IsPlaying("Broken")
-				and slots[i]:GetData().destroyed == nil
+				and slot:GetData().destroyed == nil
 				then
 					local rng = player:GetTrinketRNG(Enums.Trinkets.MOON_STONE)
 					local runeSeed = rng:RandomInt(1000) + 1
@@ -138,24 +146,20 @@ function Trinket.postPEffectUpdate(player)
 					if randNum < 6 then
 						local itemPool = game:GetItemPool()
 						local rune = itemPool:GetCard(runeSeed, false, true, true)
-						Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, rune, slots[i].Position, RandomVector() * 4, nil)
+						Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, rune, slot.Position, RandomVector() * 4, nil)
 					end
-					slots[i]:GetData().destroyed = true
+					slot:GetData().destroyed = true
 				end
 			end
 		end
 
 		if player:IsExtraAnimationFinished() then
-			local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.MOON_STONE)
-
-			if player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_BOX) then
-				trinketMultiplier = trinketMultiplier - 1
-			end
+			local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.MOON_STONE) - player:GetCollectibleNum(CollectibleType.COLLECTIBLE_MOMS_BOX, true)
 
 			if (player:HasCollectible(Enums.Collectibles.BABY_PLUTO, true) or player:HasCollectible(Enums.Collectibles.PLUTONIUM, true))
-			and (player:GetTrinket(0) == (Enums.Trinkets.MOON_STONE + TrinketType.TRINKET_GOLDEN_FLAG)
-				or player:GetTrinket(1) == (Enums.Trinkets.MOON_STONE + TrinketType.TRINKET_GOLDEN_FLAG)
-				or (trinketMultiplier > 1 and player:GetTrinket(0) ~= (Enums.Trinkets.MOON_STONE + TrinketType.TRINKET_GOLDEN_FLAG) and player:GetTrinket(1) ~= (Enums.Trinkets.MOON_STONE + TrinketType.TRINKET_GOLDEN_FLAG))
+			and (player:GetTrinket(0) == goldenMoonStone
+				or player:GetTrinket(1) == goldenMoonStone
+				or (trinketMultiplier > 1 and player:GetTrinket(0) ~= (goldenMoonStone) and player:GetTrinket(1) ~= (goldenMoonStone))
 			)
 			then
 				game:GetHUD():ShowItemText("Mega Plutonium!")
@@ -163,7 +167,7 @@ function Trinket.postPEffectUpdate(player)
 				player:RemoveCollectible(Enums.Collectibles.BABY_PLUTO)
 				player:RemoveCollectible(Enums.Collectibles.PLUTONIUM)
 				player:AddCollectible(Enums.Collectibles.MEGA_PLUTONIUM)
-				player:TryRemoveTrinket(Enums.Trinkets.MOON_STONE + TrinketType.TRINKET_GOLDEN_FLAG)
+				player:TryRemoveTrinket(goldenMoonStone)
 			elseif player:HasCollectible(Enums.Collectibles.BABY_PLUTO, true) then
 				game:GetHUD():ShowItemText("Plutonium!")
 				sfx:Play(SoundEffect.SOUND_POWERUP_SPEWER)

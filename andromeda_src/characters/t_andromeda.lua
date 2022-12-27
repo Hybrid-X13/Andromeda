@@ -419,16 +419,16 @@ function Character.postNewRoom()
 			and Functions.GetDimension(roomDesc) ~= 2
 			and level:GetCurrentRoomIndex() ~= GridRooms.ROOM_GENESIS_IDX
 			then
-				for i = 1, #items do
-					if items[i].SubType > 0 then
-						items[i]:Remove()
+				for _, collectible in pairs(items) do
+					if collectible.SubType > 0 then
+						collectible:Remove()
 						
 						--Replace items in crawlspaces and ultra secret rooms since they're rare
 						if room:GetType() == RoomType.ROOM_DUNGEON then
 							local randNum = rng:RandomInt(100)
-							Functions.GetRandomChest(items[i].Position, randNum)
+							Functions.GetRandomChest(collectible.Position, randNum)
 						elseif room:GetType() == RoomType.ROOM_ULTRASECRET then
-							Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_REDCHEST, 0, items[i].Position, Vector.Zero, nil)
+							Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_REDCHEST, 0, collectible.Position, Vector.Zero, nil)
 						end
 					end
 				end
@@ -691,18 +691,18 @@ function Character.postPEffectUpdate(player)
 			
 	--Gravitational pull on pickups
 	if #pickups > 0 then
-		for i = 1, #pickups do
-			if (pickups[i].Variant > 0 and pickups[i].Variant < PickupVariant.PICKUP_MEGACHEST)
-			or (pickups[i].Variant > PickupVariant.PICKUP_MEGACHEST and pickups[i].Variant < PickupVariant.PICKUP_COLLECTIBLE)
-			or pickups[i].Variant == PickupVariant.PICKUP_TAROTCARD
-			or pickups[i].Variant == PickupVariant.PICKUP_TRINKET
-			or pickups[i].Variant == PickupVariant.PICKUP_REDCHEST
+		for _, pickup in pairs(pickups) do
+			if (pickup.Variant > 0 and pickup.Variant < PickupVariant.PICKUP_MEGACHEST)
+			or (pickup.Variant > PickupVariant.PICKUP_MEGACHEST and pickup.Variant < PickupVariant.PICKUP_COLLECTIBLE)
+			or pickup.Variant == PickupVariant.PICKUP_TAROTCARD
+			or pickup.Variant == PickupVariant.PICKUP_TRINKET
+			or pickup.Variant == PickupVariant.PICKUP_REDCHEST
 			then
-				local vec = player.Position - pickups[i].Position
+				local vec = player.Position - pickup.Position
 				local angle = vec:GetAngleDegrees()
 				local fromAngle = Vector.FromAngle(angle)
 				local newVec = Vector(fromAngle.X / 20, fromAngle.Y / 20)
-				pickups[i]:AddVelocity(newVec)
+				pickup:AddVelocity(newVec)
 			end
 		end
 	end

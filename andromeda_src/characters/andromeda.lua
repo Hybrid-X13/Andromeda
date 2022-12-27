@@ -359,23 +359,21 @@ end
 
 function Character.postPEffectUpdate(player)
 	if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
+	if player:HasCurseMistEffect() then return end
+	if player:IsCoopGhost() then return end
 
-	if not player:HasCurseMistEffect()
-	and not player:IsCoopGhost()
-	then
-		if not player:HasCollectible(Enums.Collectibles.GRAVITY_SHIFT) then
-			player:SetPocketActiveItem(Enums.Collectibles.GRAVITY_SHIFT, ActiveSlot.SLOT_POCKET, false)
-		end
-		
-		if not player:HasTrinket(TrinketType.TRINKET_TELESCOPE_LENS, false) then
-			player:AddTrinket(TrinketType.TRINKET_TELESCOPE_LENS)
-			player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false)
-		end
-		
-		if not player:HasTrinket(TrinketType.TRINKET_FRIENDSHIP_NECKLACE, false) then
-			player:AddTrinket(TrinketType.TRINKET_FRIENDSHIP_NECKLACE)
-			player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false)
-		end
+	if not player:HasCollectible(Enums.Collectibles.GRAVITY_SHIFT) then
+		player:SetPocketActiveItem(Enums.Collectibles.GRAVITY_SHIFT, ActiveSlot.SLOT_POCKET, false)
+	end
+	
+	if not player:HasTrinket(TrinketType.TRINKET_TELESCOPE_LENS, false) then
+		player:AddTrinket(TrinketType.TRINKET_TELESCOPE_LENS)
+		player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false)
+	end
+	
+	if not player:HasTrinket(TrinketType.TRINKET_FRIENDSHIP_NECKLACE, false) then
+		player:AddTrinket(TrinketType.TRINKET_FRIENDSHIP_NECKLACE)
+		player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false)
 	end
 end
 
