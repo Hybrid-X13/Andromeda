@@ -88,7 +88,8 @@ Enums.Effects = {
 	GRAV_SHIFT_INDICATOR = Isaac.GetEntityVariantByName("Grav Shift Indicator"),
 	BLACK_HOLE = Isaac.GetEntityVariantByName("Andromeda Black Hole"),
 	LUMINARY_SUN = Isaac.GetEntityVariantByName("Luminary Flare"),
-	PLANETARIUM_ICON = Isaac.GetEntityVariantByName("Planetarium Icon"),
+	PLANETARIUM_ICON = Isaac.GetEntityVariantByName("Planetarium Asteroid Icon"),
+	ABDUCTION_BEAM = Isaac.GetEntityVariantByName("Abduction Beam"),
 }
 
 Enums.Sounds = {
