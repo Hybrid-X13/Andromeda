@@ -30,7 +30,7 @@
 	
 	<trinket name="Stardust" description="It twinkles like a clear night sky" gfx="andromeda_stardust.png" />
 	<trinket name="Meteorite" description="Where'd this come from?" gfx="andromeda_meteorite.png" />
-	<trinket name="Crying Pebble" description="Dwarf plight" gfx="andromeda_cryingpebble.png" />
+	<trinket name="Crying Pebble" description="Dwarf plight" gfx="andromeda_cryingpebble.png" cache="firedelay damage" />
 	<trinket name="Moon Stone" description="Luminescent wisdom" gfx="andromeda_moonstone.png" />
 	<trinket name="Polaris" description="Shining in the darkest hour" gfx="andromeda_polaris.png" tags="nogreed" />
 	<trinket name="Sextant" description="Navigate the unknown" gfx="andromeda_sextant.png" tags="nogreed" />
