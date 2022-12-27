@@ -19,25 +19,16 @@ function Trinket.NPCUpdate(npc)
 		
 		local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.ALIEN_TRANSMITTER)
 		local rng = player:GetTrinketRNG(Enums.Trinkets.ALIEN_TRANSMITTER)
-		local rngMax = 2400 / trinketMultiplier
+		local rngMax = 3000 / trinketMultiplier
 		local randNum = rng:RandomInt(rngMax)
 		
 		if randNum == 0 then
 			npc:SetColor(Color(0, 1, 0, 1, 0, 0.2, 0), 99999, 1, false, false)
-			npc:AddEntityFlags(EntityFlag.FLAG_FREEZE)
+			npc:AddFreeze(EntityRef(player), 999)
 			npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
-			sfx:Play(Enums.Sounds.ABDUCTION_BEAM, 4)
-			
-			local effect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SHOP_SPIKES, 0, npc.Position, Vector.Zero, player)
-			local beam = effect:ToEffect()
-			beam:GetData().isAbductionBeam = true
-			beam:GetData().effectTimer = 80
-			
-			local sprite = beam:GetSprite()
-			sprite:Load("gfx/transmitterbeam.anm2", true)
-			sprite:ReplaceSpritesheet(0, "gfx/effects/kidnabtion.png")
-			sprite:Play("Appear")
 			npc:GetData().isAbducted = true
+			
+			Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.ABDUCTION_BEAM, 0, npc.Position + Vector(0, -1), Vector.Zero, player)
 		end
 	end
 end
@@ -46,6 +37,10 @@ function Trinket.postUpdate()
 	for _, entity in pairs(Isaac.GetRoomEntities()) do
 		if entity:GetData().isAbducted then
 			entity.SpriteOffset = entity.SpriteOffset + Vector(0, -3)
+
+			if not entity:HasEntityFlags(EntityFlag.FLAG_FREEZE) then
+				entity:AddEntityFlags(EntityFlag.FLAG_FREEZE)
+			end
 			
 			if entity.SpriteOffset.Y < -250 then
 				entity:Remove()
@@ -54,11 +49,24 @@ function Trinket.postUpdate()
 	end
 end
 
-function Trinket.postEffectUpdate(effect)
-	if effect.Variant ~= EffectVariant.SHOP_SPIKES then return end
-	if effect:GetData().isAbductionBeam == nil then return end
+function Trinket.postEffectInit(effect)
+	if effect.Variant ~= Enums.Effects.ABDUCTION_BEAM then return end
 	
 	local sprite = effect:GetSprite()
+
+	sprite:Play("Appear")
+	effect.Timeout = 80
+	sfx:Play(Enums.Sounds.ABDUCTION_BEAM, 4)
+end
+
+function Trinket.postEffectUpdate(effect)
+	if effect.Variant ~= Enums.Effects.ABDUCTION_BEAM then return end
+	
+	local sprite = effect:GetSprite()
+
+	if sprite:IsFinished("Disappear") then
+		effect:Remove()
+	end
 
 	if sprite:IsFinished("Appear")
 	and not sprite:IsPlaying("Disappear")
@@ -66,10 +74,8 @@ function Trinket.postEffectUpdate(effect)
 		sprite:Play("Loop")
 	end
 	
-	if effect:GetData().effectTimer == 0 then
+	if effect.Timeout == 0 then
 		sprite:Play("Disappear")
-	else
-		effect:GetData().effectTimer = effect:GetData().effectTimer - 1
 	end
 end
 
