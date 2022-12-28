@@ -57,4 +57,19 @@ function Trinket.evaluateCache(player, cacheFlag)
 	end
 end
 
+function Trinket.postPEffectUpdate(player)
+	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Sodom", false) then return end
+	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Sodom", true) then return end
+	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Gomorrah", false) then return end
+	if player:GetPlayerType() == Isaac.GetPlayerTypeByName("Gomorrah", true) then return end
+	
+	if player:HasTrinket(Enums.Trinkets.CRYING_PEBBLE) then
+		player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY | CacheFlag.CACHE_DAMAGE)
+		player:EvaluateItems()
+	else
+		player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY | CacheFlag.CACHE_DAMAGE)
+		player:EvaluateItems()
+	end
+end
+
 return Trinket
