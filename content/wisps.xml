@@ -90,9 +90,9 @@
 	<wisp id="3" hp="2" layer="1" damage="3" shotSpeed="1.2" flameColor="flame_orange" coreColor="core_dark_brown" tearColor="tear_brown" tearFlags="22" tearVariant="42" coreGfx="rock.png" />
 	<wisp id="4" hp="2" layer="1" damage="3" shotSpeed="0.9" flameColor="flame_purple" coreColor="core_cyan" tearColor="tear_blue" tearFlags="2" coreGfx="star.png" />
 	
-	<wisp id="32" hp="20" layer="1" damage="3" flameColor="flame_grey" coreColor="core_white" tearColor="tear_blue" coreGfx="star.png" canShoot="false" />
-	<wisp id="33" hp="20" layer="1" damage="3" flameColor="flame_dark_red" coreColor="core_red" tearColor="tear_red" coreGfx="star.png" canShoot="false" />
-	<wisp id="34" hp="20" layer="1" damage="3" flameColor="flame_orange" coreColor="core_orange" tearColor="tear_orange" coreGfx="star.png" />
-	<wisp id="35" hp="20" layer="1" damage="3" shotSpeed="0.9" flameColor="flame_blue" coreColor="core_cyan" tearColor="tear_blue" tearFlags="2" coreGfx="star.png" />
-	<wisp id="36" hp="20" layer="1" damage="3" shotSpeed="0.9" flameColor="flame_gold" coreColor="core_yellow" tearColor="tear_blue" tearFlags="2" coreGfx="star.png" />
+	<wisp id="5" hp="20" layer="1" damage="3" flameColor="flame_grey" coreColor="core_white" tearColor="tear_blue" coreGfx="star.png" canShoot="false" />
+	<wisp id="6" hp="20" layer="1" damage="3" flameColor="flame_dark_red" coreColor="core_red" tearColor="tear_red" coreGfx="star.png" canShoot="false" />
+	<wisp id="7" hp="20" layer="1" damage="3" flameColor="flame_orange" coreColor="core_orange" tearColor="tear_orange" coreGfx="star.png" />
+	<wisp id="8" hp="20" layer="1" damage="3" shotSpeed="0.9" flameColor="flame_blue" coreColor="core_cyan" tearColor="tear_blue" tearFlags="2" coreGfx="star.png" />
+	<wisp id="9" hp="20" layer="1" damage="3" shotSpeed="0.9" flameColor="flame_gold" coreColor="core_yellow" tearColor="tear_blue" tearFlags="2" coreGfx="star.png" />
 </wisps>

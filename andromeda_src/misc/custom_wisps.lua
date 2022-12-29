@@ -46,7 +46,7 @@ function Wisp.familiarUpdate(familiar)
 
 	local player = familiar.Player
 
-	if familiar.SubType == Enums.Collectibles.ALPHA_CENTAURI_Q0 then
+	if familiar.SubType == Enums.Collectibles.JUNO then
 		familiar.CollisionDamage = 0
 	elseif familiar.SubType == Enums.Collectibles.GRAVITY_SHIFT then
 		local projectiles = Isaac.FindInRadius(familiar.Position, 40, EntityPartition.BULLET)
@@ -87,7 +87,7 @@ function Wisp.postTearInit(tear)
 		sprite:ReplaceSpritesheet(0, "gfx/tears/solar/basic/tears_solar.png")
 		sprite:LoadGraphics()
 	elseif familiar.SubType == Enums.Collectibles.BOOK_OF_COSMOS
-	or familiar.SubType == Enums.Collectibles.ALPHA_CENTAURI_Q4
+	or familiar.SubType == Enums.Collectibles.CHIRON
 	then
 		rng:SetSeed(tear.InitSeed, 35)
 		local randNum = rng:RandomInt(#colors) + 1
@@ -116,7 +116,7 @@ function Wisp.postTearUpdate(tear)
 
 		tear.CollisionDamage = 3 * randFloat
 		tear.Scale = 0.4 * math.sqrt(tear.CollisionDamage)
-	elseif familiar.SubType == Enums.Collectibles.ALPHA_CENTAURI_Q4
+	elseif familiar.SubType == Enums.Collectibles.CHIRON
 	and randNum == 0
 	then
 		local starTear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, tear.Position, Vector.Zero, nil):ToTear()
@@ -155,11 +155,11 @@ function Wisp.entityTakeDmg(target, amount, flags, source, countdown)
 	if familiar == nil then return end
 	if familiar.Variant ~= FamiliarVariant.WISP then return end
 
-	if familiar.SubType == Enums.Collectibles.ALPHA_CENTAURI_Q0
-	or familiar.SubType == Enums.Collectibles.ALPHA_CENTAURI_Q1
-	or familiar.SubType == Enums.Collectibles.ALPHA_CENTAURI_Q2
-	or familiar.SubType == Enums.Collectibles.ALPHA_CENTAURI_Q3
-	or familiar.SubType == Enums.Collectibles.ALPHA_CENTAURI_Q4
+	if familiar.SubType == Enums.Collectibles.JUNO
+	or familiar.SubType == Enums.Collectibles.PALLAS
+	or familiar.SubType == Enums.Collectibles.CERES
+	or familiar.SubType == Enums.Collectibles.VESTA
+	or familiar.SubType == Enums.Collectibles.CHIRON
 	then
 		return false
 	end

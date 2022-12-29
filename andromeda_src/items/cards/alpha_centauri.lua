@@ -4,11 +4,11 @@ local sfx = SFXManager()
 local rng = RNG()
 
 local wisps = {
-	Enums.Collectibles.ALPHA_CENTAURI_Q0,
-	Enums.Collectibles.ALPHA_CENTAURI_Q1,
-	Enums.Collectibles.ALPHA_CENTAURI_Q2,
-	Enums.Collectibles.ALPHA_CENTAURI_Q3,
-	Enums.Collectibles.ALPHA_CENTAURI_Q4,
+	Enums.Collectibles.JUNO,
+	Enums.Collectibles.PALLAS,
+	Enums.Collectibles.CERES,
+	Enums.Collectibles.VESTA,
+	Enums.Collectibles.CHIRON,
 }
 
 local Card = {}
