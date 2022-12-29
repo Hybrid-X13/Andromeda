@@ -1,5 +1,6 @@
 local Andromeda = require("andromeda_src.characters.andromeda")
 local T_Andromeda = require("andromeda_src.characters.t_andromeda")
+local ExtinctionEvent = require("andromeda_src.items.actives.extinction_event")
 local BabyPluto = require("andromeda_src.items.familiars.baby_pluto")
 local HarmonicConvergence = require("andromeda_src.items.passives.harmonic_convergence")
 local Vesta = require("andromeda_src.items.passives.vesta")
@@ -10,6 +11,9 @@ local function MC_PRE_TEAR_COLLISION(_, entity, collider, low)
 	if returned ~= nil then return returned end
 	
 	local returned = T_Andromeda.preTearCollision(entity, collider, low)
+	if returned ~= nil then return returned end
+
+	local returned = ExtinctionEvent.preTearCollision(entity, collider, low)
 	if returned ~= nil then return returned end
 
 	local returned = BabyPluto.preTearCollision(entity, collider, low)

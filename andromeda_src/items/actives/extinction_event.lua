@@ -11,6 +11,14 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	return true
 end
 
+function Item.preTearCollision(tear, collider, low)
+	if tear:GetData().isMeteor
+	and collider.Type == EntityType.ENTITY_BOMBDROP
+	then
+		return true
+	end
+end
+
 function Item.postEntityRemove(entity)
 	if entity.Type ~= EntityType.ENTITY_TEAR then return end
 	
