@@ -2,8 +2,21 @@ local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
 local game = Game()
 local rng = RNG()
+local initSeeds = {}
 
 local Item = {}
+
+local function ShouldDropHeart(npc)
+	for i = 1, #initSeeds do
+		if npc.InitSeed == initSeeds[i] then
+			table.remove(initSeeds, i)
+
+			return true
+		end
+	end
+
+	return false
+end
 
 function Item.postFireTear(tear)
 	if not tear.Visible then return end
@@ -46,20 +59,19 @@ function Item.entityTakeDmg(target, amount, flag, source, countdown)
 	if health <= 0
 	and data
 	then
-		enemy:GetData().killedByOphiuchus = true
+		table.insert(initSeeds, enemy.InitSeed)
 	end
 end
 
-function Item.postEntityKill(npc)
+function Item.postNPCDeath(npc)
 	if not Functions.AnyPlayerHasCollectible(Enums.Collectibles.OPHIUCHUS) then return end
+	if not ShouldDropHeart(npc) then return end
 	
 	rng:SetSeed(npc.InitSeed, 35)
 		
 	local randNum = rng:RandomInt(20)
 	
-	if npc:GetData().killedByOphiuchus
-	and randNum == 0
-	then
+	if randNum == 0 then
 		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_HALF_SOUL, npc.Position, Vector.Zero, nil)
 	end
 end
