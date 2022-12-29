@@ -107,7 +107,6 @@ function Item.postPEffectUpdate(player)
 		barrageTear.Color = parentTear.Color
 		barrageTear.FallingAcceleration = parentTear.FallingAcceleration
 		barrageTear.FallingSpeed = parentTear.FallingSpeed
-		barrageTear.Height = parentTear.FallingSpeed
 		barrageTear.Height = parentTear.Height
 		barrageTear.ParentOffset = parentTear.ParentOffset
 		barrageTear.PositionOffset = parentTear.PositionOffset

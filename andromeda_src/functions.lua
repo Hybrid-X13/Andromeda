@@ -54,7 +54,7 @@ end
 function Functions.RemoveInnateItem(collectibleID)
     local itemWisps = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ITEM_WISP, collectibleID)
    
-	if #itemWisps == 0 then return false end
+	if #itemWisps == 0 then return end
 	
 	for _, wisp in pairs(itemWisps) do
 		if wisp:GetData().tAndromedaWisp then
@@ -336,7 +336,7 @@ end
 function Functions.ContainsQuestItem()
 	local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
 	
-	if #items == 0 then return end
+	if #items == 0 then return false end
 	
 	for i = 1, #items do
 		if items[i].SubType > 0 then
