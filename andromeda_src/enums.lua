@@ -29,12 +29,6 @@ Enums.Collectibles = {
 	ANDROMEDA_BRIMSTONE = Isaac.GetItemIdByName("Andromeda Brimstone"),
 	ANDROMEDA_TECHNOLOGY = Isaac.GetItemIdByName("Andromeda Technology"),
 	ANDROMEDA_KNIFE = Isaac.GetItemIdByName("Andromeda Knife"),
-	--Dummy actives for custom Alpha Centauri wisps
-	ALPHA_CENTAURI_Q0 = Isaac.GetItemIdByName("Alpha Centarui Q0"),
-	ALPHA_CENTAURI_Q1 = Isaac.GetItemIdByName("Alpha Centarui Q1"),
-	ALPHA_CENTAURI_Q2 = Isaac.GetItemIdByName("Alpha Centarui Q2"),
-	ALPHA_CENTAURI_Q3 = Isaac.GetItemIdByName("Alpha Centarui Q3"),
-	ALPHA_CENTAURI_Q4 = Isaac.GetItemIdByName("Alpha Centarui Q4"),
 }
 
 Enums.Trinkets = {
