@@ -386,7 +386,6 @@ function Functions.ConvergingTears(entity, player, convergePos, convergeAngle, d
 	newTear.Scale = 0.5345 * math.sqrt(newTear.CollisionDamage)
 	newTear.Color = entity.Color
 	newTear.WaitFrames = 0
-	newTear:GetData().canAddEffect = true
 	newTear:GetData().convergingTear = true
 	
 	if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
@@ -820,12 +819,13 @@ end
 
 function Functions.SpawnMeteor(player, rng)
 	local room = game:GetRoom()
-	local spawnMeteor = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, room:GetRandomPosition(0), Vector(2, 0), player)
+	local randNum = rng:RandomInt(4) + rng:RandomFloat()
+	local spawnMeteor = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, room:GetRandomPosition(0), RandomVector() * randNum, player)
 	local meteor = spawnMeteor:ToTear()
 	local randFloat = rng:RandomFloat() + rng:RandomFloat()
 	
 	meteor:GetData().isMeteor = true
-	meteor:AddTearFlags(TearFlags.TEAR_BURN)
+	meteor:AddTearFlags(TearFlags.TEAR_BURN | TearFlags.TEAR_SPECTRAL)
 	meteor:ChangeVariant(TearVariant.ROCK)
 	meteor.CollisionDamage = player.Damage * randFloat
 	meteor.Scale = 0.5345 * math.sqrt(meteor.CollisionDamage)
@@ -833,7 +833,7 @@ function Functions.SpawnMeteor(player, rng)
 	meteor.FallingSpeed = 100
 	meteor.FallingAcceleration = 1
 	meteor.SpawnerEntity = player
-	meteor.Color = Color(0.82, 0.62, 0.62, 1, 0, 0, 0)
+	meteor.Color = Color(0.8, 0.6, 0.6, 1, 0, 0, 0)
 end
 
 function Functions.TearsUp(firedelay, val)

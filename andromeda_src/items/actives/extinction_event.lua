@@ -13,7 +13,7 @@ end
 
 function Item.preTearCollision(tear, collider, low)
 	if tear:GetData().isMeteor
-	and collider.Type == EntityType.ENTITY_BOMBDROP
+	and (collider.Type == EntityType.ENTITY_BOMBDROP or tear.Height < 1.1)
 	then
 		return true
 	end
