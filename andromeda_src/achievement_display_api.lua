@@ -70,7 +70,7 @@ local function inputAction_actionValue(_, entity, hook, action)
 		end
 		if REPENTANCE then
 			for _, rain in ipairs(Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.RAIN_DROP, -1)) do
-				if ember:Exists() then
+				if rain:Exists() then
 					rain:Remove()
 				end
 			end
