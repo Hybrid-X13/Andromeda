@@ -2,6 +2,7 @@ local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
 local game = Game()
 local rng = RNG()
+local initSeeds = {}
 
 local Item = {}
 
@@ -22,6 +23,18 @@ local function IsBlacklistedEnemy(npc)
 	return false
 end
 
+local function CanBeRevived(npc)
+	for i = 1, #initSeeds do
+		if npc.InitSeed == initSeeds[i] then
+			table.remove(initSeeds, i)
+
+			return true
+		end
+	end
+
+	return false
+end
+
 function Item.postNewRoom()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
@@ -38,11 +51,38 @@ function Item.postNewRoom()
 	end
 end
 
+function Item.entityTakeDmg(target, amount, flag, source, countdown)
+	local enemy = target:ToNPC()
+	
+	if enemy == nil then return end
+	if not Functions.AnyPlayerHasCollectible(Enums.Collectibles.JUNO) then return end
+		
+	local health = enemy.HitPoints - amount
+	local data
+
+	if source.Entity then
+		if (source.Type == EntityType.ENTITY_PROJECTILE or source.Type == EntityType.ENTITY_LASER)
+		and source.Entity.SpawnerEntity
+		then
+			data = source.Entity.SpawnerEntity:GetData().junoFriendly
+		else
+			data = source.Entity:GetData().junoFriendly
+		end
+	end
+	
+	if health <= 0
+	and data == nil
+	then
+		table.insert(initSeeds, enemy.InitSeed)
+	end
+end
+
 function Item.postNPCDeath(npc)
 	if npc:IsBoss() then return end
 	if npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then return end
 	if Functions.IsInvulnerableEnemy(npc) then return end
 	if IsBlacklistedEnemy(npc) then return end
+	if not CanBeRevived(npc) then return end
 	
 	rng:SetSeed(npc.InitSeed, 35)
 	
