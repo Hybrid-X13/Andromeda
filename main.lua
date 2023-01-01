@@ -12,6 +12,7 @@ ANDROMEDA = RegisterMod("Andromeda", 1)
 local mod = ANDROMEDA
 
 require("andromeda_src.andromedaAPI")
+require("andromeda_src.achievement_display_api")
 
 --Callbacks
 local preRoomEntitySpawn = require("andromeda_src.callbacks.pre_room_entity_spawn")
