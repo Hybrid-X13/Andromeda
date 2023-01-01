@@ -123,9 +123,9 @@ function Commands.executeCMD(cmd)
 		SaveData.SaveModData()
 		print("Completion mark progress for both characters has been reset")
 	elseif string == "andromedatest" then
-		CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/achievement_enterplanetariumforfirsttime.png")
+		CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/old/achievement_enterplanetariumforfirsttime.png")
 	elseif string == "tandromedatest" then
-		CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/achievement_theabandoned.png")
+		CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/old/achievement_theabandoned.png")
 	end
 end
 
