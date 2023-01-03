@@ -92,8 +92,8 @@ function Item.postNewRoom()
 
 	for _, wisp in pairs(lemegetonWisps) do
 		if wisp:GetData().isCosmoWisp then
-			wisp:Kill()
 			wisp:Remove()
+			wisp:Kill()
 		end
 	end
 
