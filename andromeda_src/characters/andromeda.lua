@@ -119,6 +119,7 @@ function Character.postNewRoom()
 
 		if room:GetType() == RoomType.ROOM_PLANETARIUM
 		and SaveData.PlayerData.Andromeda.GravShift.Planetarium == 0
+		and #Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE) > 0
 		then
 			Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, player)
 		end
