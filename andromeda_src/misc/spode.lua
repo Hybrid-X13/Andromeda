@@ -146,27 +146,31 @@ function Spode.postLaserUpdate(laser)
 	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_TINY_PLANET)
 	local randNum = rng:RandomInt(6)
 		
-	if laser.Variant == LaserVariant.SHOOP and laser.SubType == 0 then --Trisagion
+	if laser.Variant == LaserVariant.SHOOP
+	and laser.SubType == LaserSubType.LASER_SUBTYPE_LINEAR
+	then
 		randNum = rng:RandomInt(1000)
-	elseif laser.Variant == LaserVariant.THIN_RED and laser.SubType == 2 then --Tech X
+	elseif laser.Variant == LaserVariant.THIN_RED
+	and laser.SubType == LaserSubType.LASER_SUBTYPE_RING_PROJECTILE
+	then
 		randNum = rng:RandomInt(50)
 	elseif player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK)
 	or player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK)
 	then
 		randNum = rng:RandomInt(30)
-	elseif laser.SubType > 0 --Ring lasers
+	elseif laser.SubType > LaserSubType.LASER_SUBTYPE_LINEAR
 	or player:HasCollectible(CollectibleType.COLLECTIBLE_HAEMOLACRIA)
 	then
 		if player:GetPlayerType() == Enums.Characters.ANDROMEDA
 		and laser.Variant == LaserVariant.THIN_RED
-		and laser.SubType == 3
+		and laser.SubType == LaserSubType.LASER_SUBTYPE_RING_FOLLOW_PARENT
 		then
 			randNum = rng:RandomInt(225)
 		else
 			randNum = rng:RandomInt(25)
 		end
 	elseif laser.Variant == LaserVariant.THIN_RED
-	and laser.SubType == 0
+	and laser.SubType == LaserSubType.LASER_SUBTYPE_LINEAR
 	then
 		randNum = rng:RandomInt(10)
 	end

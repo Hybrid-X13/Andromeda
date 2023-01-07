@@ -40,7 +40,7 @@ function Item.postFireTear(tear)
 	local laser = player:FireTechXLaser(tear.Position, tear.Velocity, 40 * tear.Scale, nil, dmgMultiplier)
 
 	laser.Variant = LaserVariant.THIN_RED
-	laser.SubType = 3
+	laser.SubType = LaserSubType.LASER_SUBTYPE_RING_FOLLOW_PARENT
 	laser.Parent = tear
 	laser.SpawnerEntity = player
 	laser.Radius = 40 * tear.Scale
