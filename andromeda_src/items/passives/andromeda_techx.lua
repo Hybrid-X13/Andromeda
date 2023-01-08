@@ -16,7 +16,6 @@ end
 
 function Item.postFireTear(tear)
 	if tear.SpawnerEntity == nil then return end
-	if tear.SpawnerType ~= EntityType.ENTITY_PLAYER then return end
 
 	local player = tear.SpawnerEntity:ToPlayer()
 
