@@ -556,6 +556,7 @@ function Character.postLaserInit(laser)
 	if laser.Variant == LaserVariant.TRACTOR_BEAM then return end
 	if laser.Variant == LaserVariant.LIGHT_RING then return end
 	if laser.Variant == LaserVariant.ELECTRIC then return end
+	if laser.Variant == LaserVariant.THICK_BROWN then return end
 
 	local player = laser.SpawnerEntity:ToPlayer()
 
@@ -564,10 +565,8 @@ function Character.postLaserInit(laser)
 
 	local room = game:GetRoom()
 
-	if laser.Variant ~= LaserVariant.THICK_BROWN
-	and (laser.SubType == LaserSubType.LASER_SUBTYPE_LINEAR
-		or ((laser.Variant == LaserVariant.THICK_RED or laser.Variant == LaserVariant.THICKER_RED or laser.Variant == LaserVariant.THICKER_BRIM_TECH) and laser.SubType == LaserSubType.LASER_SUBTYPE_RING_PROJECTILE)
-		or (laser.Variant == LaserVariant.SHOOP and laser.MaxDistance == 0))
+	if laser.SubType == LaserSubType.LASER_SUBTYPE_LINEAR
+	or (laser.Variant == LaserVariant.SHOOP and laser.MaxDistance == 0)
 	then
 		laser.Position = room:GetCenterPos()
 		local vec = laser.Position - player.Position
@@ -575,7 +574,7 @@ function Character.postLaserInit(laser)
 		laser.ParentOffset = room:GetCenterPos() - player.Position
 	end
 	
-	if (laser.Variant == LaserVariant.THIN_RED and laser.SubType == LaserSubType.LASER_SUBTYPE_RING_PROJECTILE)
+	if laser.SubType == LaserSubType.LASER_SUBTYPE_RING_PROJECTILE
 	or laser.Variant == LaserVariant.SHOOP
 	then
 		laser.Position = room:GetCenterPos()

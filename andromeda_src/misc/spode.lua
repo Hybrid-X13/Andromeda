@@ -99,6 +99,7 @@ function Spode.postTearUpdate(tear)
 	if player == nil then return end
 	if player:HasCurseMistEffect() then return end
 	if player:GetData().hasSpode == nil or not player:GetData().hasSpode then return end
+	if tear:GetData().isSpodeTear then return end
 	
 	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_TINY_PLANET)
 	local randNum = rng:RandomInt(100)
@@ -150,36 +151,33 @@ function Spode.postLaserUpdate(laser)
 	and laser.SubType == LaserSubType.LASER_SUBTYPE_LINEAR
 	then
 		randNum = rng:RandomInt(1000)
-	elseif laser.Variant == LaserVariant.THIN_RED
-	and laser.SubType == LaserSubType.LASER_SUBTYPE_RING_PROJECTILE
-	then
+	elseif laser:GetData().andromedaTechX then
+		randNum = rng:RandomInt(200)
+	elseif laser.SubType == LaserSubType.LASER_SUBTYPE_RING_PROJECTILE then
 		randNum = rng:RandomInt(50)
 	elseif player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK)
 	or player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK)
 	then
-		randNum = rng:RandomInt(30)
-	elseif laser.SubType > LaserSubType.LASER_SUBTYPE_LINEAR
-	or player:HasCollectible(CollectibleType.COLLECTIBLE_HAEMOLACRIA)
-	then
-		if player:GetPlayerType() == Enums.Characters.ANDROMEDA
-		and laser.Variant == LaserVariant.THIN_RED
-		and laser.SubType == LaserSubType.LASER_SUBTYPE_RING_FOLLOW_PARENT
-		then
-			randNum = rng:RandomInt(225)
+		if laser.SubType > LaserSubType.LASER_SUBTYPE_LINEAR then
+			randNum = rng:RandomInt(30)
 		else
 			randNum = rng:RandomInt(25)
 		end
-	elseif laser.Variant == LaserVariant.THIN_RED
-	and laser.SubType == LaserSubType.LASER_SUBTYPE_LINEAR
+	elseif laser.SubType > LaserSubType.LASER_SUBTYPE_LINEAR
+	or player:HasCollectible(CollectibleType.COLLECTIBLE_HAEMOLACRIA)
 	then
-		randNum = rng:RandomInt(10)
+		randNum = rng:RandomInt(25)
+	elseif laser.SubType == LaserSubType.LASER_SUBTYPE_LINEAR then
+		randNum = rng:RandomInt(8)
 	end
 	
 	if randNum == 0 then
 		local pos
 		randNum = rng:RandomInt(360)
 		
-		if player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then
+		if player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)
+		or player:HasCollectible(Enums.Collectibles.ANDROMEDA_TECHX)
+		then
 			pos = laser.Position
 		else
 			pos = player.Position + Vector.FromAngle(randNum):Resized(40)
