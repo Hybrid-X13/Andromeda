@@ -11,27 +11,30 @@ function Trinket.preSpawnCleanAward()
 		local player = Isaac.GetPlayer(i)
 		local room = game:GetRoom()
 		
-		if not player:HasTrinket(Enums.Trinkets.POLARIS) then return end
-		if room:GetType() ~= RoomType.ROOM_BOSS then return end
-		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then return end
-		
-		bossRoomCleared = true
-		frameCount = game:GetFrameCount()
+		if player:HasTrinket(Enums.Trinkets.POLARIS)
+		and room:GetType() == RoomType.ROOM_BOSS
+		and player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA
+		then
+			bossRoomCleared = true
+			frameCount = game:GetFrameCount()
+		end
 	end
 end
 
 function Trinket.postPickupInit(pickup)
 	if pickup.Variant ~= PickupVariant.PICKUP_COLLECTIBLE then return end
 
+	local room = game:GetRoom()
+
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
-		local room = game:GetRoom()
 
-		if not player:HasTrinket(Enums.Trinkets.POLARIS) then return end
-		if room:GetType() ~= RoomType.ROOM_BOSS then return end
-		if room:IsClear() then return end
-
-		pickup:GetData().dontMorph = true
+		if player:HasTrinket(Enums.Trinkets.POLARIS)
+		and room:GetType() == RoomType.ROOM_BOSS
+		and not room:IsClear()
+		then
+			pickup:GetData().dontMorph = true
+		end
 	end
 end
 

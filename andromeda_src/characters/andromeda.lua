@@ -96,102 +96,102 @@ function Character.postNewRoom()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 
-		if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
-
-		if room:GetType() == RoomType.ROOM_TREASURE then
-			if Functions.CheckTreasureRoom(roomIndex) then
-				table.insert(SaveData.PlayerData.Andromeda.GravShift.Treasure, {roomIndex, false, false})
+		if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
+			if room:GetType() == RoomType.ROOM_TREASURE then
+				if Functions.CheckTreasureRoom(roomIndex) then
+					table.insert(SaveData.PlayerData.Andromeda.GravShift.Treasure, {roomIndex, false, false})
+				end
+				
+				if not Functions.CheckAbandonedPlanetarium(roomIndex)
+				and not Functions.CheckTreasureTaken(roomIndex)
+				and not Functions.ContainsQuestItem()
+				and not game:GetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH)
+				then
+					Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, player)
+				end
+				
+				--Remove treasure room items if the abandoned planetarium was visited
+				if Functions.CheckAbandonedPlanetarium(roomIndex) then
+					Functions.RemoveAllCollectibles()
+				end
 			end
-			
-			if not Functions.CheckAbandonedPlanetarium(roomIndex)
-			and not Functions.CheckTreasureTaken(roomIndex)
-			and not Functions.ContainsQuestItem()
-			and not game:GetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH)
+
+			if room:GetType() == RoomType.ROOM_PLANETARIUM
+			and SaveData.PlayerData.Andromeda.GravShift.Planetarium == 0
+			and #Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE) > 0
 			then
 				Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, player)
 			end
 			
-			--Remove treasure room items if the abandoned planetarium was visited
-			if Functions.CheckAbandonedPlanetarium(roomIndex) then
-				Functions.RemoveAllCollectibles()
-			end
-		end
-
-		if room:GetType() == RoomType.ROOM_PLANETARIUM
-		and SaveData.PlayerData.Andromeda.GravShift.Planetarium == 0
-		and #Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE) > 0
-		then
-			Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, player)
-		end
-		
-		--Change backdrop of rooms where Gravity Shift was used
-		if room:GetType() == RoomType.ROOM_SHOP
-		and SaveData.PlayerData.Andromeda.GravShift.Shop > 0
-		then
-			game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.Shop)
-			sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
-		elseif room:GetType() == RoomType.ROOM_SECRET
-		and SaveData.PlayerData.Andromeda.GravShift.Secret > 0
-		then
-			game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.Secret)
-			sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
-		elseif room:GetType() == RoomType.ROOM_SUPERSECRET
-		and SaveData.PlayerData.Andromeda.GravShift.SuperSecret > 0
-		then
-			game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.SuperSecret)
-			sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
-		elseif room:GetType() == RoomType.ROOM_ANGEL
-		and SaveData.PlayerData.Andromeda.GravShift.Angel > 0
-		then
-			game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.Angel)
-			sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
-		elseif room:GetType() == RoomType.ROOM_DEVIL
-		and SaveData.PlayerData.Andromeda.GravShift.Devil > 0
-		then
-			game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.Devil)
-			sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
-		elseif room:GetType() == RoomType.ROOM_PLANETARIUM
-		and SaveData.PlayerData.Andromeda.GravShift.Planetarium > 0
-		then
-			room:TurnGold()
-			room:SetSlowDown(9999)
-			gameSeed:AddSeedEffect(SeedEffect.SEED_ICE_PHYSICS)
-		end
-		
-		if room:GetType() ~= RoomType.ROOM_PLANETARIUM
-		and SaveData.PlayerData.Andromeda.GravShift.Planetarium > 0
-		and gameSeed:HasSeedEffect(SeedEffect.SEED_ICE_PHYSICS)
-		then
-			gameSeed:RemoveSeedEffect(SeedEffect.SEED_ICE_PHYSICS)
-		end
-		
-		--Add a planetarium item for sale in greed mode when Andromeda has Birthright
-		if game:IsGreedMode()
-		and room:GetType() == RoomType.ROOM_SHOP
-		and room:IsFirstVisit()
-		and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-		then
-			local seed = gameSeed:GetStartSeed()
-			local itemID
-			
-			if player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS) then
-				local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-				local pool = rng:RandomInt(ItemPoolType.NUM_ITEMPOOLS)
-				seed = rng:RandomInt(999999999)
-				itemID = itemPool:GetCollectible(pool, true, seed)
-			else
-				itemID = itemPool:GetCollectible(ItemPoolType.POOL_PLANETARIUM, true, seed)
+			--Change backdrop of rooms where Gravity Shift was used
+			if room:GetType() == RoomType.ROOM_SHOP
+			and SaveData.PlayerData.Andromeda.GravShift.Shop > 0
+			then
+				game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.Shop)
+				sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
+			elseif room:GetType() == RoomType.ROOM_SECRET
+			and SaveData.PlayerData.Andromeda.GravShift.Secret > 0
+			then
+				game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.Secret)
+				sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
+			elseif room:GetType() == RoomType.ROOM_SUPERSECRET
+			and SaveData.PlayerData.Andromeda.GravShift.SuperSecret > 0
+			then
+				game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.SuperSecret)
+				sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
+			elseif room:GetType() == RoomType.ROOM_ANGEL
+			and SaveData.PlayerData.Andromeda.GravShift.Angel > 0
+			then
+				game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.Angel)
+				sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
+			elseif room:GetType() == RoomType.ROOM_DEVIL
+			and SaveData.PlayerData.Andromeda.GravShift.Devil > 0
+			then
+				game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.Devil)
+				sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
+			elseif room:GetType() == RoomType.ROOM_PLANETARIUM
+			and SaveData.PlayerData.Andromeda.GravShift.Planetarium > 0
+			then
+				room:TurnGold()
+				room:SetSlowDown(9999)
+				gameSeed:AddSeedEffect(SeedEffect.SEED_ICE_PHYSICS)
 			end
 			
-			local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, room:GetCenterPos(), Vector.Zero, nil)
-			local item = collectible:ToPickup()
-			item.Price = 15
-			item.ShopItemId = -1
-		end
+			if room:GetType() ~= RoomType.ROOM_PLANETARIUM
+			and SaveData.PlayerData.Andromeda.GravShift.Planetarium > 0
+			and gameSeed:HasSeedEffect(SeedEffect.SEED_ICE_PHYSICS)
+			then
+				gameSeed:RemoveSeedEffect(SeedEffect.SEED_ICE_PHYSICS)
+			end
+			
+			--Add a planetarium item for sale in greed mode when Andromeda has Birthright
+			if game:IsGreedMode()
+			and room:GetType() == RoomType.ROOM_SHOP
+			and room:IsFirstVisit()
+			and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+			then
+				local seed = gameSeed:GetStartSeed()
+				local itemID
+				
+				if player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS) then
+					local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
+					local pool = rng:RandomInt(ItemPoolType.NUM_ITEMPOOLS)
+					seed = rng:RandomInt(999999999)
+					itemID = itemPool:GetCollectible(pool, true, seed)
+				else
+					itemID = itemPool:GetCollectible(ItemPoolType.POOL_PLANETARIUM, true, seed)
+				end
+				
+				local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, room:GetCenterPos(), Vector.Zero, nil)
+				local item = collectible:ToPickup()
+				item.Price = 15
+				item.ShopItemId = -1
+			end
 
-		if level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX then
-			player:AddNullCostume(headCostume)
-			player:AddNullCostume(bodyCostume)
+			if level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX then
+				player:AddNullCostume(headCostume)
+				player:AddNullCostume(bodyCostume)
+			end
 		end
 	end
 end

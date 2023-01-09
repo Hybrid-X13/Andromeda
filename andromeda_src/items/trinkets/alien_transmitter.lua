@@ -15,20 +15,20 @@ function Trinket.NPCUpdate(npc)
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		
-		if not player:HasTrinket(Enums.Trinkets.ALIEN_TRANSMITTER) then return end
-		
-		local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.ALIEN_TRANSMITTER)
-		local rng = player:GetTrinketRNG(Enums.Trinkets.ALIEN_TRANSMITTER)
-		local rngMax = 3000 / trinketMultiplier
-		local randNum = rng:RandomInt(rngMax)
-		
-		if randNum == 0 then
-			npc:SetColor(Color(0, 1, 0, 1, 0, 0.2, 0), 99999, 1, false, false)
-			npc:AddFreeze(EntityRef(player), 999)
-			npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
-			npc:GetData().isAbducted = true
+		if player:HasTrinket(Enums.Trinkets.ALIEN_TRANSMITTER) then
+			local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.ALIEN_TRANSMITTER)
+			local rng = player:GetTrinketRNG(Enums.Trinkets.ALIEN_TRANSMITTER)
+			local rngMax = 3000 / trinketMultiplier
+			local randNum = rng:RandomInt(rngMax)
 			
-			Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.ABDUCTION_BEAM, 0, npc.Position + Vector(0, -1), Vector.Zero, player)
+			if randNum == 0 then
+				npc:SetColor(Color(0, 1, 0, 1, 0, 0.2, 0), 99999, 1, false, false)
+				npc:AddFreeze(EntityRef(player), 999)
+				npc.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE
+				npc:GetData().isAbducted = true
+				
+				Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.ABDUCTION_BEAM, 0, npc.Position + Vector(0, -1), Vector.Zero, player)
+			end
 		end
 	end
 end

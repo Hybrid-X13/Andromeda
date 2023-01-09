@@ -31,23 +31,23 @@ function Item.postNewRoom()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		
-		if not player:HasCollectible(Enums.Collectibles.PALLAS) then return end
-		
-		if room:GetType() == RoomType.ROOM_PLANETARIUM
-		or room:GetType() == RoomType.ROOM_LIBRARY
-		or room:GetType() == RoomType.ROOM_SECRET
-		or room:GetType() == RoomType.ROOM_SUPERSECRET
-		or room:GetType() == RoomType.ROOM_ULTRASECRET
-		or Functions.IsAbandonedPlanetarium()
-		then
-			SaveData.ItemData.Pallas.newRoomDMG = SaveData.ItemData.Pallas.newRoomDMG + 3
-		elseif room:GetType() > RoomType.ROOM_DEFAULT then
-			SaveData.ItemData.Pallas.newRoomDMG = SaveData.ItemData.Pallas.newRoomDMG + 2
-		else
-			SaveData.ItemData.Pallas.newRoomDMG = SaveData.ItemData.Pallas.newRoomDMG + 1
+		if player:HasCollectible(Enums.Collectibles.PALLAS) then
+			if room:GetType() == RoomType.ROOM_PLANETARIUM
+			or room:GetType() == RoomType.ROOM_LIBRARY
+			or room:GetType() == RoomType.ROOM_SECRET
+			or room:GetType() == RoomType.ROOM_SUPERSECRET
+			or room:GetType() == RoomType.ROOM_ULTRASECRET
+			or Functions.IsAbandonedPlanetarium()
+			then
+				SaveData.ItemData.Pallas.newRoomDMG = SaveData.ItemData.Pallas.newRoomDMG + 3
+			elseif room:GetType() > RoomType.ROOM_DEFAULT then
+				SaveData.ItemData.Pallas.newRoomDMG = SaveData.ItemData.Pallas.newRoomDMG + 2
+			else
+				SaveData.ItemData.Pallas.newRoomDMG = SaveData.ItemData.Pallas.newRoomDMG + 1
+			end
+			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+			player:EvaluateItems()
 		end
-		player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
-		player:EvaluateItems()
 	end
 end
 

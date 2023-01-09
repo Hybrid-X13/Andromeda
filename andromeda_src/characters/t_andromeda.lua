@@ -343,112 +343,112 @@ function Character.postNewRoom()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 
-		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
+			local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
+			local blackHole = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.BLACK_HOLE, 0, room:GetCenterPos() + Vector(0, -20), Vector.Zero, player)
+			local sprite = blackHole:GetSprite()
+			local skinColor = player:GetHeadColor()
 
-		local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
-		local blackHole = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.BLACK_HOLE, 0, room:GetCenterPos() + Vector(0, -20), Vector.Zero, player)
-		local sprite = blackHole:GetSprite()
-		local skinColor = player:GetHeadColor()
-
-		if Functions.HasBloodTears(player) then
-			sprite:Play("IdleVoidBlood")
-		elseif not Functions.HasBloodTears(player) then
-			sprite:Play(blackHoleAnims[skinColor + 2])
-		end
-
-		if SaveData.PlayerData.T_Andromeda.PlanetariumChance < 100 then
-			if room:GetType() == RoomType.ROOM_PLANETARIUM then
-				Functions.SetAbandonedPlanetarium(player, false)
+			if Functions.HasBloodTears(player) then
+				sprite:Play("IdleVoidBlood")
+			elseif not Functions.HasBloodTears(player) then
+				sprite:Play(blackHoleAnims[skinColor + 2])
 			end
 
-			for i = 0, 8 do
-				local door = room:GetDoor(i)
-				
-				if door
-				and door.TargetRoomType ~= RoomType.ROOM_SECRET
-				and door.TargetRoomType ~= RoomType.ROOM_SUPERSECRET
-				and ((door.TargetRoomType == RoomType.ROOM_PLANETARIUM or room:GetType() == RoomType.ROOM_PLANETARIUM) and room:GetType() ~= RoomType.ROOM_SECRET)
-				then
-					local doorSprite = room:GetDoor(i):GetSprite()
-					doorSprite:Load("gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.anm2", true)
-					doorSprite:ReplaceSpritesheet(0, "gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.png")
-					doorSprite:Play("Opened")
+			if SaveData.PlayerData.T_Andromeda.PlanetariumChance < 100 then
+				if room:GetType() == RoomType.ROOM_PLANETARIUM then
+					Functions.SetAbandonedPlanetarium(player, false)
+				end
+
+				for i = 0, 8 do
+					local door = room:GetDoor(i)
+					
+					if door
+					and door.TargetRoomType ~= RoomType.ROOM_SECRET
+					and door.TargetRoomType ~= RoomType.ROOM_SUPERSECRET
+					and ((door.TargetRoomType == RoomType.ROOM_PLANETARIUM or room:GetType() == RoomType.ROOM_PLANETARIUM) and room:GetType() ~= RoomType.ROOM_SECRET)
+					then
+						local doorSprite = room:GetDoor(i):GetSprite()
+						doorSprite:Load("gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.anm2", true)
+						doorSprite:ReplaceSpritesheet(0, "gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.png")
+						doorSprite:Play("Opened")
+					end
 				end
 			end
-		end
 
-		--Prevent abusing deal rooms
-		if room:GetType() == RoomType.ROOM_BOSS then
-			for i = 0, 8 do
-				local door = room:GetDoor(i)
-				
-				if door
-				and (door.TargetRoomType == RoomType.ROOM_DEVIL or door.TargetRoomType == RoomType.ROOM_ANGEL)
-				then
-					room:RemoveDoor(i)
+			--Prevent abusing deal rooms
+			if room:GetType() == RoomType.ROOM_BOSS then
+				for i = 0, 8 do
+					local door = room:GetDoor(i)
+					
+					if door
+					and (door.TargetRoomType == RoomType.ROOM_DEVIL or door.TargetRoomType == RoomType.ROOM_ANGEL)
+					then
+						room:RemoveDoor(i)
+					end
 				end
 			end
-		end
 
-		if level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX then
-			player:AddNullCostume(headCostume)
-			player:AddNullCostume(eyeCostume)
-			SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] = 0
-		end
+			if level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX then
+				player:AddNullCostume(headCostume)
+				player:AddNullCostume(eyeCostume)
+				SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] = 0
+			end
 
-		if room:IsFirstVisit() then
-			if room:GetType() == RoomType.ROOM_TREASURE
-			and not Functions.ContainsQuestItem()
-			and not player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
-			and level:GetStage() < LevelStage.STAGE4_1
-			and not game:IsGreedMode()
-			and not game:GetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH)
-			then
-				sfx:Play(SoundEffect.SOUND_THUMBS_DOWN)
-			end
-			
-			--Recharge Singularity so that boss rush can be triggered
-			if (room:GetType() == RoomType.ROOM_BOSSRUSH or room:GetType() == RoomType.ROOM_ERROR)
-			and player:GetActiveCharge(ActiveSlot.SLOT_POCKET) < SINGULARITY_MAX * 2
-			then
-				Functions.ChargeSingularity(player, 12)
-			end
-			
-			if #items > 0
-			and not Functions.ContainsQuestItem()
-			and Functions.GetDimension(roomDesc) ~= 2
-			and level:GetCurrentRoomIndex() ~= GridRooms.ROOM_GENESIS_IDX
-			then
-				for _, collectible in pairs(items) do
-					if collectible.SubType > 0 then
-						collectible:Remove()
+			if room:IsFirstVisit() then
+				if room:GetType() == RoomType.ROOM_TREASURE
+				and not Functions.ContainsQuestItem()
+				and not player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
+				and level:GetStage() < LevelStage.STAGE4_1
+				and not game:IsGreedMode()
+				and not game:GetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH)
+				then
+					sfx:Play(SoundEffect.SOUND_THUMBS_DOWN)
+				end
+				
+				--Recharge Singularity so that boss rush can be triggered
+				if (room:GetType() == RoomType.ROOM_BOSSRUSH or room:GetType() == RoomType.ROOM_ERROR)
+				and player:GetActiveCharge(ActiveSlot.SLOT_POCKET) < SINGULARITY_MAX * 2
+				then
+					Functions.ChargeSingularity(player, 12)
+				end
+				
+				if #items > 0
+				and not Functions.ContainsQuestItem()
+				and Functions.GetDimension(roomDesc) ~= 2
+				and level:GetCurrentRoomIndex() ~= GridRooms.ROOM_GENESIS_IDX
+				then
+					for _, collectible in pairs(items) do
+						if collectible.SubType > 0 then
+							collectible:Remove()
+							
+							--Replace items in crawlspaces and ultra secret rooms since they're rare
+							if room:GetType() == RoomType.ROOM_DUNGEON then
+								local randNum = rng:RandomInt(100)
+								Functions.GetRandomChest(collectible.Position, randNum)
+							elseif room:GetType() == RoomType.ROOM_ULTRASECRET then
+								Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_REDCHEST, 0, collectible.Position, Vector.Zero, nil)
+							end
+						end
+					end
+
+					if room:GetType() == RoomType.ROOM_CHALLENGE then
+						local pos = {room:GetCenterPos(), Vector(400, 280), Vector(240, 280)}
 						
-						--Replace items in crawlspaces and ultra secret rooms since they're rare
-						if room:GetType() == RoomType.ROOM_DUNGEON then
+						for i = 1, 3 do
 							local randNum = rng:RandomInt(100)
-							Functions.GetRandomChest(collectible.Position, randNum)
-						elseif room:GetType() == RoomType.ROOM_ULTRASECRET then
-							Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_REDCHEST, 0, collectible.Position, Vector.Zero, nil)
+							Functions.GetRandomChest(pos[i], randNum)
 						end
 					end
 				end
 
-				if room:GetType() == RoomType.ROOM_CHALLENGE then
-					local pos = {room:GetCenterPos(), Vector(400, 280), Vector(240, 280)}
-					
-					for i = 1, 3 do
-						local randNum = rng:RandomInt(100)
-						Functions.GetRandomChest(pos[i], randNum)
-					end
+				if game:IsGreedMode()
+				and room:IsFirstVisit()
+				and (room:GetType() == RoomType.ROOM_TREASURE or room:GetType() == RoomType.ROOM_DEVIL or room:GetType() == RoomType.ROOM_ANGEL or room:GetType() == RoomType.ROOM_PLANETARIUM)
+				and level:GetCurrentRoomIndex() ~= GridRooms.ROOM_ANGEL_SHOP_IDX
+				then
+					Functions.ChargeSingularity(player, 12)
 				end
-			end
-
-			if game:IsGreedMode()
-			and room:IsFirstVisit()
-			and (room:GetType() == RoomType.ROOM_TREASURE or room:GetType() == RoomType.ROOM_DEVIL or room:GetType() == RoomType.ROOM_ANGEL or room:GetType() == RoomType.ROOM_PLANETARIUM)
-			and level:GetCurrentRoomIndex() ~= GridRooms.ROOM_ANGEL_SHOP_IDX
-			then
-				Functions.ChargeSingularity(player, 12)
 			end
 		end
 	end
@@ -465,19 +465,19 @@ function Character.preSpawnCleanAward()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 
-		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
-
-		if (room:GetType() == RoomType.ROOM_BOSS or room:GetType() == RoomType.ROOM_BOSSRUSH)
-		and level:GetStage() ~= LevelStage.STAGE7
-		then
-			bossRoomCleared = true
-			frameCount = game:GetFrameCount()
-			
-			--Recharge Singularity when clearing a boss room before Hush
-			if player:GetActiveCharge(ActiveSlot.SLOT_POCKET) < SINGULARITY_MAX * 2
-			and level:GetStage() < LevelStage.STAGE4_3
+		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
+			if (room:GetType() == RoomType.ROOM_BOSS or room:GetType() == RoomType.ROOM_BOSSRUSH)
+			and level:GetStage() ~= LevelStage.STAGE7
 			then
-				Functions.ChargeSingularity(player, 12)
+				bossRoomCleared = true
+				frameCount = game:GetFrameCount()
+				
+				--Recharge Singularity when clearing a boss room before Hush
+				if player:GetActiveCharge(ActiveSlot.SLOT_POCKET) < SINGULARITY_MAX * 2
+				and level:GetStage() < LevelStage.STAGE4_3
+				then
+					Functions.ChargeSingularity(player, 12)
+				end
 			end
 		end
 	end

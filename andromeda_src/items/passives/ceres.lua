@@ -57,28 +57,28 @@ function Item.postPickupInit(pickup)
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		
-		if not player:HasCollectible(Enums.Collectibles.CERES) then return end
-		
-		local randNum = rng:RandomInt(5)
-		
-		if randNum == 0 then
-			if pickup.Variant == PickupVariant.PICKUP_BOMB
-			and pickup.SubType == BombSubType.BOMB_GOLDEN
-			and player:HasGoldenBomb()
-			then
-				SpawnIcon(pickup)
-				pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_GIGA, true, false, false)
-			elseif pickup.Variant == PickupVariant.PICKUP_KEY
-			and pickup.SubType == KeySubType.KEY_GOLDEN
-			and player:HasGoldenKey()
-			then
-				SpawnIcon(pickup)
-				pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_CRACKED_KEY, true, false, false)
-			elseif map[pickup.Variant]
-			and map[pickup.Variant][pickup.SubType]
-			then
-				SpawnIcon(pickup)
-				pickup:Morph(EntityType.ENTITY_PICKUP, pickup.Variant, map[pickup.Variant][pickup.SubType], true, false, false)
+		if player:HasCollectible(Enums.Collectibles.CERES) then
+			local randNum = rng:RandomInt(5)
+			
+			if randNum == 0 then
+				if pickup.Variant == PickupVariant.PICKUP_BOMB
+				and pickup.SubType == BombSubType.BOMB_GOLDEN
+				and player:HasGoldenBomb()
+				then
+					SpawnIcon(pickup)
+					pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_GIGA, true, false, false)
+				elseif pickup.Variant == PickupVariant.PICKUP_KEY
+				and pickup.SubType == KeySubType.KEY_GOLDEN
+				and player:HasGoldenKey()
+				then
+					SpawnIcon(pickup)
+					pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_CRACKED_KEY, true, false, false)
+				elseif map[pickup.Variant]
+				and map[pickup.Variant][pickup.SubType]
+				then
+					SpawnIcon(pickup)
+					pickup:Morph(EntityType.ENTITY_PICKUP, pickup.Variant, map[pickup.Variant][pickup.SubType], true, false, false)
+				end
 			end
 		end
 	end

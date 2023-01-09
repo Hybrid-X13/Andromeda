@@ -18,14 +18,16 @@ local function PlayRandomOverlay(player, sprite)
 end
 
 function Item.postNewRoom()
+	local room = game:GetRoom()
+	
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
-		local room = game:GetRoom()
 		
-		if not player:HasCollectible(Enums.Collectibles.LUMINARY_FLARE) then return end
-		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then return end
-		
-		Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.LUMINARY_SUN, 0, room:GetCenterPos() + Vector(0, -20), Vector.Zero, player)
+		if player:HasCollectible(Enums.Collectibles.LUMINARY_FLARE)
+		and player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA
+		then
+			Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.LUMINARY_SUN, 0, room:GetCenterPos() + Vector(0, -20), Vector.Zero, player)
+		end
 	end
 end
 
@@ -34,42 +36,42 @@ function Item.postNPCDeath(npc)
 	if npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then return end
 	
 	rng:SetSeed(npc.InitSeed, 35)
+	local room = game:GetRoom()
 	
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
-		local room = game:GetRoom()
 		
-		if not player:HasCollectible(Enums.Collectibles.LUMINARY_FLARE) then return end
-		
-		local randNum = rng:RandomInt(5)
-		
-		if randNum == 0 then
-			local spawnLaser = Isaac.Spawn(EntityType.ENTITY_LASER, 11, 0, room:GetCenterPos() + Vector(0, -20), Vector.Zero, player)
-			local laser = spawnLaser:ToLaser()
-			local sprite = laser:GetSprite()
-			local sun = Isaac.FindByType(EntityType.ENTITY_EFFECT, Enums.Effects.LUMINARY_SUN)
+		if player:HasCollectible(Enums.Collectibles.LUMINARY_FLARE) then
+			local randNum = rng:RandomInt(5)
 			
-			if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
-				local color = Color(1, 1, 0.36, 1, 1, 1, 0.76)
-				color:SetColorize(1, 1, 0, 1)
-				sprite.Color = color
-			else
-				local color = Color(0.9, 0.3, 0.08, 1, 0, 0, 0)
-				color:SetColorize(9, 3, 0.1, 1)
-				sprite.Color = color
+			if randNum == 0 then
+				local spawnLaser = Isaac.Spawn(EntityType.ENTITY_LASER, 11, 0, room:GetCenterPos() + Vector(0, -20), Vector.Zero, player)
+				local laser = spawnLaser:ToLaser()
+				local sprite = laser:GetSprite()
+				local sun = Isaac.FindByType(EntityType.ENTITY_EFFECT, Enums.Effects.LUMINARY_SUN)
+				
+				if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
+					local color = Color(1, 1, 0.36, 1, 1, 1, 0.76)
+					color:SetColorize(1, 1, 0, 1)
+					sprite.Color = color
+				else
+					local color = Color(0.9, 0.3, 0.08, 1, 0, 0, 0)
+					color:SetColorize(9, 3, 0.1, 1)
+					sprite.Color = color
 
-				for i = 1, #sun do
-					local sunSprite = sun[i]:GetSprite()
-					sunSprite:Play("BodyFire")
-					sunSprite:PlayOverlay("FaceFire", false)
+					for i = 1, #sun do
+						local sunSprite = sun[i]:GetSprite()
+						sunSprite:Play("BodyFire")
+						sunSprite:PlayOverlay("FaceFire", false)
+					end
 				end
+				randNum = rng:RandomInt(360)
+			
+				laser:AddTearFlags(TearFlags.TEAR_BURN)
+				laser.Angle = randNum
+				laser.Timeout = 16
+				laser:GetData().isSolarFlare = true
 			end
-			randNum = rng:RandomInt(360)
-		
-			laser:AddTearFlags(TearFlags.TEAR_BURN)
-			laser.Angle = randNum
-			laser.Timeout = 16
-			laser:GetData().isSolarFlare = true
 		end
 	end
 end

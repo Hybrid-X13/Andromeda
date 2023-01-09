@@ -39,14 +39,15 @@ function Item.postNewRoom()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 
-		if not player:HasCollectible(Enums.Collectibles.JUNO) then return end
-		if player:HasCurseMistEffect() then return end
-		if player:IsCoopGhost() then return end
-	
-		local tempEffects = player:GetEffects()
-	
-		if not tempEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_MOMS_EYESHADOW) then
-			tempEffects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_MOMS_EYESHADOW, false, 1)
+		if player:HasCollectible(Enums.Collectibles.JUNO)
+		and not player:HasCurseMistEffect()
+		and not player:IsCoopGhost()
+		then
+			local tempEffects = player:GetEffects()
+		
+			if not tempEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_MOMS_EYESHADOW) then
+				tempEffects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_MOMS_EYESHADOW, false, 1)
+			end
 		end
 	end
 end
@@ -89,21 +90,21 @@ function Item.postNPCDeath(npc)
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		
-		if not player:HasCollectible(Enums.Collectibles.JUNO) then return end
-		
-		local randNum = rng:RandomInt(100)
-		
-		if randNum < (20 * player:GetCollectibleNum(Enums.Collectibles.JUNO)) then
-			local revivedEnemy = Isaac.Spawn(npc.Type, npc.Variant, npc.SubType, npc.Position, Vector.Zero, player)
-			revivedEnemy:AddCharmed(EntityRef(player), -1)
+		if player:HasCollectible(Enums.Collectibles.JUNO) then
+			local randNum = rng:RandomInt(100)
 			
-			if npc:IsChampion() then
-				local champColor = npc:GetChampionColorIdx()
-				revivedEnemy:ToNPC():MakeChampion(npc.InitSeed, champColor)
+			if randNum < (20 * player:GetCollectibleNum(Enums.Collectibles.JUNO)) then
+				local revivedEnemy = Isaac.Spawn(npc.Type, npc.Variant, npc.SubType, npc.Position, Vector.Zero, player)
+				revivedEnemy:AddCharmed(EntityRef(player), -1)
+				
+				if npc:IsChampion() then
+					local champColor = npc:GetChampionColorIdx()
+					revivedEnemy:ToNPC():MakeChampion(npc.InitSeed, champColor)
+				end
+				
+				revivedEnemy:SetColor(Color(1, 1, 1, 0.4, 0.2, 0, 0.2), 99999, 1, false, false)
+				revivedEnemy:GetData().junoFriendly = true
 			end
-			
-			revivedEnemy:SetColor(Color(1, 1, 1, 0.4, 0.2, 0, 0.2), 99999, 1, false, false)
-			revivedEnemy:GetData().junoFriendly = true
 		end
 	end
 end

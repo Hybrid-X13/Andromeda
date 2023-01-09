@@ -15,15 +15,15 @@ function Trinket.postNPCDeath(npc)
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		
-		if not player:HasTrinket(Enums.Trinkets.STARDUST) then return end
-		
-		local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.STARDUST)
-		local rngMax = 60 / trinketMultiplier
-		local randNum = rng:RandomInt(rngMax)
-		
-		if randNum < 6 then
-			player:AddWisp(0, npc.Position, true, false)
-			sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
+		if player:HasTrinket(Enums.Trinkets.STARDUST) then
+			local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.STARDUST)
+			local rngMax = 60 / trinketMultiplier
+			local randNum = rng:RandomInt(rngMax)
+			
+			if randNum < 6 then
+				player:AddWisp(0, npc.Position, true, false)
+				sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
+			end
 		end
 	end
 end
