@@ -52,6 +52,10 @@ local function SpawnIcon(pickup)
 end
 
 function Item.postPickupInit(pickup)
+	local room = game:GetRoom()
+
+	if room:GetFrameCount() == -1 and not room:IsFirstVisit() then return end
+
 	rng:SetSeed(pickup.InitSeed, 35)
 	
 	for i = 0, game:GetNumPlayers() - 1 do
