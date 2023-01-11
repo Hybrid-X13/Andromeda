@@ -787,10 +787,10 @@ function Character.postEffectUpdate(effect)
 		and Functions.HasBloodTears(player)
 		then
 			sprite:Play("IdleVoidBlood")
-		elseif not Functions.HasBloodTears(player) then
-			if not sprite:IsPlaying(blackHoleAnims[skinColor + 2]) then
-				sprite:Play(blackHoleAnims[skinColor + 2])
-			end
+		elseif not Functions.HasBloodTears(player)
+		and not sprite:IsPlaying(blackHoleAnims[skinColor + 2])
+		then
+			sprite:Play(blackHoleAnims[skinColor + 2])
 		end
 
 		for i = 0, room:GetGridSize() do
