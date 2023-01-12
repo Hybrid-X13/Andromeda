@@ -32,27 +32,23 @@ function Trinket.evaluateCache(player, cacheFlag)
 		player.MaxFireDelay = Functions.TearsUp(player.MaxFireDelay, 0.35 * trinketMultiplier * itemCount)
 	end
 	
-	if cacheFlag == CacheFlag.CACHE_DAMAGE then
+	if cacheFlag == CacheFlag.CACHE_DAMAGE
+	and (player:HasCollectible(Enums.Collectibles.PLUTONIUM) or player:HasCollectible(Enums.Collectibles.MEGA_PLUTONIUM))
+	then
+		local dmg = 0.3
+
 		if player:HasCollectible(Enums.Collectibles.MEGA_PLUTONIUM) then
-			if player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK) then
-				player.Damage = player.Damage + (0.6 * trinketMultiplier * itemCount * 0.2)
-			elseif player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK) then
-				player.Damage = player.Damage + (0.6 * trinketMultiplier * itemCount * 0.3)
-			elseif player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) then
-				player.Damage = player.Damage + (0.6 * trinketMultiplier * itemCount * 0.8)
-			else
-				player.Damage = player.Damage + (0.6 * trinketMultiplier * itemCount)
-			end
-		elseif player:HasCollectible(Enums.Collectibles.PLUTONIUM) then
-			if player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK) then
-				player.Damage = player.Damage + (0.3 * trinketMultiplier * itemCount * 0.2)
-			elseif player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK) then
-				player.Damage = player.Damage + (0.3 * trinketMultiplier * itemCount * 0.3)
-			elseif player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) then
-				player.Damage = player.Damage + (0.3 * trinketMultiplier * itemCount * 0.8)
-			else
-				player.Damage = player.Damage + (0.3 * trinketMultiplier * itemCount)
-			end
+			dmg = 0.6
+		end
+
+		if player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK) then
+			player.Damage = player.Damage + (dmg * trinketMultiplier * itemCount * 0.2)
+		elseif player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK) then
+			player.Damage = player.Damage + (dmg * trinketMultiplier * itemCount * 0.3)
+		elseif player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) then
+			player.Damage = player.Damage + (dmg * trinketMultiplier * itemCount * 0.8)
+		else
+			player.Damage = player.Damage + (dmg * trinketMultiplier * itemCount)
 		end
 	end
 end
