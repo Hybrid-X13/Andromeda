@@ -2,6 +2,7 @@ local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
 local SaveData = require("andromeda_src.savedata")
 local CustomData = require("andromeda_src.customdata")
+local game = Game()
 
 --[[
 	- Makes an item count towards the Spode transformation.
@@ -72,9 +73,28 @@ function ANDROMEDA:AddSingularityPickups(pickupTable)
 	if type(pickupTable) ~= "table" then return end
 	if #pickupTable == 0 then return end
 	
-	for i = 1, #pickupTable do
-		table.insert(CustomData.SingularityPickups, pickupTable[i])
+	for _, pickup in pairs(pickupTable) do
+		table.insert(CustomData.SingularityPickups, pickup)
 	end
+end
+
+--[[
+	- Checks if the current room is the Abandoned Planetarium.
+]]
+function ANDROMEDA:IsAbandonedPlanetarium()
+	local room = game:GetRoom()
+	local level = game:GetLevel()
+	local roomDesc = level:GetCurrentRoomDesc()
+	local roomConfig = roomDesc.Data
+
+	if room:GetType() == RoomType.ROOM_DICE
+	and roomConfig.Variant >= 4242
+	and roomConfig.Variant < 4900
+	then
+		return true
+	end
+
+	return false
 end
 
 --[[
@@ -111,9 +131,38 @@ function ANDROMEDA:IsItemUnlocked(item)
 		[Enums.Collectibles.CHIRON] = Functions.HasFullCompletion(Enums.Characters.T_ANDROMEDA),
 	}
 
-	if unlocks[item] == nil then
-		return
+	return unlocks[item]
+end
+
+--[[
+	- Returns the item ID of an item from the Abandoned Planetarium pool.
+	- Pass an RNG object and a boolean of whether to remove the item from the pool or not (defaults to true).
+]]
+function ANDROMEDA:PullFromAbandonedPlanetariumPool(rng, decrease)
+	local itemPool = game:GetItemPool()
+	
+	if decrease == nil then
+		decrease = true
+	end
+	
+	if #CustomData.AbPlPoolCopy == 0 then
+		local pool = ItemPoolType.POOL_TREASURE
+		local seed = game:GetSeeds():GetStartSeed()
+		
+		if game:IsGreedMode() then
+			pool = ItemPoolType.POOL_GREED_TREASURE
+		end
+		
+		return itemPool:GetCollectible(pool, decrease, seed)
 	else
-		return unlocks[item]
+		local zodiac = rng:RandomInt(#CustomData.AbPlPoolCopy) + 1
+		local itemID = CustomData.AbPlPoolCopy[zodiac]
+	
+		if decrease then
+			itemPool:RemoveCollectible(CustomData.AbPlPoolCopy[zodiac])
+			table.remove(CustomData.AbPlPoolCopy, zodiac)
+		end
+	
+		return itemID
 	end
 end
