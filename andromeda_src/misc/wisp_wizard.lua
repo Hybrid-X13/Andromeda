@@ -114,10 +114,8 @@ function Beggar.postPEffectUpdate(player)
 					local itemID = game:GetItemPool():GetCollectible(ItemPoolType.POOL_PLANETARIUM, true, seed)
 					Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, spawnpos, Vector.Zero, beggar)
 				else
-					local zodiac = rng:RandomInt(#CustomData.AbPlPoolCopy) + 1
-					Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, CustomData.AbPlPoolCopy[zodiac], spawnpos, Vector.Zero, beggar)
-					itemPool:RemoveCollectible(CustomData.AbPlPoolCopy[zodiac])
-					table.remove(CustomData.AbPlPoolCopy, zodiac)
+					local itemID = ANDROMEDA:PullFromAbandonedPlanetariumPool(rng)
+					Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, spawnpos, Vector.Zero, beggar)
 				end
 				sfx:Play(SoundEffect.SOUND_SLOTSPAWN)
 			elseif randNum < 10 then --Spawn trinket

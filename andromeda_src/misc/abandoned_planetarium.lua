@@ -9,7 +9,7 @@ local itemPool = game:GetItemPool()
 local Room = {}
 
 function Room.postNewRoom()
-	if not Functions.IsAbandonedPlanetarium() then return end
+	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
 	
 	local room = game:GetRoom()
 	local level = game:GetLevel()
@@ -35,7 +35,7 @@ function Room.postNewRoom()
 			then
 				local pickups = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1)
 
-				for i, j in pairs(pickups) do
+				for _, j in pairs(pickups) do
 					local pickup = j:ToPickup()
 					
 					if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
@@ -59,15 +59,11 @@ function Room.postNewRoom()
 			for i = 1, #dollar do
 				local item = dollar[i]:ToPickup()
 				
-				if player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS)
-				or #CustomData.AbPlPoolCopy == 0
-				then
+				if player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS) then
 					item:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, 0, true, false, false)
 				else
-					local zodiac = rng:RandomInt(#CustomData.AbPlPoolCopy) + 1
-					item:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, CustomData.AbPlPoolCopy[zodiac], true, false, false)
-					itemPool:RemoveCollectible(CustomData.AbPlPoolCopy[zodiac])
-					table.remove(CustomData.AbPlPoolCopy, zodiac)
+					local itemID = ANDROMEDA:PullFromAbandonedPlanetariumPool(rng)
+					item:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, true, false, false)
 				end
 				
 				if player:GetPlayerType() == PlayerType.PLAYER_KEEPER_B then
@@ -157,7 +153,7 @@ end
 
 --Any red hearts are converted into soul hearts in the Abandoned Planetarium
 function Room.postPickupInit(pickup)
-	if not Functions.IsAbandonedPlanetarium() then return end
+	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
 	if pickup.Variant ~= PickupVariant.PICKUP_HEART then return end
 	
 	rng:SetSeed(pickup.InitSeed, 35)
@@ -175,7 +171,7 @@ function Room.postPickupInit(pickup)
 end
 
 function Room.getTrinket(trinket)
-	if not Functions.IsAbandonedPlanetarium() then return end
+	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
 	if trinket > TrinketType.TRINKET_GOLDEN_FLAG then return end
 
 	local level = game:GetLevel()
@@ -188,7 +184,7 @@ function Room.getTrinket(trinket)
 end
 
 function Room.postUpdate()
-	if not Functions.IsAbandonedPlanetarium() then return end
+	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
 	
 	local room = game:GetRoom()
 	local level = game:GetLevel()
@@ -215,7 +211,7 @@ function Room.postUpdate()
 end
 
 function Room.postEffectUpdate(effect)
-	if not Functions.IsAbandonedPlanetarium() then return end
+	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
 	
 	if effect.Variant == EffectVariant.DICE_FLOOR
 	or effect.Variant == Isaac.GetEntityVariantByName("D12 Room Floor")
@@ -227,7 +223,7 @@ function Room.postEffectUpdate(effect)
 end
 
 function Room.preUseItem(item, rng, player, flags, activeSlot, customVarData)
-	if not Functions.IsAbandonedPlanetarium() then return end
+	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
 	if item ~= CollectibleType.COLLECTIBLE_VENTRICLE_RAZOR then return end
 
 	return true

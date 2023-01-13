@@ -1,5 +1,4 @@
 local Enums = require("andromeda_src.enums")
-local Functions = require("andromeda_src.functions")
 local game = Game()
 local sfx = SFXManager()
 local rng = RNG()
@@ -32,7 +31,7 @@ function Trinket.postNewRoom()
 		local player = Isaac.GetPlayer(i)
 		
 		if player:HasTrinket(Enums.Trinkets.MOON_STONE)
-		and (room:GetType() == RoomType.ROOM_PLANETARIUM or Functions.IsAbandonedPlanetarium())
+		and (room:GetType() == RoomType.ROOM_PLANETARIUM or ANDROMEDA:IsAbandonedPlanetarium())
 		then
 			local rng = player:GetTrinketRNG(Enums.Trinkets.MOON_STONE)
 			local runeSeed = rng:RandomInt(1000) + 1

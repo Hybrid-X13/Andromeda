@@ -1,5 +1,4 @@
 local Enums = require("andromeda_src.enums")
-local Functions = require("andromeda_src.functions")
 local SaveData = require("andromeda_src.savedata")
 local game = Game()
 local rng = RNG()
@@ -37,7 +36,7 @@ function Item.postNewRoom()
 			or room:GetType() == RoomType.ROOM_SECRET
 			or room:GetType() == RoomType.ROOM_SUPERSECRET
 			or room:GetType() == RoomType.ROOM_ULTRASECRET
-			or Functions.IsAbandonedPlanetarium()
+			or ANDROMEDA:IsAbandonedPlanetarium()
 			then
 				SaveData.ItemData.Pallas.newRoomDMG = SaveData.ItemData.Pallas.newRoomDMG + 3
 			elseif room:GetType() > RoomType.ROOM_DEFAULT then
@@ -76,7 +75,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		or room:GetType() == RoomType.ROOM_SECRET
 		or room:GetType() == RoomType.ROOM_SUPERSECRET
 		or room:GetType() == RoomType.ROOM_ULTRASECRET
-		or Functions.IsAbandonedPlanetarium()
+		or ANDROMEDA:IsAbandonedPlanetarium()
 		then
 			SaveData.ItemData.Pallas.newRoomDMG = SaveData.ItemData.Pallas.newRoomDMG - 3
 		elseif room:GetType() > RoomType.ROOM_DEFAULT then

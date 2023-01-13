@@ -111,7 +111,7 @@ local function SingularityConditions()
 	or roomType == RoomType.ROOM_SHOP
 	or roomType == RoomType.ROOM_SECRET
 	or roomType == RoomType.ROOM_SUPERSECRET
-	or Functions.IsAbandonedPlanetarium()
+	or ANDROMEDA:IsAbandonedPlanetarium()
 	then
 		return true
 	end
@@ -311,12 +311,9 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			elseif roomType == RoomType.ROOM_PLANETARIUM then
 				if SaveData.PlayerData.T_Andromeda.PlanetariumChance < 100 then
 					if #CustomData.AbPlPoolCopy > 0 then
-						local zodiac = rng:RandomInt(#CustomData.AbPlPoolCopy) + 1
-						local itemID = CustomData.AbPlPoolCopy[zodiac]
-						
+						local itemID = ANDROMEDA:PullFromAbandonedPlanetariumPool(rng)
 						Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, spawnpos, Vector.Zero, nil)
 						SingularityPortal(spawnpos)
-						table.remove(CustomData.AbPlPoolCopy, zodiac)
 						pool = ItemPoolType.POOL_NULL
 					else
 						pool = ItemPoolType.POOL_TREASURE
@@ -368,13 +365,10 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				local itemID
 				
 				--Spawn zodiac item if used in abandoned planetarium
-				if Functions.IsAbandonedPlanetarium()
-				and #CustomData.AbPlPoolCopy > 0
+				if ANDROMEDA:IsAbandonedPlanetarium()
 				and not player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS)
 				then
-					local zodiac = rng:RandomInt(#CustomData.AbPlPoolCopy) + 1
-					itemID = CustomData.AbPlPoolCopy[zodiac]
-					table.remove(CustomData.AbPlPoolCopy, zodiac)
+					itemID = ANDROMEDA:PullFromAbandonedPlanetariumPool(rng)
 				else
 					itemID = game:GetItemPool():GetCollectible(pool, true, seed)
 				end
