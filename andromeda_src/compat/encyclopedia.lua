@@ -244,7 +244,7 @@ if Encyclopedia then
 			{ -- Synergies
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
 				{str = "Book of Virtues", clr = 3, halign = 0},
-				{str = "Spawns a star wisp that shoots slow moving homing stars."},
+				{str = "Spawns a star wisp that shoots homing stars."},
 			},
 		},
 		LUMINARY_FLARE = {
@@ -266,7 +266,7 @@ if Encyclopedia then
 				{str = "Spawns a random pickup or chest."},
 				{str = "All pickup variants and chests have an equal chance of spawning."},
 				{str = "Has a 10% chance to spawn an item from a random pool instead."},
-				{str = "Only charges by collecting pickups or using consumables."},
+				{str = "Only charges by collecting pickups and using consumables."},
 				{str = "This item can be overcharged by default."},
 			},
 			{ -- Charging Method
