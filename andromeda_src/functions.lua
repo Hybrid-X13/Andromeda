@@ -602,7 +602,7 @@ function Functions.GetRandomWisp(player, pos, rng)
 	return wisp
 end
 
-function Functions.GoToAbandonedPlanetarium(player, GravShift)
+function Functions.GoToAbandonedPlanetarium(player, gravShift)
 	local rng = player:GetCollectibleRNG(Enums.Collectibles.GRAVITY_SHIFT)
 	local level = game:GetLevel()
 	local itemRoomIDs = {}
@@ -617,7 +617,7 @@ function Functions.GoToAbandonedPlanetarium(player, GravShift)
 	end
 	
 	--Special layouts if Soul of Andromeda was used
-	if not GravShift then
+	if not gravShift then
 		for i = 4842, 4852 do
 			table.insert(itemRoomIDs, i)
 		end
@@ -627,7 +627,7 @@ function Functions.GoToAbandonedPlanetarium(player, GravShift)
 	end
 	
 	--50% chance to contain a Zodiac item that decreases every 2 floors for Andromeda. 33% chance for all other characters
-	if GravShift then
+	if gravShift then
 		if level:GetStage() == LevelStage.STAGE1_1
 		or level:GetStage() == LevelStage.STAGE1_2
 		then
