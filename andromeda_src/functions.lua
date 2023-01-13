@@ -704,22 +704,6 @@ function Functions.HasFullCompletion(andromeda)
 	return true
 end
 
-function Functions.IsAbandonedPlanetarium()
-	local room = game:GetRoom()
-	local level = game:GetLevel()
-	local roomDesc = level:GetCurrentRoomDesc()
-	local roomConfig = roomDesc.Data
-
-	if room:GetType() == RoomType.ROOM_DICE
-	and roomConfig.Variant >= 4242
-	and roomConfig.Variant < 4900
-	then
-		return true
-	end
-
-	return false
-end
-
 function Functions.IsInvulnerableEnemy(npc)
 	local blacklist = {
 		EntityType.ENTITY_STONEY,
