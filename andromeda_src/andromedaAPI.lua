@@ -144,6 +144,18 @@ function ANDROMEDA:PullFromAbandonedPlanetariumPool(rng, decrease)
 	if decrease == nil then
 		decrease = true
 	end
+
+	if #CustomData.AbPlPoolCopy > 0 then
+		for i = 1, #CustomData.AbandonedPlanetariumPool do
+			if Functions.AnyPlayerHasCollectible(CustomData.AbandonedPlanetariumPool[i], true) then
+				for j = 1, #CustomData.AbPlPoolCopy do
+					if CustomData.AbPlPoolCopy[j] == CustomData.AbandonedPlanetariumPool[i] then
+						table.remove(CustomData.AbPlPoolCopy, j)
+					end
+				end
+			end
+		end
+	end
 	
 	if #CustomData.AbPlPoolCopy == 0 then
 		local pool = ItemPoolType.POOL_TREASURE
