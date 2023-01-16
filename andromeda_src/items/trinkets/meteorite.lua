@@ -15,10 +15,9 @@ function Trinket.postPEffectUpdate(player)
 	then
 		local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.METEORITE)
 		local rng = player:GetTrinketRNG(Enums.Trinkets.METEORITE)
-		local rngMax = 60 / trinketMultiplier
-		local randNum = rng:RandomInt(rngMax)
+		local randFloat = rng:RandomFloat() / trinketMultiplier
 
-		if randNum == 0 then
+		if randFloat < 0.0167 then
 			Functions.SpawnMeteor(player, rng)
 		end
 	end

@@ -18,8 +18,7 @@ function Trinket.postNewRoom()
 			local planetarium = level:GetRoomByIdx(findRoom)
 			local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.SEXTANT)
 			local rng = player:GetTrinketRNG(Enums.Trinkets.SEXTANT)
-			local rngMax = 60 / trinketMultiplier
-			local randNum = rng:RandomInt(rngMax)
+			local randFloat = rng:RandomFloat() / trinketMultiplier
 			
 			if planetarium.Data
 			and planetarium.Data.Type == RoomType.ROOM_PLANETARIUM
@@ -29,7 +28,7 @@ function Trinket.postNewRoom()
 				level:UpdateVisibility()
 			end
 			
-			if randNum < 8 then
+			if randFloat < 0.13 then
 				player:AddCollectible(CollectibleType.COLLECTIBLE_SPELUNKER_HAT)
 				player:RemoveCollectible(CollectibleType.COLLECTIBLE_SPELUNKER_HAT)
 			end

@@ -17,10 +17,9 @@ function Trinket.postNPCDeath(npc)
 		
 		if player:HasTrinket(Enums.Trinkets.STARDUST) then
 			local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.STARDUST)
-			local rngMax = 60 / trinketMultiplier
-			local randNum = rng:RandomInt(rngMax)
+			local randFloat = rng:RandomFloat() / trinketMultiplier
 			
-			if randNum < 6 then
+			if randFloat < 0.1 then
 				player:AddWisp(0, npc.Position, true, false)
 				sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
 			end
