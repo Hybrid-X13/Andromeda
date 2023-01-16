@@ -34,6 +34,7 @@ end
 function Familiar.preFamiliarCollision(familiar, collider, low)
 	if familiar.Variant ~= Enums.Familiars.NIX then return end
 	if collider.Type ~= EntityType.ENTITY_PROJECTILE then return end
+	if collider:ToProjectile():HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then return end
 	
 	collider:Die()
 	familiar:GetData().shotsBlocked = familiar:GetData().shotsBlocked + 1
