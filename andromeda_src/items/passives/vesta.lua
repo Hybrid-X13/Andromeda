@@ -159,6 +159,12 @@ function Item.postPEffectUpdate(player)
 		if vestaCounter == frequency then
 			for i = 0, 3 do
 				local effect
+				local vectors = {
+					Vector(15, 0),
+					Vector(0, 15),
+					Vector(-15, 0),
+					Vector(0, -15),
+				}
 				
 				if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
 					effect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.FIRE_WAVE, 1, player.Position, Vector.Zero, player)
@@ -176,17 +182,7 @@ function Item.postPEffectUpdate(player)
 				local fire = effect:ToEffect()
 				fire:AddEntityFlags(EntityFlag.FLAG_FRIENDLY)
 				fire.Rotation = 90 * i
-				local velocity
-				
-				if i == 0 then
-					velocity = Vector(15, 0)
-				elseif i == 1 then
-					velocity = Vector(0, 15)
-				elseif i == 2 then
-					velocity = Vector(-15, 0)
-				elseif i == 3 then
-					velocity = Vector(0, -15)
-				end
+				local velocity = vectors[i + 1]
 				
 				--Can't change flame damage, so shoot invisible tears as a workaround
 				local spawnTear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, player.Position, velocity, nil)
