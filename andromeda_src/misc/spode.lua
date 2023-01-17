@@ -4,7 +4,7 @@ local CustomData = require("andromeda_src.customdata")
 local game = Game()
 local sfx = SFXManager()
 local rng = RNG()
-local spodeCostume = Isaac.GetCostumeIdByPath("gfx/characters/transformation_cosmicgod.anm2")
+local SPODE_COSTUME = Isaac.GetCostumeIdByPath("gfx/characters/transformation_cosmicgod.anm2")
 local LAST_FRAME = 26
 
 local colors = {
@@ -27,6 +27,7 @@ local tearBlacklist = {
 	TearFlags.TEAR_LASER,
 	TearFlags.TEAR_STICKY,
 	TearFlags.TEAR_FETUS_TECH,
+	TearFlags.TEAR_LUDOVICO,
 }
 
 local Spode = {}
@@ -81,14 +82,10 @@ end
 function Spode.evaluateCache(player, cacheFlag)
 	if player:HasCurseMistEffect() then return end
 	if player:GetData().hasSpode == nil or not player:GetData().hasSpode then return end
+	if cacheFlag ~= CacheFlag.CACHE_SHOTSPEED then return end
+	if player:HasCollectible(CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE) then return end
 	
-	if cacheFlag == CacheFlag.CACHE_FLYING then
-		player.CanFly = true
-	end
-	
-	if cacheFlag == CacheFlag.CACHE_SHOTSPEED then
-		player.ShotSpeed = player.ShotSpeed - 0.4
-	end
+	player.ShotSpeed = player.ShotSpeed - 0.4
 end
 
 function Spode.postTearUpdate(tear)
@@ -104,20 +101,20 @@ function Spode.postTearUpdate(tear)
 	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_TINY_PLANET)
 	local randNum = rng:RandomInt(100)
 	
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE) then
-		randNum = rng:RandomInt(200)
+	if tear:HasTearFlags(TearFlags.TEAR_LUDOVICO) then
+		randNum = rng:RandomInt(90)
 	elseif player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK)
 	or player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK)
 	then
 		if player:GetPlayerType() == Enums.Characters.ANDROMEDA
-		or player:HasCollectible(CollectibleType.COLLECTIBLE_TINY_PLANET)
+		or tear:HasTearFlags(TearFlags.TEAR_ORBIT)
 		then
 			randNum = rng:RandomInt(300)
 		else
 			randNum = rng:RandomInt(200)
 		end
 	elseif player:GetPlayerType() == Enums.Characters.ANDROMEDA
-	or player:HasCollectible(CollectibleType.COLLECTIBLE_TINY_PLANET)
+	or tear:HasTearFlags(TearFlags.TEAR_ORBIT)
 	then
 		if tear:HasTearFlags(TearFlags.TEAR_SPLIT) then
 			randNum = rng:RandomInt(800)
@@ -250,6 +247,23 @@ function Spode.postEffectUpdate(effect)
 	end
 end
 
+function Spode.postNewRoom()
+	for i = 0, game:GetNumPlayers() - 1 do
+		local player = Isaac.GetPlayer(i)
+
+		if player:GetData().hasSpode
+		and not player:HasCurseMistEffect()
+		and not player:IsCoopGhost()
+		then
+			local tempEffects = player:GetEffects()
+		
+			if not tempEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_TRANSCENDENCE) then
+				tempEffects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_TRANSCENDENCE, false, 1)
+			end
+		end
+	end
+end
+
 function Spode.postPEffectUpdate(player)
 	local playerType = player:GetPlayerType()
 	
@@ -280,11 +294,11 @@ function Spode.postPEffectUpdate(player)
 				game:GetHUD():ShowItemText("Spode!")
 				sfx:Play(SoundEffect.SOUND_POWERUP_SPEWER)
 				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, player.Position, Vector.Zero, player)
-				player:AddNullCostume(spodeCostume)
+				player:AddNullCostume(SPODE_COSTUME)
 				player:GetData().hasSpode = true
 			end
 		elseif player:GetData().hasSpode then
-			player:AddCacheFlags(CacheFlag.CACHE_FLYING | CacheFlag.CACHE_SHOTSPEED)
+			player:AddCacheFlags(CacheFlag.CACHE_SHOTSPEED)
 			player:EvaluateItems()
 			
 			for i = 1, #CustomData.SpodeList do
@@ -297,11 +311,24 @@ function Spode.postPEffectUpdate(player)
 			or (itemCount < 3 and playerType ~= Enums.Characters.ANDROMEDA)
 			then
 				player:GetData().hasSpode = false
-				player:TryRemoveNullCostume(spodeCostume)
-				player:AddCacheFlags(CacheFlag.CACHE_FLYING | CacheFlag.CACHE_SHOTSPEED)
+				player:GetEffects():RemoveCollectibleEffect(CollectibleType.COLLECTIBLE_TRANSCENDENCE, 1)
+				player:TryRemoveNullCostume(SPODE_COSTUME)
+				player:AddCacheFlags(CacheFlag.CACHE_SHOTSPEED)
 				player:EvaluateItems()
 			end
 		end
+	end
+end
+
+function Spode.postPlayerUpdate(player)
+	if player:GetData().hasSpode == nil or not player:GetData().hasSpode then return end
+	if player:HasCurseMistEffect() then return end
+	if player:IsCoopGhost() then return end
+
+	local tempEffects = player:GetEffects()
+
+	if not tempEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_TRANSCENDENCE) then
+		tempEffects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_TRANSCENDENCE, false, 1)
 	end
 end
 
