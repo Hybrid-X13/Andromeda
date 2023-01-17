@@ -363,7 +363,7 @@ function Character.postPEffectUpdate(player)
 	if player:HasCurseMistEffect() then return end
 	if player:IsCoopGhost() then return end
 
-	if not player:HasCollectible(Enums.Collectibles.GRAVITY_SHIFT) then
+	if player:GetActiveItem(ActiveSlot.SLOT_POCKET) ~= Enums.Collectibles.GRAVITY_SHIFT then
 		player:SetPocketActiveItem(Enums.Collectibles.GRAVITY_SHIFT, ActiveSlot.SLOT_POCKET, false)
 	end
 	

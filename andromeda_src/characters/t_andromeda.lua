@@ -727,7 +727,7 @@ function Character.postPEffectUpdate(player)
 	if not player:HasCurseMistEffect()
 	and not player:IsCoopGhost()
 	then
-		if not player:HasCollectible(Enums.Collectibles.SINGULARITY) then
+		if player:GetActiveItem(ActiveSlot.SLOT_POCKET) ~= Enums.Collectibles.SINGULARITY then
 			player:SetPocketActiveItem(Enums.Collectibles.SINGULARITY, ActiveSlot.SLOT_POCKET, false)
 			player:SetActiveCharge(0, ActiveSlot.SLOT_POCKET)
 		end
