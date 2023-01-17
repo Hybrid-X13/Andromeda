@@ -145,13 +145,8 @@ end
 function Item.evaluateCache(player, cacheFlag)
 	if cacheFlag ~= CacheFlag.CACHE_FAMILIARS then return end
 	
-	local boxUses = player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BOX_OF_FRIENDS)
-	
-	if player:HasCollectible(Enums.Collectibles.CELESTIAL_CROWN) then
-		local starNum = player:GetCollectibleNum(Enums.Collectibles.CELESTIAL_CROWN)
-		local numStars = (starNum > 0 and (starNum + boxUses) or 0)
-		player:CheckFamiliar(Enums.Familiars.CELESTIAL_CROWN_STAR, numStars * 4, player:GetCollectibleRNG(Enums.Collectibles.CELESTIAL_CROWN), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.CELESTIAL_CROWN))
-	end
+	local numStars = player:GetCollectibleNum(Enums.Collectibles.CELESTIAL_CROWN) + player:GetEffects():GetCollectibleEffectNum(Enums.Collectibles.CELESTIAL_CROWN)
+	player:CheckFamiliar(Enums.Familiars.CELESTIAL_CROWN_STAR, numStars * 4, player:GetCollectibleRNG(Enums.Collectibles.CELESTIAL_CROWN), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.CELESTIAL_CROWN))
 end
 
 function Item.familiarInit(familiar)
@@ -216,12 +211,6 @@ function Item.familiarUpdate(familiar)
 			end
 		end
 	end
-end
-
-function Item.postPEffectUpdate(player)
-	if player:HasCollectible(Enums.Collectibles.CELESTIAL_CROWN) then return end
-	
-	player:CheckFamiliar(Enums.Familiars.CELESTIAL_CROWN_STAR, 0, player:GetCollectibleRNG(Enums.Collectibles.CELESTIAL_CROWN), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.CELESTIAL_CROWN))
 end
 
 return Item

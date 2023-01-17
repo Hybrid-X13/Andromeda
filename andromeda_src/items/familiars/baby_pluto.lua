@@ -26,13 +26,9 @@ local dirVector = {
 local Familiar = {}
 
 function Familiar.evaluateCache(player, cacheFlag)
-	if not player:HasCollectible(Enums.Collectibles.BABY_PLUTO) then return end
 	if cacheFlag ~= CacheFlag.CACHE_FAMILIARS then return end
-		
-	local boxUses = player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BOX_OF_FRIENDS)
-	local plutoNum = player:GetCollectibleNum(Enums.Collectibles.BABY_PLUTO)
-	local numBabyPlutos = (plutoNum > 0 and (plutoNum + boxUses) or 0)
 	
+	local numBabyPlutos = player:GetCollectibleNum(Enums.Collectibles.BABY_PLUTO) + player:GetEffects():GetCollectibleEffectNum(Enums.Collectibles.BABY_PLUTO)
 	player:CheckFamiliar(Enums.Familiars.BABY_PLUTO, numBabyPlutos, player:GetCollectibleRNG(Enums.Collectibles.BABY_PLUTO), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.BABY_PLUTO))
 end
 
@@ -104,12 +100,6 @@ function Familiar.preTearCollision(tear, collider, low)
 	then
 		return true
 	end
-end
-
-function Familiar.postPEffectUpdate(player)
-	if player:HasCollectible(Enums.Collectibles.BABY_PLUTO) then return end
-	
-	player:CheckFamiliar(Enums.Familiars.BABY_PLUTO, 0, player:GetCollectibleRNG(Enums.Collectibles.BABY_PLUTO), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.BABY_PLUTO))
 end
 
 return Familiar

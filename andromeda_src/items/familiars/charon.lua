@@ -1,5 +1,4 @@
 local Enums = require("andromeda_src.enums")
-local rng = RNG()
 
 local floatDir = {
 	[Direction.NO_DIRECTION] = "FloatDown", 
@@ -29,21 +28,16 @@ local Familiar = {}
 function Familiar.familiarInit(familiar)
 	if familiar.Variant ~= Enums.Familiars.CHARON then return end
 	
-	local player = familiar.Player
 	local sprite = familiar:GetSprite()
 	local plutonium = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, Enums.Familiars.PLUTONIUM)
 	local megaPlutonium = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, Enums.Familiars.MEGA_PLUTONIUM)
 		
-	if player:HasCollectible(Enums.Collectibles.PLUTONIUM) then
-		for i, entity in pairs(plutonium) do
-			familiar.Parent = entity
-		end
+	for _, entity in pairs(plutonium) do
+		familiar.Parent = entity
 	end
-	
-	if player:HasCollectible(Enums.Collectibles.MEGA_PLUTONIUM) then
-		for i, entity in pairs(megaPlutonium) do
-			familiar.Parent = entity
-		end
+
+	for _, entity in pairs(megaPlutonium) do
+		familiar.Parent = entity
 	end
 	
 	familiar.FireCooldown = 2
@@ -106,14 +100,6 @@ function Familiar.familiarUpdate(familiar)
 		sprite:Play(shootDir[animDirection], false)
 	end
 	familiar.FireCooldown = familiar.FireCooldown - 1
-end
-
-function Familiar.postPEffectUpdate(player)
-	if not player:HasCollectible(Enums.Collectibles.PLUTONIUM)
-	and not player:HasCollectible(Enums.Collectibles.MEGA_PLUTONIUM)
-	then
-		player:CheckFamiliar(Enums.Familiars.CHARON, 0, player:GetCollectibleRNG(Enums.Collectibles.MEGA_PLUTONIUM), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.MEGA_PLUTONIUM))
-	end
 end
 
 return Familiar

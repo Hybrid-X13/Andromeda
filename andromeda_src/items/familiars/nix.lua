@@ -9,7 +9,7 @@ function Familiar.familiarInit(familiar)
 	local sprite = familiar:GetSprite()
 	local megaPlutonium = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, Enums.Familiars.MEGA_PLUTONIUM)
 	
-	for i, entity in pairs(megaPlutonium) do
+	for _, entity in pairs(megaPlutonium) do
 		familiar.Parent = entity
 	end
 	
@@ -45,12 +45,6 @@ function Familiar.preFamiliarCollision(familiar, collider, low)
 		Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, rune, familiar.Position, Vector.Zero, familiar)
 		familiar:GetData().shotsBlocked = 0
 	end
-end
-
-function Familiar.postPEffectUpdate(player)
-	if player:HasCollectible(Enums.Collectibles.MEGA_PLUTONIUM) then return end
-	
-	player:CheckFamiliar(Enums.Familiars.NIX, 0, player:GetCollectibleRNG(Enums.Collectibles.MEGA_PLUTONIUM), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.MEGA_PLUTONIUM))
 end
 
 return Familiar

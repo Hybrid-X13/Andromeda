@@ -29,16 +29,12 @@ local Familiar = {}
 function Familiar.evaluateCache(player, cacheFlag)
 	if cacheFlag ~= CacheFlag.CACHE_FAMILIARS then return end
 	
-	local boxUses = player:GetEffects():GetCollectibleEffectNum(CollectibleType.COLLECTIBLE_BOX_OF_FRIENDS)
+	local numPlutoniums = player:GetCollectibleNum(Enums.Collectibles.PLUTONIUM) + player:GetEffects():GetCollectibleEffectNum(Enums.Collectibles.PLUTONIUM)
+	local numMega = player:GetCollectibleNum(Enums.Collectibles.MEGA_PLUTONIUM) + player:GetEffects():GetCollectibleEffectNum(Enums.Collectibles.MEGA_PLUTONIUM)
 	
-	if player:HasCollectible(Enums.Collectibles.MEGA_PLUTONIUM) then
-		local plutoniumNum = player:GetCollectibleNum(Enums.Collectibles.MEGA_PLUTONIUM)
-		local numMega = (plutoniumNum > 0 and (plutoniumNum + boxUses) or 0)
-		
-		player:CheckFamiliar(Enums.Familiars.MEGA_PLUTONIUM, numMega, player:GetCollectibleRNG(Enums.Collectibles.MEGA_PLUTONIUM), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.MEGA_PLUTONIUM))
-		player:CheckFamiliar(Enums.Familiars.CHARON, numMega, player:GetCollectibleRNG(Enums.Collectibles.MEGA_PLUTONIUM), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.MEGA_PLUTONIUM))
-		player:CheckFamiliar(Enums.Familiars.NIX, numMega, player:GetCollectibleRNG(Enums.Collectibles.MEGA_PLUTONIUM), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.MEGA_PLUTONIUM))
-	end
+	player:CheckFamiliar(Enums.Familiars.MEGA_PLUTONIUM, numMega, player:GetCollectibleRNG(Enums.Collectibles.MEGA_PLUTONIUM), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.MEGA_PLUTONIUM))
+	player:CheckFamiliar(Enums.Familiars.CHARON, numMega + numPlutoniums, player:GetCollectibleRNG(Enums.Collectibles.MEGA_PLUTONIUM), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.MEGA_PLUTONIUM))
+	player:CheckFamiliar(Enums.Familiars.NIX, numMega, player:GetCollectibleRNG(Enums.Collectibles.MEGA_PLUTONIUM), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.MEGA_PLUTONIUM))
 end
 
 function Familiar.familiarInit(familiar)
@@ -111,12 +107,6 @@ function Familiar.preFamiliarCollision(familiar, collider, low)
 	if collider:ToProjectile():HasProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER) then return end
 		
 	collider:Die()
-end
-
-function Familiar.postPEffectUpdate(player)
-	if player:HasCollectible(Enums.Collectibles.MEGA_PLUTONIUM) then return end
-	
-	player:CheckFamiliar(Enums.Familiars.MEGA_PLUTONIUM, 0, player:GetCollectibleRNG(Enums.Collectibles.MEGA_PLUTONIUM), Isaac.GetItemConfig():GetCollectible(Enums.Collectibles.MEGA_PLUTONIUM))
 end
 
 return Familiar
