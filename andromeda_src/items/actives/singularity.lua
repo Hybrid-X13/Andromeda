@@ -651,7 +651,28 @@ function Item.prePickupCollision(pickup, collider, low)
 				and CustomData.SingularityPickups[i].CanPickUp()
 				and pickup.Wait == 0
 				then
-					Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges)
+					local extraCharge = 0
+					
+					if player:HasTrinket(TrinketType.TRINKET_CHARGED_PENNY)
+					and pickup.Variant == PickupVariant.PICKUP_COIN
+					then
+						local trinketMultiplier = player:GetTrinketMultiplier(TrinketType.TRINKET_CHARGED_PENNY)
+						local coinValues = {1, 5, 10, 2, 1, 0, 1}
+						local max = coinValues[pickup.SubType] * trinketMultiplier
+
+						for i = 1, max do
+							local rng = player:GetTrinketRNG(TrinketType.TRINKET_CHARGED_PENNY)
+							local randNum = rng:RandomInt(6)
+
+							if randNum == 0
+							and extraCharge ~= 1
+							then
+								extraCharge = 1
+							end
+						end
+					end
+
+					Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges + extraCharge)
 					break
 				end
 			end
