@@ -619,7 +619,7 @@ function Item.postPEffectUpdate(player)
 	end
 end
 
-function Item.SingularityPickupCollision(pickup, collider, low)
+function Item.prePickupCollision(pickup, collider, low)
 	if pickup.SubType == 0 then return end
 	
 	local player = collider:ToPlayer()
