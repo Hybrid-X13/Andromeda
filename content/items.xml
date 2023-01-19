@@ -17,7 +17,7 @@
 	<passive id="30" name="Andromeda Knife" description="Stab stab stab" gfx="collectibles_114_momsknife.png" cache="damage firedelay tearflag" quality="4" tags="hidden" hidden="true" />
 	<passive id="31" name="Andromeda TechX" description="Laser ring tears" gfx="collectibles_395_techx.png" cache="firedelay tearflag" quality="4" tags="hidden" hidden="true" />
 	
-	<familiar id="11" name="Baby Pluto" description="Orbiting around your heart" gfx="andromeda_babypluto.png" quality="2" tags="offensive baby" />
+	<familiar id="11" name="Baby Pluto" description="Orbiting around your heart" gfx="andromeda_babypluto.png" quality="2" tags="summonable baby monstermanual" />
 	<familiar id="12" name="Planet 10" description="???" gfx="andromeda_plutonium.png" quality="3" tags="baby nocantrip hidden" hidden="true" />
 	<familiar id="13" name="Planet 11" description="???" gfx="andromeda_megaplutonium.png" quality="4" tags="baby nocantrip hidden" hidden="true" />
 	<familiar id="15" name="Celestial Crown" description="Ruler of the cosmos" gfx="andromeda_celestialcrown.png" quality="3" tags="summonable offensive" />
