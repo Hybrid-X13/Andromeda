@@ -210,7 +210,7 @@ function Character.postNewLevel()
 	}
 end
 
-function Character.entityTakeDmg(target, amount, flags, source, countdown)
+function Character.AndromedaTakeDmg(target, amount, flags, source, countdown)
 	local player = target:ToPlayer()
 
 	if player == nil then return end

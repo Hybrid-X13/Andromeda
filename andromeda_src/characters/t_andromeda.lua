@@ -465,25 +465,24 @@ function Character.preSpawnCleanAward()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 
-		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
-			if (room:GetType() == RoomType.ROOM_BOSS or room:GetType() == RoomType.ROOM_BOSSRUSH)
-			and level:GetStage() ~= LevelStage.STAGE7
+		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
+		and (room:GetType() == RoomType.ROOM_BOSS or room:GetType() == RoomType.ROOM_BOSSRUSH)
+		and level:GetStage() ~= LevelStage.STAGE7
+		then
+			bossRoomCleared = true
+			frameCount = game:GetFrameCount()
+			
+			--Recharge Singularity when clearing a boss room before Hush
+			if player:GetActiveCharge(ActiveSlot.SLOT_POCKET) < SINGULARITY_MAX * 2
+			and level:GetStage() < LevelStage.STAGE4_3
 			then
-				bossRoomCleared = true
-				frameCount = game:GetFrameCount()
-				
-				--Recharge Singularity when clearing a boss room before Hush
-				if player:GetActiveCharge(ActiveSlot.SLOT_POCKET) < SINGULARITY_MAX * 2
-				and level:GetStage() < LevelStage.STAGE4_3
-				then
-					Functions.ChargeSingularity(player, 12)
-				end
+				Functions.ChargeSingularity(player, 12)
 			end
 		end
 	end
 end
 
-function Character.entityTakeDmg(target, amount, flags, source, countdown)
+function Character.TAndromedaTakeDmg(target, amount, flags, source, countdown)
 	local player = target:ToPlayer()
 
 	if player == nil then return end
