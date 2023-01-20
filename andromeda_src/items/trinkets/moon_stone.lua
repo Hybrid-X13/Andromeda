@@ -2,7 +2,7 @@ local Enums = require("andromeda_src.enums")
 local game = Game()
 local sfx = SFXManager()
 local rng = RNG()
-local goldenMoonStone = Enums.Trinkets.MOON_STONE + TrinketType.TRINKET_GOLDEN_FLAG
+local GOLDEN_MOON_STONE = Enums.Trinkets.MOON_STONE + TrinketType.TRINKET_GOLDEN_FLAG
 
 local Trinket = {}
 
@@ -130,9 +130,9 @@ function Trinket.postPEffectUpdate(player)
 
 			if (player:HasCollectible(Enums.Collectibles.BABY_PLUTO, true) or player:HasCollectible(Enums.Collectibles.PLUTONIUM, true))
 			and (
-				player:GetTrinket(0) == goldenMoonStone
-				or player:GetTrinket(1) == goldenMoonStone
-				or (moonStoneMultiplier > 1 and player:GetTrinket(0) ~= goldenMoonStone and player:GetTrinket(1) ~= goldenMoonStone)
+				player:GetTrinket(0) == GOLDEN_MOON_STONE
+				or player:GetTrinket(1) == GOLDEN_MOON_STONE
+				or (moonStoneMultiplier > 1 and player:GetTrinket(0) ~= GOLDEN_MOON_STONE and player:GetTrinket(1) ~= GOLDEN_MOON_STONE)
 			)
 			then
 				game:GetHUD():ShowItemText("Mega Plutonium!")
@@ -140,7 +140,7 @@ function Trinket.postPEffectUpdate(player)
 				player:RemoveCollectible(Enums.Collectibles.BABY_PLUTO)
 				player:RemoveCollectible(Enums.Collectibles.PLUTONIUM)
 				player:AddCollectible(Enums.Collectibles.MEGA_PLUTONIUM)
-				player:TryRemoveTrinket(goldenMoonStone)
+				player:TryRemoveTrinket(GOLDEN_MOON_STONE)
 			elseif player:HasCollectible(Enums.Collectibles.BABY_PLUTO, true) then
 				game:GetHUD():ShowItemText("Plutonium!")
 				sfx:Play(SoundEffect.SOUND_POWERUP_SPEWER)
