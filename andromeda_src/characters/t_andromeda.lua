@@ -329,7 +329,7 @@ function Character.preRoomEntitySpawn(entity, variant, subType, gIndex, seed)
 	--Remove restock boxes
 	if entity == EntityType.ENTITY_SLOT
 	and variant == 10
-	and (roomType == RoomType.ROOM_SHOP or roomType == RoomType.ROOM_BLACK_MARKET)
+	and (roomType == RoomType.ROOM_SHOP or roomType == RoomType.ROOM_BLACK_MARKET or roomType == RoomType.ROOM_TREASURE)
 	then
 		return {0, 0, 0}
 	end
