@@ -234,7 +234,7 @@ end
 
 function Character.preTearCollision(tear, collider, low)
 	if not (tear:HasTearFlags(TearFlags.TEAR_ORBIT) or tear:HasTearFlags(TearFlags.TEAR_ORBIT_ADVANCED)) then return end
-	if collider.Type ~= EntityType.ENTITY_BOMBDROP then return end
+	if collider.Type ~= EntityType.ENTITY_BOMB then return end
 	
 	return true
 end

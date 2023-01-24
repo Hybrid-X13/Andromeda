@@ -96,7 +96,7 @@ end
 
 function Familiar.preTearCollision(tear, collider, low)
 	if tear:GetData().babyPlutoTear
-	and collider.Type == EntityType.ENTITY_BOMBDROP
+	and collider.Type == EntityType.ENTITY_BOMB
 	then
 		return true
 	end

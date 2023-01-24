@@ -39,7 +39,7 @@ local function CosmicTears(entity, player, pos)
 	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_TINY_PLANET)
 	local randNum = rng:RandomInt(#colors) + 1
 	
-	if entity.Type == EntityType.ENTITY_BOMBDROP
+	if entity.Type == EntityType.ENTITY_BOMB
 	or entity.Type == EntityType.ENTITY_EFFECT
 	then
 		newTear:AddTearFlags(player.TearFlags | TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_HOMING)
@@ -333,7 +333,7 @@ function Spode.postPlayerUpdate(player)
 end
 
 function Spode.preTearCollision(tear, collider, low)
-	if collider.Type ~= EntityType.ENTITY_BOMBDROP then return end
+	if collider.Type ~= EntityType.ENTITY_BOMB then return end
 	if tear:GetData().isSpodeTear == nil or not tear:GetData().isSpodeTear then return end
 	
 	return true

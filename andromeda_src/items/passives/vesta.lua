@@ -200,7 +200,7 @@ end
 
 function Item.preTearCollision(tear, collider, low)
 	if tear:GetData().vestaTear
-	and collider.Type == EntityType.ENTITY_BOMBDROP
+	and collider.Type == EntityType.ENTITY_BOMB
 	then
 		return true
 	end

@@ -176,7 +176,7 @@ function Item.familiarUpdate(familiar)
 	end
 
 	local tears = Isaac.FindInRadius(familiar.Position, radius, EntityPartition.TEAR)
-	local bombs = Isaac.FindByType(EntityType.ENTITY_BOMBDROP)
+	local bombs = Isaac.FindByType(EntityType.ENTITY_BOMB)
 	local rng = player:GetCollectibleRNG(Enums.Collectibles.CELESTIAL_CROWN)
 	local randNum
 	
