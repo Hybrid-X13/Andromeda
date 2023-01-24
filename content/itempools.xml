@@ -25,7 +25,7 @@
 		<Item Name="Book of Cosmos" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 	</Pool>
 	<Pool Name="craneGame">
-		<Item Name="Extinction Event" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Extinction Event" Weight="1" DecreaseBy="0.1" RemoveOn="0.1"/>
 	</Pool>
 	<Pool Name="babyShop">
 		<Item Name="Baby Pluto" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
