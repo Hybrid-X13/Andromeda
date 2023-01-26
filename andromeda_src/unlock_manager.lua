@@ -607,7 +607,7 @@ function UnlockManager.postPickupInit(pickup)
 			local rune
 
 			if pickup.SubType == Consumable.THE_UNKNOWN then
-				rune = 0
+				rune = pool:GetCard(Random(), false, false, false)
 			elseif not RunesAreUnlocked() then
 				rune = Card.RUNE_SHARD
 			else
@@ -710,7 +710,7 @@ function UnlockManager.postPlayerUpdate(player)
 				local rune
 				
 				if card == Consumable.THE_UNKNOWN then
-					rune = pool:GetCard(Random(), false, true, false)
+					rune = pool:GetCard(Random(), false, false, false)
 				elseif not RunesAreUnlocked() then
 					rune = Card.RUNE_SHARD
 				else
