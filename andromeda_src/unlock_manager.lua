@@ -604,17 +604,18 @@ function UnlockManager.postPickupInit(pickup)
 
 		if not unlocked then
 			local pool = game:GetItemPool()
-			local rune
-
-			if pickup.SubType == Consumable.THE_UNKNOWN then
-				rune = pool:GetCard(Random(), false, false, false)
-			elseif not RunesAreUnlocked() then
-				rune = Card.RUNE_SHARD
-			else
-				rune = pool:GetCard(pickup.InitSeed, false, true, true)
+			local newCard = pool:GetCard(pickup.InitSeed, false, false, false)
+			local itemConfig = Isaac.GetItemConfig():GetCard(pickup.SubType)
+			
+			if itemConfig:IsRune() then
+				if not RunesAreUnlocked() then
+					newCard = Card.RUNE_SHARD
+				else
+					newCard = pool:GetCard(pickup.InitSeed, false, true, true)
+				end
 			end
 			
-			pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, rune, true, false, false)
+			pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, newCard, true, false, false)
 		end
 	end
 end
@@ -707,16 +708,17 @@ function UnlockManager.postPlayerUpdate(player)
 			and not unlocked
 			then
 				local pool = game:GetItemPool()
-				local rune
-				
-				if card == Consumable.THE_UNKNOWN then
-					rune = pool:GetCard(Random(), false, false, false)
-				elseif not RunesAreUnlocked() then
-					rune = Card.RUNE_SHARD
-				else
-					rune = pool:GetCard(Random(), false, true, true)
+				local itemConfig = Isaac.GetItemConfig():GetCard(card)
+				local newCard = pool:GetCard(Random(), false, false, false)
+			
+				if itemConfig:IsRune() then
+					if not RunesAreUnlocked() then
+						newCard = Card.RUNE_SHARD
+					else
+						newCard = pool:GetCard(Random(), false, true, true)
+					end
 				end
-				player:SetCard(i, rune)
+				player:SetCard(i, newCard)
 			end
 		end
 	end
