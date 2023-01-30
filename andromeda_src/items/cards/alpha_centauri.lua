@@ -11,7 +11,7 @@ local wisps = {
 	Enums.Collectibles.CHIRON,
 }
 
-local Card = {}
+local Consumable = {}
 
 local function IsValidPickup(pickup)
 	if pickup.Variant == PickupVariant.PICKUP_HEART
@@ -31,7 +31,7 @@ local function IsValidPickup(pickup)
 	return false
 end
 
-function Card.useCard(card, player, flag)
+function Consumable.useCard(card, player, flag)
 	if card ~= Enums.Cards.ALPHA_CENTAURI then return end
 
 	local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1)
@@ -83,4 +83,4 @@ function Card.useCard(card, player, flag)
 	end
 end
 
-return Card
+return Consumable

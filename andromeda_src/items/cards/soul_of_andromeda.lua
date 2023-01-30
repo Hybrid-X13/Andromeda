@@ -3,9 +3,9 @@ local Functions = require("andromeda_src.functions")
 local sfx = SFXManager()
 local rng = RNG()
 
-local Card = {}
+local Consumable = {}
 
-function Card.useCard(card, player, flag)
+function Consumable.useCard(card, player, flag)
 	if card ~= Enums.Cards.SOUL_OF_ANDROMEDA then return end
 	
 	local rng = player:GetCardRNG(Enums.Cards.SOUL_OF_ANDROMEDA)
@@ -22,4 +22,4 @@ function Card.useCard(card, player, flag)
 	end
 end
 
-return Card
+return Consumable

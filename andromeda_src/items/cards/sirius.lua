@@ -2,9 +2,9 @@ local Enums = require("andromeda_src.enums")
 local sfx = SFXManager()
 local rng = RNG()
 
-local Card = {}
+local Consumable = {}
 
-function Card.useCard(card, player, flag)
+function Consumable.useCard(card, player, flag)
 	if card ~= Enums.Cards.SIRIUS then return end
 	if flag & UseFlag.USE_MIMIC == UseFlag.USE_MIMIC then return end
 	
@@ -24,4 +24,4 @@ function Card.useCard(card, player, flag)
 	end
 end
 
-return Card
+return Consumable

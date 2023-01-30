@@ -2,9 +2,9 @@ local Enums = require("andromeda_src.enums")
 local game = Game()
 local rng = RNG()
 
-local Card = {}
+local Consumable = {}
 
-function Card.useCard(card, player, flag)
+function Consumable.useCard(card, player, flag)
 	if card ~= Enums.Cards.THE_UNKNOWN then return end
 	
 	local rng = player:GetCardRNG(Enums.Cards.THE_UNKNOWN)
@@ -24,4 +24,4 @@ function Card.useCard(card, player, flag)
 	end
 end
 
-return Card
+return Consumable
