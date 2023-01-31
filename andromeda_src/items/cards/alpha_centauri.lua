@@ -43,8 +43,11 @@ function Consumable.useCard(card, player, flag)
 	
 	for _, j in pairs(items) do
 		local pickup = j:ToPickup()
+		local sprite = pickup:GetSprite()
 		
-		if pickup.Price == 0 then
+		if pickup.Price == 0
+		and not sprite:IsPlaying("Collect")
+		then
 			if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE
 			and pickup.SubType > 0
 			then
