@@ -1,5 +1,5 @@
 local Enums = require("andromeda_src.enums")
-local sfx = SFXManager()
+local Functions = require("andromeda_src.functions")
 local rng = RNG()
 
 local Consumable = {}
@@ -9,7 +9,6 @@ function Consumable.useCard(card, player, flag)
 	if flag & UseFlag.USE_MIMIC == UseFlag.USE_MIMIC then return end
 	
 	local rng = player:GetCardRNG(Enums.Cards.SIRIUS)
-	local randNum = rng:RandomInt(2)
 
 	player:AddCollectible(CollectibleType.COLLECTIBLE_BATTERY)
 	player:FullCharge(ActiveSlot.SLOT_PRIMARY, true)
@@ -17,11 +16,7 @@ function Consumable.useCard(card, player, flag)
 	player:FullCharge(ActiveSlot.SLOT_POCKET, true)
 	player:RemoveCollectible(CollectibleType.COLLECTIBLE_BATTERY)
 
-	if Options.AnnouncerVoiceMode == 2
-	or (Options.AnnouncerVoiceMode == 0 and randNum == 0)
-	then
-		sfx:Play(Enums.Voicelines.SIRIUS)
-	end
+	Functions.PlayVoiceline(Enums.Voicelines.SIRIUS, flag, rng:RandomInt(2))
 end
 
 return Consumable

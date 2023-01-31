@@ -36,6 +36,8 @@ function Consumable.useCard(card, player, flag)
 
 	local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1)
 	local rng = player:GetCardRNG(Enums.Cards.ALPHA_CENTAURI)
+
+	Functions.PlayVoiceline(Enums.Voicelines.ALPHA_CENTAURI, flag, rng:RandomInt(2))
 	
 	if #items == 0 then return end
 	
@@ -71,16 +73,6 @@ function Consumable.useCard(card, player, flag)
 		end
 	end
 	sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
-
-	local randNum = rng:RandomInt(2)
-
-	if flag & UseFlag.USE_MIMIC ~= UseFlag.USE_MIMIC then
-		if Options.AnnouncerVoiceMode == 2
-		or (Options.AnnouncerVoiceMode == 0 and randNum == 0)
-		then
-			sfx:Play(Enums.Voicelines.ALPHA_CENTAURI)
-		end
-	end
 end
 
 return Consumable

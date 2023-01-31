@@ -726,6 +726,16 @@ function Functions.IsInvulnerableEnemy(npc)
 	return false
 end
 
+function Functions.PlayVoiceline(voiceline, flag, randNum)
+	if flag & UseFlag.USE_MIMIC == UseFlag.USE_MIMIC then return end
+
+	if Options.AnnouncerVoiceMode == 2
+	or (Options.AnnouncerVoiceMode == 0 and randNum == 0)
+	then
+		sfx:Play(voiceline)
+	end
+end
+
 function Functions.RemoveAllCollectibles()
 	local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
 
