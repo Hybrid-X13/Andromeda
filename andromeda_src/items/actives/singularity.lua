@@ -626,6 +626,7 @@ function Item.prePickupCollision(pickup, collider, low)
 
 	if player == nil then return end
 	if not player:HasCollectible(Enums.Collectibles.SINGULARITY) then return end
+	if player:IsCoopGhost() then return end
 
 	ANDROMEDA.player = player
 

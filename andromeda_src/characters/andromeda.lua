@@ -302,6 +302,7 @@ function Character.prePickupCollision(pickup, collider, low)
 
 	if player == nil then return end
 	if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
+	if player:IsCoopGhost() then return end
 
 	local room = game:GetRoom()
 	local level = game:GetLevel()
