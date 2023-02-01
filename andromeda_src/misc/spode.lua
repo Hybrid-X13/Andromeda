@@ -271,7 +271,7 @@ function Spode.postPEffectUpdate(player)
 	if playerType == Isaac.GetPlayerTypeByName("Sodom", true) then return end
 	if playerType == Isaac.GetPlayerTypeByName("Gomorrah", false) then return end
 	if playerType == Isaac.GetPlayerTypeByName("Gomorrah", true) then return end
-	if player:IsCoopGhost() then return end
+	if player:IsCoopGhost() or (player.SubType == 59 and player.Parent ~= nil) then return end
 
 	if Functions.HasFullCompletion(Enums.Characters.ANDROMEDA)
 	or playerType == Enums.Characters.ANDROMEDA
