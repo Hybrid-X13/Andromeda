@@ -50,6 +50,10 @@ Enums.Cards = {
 }
 
 Enums.Slots = {
+	KEY_MASTER = 7,
+	DONATION = 8,
+	BOMB_BUM = 9,
+	RESTOCK = 10,
 	WISP_WIZARD = Isaac.GetEntityVariantByName("Wisp Wizard"),
 }
 

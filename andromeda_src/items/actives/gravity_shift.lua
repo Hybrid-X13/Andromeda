@@ -103,8 +103,8 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			and #shopItems > 0
 			and SaveData.PlayerData.Andromeda.GravShift.Shop == 0
 			then
-				local restock = Isaac.FindByType(EntityType.ENTITY_SLOT, 10)
-				local donation = Isaac.FindByType(EntityType.ENTITY_SLOT, 8)
+				local restock = Isaac.FindByType(EntityType.ENTITY_SLOT, Enums.Slots.RESTOCK)
+				local donation = Isaac.FindByType(EntityType.ENTITY_SLOT, Enums.Slots.DONATION)
 				local backdrop = rng:RandomInt(#backdrops) + 1
 				
 				for _, shopItem in pairs(shopItems) do

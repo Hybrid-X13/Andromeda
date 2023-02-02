@@ -11,7 +11,7 @@ local Beggar = {}
 
 function Beggar.preRoomEntitySpawn(entity, variant, subType, gIndex, seed)
 	if entity ~= EntityType.ENTITY_SLOT then return end
-	if variant ~= 7 then return end
+	if variant ~= Enums.Slots.KEY_MASTER then return end
 	if not SaveData.UnlockData.T_Andromeda.MegaSatan then return end
 	
 	--20% chance to turn a key beggar into a wisp wizard
@@ -44,7 +44,7 @@ function Beggar.postNewRoom()
 				for _, beggar in pairs(wispWizards) do
 					local pos = beggar.Position
 					beggar:Remove()
-					Isaac.Spawn(EntityType.ENTITY_SLOT, 7, 0, pos, Vector.Zero, nil)
+					Isaac.Spawn(EntityType.ENTITY_SLOT, Enums.Slots.KEY_MASTER, 0, pos, Vector.Zero, nil)
 				end
 			end
 		end

@@ -584,7 +584,7 @@ function Item.postPEffectUpdate(player)
 
 	if not player:HasTrinket(TrinketType.TRINKET_SAFETY_SCISSORS) then return end
 
-	local bombBums = Isaac.FindByType(EntityType.ENTITY_SLOT, 9)
+	local bombBums = Isaac.FindByType(EntityType.ENTITY_SLOT, Enums.Slots.BOMB_BUM)
 
 	if #bombBums == 0 then return end
 
@@ -601,7 +601,7 @@ function Item.postPEffectUpdate(player)
 
 				for _, ent in pairs(nearby) do
 					if ent.Type == EntityType.ENTITY_SLOT
-					and ent.Variant == 9
+					and ent.Variant == Enums.Slots.BOMB_BUM
 					then
 						beggar:Kill()
 						beggar:Remove()
