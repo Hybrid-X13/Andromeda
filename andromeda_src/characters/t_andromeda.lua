@@ -297,16 +297,22 @@ end
 
 function Character.postPlayerInit(player)
 	frameCount = 0
-	
-	if game:GetFrameCount() > 0 then return end
+
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
 	
-	for i = 1, #Blacklist do
-		itemPool:RemoveCollectible(Blacklist[i])
+	local level = game:GetLevel()
+	
+	if game:GetFrameCount() == 0
+	or level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX
+	then
+		for i = 1, #Blacklist do
+			itemPool:RemoveCollectible(Blacklist[i])
+		end
+	
+		player:AddNullCostume(headCostume)
+		player:AddNullCostume(eyeCostume)
+		SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] = 0
 	end
-
-	player:AddNullCostume(headCostume)
-	player:AddNullCostume(eyeCostume)
 end
 
 function Character.preRoomEntitySpawn(entity, variant, subType, gIndex, seed)
@@ -387,12 +393,6 @@ function Character.postNewRoom()
 						room:RemoveDoor(i)
 					end
 				end
-			end
-
-			if level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX then
-				player:AddNullCostume(headCostume)
-				player:AddNullCostume(eyeCostume)
-				SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] = 0
 			end
 
 			if room:IsFirstVisit() then

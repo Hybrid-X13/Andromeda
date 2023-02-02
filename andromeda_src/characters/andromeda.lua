@@ -70,21 +70,26 @@ function Character.evaluateCache(player, cacheFlag)
 end
 
 function Character.postPlayerInit(player)
-	if game:GetFrameCount() > 0 then return end
 	if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
 
-	for i = 1, #Blacklist.Items do
-		itemPool:RemoveCollectible(Blacklist.Items[i])
+	local level = game:GetLevel()
+	
+	if game:GetFrameCount() == 0
+	or level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX
+	then
+		for i = 1, #Blacklist.Items do
+			itemPool:RemoveCollectible(Blacklist.Items[i])
+		end
+		for i = 1, #Blacklist.Trinkets do
+			itemPool:RemoveTrinket(Blacklist.Trinkets[i])
+		end
+		for i = 1, #CustomData.AbPlPoolCopy do
+			itemPool:RemoveCollectible(CustomData.AbPlPoolCopy[i])
+		end
+	
+		player:AddNullCostume(headCostume)
+		player:AddNullCostume(bodyCostume)
 	end
-	for i = 1, #Blacklist.Trinkets do
-		itemPool:RemoveTrinket(Blacklist.Trinkets[i])
-	end
-	for i = 1, #CustomData.AbPlPoolCopy do
-		itemPool:RemoveCollectible(CustomData.AbPlPoolCopy[i])
-	end
-
-	player:AddNullCostume(headCostume)
-	player:AddNullCostume(bodyCostume)
 end
 
 function Character.postNewRoom()
@@ -186,11 +191,6 @@ function Character.postNewRoom()
 				local item = collectible:ToPickup()
 				item.Price = 15
 				item.ShopItemId = -1
-			end
-
-			if level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX then
-				player:AddNullCostume(headCostume)
-				player:AddNullCostume(bodyCostume)
 			end
 		end
 	end
