@@ -1,10 +1,8 @@
 local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
 local SaveData = require("andromeda_src.savedata")
-local CustomData = require("andromeda_src.customdata")
 local game = Game()
 local rng = RNG()
-local itemPool = game:GetItemPool()
 
 local Room = {}
 
