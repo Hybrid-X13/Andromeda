@@ -79,6 +79,8 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			rewinding = true
 			shiftIndex = roomIndex
 		end
+
+		if not room:IsClear() then return true end
 			
 		--Replace all shop items with a treasure room item that costs 30 cents
 		if room:GetType() == RoomType.ROOM_SHOP
@@ -99,8 +101,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				end
 			end
 			
-			if room:IsClear()
-			and #shopItems > 0
+			if #shopItems > 0
 			and SaveData.PlayerData.Andromeda.GravShift.Shop == 0
 			then
 				local restock = Isaac.FindByType(EntityType.ENTITY_SLOT, Enums.Slots.RESTOCK)
@@ -154,9 +155,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1)
 			local backdrop = rng:RandomInt(#backdrops) + 1
 			
-			if room:IsClear()
-			and #items > 0
-			then
+			if #items > 0 then
 				for _, j in pairs(items) do
 					local pickup = j:ToPickup()
 
@@ -216,9 +215,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
 			local backdrop = rng:RandomInt(#backdrops) + 1
 			
-			if room:IsClear()
-			and #items > 0
-			then
+			if #items > 0 then
 				for _, collectible in pairs(items) do
 					if collectible.SubType > 0 then
 						player:AddWisp(CollectibleType.COLLECTIBLE_BIBLE, collectible.Position, true, false)
@@ -242,9 +239,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
 			local backdrop = rng:RandomInt(#backdrops) + 1
 			
-			if room:IsClear()
-			and #items > 0
-			then
+			if #items > 0 then
 				for _, j in pairs(items) do
 					local pickup = j:ToPickup()
 
@@ -275,9 +270,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
 			local gameSeed = game:GetSeeds()
 			
-			if room:IsClear()
-			and #items > 0
-			then
+			if #items > 0 then
 				for _, collectible in pairs(items) do
 					if collectible.SubType > 0 then
 						player:UseActiveItem(CollectibleType.COLLECTIBLE_LEMEGETON, false)
