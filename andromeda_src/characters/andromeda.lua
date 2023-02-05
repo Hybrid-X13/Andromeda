@@ -363,6 +363,7 @@ function Character.postPEffectUpdate(player)
 	if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
 	if player:HasCurseMistEffect() then return end
 	if player:IsCoopGhost() then return end
+	if player.Parent then return end
 
 	if player:GetActiveItem(ActiveSlot.SLOT_POCKET) ~= Enums.Collectibles.GRAVITY_SHIFT then
 		player:SetPocketActiveItem(Enums.Collectibles.GRAVITY_SHIFT, ActiveSlot.SLOT_POCKET, false)
