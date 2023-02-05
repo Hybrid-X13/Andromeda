@@ -279,6 +279,7 @@ function Functions.ChargeSingularity(player, numCharges)
 		end
 		
 		player:SetActiveCharge(newCharge, activeSlot)
+		game:GetHUD():FlashChargeBar(player, activeSlot)
 
 		if (curCharge < singularityMax and newCharge >= singularityMax)
 		or (curCharge < singularityMax * 2 and curCharge >= singularityMax and newCharge == singularityMax * 2)
