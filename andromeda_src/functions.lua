@@ -727,6 +727,27 @@ function Functions.IsInvulnerableEnemy(npc)
 	return false
 end
 
+function Functions.IsSoulHeartCharacter(player)
+	local chars = {
+		PlayerType.PLAYER_BLUEBABY,
+		PlayerType.PLAYER_BLUEBABY_B,
+		PlayerType.PLAYER_BLACKJUDAS,
+		PlayerType.PLAYER_JUDAS_B,
+		PlayerType.PLAYER_THESOUL,
+		PlayerType.PLAYER_BETHANY_B,
+		PlayerType.PLAYER_THEFORGOTTEN_B,
+		PlayerType.PLAYER_THESOUL_B,
+	}
+
+	for i = 1, #chars do
+		if player:GetPlayerType() == chars[i] then
+			return true
+		end
+	end
+	
+	return false
+end
+
 function Functions.PlayVoiceline(voiceline, flag, randNum)
 	if flag & UseFlag.USE_MIMIC == UseFlag.USE_MIMIC then return end
 
