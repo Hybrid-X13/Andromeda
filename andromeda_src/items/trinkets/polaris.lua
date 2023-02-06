@@ -1,31 +1,11 @@
 local Enums = require("andromeda_src.enums")
+local Functions = require("andromeda_src.functions")
 local game = Game()
 local rng = RNG()
 local bossRoomCleared = false
 local frameCount = 0
 
 local Trinket = {}
-
-local function IsSoulHeartCharacter(player)
-	local chars = {
-		PlayerType.PLAYER_BLUEBABY,
-		PlayerType.PLAYER_BLUEBABY_B,
-		PlayerType.PLAYER_BLACKJUDAS,
-		PlayerType.PLAYER_JUDAS_B,
-		PlayerType.PLAYER_THESOUL,
-		PlayerType.PLAYER_BETHANY_B,
-		PlayerType.PLAYER_THEFORGOTTEN_B,
-		PlayerType.PLAYER_THESOUL_B,
-	}
-
-	for i = 1, #chars do
-		if player:GetPlayerType() == chars[i] then
-			return true
-		end
-	end
-	
-	return false
-end
 
 function Trinket.preSpawnCleanAward()
 	for i = 0, game:GetNumPlayers() - 1 do
@@ -120,7 +100,7 @@ function Trinket.postPEffectUpdate(player)
 									collectible.Price = math.floor(15 / (player:GetCollectibleNum(CollectibleType.COLLECTIBLE_STEAM_SALE) + 1))
 								end
 							elseif maxRedHearts > 0
-							and not IsSoulHeartCharacter(player)
+							and not Functions.IsSoulHeartCharacter(player)
 							then
 								if devilPrice == 2
 								and not player:HasTrinket(TrinketType.TRINKET_JUDAS_TONGUE)
@@ -178,7 +158,7 @@ function Trinket.postPEffectUpdate(player)
 					if player:HasTrinket(TrinketType.TRINKET_YOUR_SOUL) then
 						collectible.Price = PickupPrice.PRICE_SOUL
 					elseif maxRedHearts > 0
-					and not IsSoulHeartCharacter(player)
+					and not Functions.IsSoulHeartCharacter(player)
 					then
 						if devilPrice == 2
 						and not player:HasTrinket(TrinketType.TRINKET_JUDAS_TONGUE)
