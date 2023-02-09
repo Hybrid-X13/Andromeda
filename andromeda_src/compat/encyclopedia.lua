@@ -533,7 +533,6 @@ if Encyclopedia then
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
 				{str = "Activates a random tarot card effect, normal or reversed."},
-				{str = "Small chance to teleport you to the I AM ERROR room instead."},
 			},
 			{ -- Synergies
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},

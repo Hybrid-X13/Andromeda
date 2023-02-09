@@ -81,7 +81,7 @@ if EID then
 	EID:addTrinket(Enums.Trinkets.POLARIS, "When a deal room doesn't appear after defeating the floor's boss, the boss item is turned into an angel item for sale or a devil deal#Taking a devil item this way won't lock you into devil deals", "Polaris")
 	--Cards/runes
 	EID:addCard(Enums.Cards.SOUL_OF_ANDROMEDA, "{{AbPlanetarium}} Teleports you to an Abandoned Planetarium", "Soul of Andromeda")
-	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} Activates a random tarot card effect, normal or reversed#Small chance to teleport you to the I AM ERROR room instead", "XXII - The Unknown")
+	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} Activates a random tarot card effect, normal or reversed", "XXII - The Unknown")
 	EID:addCard(Enums.Cards.BETELGEUSE, "{{Collectible483}} Creates a Mama Mega explosion in the current room", "Betelgeuse")
 	EID:addCard(Enums.Cards.SIRIUS, "{{Battery}} Overcharges all your active items", "Sirius")
 	EID:addCard(Enums.Cards.ALPHA_CENTAURI, "Consumes all items and pickups in the room#Each pickup has a 50% chance of turning into a random wisp#Pedestal items grant a permanent, unique wisp based on the quality of the item consumed", "Alpha Centauri")
@@ -125,7 +125,7 @@ if EID then
 	EID:addTrinket(Enums.Trinkets.POLARIS, "Если комната сделки после победы над боссом этажа не появляется, предмет босса заменяется либо на предмет ангела за деньги либо на сделку дьявола#Беря сделку дьявола таким образом вы не теряете шанс ангела", "Полярис", "ru")
 	--Карты/руны
 	EID:addCard(Enums.Cards.SOUL_OF_ANDROMEDA, "{{AbPlanetarium}} Телепортирует игрока в Заброшенный Планетарий", "Душа Андромеды", "ru")
-	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} Активирует эффект случайной карты таро (обычной или перевёрнутой)#Маленький шанс вместо этого телепортировать в комнату Я ОШИБКА", "XXII - Неизвестен", "ru")
+	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} Активирует эффект случайной карты таро (обычной или перевёрнутой)", "XXII - Неизвестен", "ru")
 	EID:addCard(Enums.Cards.BETELGEUSE, "{{Collectible483}} Создаёт взрыв Мамы Меги в текущей комнате", "Бетельгейзе", "ru")
 	EID:addCard(Enums.Cards.SIRIUS, "{{Battery}} Заряжает все ваши активные предметы на два заряда", "Сириус", "ru")
 	EID:addCard(Enums.Cards.ALPHA_CENTAURI, "Поглощает все предметы и пикапы в комнате#Каждый поглощённый пикап имеет 50% шанс превратиться в огонёк#Поглощённые предметы гарантированно дают 5 случайных огоньков, основываясь на текущей комнате", "Альфа Центавра", "ru")
@@ -161,7 +161,7 @@ if EID then
 	EID:addTrinket(Enums.Trinkets.POLARIS, "携带该饰品时清理完Boss房后若没有开启恶魔房与天使房，Boss道具将变成天使道具出售或恶魔交易 #以这种方式获得恶魔道具并不会让你陷入恶魔交易中", "北极星","zh_cn")
 	--Cards/runes
 	EID:addCard(Enums.Cards.SOUL_OF_ANDROMEDA, "{{AbPlanetarium}} 传送到当前层的 遗弃星象房", "Andromeda的灵魂石","zh_cn")
-	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} 触发随机一张塔罗牌或逆位塔罗牌的效果 #小概率传送到当前层的错误房", "XXII-未知","zh_cn")
+	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} 触发随机一张塔罗牌或逆位塔罗牌的效果", "XXII-未知","zh_cn")
 	EID:addCard(Enums.Cards.BETELGEUSE, "{{Collectible483}} 使用该符文后在当前房间触发一次 妈妈炸弹的大爆炸", "参宿四","zh_cn")
 	EID:addCard(Enums.Cards.SIRIUS, "{{Battery}} 使用该符文后使当前主动处于额外充满的状态（即主动道具可以使用2次）", "天狼星","zh_cn")
 	EID:addCard(Enums.Cards.ALPHA_CENTAURI, "使用该符文后消耗当前房间的所有掉落物和道具 #掉落物有 50% 概率转化为 {{Collectible584}} 美德之书火焰 #底座道具必定会被转化为 5 个 {{Collectible584}} 美德之书火焰", "阿尔法半人马座","zh_cn")
@@ -197,7 +197,7 @@ if EID then
 	EID:addTrinket(Enums.Trinkets.POLARIS, "!!! 보스방의 보스 처치 후 악마방/천사방의 문이 등장하지 않았을 경우:#그 층의 {{BossRoom}}보스방 보상이 동전 거래가 필요한 {{AngelRoom}}천사방 아이템이나 체력 거래가 필요한 {{DevilRoom}}악마방 아이템으로 대체됩니다.#해당 거래는 악마 거래로 취급되지 않습니다.", "폴라리스", "ko_kr")
 	--Cards/runes
 	EID:addCard(Enums.Cards.SOUL_OF_ANDROMEDA, "{{AbPlanetarium}} 버려진 천체관으로 순간이동합니다.", "안드로메다의 영혼", "ko_kr")
-	EID:addCard(Enums.Cards.THE_UNKNOWN, "랜덤 타로 카드의 효과를 발동합니다.#{{ErrorRoom}} 낮은 확률로 오류방으로 이동합니다.", "XXII - 알 수 없음", "ko_kr")
+	EID:addCard(Enums.Cards.THE_UNKNOWN, "랜덤 타로 카드의 효과를 발동합니다.", "XXII - 알 수 없음", "ko_kr")
 	EID:addCard(Enums.Cards.BETELGEUSE, "{{Collectible483}} 그 방에서 Mama Mega의 폭발을 일으킵니다.", "베텔게우스", "ko_kr")
 	EID:addCard(Enums.Cards.SIRIUS, "액티브 아이템 충전량을 초과분까지 모두 충전합니다.#일반적인 충전이 불가능한 아이템도 강제로 충전할 수 있습니다.", "시리우스", "ko_kr")
 	EID:addCard(Enums.Cards.ALPHA_CENTAURI, "방 안의 아이템 및 픽업 아이템을 제거합니다.#제거한 픽업 아이템 당 50%의 확률로 Book of Virtues의 기본 불꽃을 소환합니다.#제거한 아이템 당 현재 방에 따라 특수 불꽃을 5개씩 소환합니다.", "센타우루스자리 알파", "ko_kr")
