@@ -16,7 +16,9 @@ local function IsBlacklistedEnemy(npc)
 	}
 	
 	for i = 1, #blacklist do
-		if npc.Type == blacklist[i] then
+		if npc.Type == blacklist[i]
+		or (npc.Type == EntityType.ENTITY_MOLE and npc.Variant == 1)
+		then
 			return true
 		end
 	end
