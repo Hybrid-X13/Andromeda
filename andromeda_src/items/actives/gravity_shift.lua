@@ -318,6 +318,7 @@ function Item.postPEffectUpdate(player)
 	and roomIndex ~= shiftIndex
 	then
 		player:StopExtraAnimation()
+		sfx:Play(SoundEffect.SOUND_MIRROR_EXIT)
 		
 		if (level:GetStage() ~= LevelStage.STAGE1_1 and not game:IsGreedMode())
 		or (game:IsGreedMode() and shiftIndex ~= 98)
