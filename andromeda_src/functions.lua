@@ -812,7 +812,7 @@ function Functions.SetAbandonedPlanetarium(player, setDoor)
 				--Fix for the room infinitely looping when using joker or similar cards
 				if door.TargetRoomIndex == GridRooms.ROOM_DEBUG_IDX then
 					local startRoomIndex = level:GetStartingRoomIndex()
-					game:StartRoomTransition(startRoomIndex, 1, RoomTransitionAnim.FADE, player, -1)
+					game:StartRoomTransition(startRoomIndex, Direction.NO_DIRECTION, RoomTransitionAnim.FADE, player, -1)
 				end
 			end
 		end
