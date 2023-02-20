@@ -58,7 +58,7 @@ function Trinket.postPEffectUpdate(player)
 		local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
 		
 		--Check if an angel or devil room spawned after defeating the boss
-		for i = 0, 8 do
+		for i = 0, DoorSlot.NUM_DOOR_SLOTS do
 			local door = room:GetDoor(i)
 			
 			if door
