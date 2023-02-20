@@ -226,22 +226,8 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	and roomType == RoomType.ROOM_PLANETARIUM
 	then
 		if SaveData.PlayerData.T_Andromeda.PlanetariumChance == 100 then
-			Functions.SetAbandonedPlanetarium(player, false)
+			Functions.SetAbandonedPlanetarium(player, true)
 			sfx:Play(SoundEffect.SOUND_MIRROR_BREAK)
-			
-			for i = 0, 8 do
-				local door = room:GetDoor(i)
-
-				if door
-				and door.TargetRoomType ~= RoomType.ROOM_SECRET
-				and door.TargetRoomType ~= RoomType.ROOM_SUPERSECRET
-				then
-					local doorSprite = room:GetDoor(i):GetSprite()
-					doorSprite:Load("gfx/grid/andromeda_abandonedplanetariumdoor.anm2", true)
-					doorSprite:ReplaceSpritesheet(0, "gfx/grid/andromeda_abandonedplanetariumdoor.png")
-					doorSprite:Play("Opened")
-				end
-			end
 		else
 			if planetariumRNG > SaveData.PlayerData.T_Andromeda.PlanetariumChance then
 				forcePickup = true
