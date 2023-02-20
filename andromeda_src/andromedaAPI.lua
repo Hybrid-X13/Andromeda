@@ -157,7 +157,12 @@ function ANDROMEDA:PullFromAbandonedPlanetariumPool(rng, decrease)
 		end
 	end
 	
-	if #CustomData.AbPlPoolCopy == 0 then
+	if Functions.AnyPlayerHasCollectible(CollectibleType.COLLECTIBLE_CHAOS) then
+		local pool = rng:RandomInt(ItemPoolType.NUM_ITEMPOOLS)
+		local seed = rng:RandomInt(999999999)
+
+		return itemPool:GetCollectible(pool, decrease, seed)
+	elseif #CustomData.AbPlPoolCopy == 0 then
 		local pool = ItemPoolType.POOL_TREASURE
 		local seed = game:GetSeeds():GetStartSeed()
 		
