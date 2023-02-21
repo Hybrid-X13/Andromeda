@@ -14,7 +14,7 @@ local Stats = {
 	Speed = 0,
 	Tears = 1,
 	DMG = 0.1,
-	Range = 20,
+	Range = 40,
 	ShotSpeed = -100,
 	Luck = 0,
 	TearFlags = TearFlags.TEAR_NORMAL | TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_ORBIT | TearFlags.TEAR_WAIT,
@@ -111,6 +111,7 @@ function Character.postNewRoom()
 				and not Functions.CheckTreasureTaken(roomIndex)
 				and not Functions.ContainsQuestItem()
 				and not game:GetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH)
+				and room:IsFirstVisit()
 				then
 					Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, player)
 				end
