@@ -85,7 +85,7 @@
 
 	<color name="tear_solar" r="255" g="248" b="209"/>
 	
-	<wisp id="1" hp="2" layer="-1" damage="3" flameColor="flame_blue" coreColor="core_cyan" tearColor="tear_cyan" canShoot="false" />
+	<wisp id="1" hp="1" layer="-1" damage="3" coreGfx="gravity_core.png" canShoot="false" />
 	<wisp id="2" hp="3" layer="1" damage="3" flameColor="flame_black" coreColor="core_black" tearColor="tear_solar" tearFlags2="76" procChance="0.05" />
 	<wisp id="3" hp="2" layer="1" damage="3" shotSpeed="1.2" flameColor="flame_orange" coreColor="core_dark_brown" tearColor="tear_brown" tearFlags="22" tearVariant="42" coreGfx="rock.png" />
 	<wisp id="4" hp="2" layer="1" damage="3" shotSpeed="0.9" flameColor="flame_purple" coreColor="core_cyan" tearColor="tear_blue" tearFlags="2" coreGfx="star.png" />
