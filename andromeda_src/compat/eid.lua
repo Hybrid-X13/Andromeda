@@ -46,7 +46,7 @@ if EID then
 	EID:addCardMetadata(Enums.Cards.ALPHA_CENTAURI, 6, true)
 
 	--English EID
-	EID:addBirthright(Enums.Characters.ANDROMEDA, "Grants the {{Spode}}{{ColorTransform}} Spode transformation{{ColorEIDText}} if you don't have it already#Using Gravity Shift in {{TreasureRoom}} Treasure rooms now takes you to a real#{{Blank}} {{Planetarium}} Planetarium#In Greed Mode, each shop has a Planetarium item for sale", "Andromeda")
+	EID:addBirthright(Enums.Characters.ANDROMEDA, "Grants the {{Spode}}{{ColorTransform}} Spode transformation{{ColorEIDText}} if you don't have it already#Using Gravity Shift in {{TreasureRoom}} Treasure rooms now turns it into a real#{{Blank}} {{Planetarium}} Planetarium#In Greed Mode, each shop has a Planetarium item for sale", "Andromeda")
 	EID:addBirthright(Enums.Characters.T_ANDROMEDA, "Each tear fired creates an additional tear that starts from far away and is pulled in towards the black hole#Enemies can also be pulled in", "Tainted Andromeda")
 	--Actives
 	EID:addCollectible(Enums.Collectibles.SINGULARITY, "Upon use, spawns a random pickup or chest#All pickup variants and chests have an equal chance of spawning#10% chance to spawn an item from a random pool instead#{{Warneeng}} {{ColorYellow}}Only charges by collecting pickups and using consumables", "Singularity")
