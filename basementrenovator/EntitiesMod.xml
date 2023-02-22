@@ -1,15 +1,4 @@
 <data>
-	<!-- Examples from Deliverance and IPECAC mod:
-		<entity BaseHP="1"  Group="Stage" 
-		ID="761" Image="deliverance/761.4000.0 - Munchubus.png" 
-		Kind="Deliverance" Name="Munchubus" Subtype="0" Variant="4000" />
-		
-		<entity Metadata="1" Group="Guwah" ID="551" 
-		Image="icons/backdropAltMausoleum.png" Kind="Stage" Name="Alt Mausoleum Backdrop" 
-		Variant="100" Subtype="0" NoBlockDoors="1">
-            <Gfx RoomGfx="Alt Mausoleum"/>
-	-->
-	
 	<entity Group="Beggars" ID="6" Image="andromeda/Wisp Wizard.png" Kind="Andromeda" Name="Wisp Wizard" Subtype="1" Variant="84" />
 	<entity Metadata="1" Group="Events" ID="999" Image="andromeda/Abandoned Planetarium Icon.png" Kind="Andromeda" Name="Abandoned Planetarium Backdrop" Variant="142" Subtype="0" NoBlockDoors="1" >
     </entity>
