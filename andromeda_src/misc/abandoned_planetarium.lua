@@ -4,13 +4,59 @@ local SaveData = require("andromeda_src.savedata")
 local game = Game()
 local rng = RNG()
 
+if MinimapAPI then
+	local AbPlIcon = Sprite()
+	AbPlIcon:Load("gfx/ui/minimapapi/abandonedplanetariumicon.anm2", true)
+	AbPlIcon:SetFrame("AbandonedPlanetarium", 0)
+	MinimapAPI:AddIcon("AbandonedPlanetarium", AbPlIcon)
+end
+
 local Room = {}
 
 function Room.postNewRoom()
-	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
-	
 	local room = game:GetRoom()
 	local level = game:GetLevel()
+	
+	for i = 0, DoorSlot.NUM_DOOR_SLOTS do
+		local door = room:GetDoor(i)
+
+		if door
+		and door.TargetRoomType == RoomType.ROOM_DICE
+		and room:GetType() ~= RoomType.ROOM_SECRET
+		then
+			local roomIndex = door.TargetRoomIndex
+			
+			local roomDesc = level:GetRoomByIdx(roomIndex, 0)
+			local roomConfig = roomDesc.Data
+
+			if roomConfig.Variant >= 4242
+			and roomConfig.Variant < 4900
+			then
+				local doorSprite = door:GetSprite()
+				doorSprite:Load("gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.anm2", true)
+				doorSprite:ReplaceSpritesheet(0, "gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.png")
+
+				if door:IsLocked() then
+					doorSprite:Play("KeyClosed", true)
+					doorSprite:SetFrame("KeyClosed", 0)
+				else
+					doorSprite:Play("Opened")
+				end
+			end
+		end
+	end
+
+	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
+
+	if MinimapAPI then
+		local roomidx = level:GetCurrentRoomIndex()
+
+		if roomidx ~= GridRooms.ROOM_DEBUG_IDX then
+			local roomIndex = MinimapAPI:GetRoomByIdx(roomidx)
+			roomIndex.PermanentIcons = {"AbandonedPlanetarium"}
+		end
+	end
+	
 	local roomDesc = level:GetCurrentRoomDesc()
 	local roomConfig = roomDesc.Data
 
@@ -22,7 +68,15 @@ function Room.postNewRoom()
 		
 		Functions.SetAbandonedPlanetarium(player, true)
 
-		if (roomConfig.Variant > 4241 and roomConfig.Variant < 4300)
+		if not room:IsFirstVisit() then return end
+
+		if StageAPI then
+			for _, customGrid in ipairs(StageAPI.GetCustomGrids()) do
+				customGrid:Remove(false)
+			end
+		end
+
+		if (roomConfig.Variant > 4241 and roomConfig.Variant < 4400)
 		or (roomConfig.Variant > 4841 and roomConfig.Variant < 4900)
 		then
 			local dollar = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, CollectibleType.COLLECTIBLE_DOLLAR)
@@ -57,12 +111,8 @@ function Room.postNewRoom()
 			for i = 1, #dollar do
 				local item = dollar[i]:ToPickup()
 				
-				if player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS) then
-					item:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, 0, true, false, false)
-				else
-					local itemID = ANDROMEDA:PullFromAbandonedPlanetariumPool(rng)
-					item:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, true, false, false)
-				end
+				local itemID = ANDROMEDA:PullFromAbandonedPlanetariumPool(rng)
+				item:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, true, false, false)
 				
 				if player:GetPlayerType() == PlayerType.PLAYER_KEEPER_B then
 					item.Price = 15
@@ -81,9 +131,17 @@ function Room.postNewRoom()
 			if roomConfig.Variant == 4443
 			or roomConfig.Variant == 4459
 			or roomConfig.Variant == 4642
+			or roomConfig.Variant == 4654
 			then
 				room:TurnGold()
-			elseif (roomConfig.Variant == 4444 or roomConfig.Variant == 4445 or roomConfig.Variant == 4471 or roomConfig.Variant == 4649)
+			elseif (
+				roomConfig.Variant == 4444
+				or roomConfig.Variant == 4445
+				or roomConfig.Variant == 4471
+				or roomConfig.Variant == 4487
+				or roomConfig.Variant == 4545
+				or roomConfig.Variant == 4649
+			)
 			and SaveData.UnlockData.T_Andromeda.MegaSatan
 			then
 				local slot = Isaac.FindByType(EntityType.ENTITY_SLOT, -1)
@@ -211,12 +269,20 @@ end
 function Room.postEffectUpdate(effect)
 	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
 	
-	if effect.Variant == EffectVariant.DICE_FLOOR
-	or effect.Variant == Isaac.GetEntityVariantByName("D12 Room Floor")
-	or effect.Variant == Isaac.GetEntityVariantByName("D12 Room Floor (Activated)")
-	or effect.Variant == Isaac.GetEntityVariantByName("D12 Pal")
-	then
+	local FFEffects = {
+		"D12 Room Floor",
+		"D12 Room Floor (Activated)",
+		"D12 Pal",
+	}
+	
+	if effect.Variant == EffectVariant.DICE_FLOOR then
 		effect:Remove()
+	end
+
+	for i = 1, #FFEffects do
+		if effect.Variant == Isaac.GetEntityVariantByName(FFEffects[i]) then
+			effect:Remove()
+		end
 	end
 end
 
