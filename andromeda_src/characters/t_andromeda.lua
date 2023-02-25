@@ -345,6 +345,7 @@ function Character.postNewRoom()
 	local room = game:GetRoom()
 	local level = game:GetLevel()
 	local roomDesc = level:GetCurrentRoomDesc()
+	local roomIndex = level:GetCurrentRoomIndex()
 	
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
@@ -363,18 +364,18 @@ function Character.postNewRoom()
 
 			if SaveData.PlayerData.T_Andromeda.PlanetariumChance < 100 then
 				if room:GetType() == RoomType.ROOM_PLANETARIUM then
-					Functions.SetAbandonedPlanetarium(player, false)
+					Functions.SetAbandonedPlanetarium(player, true)
 				end
 
-				for i = 0, 8 do
+				for i = 0, DoorSlot.NUM_DOOR_SLOTS do
 					local door = room:GetDoor(i)
 					
 					if door
 					and door.TargetRoomType ~= RoomType.ROOM_SECRET
-					and door.TargetRoomType ~= RoomType.ROOM_SUPERSECRET
-					and ((door.TargetRoomType == RoomType.ROOM_PLANETARIUM or room:GetType() == RoomType.ROOM_PLANETARIUM) and room:GetType() ~= RoomType.ROOM_SECRET)
+					and door.TargetRoomType == RoomType.ROOM_PLANETARIUM
+					and room:GetType() ~= RoomType.ROOM_SECRET
 					then
-						local doorSprite = room:GetDoor(i):GetSprite()
+						local doorSprite = door:GetSprite()
 						doorSprite:Load("gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.anm2", true)
 						doorSprite:ReplaceSpritesheet(0, "gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.png")
 						doorSprite:Play("Opened")
@@ -384,7 +385,7 @@ function Character.postNewRoom()
 
 			--Prevent abusing deal rooms
 			if room:GetType() == RoomType.ROOM_BOSS then
-				for i = 0, 8 do
+				for i = 0, DoorSlot.NUM_DOOR_SLOTS do
 					local door = room:GetDoor(i)
 					
 					if door
@@ -396,17 +397,7 @@ function Character.postNewRoom()
 			end
 
 			if room:IsFirstVisit() then
-				if room:GetType() == RoomType.ROOM_TREASURE
-				and not Functions.ContainsQuestItem()
-				and not player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
-				and level:GetStage() < LevelStage.STAGE4_1
-				and not game:IsGreedMode()
-				and not game:GetStateFlag(GameStateFlag.STATE_BACKWARDS_PATH)
-				then
-					sfx:Play(SoundEffect.SOUND_THUMBS_DOWN)
-				end
-				
-				--Recharge Singularity so that boss rush can be triggered
+				--Charge Singularity when entering boss rush and error rooms
 				if (room:GetType() == RoomType.ROOM_BOSSRUSH or room:GetType() == RoomType.ROOM_ERROR)
 				and player:GetActiveCharge(ActiveSlot.SLOT_POCKET) < SINGULARITY_MAX * 2
 				then
@@ -416,7 +407,7 @@ function Character.postNewRoom()
 				if #items > 0
 				and not Functions.ContainsQuestItem()
 				and Functions.GetDimension(roomDesc) ~= 2
-				and level:GetCurrentRoomIndex() ~= GridRooms.ROOM_GENESIS_IDX
+				and roomIndex ~= GridRooms.ROOM_GENESIS_IDX
 				then
 					for _, collectible in pairs(items) do
 						if collectible.SubType > 0 then
@@ -445,7 +436,7 @@ function Character.postNewRoom()
 				if game:IsGreedMode()
 				and room:IsFirstVisit()
 				and (room:GetType() == RoomType.ROOM_TREASURE or room:GetType() == RoomType.ROOM_DEVIL or room:GetType() == RoomType.ROOM_ANGEL or room:GetType() == RoomType.ROOM_PLANETARIUM)
-				and level:GetCurrentRoomIndex() ~= GridRooms.ROOM_ANGEL_SHOP_IDX
+				and roomIndex ~= GridRooms.ROOM_ANGEL_SHOP_IDX
 				then
 					Functions.ChargeSingularity(player, 12)
 				end
@@ -455,7 +446,42 @@ function Character.postNewRoom()
 end
 
 function Character.postNewLevel()
+	if not Functions.AnyPlayerIsType(Enums.Characters.T_ANDROMEDA) then return end
+	
 	SaveData.PlayerData.T_Andromeda.PlanetariumChance = 100
+
+	if game:IsGreedMode() then return end
+	
+	local room = game:GetRoom()
+	local level = game:GetLevel()
+	local rooms = level:GetRooms()
+	local player = Isaac.GetPlayer(0)
+
+	for i = rooms.Size, 0, -1 do
+		local roomDesc = rooms:Get(i - 1)
+
+		if roomDesc
+		and roomDesc.Data
+		and roomDesc.Data.Type == RoomType.ROOM_TREASURE
+		then
+			Isaac.ExecuteCommand("goto s.secret.9440")
+			local data = level:GetRoomByIdx(GridRooms.ROOM_DEBUG_IDX, 0).Data
+			local treasureDesc = level:GetRoomByIdx(roomDesc.SafeGridIndex, 0)
+			treasureDesc.Data = data
+			treasureDesc.DisplayFlags = 1 << -1
+			game:StartRoomTransition(level:GetStartingRoomIndex(), Direction.NO_DIRECTION, RoomTransitionAnim.FADE, player)
+		end
+	end
+	
+	for i = 0, DoorSlot.NUM_DOOR_SLOTS do
+		local door = room:GetDoor(i)
+
+		if door
+		and door.TargetRoomType == RoomType.ROOM_TREASURE
+		then
+			room:RemoveDoor(i)
+		end
+	end
 end
 
 function Character.preSpawnCleanAward()
