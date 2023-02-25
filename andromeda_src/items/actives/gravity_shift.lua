@@ -69,6 +69,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		
 		--Rewind to keep planetarium chance intact
 		if room:GetType() == RoomType.ROOM_TREASURE
+		and room:IsFirstVisit()
 		and not Functions.CheckAbandonedPlanetarium(roomIndex)
 		and not Functions.CheckTreasureTaken(roomIndex)
 		and not Functions.ContainsQuestItem()
@@ -318,7 +319,6 @@ function Item.postPEffectUpdate(player)
 	and roomIndex ~= shiftIndex
 	then
 		player:StopExtraAnimation()
-		sfx:Play(SoundEffect.SOUND_MIRROR_EXIT)
 		
 		if (level:GetStage() ~= LevelStage.STAGE1_1 and not game:IsGreedMode())
 		or (game:IsGreedMode() and shiftIndex ~= 98)
@@ -354,8 +354,14 @@ function Item.postPEffectUpdate(player)
 			local randNum = rng:RandomInt(#rooms) + 1
 			Isaac.ExecuteCommand("goto s.planetarium." .. rooms[randNum])
 		else
-			Functions.GoToAbandonedPlanetarium(player, true)
+			Functions.GoToAbandonedPlanetarium(player, true, shiftIndex)
 		end
+
+		local data = level:GetRoomByIdx(GridRooms.ROOM_DEBUG_IDX, 0).Data
+		local treasureDesc = level:GetRoomByIdx(shiftIndex, 0)
+		treasureDesc.Data = data
+		game:StartRoomTransition(shiftIndex, Direction.NO_DIRECTION, RoomTransitionAnim.FADE_MIRROR, player)
+
 		rewinding = false
 		shiftIndex = 0
 	end
