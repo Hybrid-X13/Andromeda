@@ -603,26 +603,57 @@ function Functions.GetRandomWisp(player, pos, rng)
 	return wisp
 end
 
-function Functions.GoToAbandonedPlanetarium(player, gravShift)
+function Functions.GoToAbandonedPlanetarium(player, gravShift, index)
 	local rng = player:GetCollectibleRNG(Enums.Collectibles.GRAVITY_SHIFT)
 	local level = game:GetLevel()
 	local itemRoomIDs = {}
 	local rewardRoomIDs = {}
 	local randNum
 	
-	for i = 4242, 4281 do
-		table.insert(itemRoomIDs, i)
-	end
-	for i = 4442, 4486 do
-		table.insert(rewardRoomIDs, i)
+	if index
+	and level:GetRoomByIdx(index, 0).Data.Shape == RoomShape.ROOMSHAPE_IV
+	then
+		for i = 4342, 4346 do
+			table.insert(itemRoomIDs, i)
+		end
+		for i = 4542, 4546 do
+			table.insert(rewardRoomIDs, i)
+		end
+	elseif index
+	and level:GetRoomByIdx(index, 0).Data.Shape == RoomShape.ROOMSHAPE_IH
+	then
+		for i = 4347, 4351 do
+			table.insert(itemRoomIDs, i)
+		end
+		for i = 4547, 4551 do
+			table.insert(rewardRoomIDs, i)
+		end
+	else
+		--Normal rooms
+		for i = 4242, 4281 do
+			table.insert(itemRoomIDs, i)
+		end
+		for i = 4442, 4487 do
+			table.insert(rewardRoomIDs, i)
+		end
+
+		--Closet rooms
+		if not gravShift then
+			for i = 4342, 4351 do
+				table.insert(itemRoomIDs, i)
+			end
+			for i = 4542, 4551 do
+				table.insert(rewardRoomIDs, i)
+			end
+		end
 	end
 	
 	--Special layouts if Soul of Andromeda was used
 	if not gravShift then
-		for i = 4842, 4852 do
+		for i = 4842, 4854 do
 			table.insert(itemRoomIDs, i)
 		end
-		for i = 4642, 4652 do
+		for i = 4642, 4654 do
 			table.insert(rewardRoomIDs, i)
 		end
 	end
@@ -782,7 +813,7 @@ function Functions.SetAbandonedPlanetarium(player, setDoor)
 	local effect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.WOMB_TELEPORT, 0, Vector(-20, 60), Vector.Zero, nil) --We do a little hacking
 	local sprite = effect:GetSprite()
 
-	game:ShowHallucination(0, BackdropType.ERROR_ROOM)
+	game:ShowHallucination(0, BackdropType.DUNGEON_GIDEON)
 	sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
 
 	if room:GetRoomShape() == RoomShape.ROOMSHAPE_IH then
@@ -797,22 +828,29 @@ function Functions.SetAbandonedPlanetarium(player, setDoor)
 	end
 
 	sprite:Play("Idle")
-	room:SetWallColor(Color(0.85, 0.85, 0.85, 1, 0, 0, 0))
 
 	if setDoor then
-		for i = 0, 8 do
+		for i = 0, DoorSlot.NUM_DOOR_SLOTS do
 			local door = room:GetDoor(i)
 			
-			if door then
+			if door
+			and door.TargetRoomType ~= RoomType.ROOM_SECRET
+			then
 				local doorSprite = door:GetSprite()
 				doorSprite:Load("gfx/grid/andromeda_abandonedplanetariumdoor.anm2", true)
 				doorSprite:ReplaceSpritesheet(0, "gfx/grid/andromeda_abandonedplanetariumdoor.png")
-				doorSprite:Play("Opened")
+
+				if door:IsLocked() then
+					doorSprite:Play("KeyClosed", true)
+					doorSprite:SetFrame("KeyClosed", 0)
+				else
+					doorSprite:Play("Opened")
+				end
 
 				--Fix for the room infinitely looping when using joker or similar cards
 				if door.TargetRoomIndex == GridRooms.ROOM_DEBUG_IDX then
 					local startRoomIndex = level:GetStartingRoomIndex()
-					game:StartRoomTransition(startRoomIndex, Direction.NO_DIRECTION, RoomTransitionAnim.FADE, player, -1)
+					game:StartRoomTransition(startRoomIndex, Direction.NO_DIRECTION, RoomTransitionAnim.FADE, player)
 				end
 			end
 		end
