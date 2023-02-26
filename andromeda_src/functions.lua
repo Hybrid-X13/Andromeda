@@ -835,6 +835,7 @@ function Functions.SetAbandonedPlanetarium(player, setDoor)
 			
 			if door
 			and door.TargetRoomType ~= RoomType.ROOM_SECRET
+			and door.TargetRoomType ~= RoomType.ROOM_SUPERSECRET
 			then
 				local doorSprite = door:GetSprite()
 				doorSprite:Load("gfx/grid/andromeda_abandonedplanetariumdoor.anm2", true)

@@ -372,6 +372,7 @@ function Character.postNewRoom()
 					
 					if door
 					and door.TargetRoomType ~= RoomType.ROOM_SECRET
+					and door.TargetRoomType ~= RoomType.ROOM_SUPERSECRET
 					and door.TargetRoomType == RoomType.ROOM_PLANETARIUM
 					and room:GetType() ~= RoomType.ROOM_SECRET
 					then
