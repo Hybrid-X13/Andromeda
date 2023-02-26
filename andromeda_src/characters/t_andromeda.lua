@@ -471,6 +471,12 @@ function Character.postNewLevel()
 			treasureDesc.Data = data
 			treasureDesc.DisplayFlags = 1 << -1
 			game:StartRoomTransition(level:GetStartingRoomIndex(), Direction.NO_DIRECTION, RoomTransitionAnim.FADE, player)
+			level:UpdateVisibility()
+
+			if MinimapAPI then
+				local roomIndex = MinimapAPI:GetRoomByIdx(roomDesc.SafeGridIndex)
+				roomIndex.Hidden = true
+			end
 		end
 	end
 	
