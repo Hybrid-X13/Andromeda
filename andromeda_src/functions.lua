@@ -838,8 +838,24 @@ function Functions.SetAbandonedPlanetarium(player, setDoor)
 			and door.TargetRoomType ~= RoomType.ROOM_SUPERSECRET
 			then
 				local doorSprite = door:GetSprite()
-				doorSprite:Load("gfx/grid/andromeda_abandonedplanetariumdoor.anm2", true)
-				doorSprite:ReplaceSpritesheet(0, "gfx/grid/andromeda_abandonedplanetariumdoor.png")
+				local anm2 = "gfx/grid/andromeda_abandonedplanetariumdoor.anm2"
+				local png = "gfx/grid/andromeda_abandonedplanetariumdoor.png"
+
+				if door.TargetRoomType == RoomType.ROOM_DICE then
+					local roomIndex = door.TargetRoomIndex
+					local roomDesc = level:GetRoomByIdx(roomIndex, 0)
+					local roomConfig = roomDesc.Data
+
+					if roomConfig.Variant >= 4242
+					and roomConfig.Variant < 4900
+					then
+						anm2 = "gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.anm2"
+						png = "gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.png"
+					end
+				end
+
+				doorSprite:Load(anm2, true)
+				doorSprite:ReplaceSpritesheet(0, png)
 
 				if door:IsLocked() then
 					doorSprite:Play("KeyClosed", true)

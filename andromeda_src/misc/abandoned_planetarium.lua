@@ -25,7 +25,6 @@ function Room.postNewRoom()
 		and room:GetType() ~= RoomType.ROOM_SECRET
 		then
 			local roomIndex = door.TargetRoomIndex
-			
 			local roomDesc = level:GetRoomByIdx(roomIndex, 0)
 			local roomConfig = roomDesc.Data
 
