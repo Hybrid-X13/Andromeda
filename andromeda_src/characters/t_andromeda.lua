@@ -371,15 +371,17 @@ function Character.postNewRoom()
 					local door = room:GetDoor(i)
 					
 					if door
-					and door.TargetRoomType ~= RoomType.ROOM_SECRET
-					and door.TargetRoomType ~= RoomType.ROOM_SUPERSECRET
 					and door.TargetRoomType == RoomType.ROOM_PLANETARIUM
 					and room:GetType() ~= RoomType.ROOM_SECRET
+					and room:GetType() ~= RoomType.ROOM_SUPERSECRET
 					then
 						local doorSprite = door:GetSprite()
-						doorSprite:Load("gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.anm2", true)
-						doorSprite:ReplaceSpritesheet(0, "gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.png")
-						doorSprite:Play("Opened")
+
+						for i = 0, 4 do
+							doorSprite:ReplaceSpritesheet(i, "gfx/grid/andromeda_abandonedplanetariumdoor_out.png")
+						end
+						
+						doorSprite:LoadGraphics()
 					end
 				end
 			end

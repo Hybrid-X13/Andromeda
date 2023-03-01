@@ -23,6 +23,7 @@ function Room.postNewRoom()
 		if door
 		and door.TargetRoomType == RoomType.ROOM_DICE
 		and room:GetType() ~= RoomType.ROOM_SECRET
+		and room:GetType() ~= RoomType.ROOM_SUPERSECRET
 		then
 			local roomIndex = door.TargetRoomIndex
 			local roomDesc = level:GetRoomByIdx(roomIndex, 0)
@@ -32,15 +33,12 @@ function Room.postNewRoom()
 			and roomConfig.Variant < 4900
 			then
 				local doorSprite = door:GetSprite()
-				doorSprite:Load("gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.anm2", true)
-				doorSprite:ReplaceSpritesheet(0, "gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.png")
 
-				if door:IsLocked() then
-					doorSprite:Play("KeyClosed", true)
-					doorSprite:SetFrame("KeyClosed", 0)
-				else
-					doorSprite:Play("Opened")
+				for i = 0, 4 do
+					doorSprite:ReplaceSpritesheet(i, "gfx/grid/andromeda_abandonedplanetariumdoor_out.png")
 				end
+				
+				doorSprite:LoadGraphics()
 			end
 		end
 	end

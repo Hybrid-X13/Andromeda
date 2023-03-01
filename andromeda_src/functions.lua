@@ -838,8 +838,7 @@ function Functions.SetAbandonedPlanetarium(player, setDoor)
 			and door.TargetRoomType ~= RoomType.ROOM_SUPERSECRET
 			then
 				local doorSprite = door:GetSprite()
-				local anm2 = "gfx/grid/andromeda_abandonedplanetariumdoor.anm2"
-				local png = "gfx/grid/andromeda_abandonedplanetariumdoor.png"
+				local png = "gfx/grid/andromeda_abandonedplanetariumdoor_in.png"
 
 				if door.TargetRoomType == RoomType.ROOM_DICE then
 					local roomIndex = door.TargetRoomIndex
@@ -849,20 +848,15 @@ function Functions.SetAbandonedPlanetarium(player, setDoor)
 					if roomConfig.Variant >= 4242
 					and roomConfig.Variant < 4900
 					then
-						anm2 = "gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.anm2"
-						png = "gfx/grid/andromeda_abandonedplanetariumdoor_hollowlol.png"
+						png = "gfx/grid/andromeda_abandonedplanetariumdoor_out.png"
 					end
 				end
 
-				doorSprite:Load(anm2, true)
-				doorSprite:ReplaceSpritesheet(0, png)
-
-				if door:IsLocked() then
-					doorSprite:Play("KeyClosed", true)
-					doorSprite:SetFrame("KeyClosed", 0)
-				else
-					doorSprite:Play("Opened")
+				for i = 0, 4 do
+					doorSprite:ReplaceSpritesheet(i, png)
 				end
+				
+				doorSprite:LoadGraphics()
 
 				--Fix for the room infinitely looping when using joker or similar cards
 				if door.TargetRoomIndex == GridRooms.ROOM_DEBUG_IDX then
