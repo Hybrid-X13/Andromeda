@@ -607,6 +607,7 @@ end
 
 function Item.prePickupCollision(pickup, collider, low)
 	if pickup.SubType == 0 then return end
+	if pickup.Variant == PickupVariant.PICKUP_COIN and pickup.SubType == CoinSubType.COIN_STICKYNICKEL then return end
 	
 	local player = collider:ToPlayer()
 
@@ -629,14 +630,13 @@ function Item.prePickupCollision(pickup, collider, low)
 			end
 		end
 	else
-		if (player:IsHoldingItem() and pickup.Price == 0)
-		or (not player:IsHoldingItem() and player:GetNumCoins() >= pickup.Price)
+		if ((player:IsHoldingItem() and pickup.Price == 0) or (not player:IsHoldingItem() and player:GetNumCoins() >= pickup.Price))
+		and pickup.Wait == 0
 		then
 			for i = 1, #CustomData.SingularityPickups do
 				if CustomData.SingularityPickups[i].Variant == pickup.Variant
 				and CustomData.SingularityPickups[i].SubType == pickup.SubType
 				and CustomData.SingularityPickups[i].CanPickUp()
-				and pickup.Wait == 0
 				then
 					local extraCharge = 0
 					
@@ -660,6 +660,12 @@ function Item.prePickupCollision(pickup, collider, low)
 					end
 
 					Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges + extraCharge)
+					break
+				elseif pickup.Variant == PickupVariant.PICKUP_COIN
+				or pickup.Variant == PickupVariant.PICKUP_KEY
+				or pickup.Variant == PickupVariant.PICKUP_BOMB
+				then
+					Functions.ChargeSingularity(player, 1)
 					break
 				end
 			end
