@@ -245,6 +245,24 @@ if Encyclopedia then
 				{str = "Spawns a star wisp that shoots homing stars."},
 			},
 		},
+		THE_SPOREPEDIA = {
+			{ -- Effect
+				{str = "Effect", fsize = 2, clr = 3, halign = 0},
+				{str = "Spawn a random co-op baby familiar for the room that has a random tear effect, similar to Buddy In a Box."},
+				{str = "This item is an easter egg and has a 2.5% chance of replacing Book of Cosmos when it spawns, which is the only way it can be obtained."},
+			},
+			{ -- Synergies
+				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
+				{str = "Book of Virtues", clr = 3, halign = 0},
+				{str = "Spawns a wisp that has a random tear effect. This is the same wisp spawned by Monster Manual."},
+			},
+			{ -- Trivia
+				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
+				{str = "This item is a reference to the game Spore, which is a game that lets you create your own creatures, buildings, vehicles, and more."},
+				{str = "The Sporepedia is a collection of every published Spore creation."},
+				{str = "Each bookmark seen on the sprite represents the game's DLCs. The red one is for the Creepy & Cute parts pack and the orange one represents Galactic Adventures."},
+			},
+		},
 		LUMINARY_FLARE = {
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
@@ -701,6 +719,19 @@ if Encyclopedia then
 		UnlockFunc = function(self)
 			if not SaveData.UnlockData.T_Andromeda.BlueBaby then
 				self.Desc = "Defeat ??? as Tainted Andromeda."
+				return self
+			end
+		end,
+	})
+	Encyclopedia.AddItem({
+		Class = "Andromeda",
+		ModName = "Andromeda",
+		ID = Enums.Collectibles.THE_SPOREPEDIA,
+		WikiDesc = Wiki.THE_SPOREPEDIA,
+		Pools = {},
+		UnlockFunc = function(self)
+			if not SaveData.UnlockData.T_Andromeda.BlueBaby then
+				self.Desc = "???"
 				return self
 			end
 		end,

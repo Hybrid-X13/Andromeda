@@ -53,6 +53,7 @@ if EID then
 	EID:addCollectible(Enums.Collectibles.GRAVITY_SHIFT, "Upon use, causes all tears and projectiles to stop in midair, falling down after some time#Enemy projectiles that are stopped can't damage you and can damage other enemies", "Gravity Shift")
 	EID:addCollectible(Enums.Collectibles.EXTINCTION_EVENT, "Upon use, causes meteors to fall from the sky for the duration of the current room#The meteors explode on impact, can burn enemies, and vary in damage, dealing up to 2x your current damage#Meteors and their explosions can't damage you", "Extinction Event")
 	EID:addCollectible(Enums.Collectibles.BOOK_OF_COSMOS, "Summons a random Zodiac or Planetarium item wisp, granting you its effect#The wisp lasts for the current room", "Book of Cosmos")
+	EID:addCollectible(Enums.Collectibles.THE_SPOREPEDIA, "Spawn a random co-op baby familiar for the room that has a random tear effect", "The Sporepedia")
 	--Passives
 	EID:addCollectible(Enums.Collectibles.OPHIUCHUS, "Chance to shoot a barrage of 5 tears that each deal a third of your damage#{{HalfSoulHeart}} Enemies killed by the barrage have a 5% chance to drop half a soul heart", "Ophiuchus")
 	EID:addCollectible(Enums.Collectibles.CERES, "+1 coin, bomb, and key#Pickups have a 20% chance to be upgraded into a better variant#{{Collectible313}} Chance to gain a Holy Mantle shield when taking damage based on the total number of pickups you have", "Ceres")
@@ -68,6 +69,7 @@ if EID then
 	EID:addCollectible(Enums.Collectibles.LUMINARY_FLARE, "Grants a sun that appears in the center of every room#Killing an enemy has a chance to make it shoot a powerful solar flare in a random direction#{{Burning}} Enemies that get near the sun are burned", "Luminary Flare")
 	--Transformation contributions
 	EID:assignTransformation("collectible", Enums.Collectibles.BOOK_OF_COSMOS, EID.TRANSFORMATION["BOOKWORM"])
+	EID:assignTransformation("collectible", Enums.Collectibles.THE_SPOREPEDIA, EID.TRANSFORMATION["BOOKWORM"])
 	EID:assignTransformation("collectible", Enums.Collectibles.BABY_PLUTO, EID.TRANSFORMATION["CONJOINED"])
 	EID:assignTransformation("collectible", Enums.Collectibles.PLUTONIUM, EID.TRANSFORMATION["CONJOINED"])
 	EID:assignTransformation("collectible", Enums.Collectibles.MEGA_PLUTONIUM, EID.TRANSFORMATION["CONJOINED"])

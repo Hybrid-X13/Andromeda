@@ -11,6 +11,7 @@ Enums.Collectibles = {
 	SINGULARITY = Isaac.GetItemIdByName("Singularity"),
 	EXTINCTION_EVENT = Isaac.GetItemIdByName("Extinction Event"),
 	BOOK_OF_COSMOS = Isaac.GetItemIdByName("Book of Cosmos"),
+	THE_SPOREPEDIA = Isaac.GetItemIdByName("The Sporepedia"),
 	--Passives
 	OPHIUCHUS = Isaac.GetItemIdByName("​Ophiuchus"),
 	CERES = Isaac.GetItemIdByName("Ceres"),
