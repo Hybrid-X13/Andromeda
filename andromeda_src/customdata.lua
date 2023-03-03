@@ -308,6 +308,12 @@ CustomData.SingularityPickups = {
 		SubType = KeySubType.KEY_CHARGED,
 		NumCharges = 4,
 		CanPickUp = function()
+			if ANDROMEDA.player:HasCollectible(Isaac.GetItemIdByName("Skeleton Lock"))
+			and ANDROMEDA.player:GetNumKeys() > 4
+			then
+				return false
+			end
+
 			return true
 		end,
 	},
@@ -324,6 +330,12 @@ CustomData.SingularityPickups = {
 		SubType = KeySubType.KEY_DOUBLEPACK,
 		NumCharges = 2,
 		CanPickUp = function()
+			if ANDROMEDA.player:HasCollectible(Isaac.GetItemIdByName("Skeleton Lock"))
+			and ANDROMEDA.player:GetNumKeys() > 4
+			then
+				return false
+			end
+
 			return true
 		end,
 	},
@@ -332,6 +344,12 @@ CustomData.SingularityPickups = {
 		SubType = KeySubType.KEY_NORMAL,
 		NumCharges = 1,
 		CanPickUp = function()
+			if ANDROMEDA.player:HasCollectible(Isaac.GetItemIdByName("Skeleton Lock"))
+			and ANDROMEDA.player:GetNumKeys() > 4
+			then
+				return false
+			end
+
 			return true
 		end,
 	},
