@@ -248,8 +248,13 @@ if Encyclopedia then
 		THE_SPOREPEDIA = {
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
-				{str = "Spawn a random co-op baby familiar for the room that has a random tear effect, similar to Buddy In a Box."},
+				{str = "Spawn a random co-op baby for the room that has a random tear effect, similar to Buddy In a Box."},
 				{str = "This item is an easter egg and has a 2.5% chance of replacing Book of Cosmos when it spawns, which is the only way it can be obtained."},
+			},
+			{ -- Interactions
+				{str = "Interactions", fsize = 2, clr = 3, halign = 0},
+				{str = "Spode Transformation", clr = 3, halign = 0},
+				{str = "Spawn an additionaly familiar."},
 			},
 			{ -- Synergies
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
