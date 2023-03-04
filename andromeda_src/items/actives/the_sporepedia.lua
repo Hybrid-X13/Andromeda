@@ -9,6 +9,12 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	
 	Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BUDDY_IN_A_BOX, 0, player.Position, Vector.Zero, player)
 
+	if player:GetData().hasSpode
+	and flags & UseFlag.USE_CARBATTERY ~= UseFlag.USE_CARBATTERY
+	then
+		Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BUDDY_IN_A_BOX, 0, player.Position, Vector.Zero, player)
+	end
+
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) then
 		player:AddWisp(CollectibleType.COLLECTIBLE_MONSTER_MANUAL, player.Position, false)
 		sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
