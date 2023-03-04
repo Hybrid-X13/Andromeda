@@ -254,7 +254,7 @@ if Encyclopedia then
 			{ -- Interactions
 				{str = "Interactions", fsize = 2, clr = 3, halign = 0},
 				{str = "Spode Transformation", clr = 3, halign = 0},
-				{str = "Spawn an additionaly familiar."},
+				{str = "Spawn an additional familiar."},
 			},
 			{ -- Synergies
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
