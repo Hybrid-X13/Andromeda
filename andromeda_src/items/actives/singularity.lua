@@ -263,6 +263,13 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		then
 			pool = ItemPoolType.POOL_BABY_SHOP
 		end
+
+		if game:IsGreedMode()
+		and roomType == RoomType.ROOM_TREASURE
+		and level:GetCurrentRoomIndex() == 98
+		then
+			pool = ItemPoolType.POOL_GREED_BOSS
+		end
 		
 		if player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
 		and roomType == RoomType.ROOM_TREASURE
@@ -270,11 +277,10 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			pool = ItemPoolType.POOL_DEVIL
 		end
 		
-		if game:IsGreedMode()
+		if player:HasTrinket(Isaac.GetTrinketIdByName("Angel's Crown"))
 		and roomType == RoomType.ROOM_TREASURE
-		and level:GetCurrentRoomIndex() == 98
 		then
-			pool = ItemPoolType.POOL_GREED_BOSS
+			pool = ItemPoolType.POOL_ANGEL
 		end
 
 		--Chance to spawn a secret room item is halved every time Singularity is used in there
@@ -360,23 +366,34 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, spawnpos, Vector.Zero, nil):ToPickup()
 				
 				if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
-				and player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
 				and roomType == RoomType.ROOM_TREASURE
 				then
-					local trinketMultiplier = player:GetTrinketMultiplier(TrinketType.TRINKET_DEVILS_CROWN)
-					
-					if trinketMultiplier > 3 then
-						collectible.Price = 0
-					elseif trinketMultiplier == 3 then
-						collectible.Price = PickupPrice.PRICE_ONE_SOUL_HEART
-						collectible.AutoUpdatePrice = false
-					elseif trinketMultiplier == 2 then
-						collectible.Price = PickupPrice.PRICE_TWO_SOUL_HEARTS
-						collectible.AutoUpdatePrice = false
-					else
-						collectible.Price = PickupPrice.PRICE_SOUL
+					if player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN) then
+						local trinketMultiplier = player:GetTrinketMultiplier(TrinketType.TRINKET_DEVILS_CROWN)
+						
+						if trinketMultiplier > 3 then
+							collectible.Price = 0
+						elseif trinketMultiplier == 3 then
+							collectible.Price = PickupPrice.PRICE_ONE_SOUL_HEART
+							collectible.AutoUpdatePrice = false
+						elseif trinketMultiplier == 2 then
+							collectible.Price = PickupPrice.PRICE_TWO_SOUL_HEARTS
+							collectible.AutoUpdatePrice = false
+						else
+							collectible.Price = PickupPrice.PRICE_SOUL
+						end
+						collectible.ShopItemId = -1
+					elseif player:HasTrinket(Isaac.GetTrinketIdByName("Angel's Crown")) then
+						local itemConfig = Isaac.GetItemConfig():GetCollectible(itemID)
+						
+						if itemConfig.DevilPrice == 2 then
+							collectible.Price = math.floor(30 / (player:GetCollectibleNum(CollectibleType.COLLECTIBLE_STEAM_SALE) + 1))
+							collectible.AutoUpdatePrice = false
+						else
+							collectible.Price = 15
+						end
+						collectible.ShopItemId = -1
 					end
-					collectible.ShopItemId = -1
 				end
 					
 				if numItems > 1 then
