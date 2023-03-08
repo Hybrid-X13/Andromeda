@@ -351,18 +351,16 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				local itemID
 				
 				--Spawn zodiac item if used in abandoned planetarium
-				if ANDROMEDA:IsAbandonedPlanetarium()
-				and not player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS)
-				then
+				if ANDROMEDA:IsAbandonedPlanetarium() then
 					itemID = ANDROMEDA:PullFromAbandonedPlanetariumPool(rng)
 				else
 					itemID = game:GetItemPool():GetCollectible(pool, true, seed)
 				end
 				
-				local item = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, spawnpos, Vector.Zero, nil)
-				local collectible = item:ToPickup()
+				local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, spawnpos, Vector.Zero, nil):ToPickup()
 				
-				if player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
+				if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
+				and player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
 				and roomType == RoomType.ROOM_TREASURE
 				then
 					local trinketMultiplier = player:GetTrinketMultiplier(TrinketType.TRINKET_DEVILS_CROWN)
