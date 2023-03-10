@@ -274,7 +274,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			if #items > 0 then
 				for _, collectible in pairs(items) do
 					if collectible.SubType > 0 then
-						player:UseActiveItem(CollectibleType.COLLECTIBLE_LEMEGETON, false)
+						player:AddItemWisp(collectible.SubType, collectible.Position, true)
 						collectible:Remove()
 						Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, collectible.Position, Vector.Zero, collectible)
 					end
