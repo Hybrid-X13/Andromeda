@@ -39,7 +39,7 @@ if Encyclopedia then
 				{str = "Devil: Converts all items in room that cost hearts into 3 Book of Belial wisps, but also removes a full soul heart for each item converted. This can kill you."},
 				{str = "Secret: Each pickup in the room has a 50% chance of being converted into a normal wisp. Pedestal items are guaranteed to be converted into 5 wisps."},
 				{str = "Super Secret: Same as regular secret rooms but instead of normal wisps you gain random wisps."},
-				{str = "Planetariums: Each item is converted into a random Lemegeton wisp. 4 treasure room items will also appear but only 1 can be taken."},
+				{str = "Planetariums: Each item is converted into a Lemegeton wisp. 4 treasure room items will also appear but only 1 can be taken."},
 			},
 			{ -- Transformation
 				{str = "Spode", fsize = 2, clr = 3, halign = 0},
