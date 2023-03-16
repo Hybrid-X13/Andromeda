@@ -16,9 +16,10 @@ function Room.postNewRoom()
 
 	Functions.SetAbandonedPlanetarium(player, false)
 
-	if room:IsFirstVisit() then
-		Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PORTAL_TELEPORT, 3, room:GetCenterPos(), Vector.Zero, nil)
-	end
+	if not room:IsFirstVisit() then return end
+		
+	Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, 0, room:GetCenterPos(), Vector.Zero, nil)
+	player:UseActiveItem(CollectibleType.COLLECTIBLE_D20, false)
 end
 
 function Room.postUpdate()
