@@ -814,6 +814,7 @@ function Character.postEffectUpdate(effect)
 
 	if effect.Variant == Enums.Effects.BLACK_HOLE then
 		local skinColor = player:GetHeadColor()
+		local rituals = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.DIRT_PATCH, 3666)
 		
 		effect.Position = room:GetCenterPos() + Vector(0, -20)
 
@@ -825,6 +826,10 @@ function Character.postEffectUpdate(effect)
 		and not sprite:IsPlaying(blackHoleAnims[skinColor + 2])
 		then
 			sprite:Play(blackHoleAnims[skinColor + 2])
+		end
+
+		if #rituals > 0 then
+			sprite.Color = Color(1, 1, 1, 0.4, 0, 0, 0)
 		end
 
 		for i = 0, room:GetGridSize() do
