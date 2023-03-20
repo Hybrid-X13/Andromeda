@@ -1,5 +1,4 @@
 local Enums = require("andromeda_src.enums")
-local sfx = SFXManager()
 local rng = RNG()
 
 local Item = {}
@@ -14,13 +13,15 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	then
 		Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BUDDY_IN_A_BOX, 0, player.Position, Vector.Zero, player)
 	end
-
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES) then
-		player:AddWisp(CollectibleType.COLLECTIBLE_MONSTER_MANUAL, player.Position, false)
-		sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
-	end
 	
 	return true
+end
+
+function Item.familiarInit(familiar)
+	if familiar.Variant ~= FamiliarVariant.WISP then return end
+	if familiar.SubType ~= Enums.Collectibles.THE_SPOREPEDIA then return end
+
+	familiar.SubType = CollectibleType.COLLECTIBLE_MONSTER_MANUAL
 end
 
 function Item.postPickupInit(pickup)
