@@ -603,6 +603,17 @@ function Functions.GetRandomWisp(player, pos, rng)
 	return wisp
 end
 
+function Functions.GetPlayerFromSpawnerEntity(entity)
+	local player = entity.SpawnerEntity:ToPlayer()
+
+	if entity.SpawnerEntity.Type == EntityType.ENTITY_FAMILIAR then
+		local familiar = entity.SpawnerEntity:ToFamiliar()
+		player = familiar.Player
+	end
+
+	return player
+end
+
 function Functions.GoToAbandonedPlanetarium(player, gravShift, index)
 	local rng = player:GetCollectibleRNG(Enums.Collectibles.GRAVITY_SHIFT)
 	local level = game:GetLevel()
