@@ -53,6 +53,12 @@ function Room.postNewRoom()
 			roomIndex.PermanentIcons = {"AbandonedPlanetarium"}
 		end
 	end
+
+	if StageAPI then
+		for _, customGrid in ipairs(StageAPI.GetCustomGrids()) do
+			customGrid:Remove(false)
+		end
+	end
 	
 	local roomDesc = level:GetCurrentRoomDesc()
 	local roomConfig = roomDesc.Data
@@ -66,12 +72,6 @@ function Room.postNewRoom()
 		Functions.SetAbandonedPlanetarium(player, true)
 
 		if not room:IsFirstVisit() then return end
-
-		if StageAPI then
-			for _, customGrid in ipairs(StageAPI.GetCustomGrids()) do
-				customGrid:Remove(false)
-			end
-		end
 
 		if (roomConfig.Variant > 4241 and roomConfig.Variant < 4400)
 		or (roomConfig.Variant > 4841 and roomConfig.Variant < 4900)
