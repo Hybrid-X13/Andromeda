@@ -319,6 +319,8 @@ function Item.postPEffectUpdate(player)
 	and roomIndex ~= shiftIndex
 	then
 		player:StopExtraAnimation()
+		local blackHole = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.BLACK_HOLE, 0, Vector(320, 400), Vector.Zero, nil)
+		blackHole.SpriteScale = Vector(50, 50)
 		
 		if (level:GetStage() ~= LevelStage.STAGE1_1 and not game:IsGreedMode())
 		or (game:IsGreedMode() and shiftIndex ~= 98)
