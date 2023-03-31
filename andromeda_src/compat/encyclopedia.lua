@@ -233,6 +233,22 @@ if Encyclopedia then
 				{str = "The purple shimenawa costume the item gives represents Orochimaru from Naruto, who always wears a purple shimenawa as his belt."},
 			},
 		},
+		STARBURST = {
+			{ -- Effect
+				{str = "Effect", fsize = 2, clr = 3, halign = 0},
+				{str = "Chance to shoot a tear that bursts into small damaging stars when it hits an enemy or obstacle."},
+				{str = "The stars vary in damage and don't inherit tear effects."},
+				{str = "Tears won't burst when they fall at their max range, they have to collide with something in order to burst."},
+			},
+			{ -- Interactions
+				{str = "Interactions", fsize = 2, clr = 3, halign = 0},
+				{str = "Overridden by melee weapons."},
+			},
+			{ -- Trivia
+				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
+				{str = "Starburst galaxies are a type of galaxy that have a much higher rate of star formation than normal."},
+			},
+		},
 		BOOK_OF_COSMOS = {
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
@@ -711,6 +727,22 @@ if Encyclopedia then
 			end
 		end,
 	})
+	--[[Encyclopedia.AddItem({
+		Class = "Andromeda",
+		ModName = "Andromeda",
+		ID = Enums.Collectibles.STARBURST,
+		WikiDesc = Wiki.STARBURST,
+		Pools = {
+			Encyclopedia.ItemPools.POOL_TREASURE,
+			Encyclopedia.ItemPools.POOL_GREED_TREASURE,
+		},
+		UnlockFunc = function(self)
+			if not SaveData.UnlockData.Andromeda.Greedier then
+				self.Desc = "Defeat ???????????????????????????????? as Andromeda."
+				return self
+			end
+		end,
+	})]]
 	Encyclopedia.AddItem({
 		Class = "Andromeda",
 		ModName = "Andromeda",

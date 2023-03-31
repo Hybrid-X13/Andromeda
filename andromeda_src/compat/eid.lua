@@ -67,6 +67,7 @@ if EID then
 	EID:addCollectible(Enums.Collectibles.HARMONIC_CONVERGENCE, "Each tear fired creates 4 additional tears that start from far away and converge toward you#The tears deal 1/4 of your damage but inherit any tear effects you have", "Harmonic Convergence")
 	EID:addCollectible(Enums.Collectibles.CELESTIAL_CROWN, "Gives 4 star orbitals#Tears that pass through a star gain a random tear effect depending on its color#The color of each star changes per room", "Celestial Crown")
 	EID:addCollectible(Enums.Collectibles.LUMINARY_FLARE, "Grants a sun that appears in the center of every room#Killing an enemy has a chance to make it shoot a powerful solar flare in a random direction#{{Burning}} Enemies that get near the sun are burned", "Luminary Flare")
+	EID:addCollectible(Enums.Collectibles.STARBURST, "Chance to shoot a tear that bursts into small damaging stars when it hits an enemy or obstacle", "Starburst")
 	--Transformation contributions
 	EID:assignTransformation("collectible", Enums.Collectibles.BOOK_OF_COSMOS, EID.TRANSFORMATION["BOOKWORM"])
 	EID:assignTransformation("collectible", Enums.Collectibles.THE_SPOREPEDIA, EID.TRANSFORMATION["BOOKWORM"])

@@ -25,6 +25,7 @@ Enums.Collectibles = {
 	HARMONIC_CONVERGENCE = Isaac.GetItemIdByName("Harmonic Convergence"),
 	CELESTIAL_CROWN = Isaac.GetItemIdByName("Celestial Crown"),
 	LUMINARY_FLARE = Isaac.GetItemIdByName("Luminary Flare"),
+	STARBURST = Isaac.GetItemIdByName("Starburst"),
 	--Andromeda Synergies
 	ANDROMEDA_TECHX = Isaac.GetItemIdByName("Andromeda TechX"),
 	ANDROMEDA_BRIMSTONE = Isaac.GetItemIdByName("Andromeda Brimstone"),
@@ -40,6 +41,7 @@ Enums.Trinkets = {
 	SEXTANT = Isaac.GetTrinketIdByName("Sextant"),
 	ALIEN_TRANSMITTER = Isaac.GetTrinketIdByName("Alien Transmitter"),
 	POLARIS = Isaac.GetTrinketIdByName("Polaris"),
+	EYE_OF_SPODE = Isaac.GetTrinketIdByName("Eye of Spode"),
 }
 
 Enums.Cards = {
