@@ -94,6 +94,10 @@ function ANDROMEDA:GoToAbandonedPlanetarium(player, itemLayoutChance, includeSpe
 	local rewardRoomIDs = {}
 	local randFloat = rng:RandomFloat()
 
+	if itemLayoutChance == nil then
+		itemLayoutChance = 0.333
+	end
+
 	if not forceSpecial then
 		if roomIdx
 		and level:GetRoomByIdx(roomIdx, 0).Data.Shape == RoomShape.ROOMSHAPE_IV
