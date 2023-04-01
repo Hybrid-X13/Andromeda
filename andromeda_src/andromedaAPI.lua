@@ -79,6 +79,85 @@ function ANDROMEDA:AddSingularityPickups(pickupTable)
 end
 
 --[[
+	- Teleports the player to an Abandoned Planetarium using the "goto" command.
+	- Paramaters:
+		- player: Player entity
+		- itemLayoutChance: The chance of teleporting to a layout with an item (as a float). This won't take you to an item layout if the Abandoned Planetarium pool is empty.
+		- includeSpecial: Allow the chance to teleport to a special layout. Special layouts offer much better and greater rewards than normal ones.
+		- forceSpecial: Guaranteed to teleport to a special layout.
+		- roomIdx: Only pass a room index if you're replacing/creating a room, that way it'll properly replace the room with a matching room shape.
+]]
+function ANDROMEDA:GoToAbandonedPlanetarium(player, itemLayoutChance, includeSpecial, forceSpecial, roomIdx)
+	local rng = player:GetCollectibleRNG(Enums.Collectibles.GRAVITY_SHIFT)
+	local level = game:GetLevel()
+	local itemRoomIDs = {}
+	local rewardRoomIDs = {}
+	local randFloat = rng:RandomFloat()
+
+	if not forceSpecial then
+		if roomIdx
+		and level:GetRoomByIdx(roomIdx, 0).Data.Shape == RoomShape.ROOMSHAPE_IV
+		then
+			for i = 4342, 4346 do
+				table.insert(itemRoomIDs, i)
+			end
+			for i = 4542, 4546 do
+				table.insert(rewardRoomIDs, i)
+			end
+		elseif roomIdx
+		and level:GetRoomByIdx(roomIdx, 0).Data.Shape == RoomShape.ROOMSHAPE_IH
+		then
+			for i = 4347, 4351 do
+				table.insert(itemRoomIDs, i)
+			end
+			for i = 4547, 4551 do
+				table.insert(rewardRoomIDs, i)
+			end
+		else
+			--Normal rooms
+			for i = 4242, 4281 do
+				table.insert(itemRoomIDs, i)
+			end
+			for i = 4442, 4487 do
+				table.insert(rewardRoomIDs, i)
+			end
+
+			--Closet rooms
+			if roomIdx == nil then
+				for i = 4342, 4351 do
+					table.insert(itemRoomIDs, i)
+				end
+				for i = 4542, 4551 do
+					table.insert(rewardRoomIDs, i)
+				end
+			end
+		end
+	end
+
+	if forceSpecial
+	or includeSpecial
+	then
+		for i = 4842, 4854 do
+			table.insert(itemRoomIDs, i)
+		end
+		for i = 4642, 4654 do
+			table.insert(rewardRoomIDs, i)
+		end
+	end
+
+	if #CustomData.AbPlPoolCopy > 0
+	and player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA
+	and randFloat < itemLayoutChance
+	then
+		local randNum = rng:RandomInt(#itemRoomIDs) + 1
+		Isaac.ExecuteCommand("goto s.dice." .. itemRoomIDs[randNum])
+	else
+		local randNum = rng:RandomInt(#rewardRoomIDs) + 1
+		Isaac.ExecuteCommand("goto s.dice." .. rewardRoomIDs[randNum])
+	end
+end
+
+--[[
 	- Checks if the current room is the Abandoned Planetarium.
 ]]
 function ANDROMEDA:IsAbandonedPlanetarium()
@@ -101,7 +180,7 @@ end
 	- Checks if a certain item from this mod is unlocked.
 	- Make sure to only use this function inside a callback instead of when your mod is loaded.
 ]]
-function ANDROMEDA:IsItemUnlocked(item)
+function ANDROMEDA:IsItemUnlocked(itemID)
 	local unlocks = {
 		[Enums.Trinkets.CRYING_PEBBLE] = SaveData.UnlockData.Andromeda.Isaac,
 		[Enums.Collectibles.GRAVITY_SHIFT] = SaveData.UnlockData.Andromeda.BlueBaby,
@@ -131,7 +210,7 @@ function ANDROMEDA:IsItemUnlocked(item)
 		[Enums.Collectibles.CHIRON] = Functions.HasFullCompletion(Enums.Characters.T_ANDROMEDA),
 	}
 
-	return unlocks[item]
+	return unlocks[itemID]
 end
 
 --[[
