@@ -82,6 +82,7 @@ if EID then
 	EID:addTrinket(Enums.Trinkets.SEXTANT, "{{Room}} Entering a new room has a chance to reveal more rooms that are nearby on the map#{{SecretRoom}} Can reveal Secret and Super Secret rooms#{{Planetarium}} Shows the location of the floor's Planetarium if there is one", "Sextant")
 	EID:addTrinket(Enums.Trinkets.ALIEN_TRANSMITTER, "Enemies have a chance to be abducted by aliens", "Alien Transmitter")
 	EID:addTrinket(Enums.Trinkets.POLARIS, "When a deal room doesn't appear after defeating the floor's boss, the boss item is turned into an angel item for sale or a devil deal#Taking a devil item this way won't lock you into devil deals", "Polaris")
+	EID:addTrinket(Enums.Trinkets.EYE_OF_SPODE, "{{AbPlanetarium}} Treasure rooms are converted into Abandoned Planetariums#Abandoned Planetariums can contain zodiac items or various other rewards#{{Planetarium}} +20% Planetarium chance next floor when a treasure room is converted into an Abandoned Planetarium", "Eye of Spode")
 	--Cards/runes
 	EID:addCard(Enums.Cards.SOUL_OF_ANDROMEDA, "{{AbPlanetarium}} Teleports you to an Abandoned Planetarium", "Soul of Andromeda")
 	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} Activates a random tarot card effect, normal or reversed", "XXII - The Unknown")
@@ -96,6 +97,7 @@ if EID then
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.STARDUST)
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.ALIEN_TRANSMITTER)
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.POLARIS, "The item won't have a cost", 0, 2)
+	EID:addGoldenTrinketMetadata(Enums.Trinkets.EYE_OF_SPODE, "Chance to get special, more rewarding layouts", 0, 2)
 
 	--Русский EID
 	EID:addBirthright(Enums.Characters.ANDROMEDA, "Даёт {{ColorTransform}}трансформацию#{{Blank}} {{ColorTransform}}Спория{{ColorEIDText}} {{Spode}}, если её нет#Использование Грави-Сдвига в#{{Blank}} {{TreasureRoom}} Сокровищницах теперь переносит вас в настоящий#{{Blank}} {{Planetarium}} Планетарий#В режиме Жадности, предмет Планетария всегда есть на продажу", "Андромеда", "ru")

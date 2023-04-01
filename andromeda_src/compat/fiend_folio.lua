@@ -13,6 +13,7 @@ local referenceItems = {
         {ID = Enums.Trinkets.MOON_STONE, Reference = "Pokemon"},
         {ID = Enums.Trinkets.STARDUST, Reference = "Pokemon"},
         {ID = Enums.Trinkets.ALIEN_TRANSMITTER, Reference = "Spore"},
+        {ID = Enums.Trinkets.EYE_OF_SPODE, Reference = "Spore"},
     }
 }
 
