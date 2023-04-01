@@ -362,7 +362,32 @@ function Item.postPEffectUpdate(player)
 			local randNum = rng:RandomInt(#rooms) + 1
 			Isaac.ExecuteCommand("goto s.planetarium." .. rooms[randNum])
 		else
-			Functions.GoToAbandonedPlanetarium(player, true, shiftIndex)
+			local chance = 0.142
+
+			--Chance decreases every 2 floors
+			if level:GetStage() == LevelStage.STAGE1_1
+			or level:GetStage() == LevelStage.STAGE1_2
+			then
+				chance = 0.5
+			elseif level:GetStage() == LevelStage.STAGE2_1
+			or level:GetStage() == LevelStage.STAGE2_2
+			then
+				chance = 0.333
+			elseif level:GetStage() == LevelStage.STAGE3_1
+			or level:GetStage() == LevelStage.STAGE3_2
+			then
+				chance = 0.25
+			elseif level:GetStage() == LevelStage.STAGE4_1
+			or level:GetStage() == LevelStage.STAGE4_2
+			then
+				chance = 0.2
+			elseif level:GetStage() == LevelStage.STAGE4_3
+			or level:GetStage() == LevelStage.STAGE5
+			then
+				chance = 0.167
+			end
+
+			ANDROMEDA:GoToAbandonedPlanetarium(player, chance, false, false, shiftIndex)
 		end
 
 		local data = level:GetRoomByIdx(GridRooms.ROOM_DEBUG_IDX, 0).Data

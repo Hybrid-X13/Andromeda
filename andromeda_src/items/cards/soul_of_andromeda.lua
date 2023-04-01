@@ -9,7 +9,7 @@ function Consumable.useCard(card, player, flag)
 	
 	local rng = player:GetCardRNG(Enums.Cards.SOUL_OF_ANDROMEDA)
 
-	Functions.GoToAbandonedPlanetarium(player, false)
+	ANDROMEDA:GoToAbandonedPlanetarium(player, 0.333, false)
 	Functions.PlayVoiceline(Enums.Voicelines.SOUL_OF_ANDROMEDA, flag, rng:RandomInt(2))
 end
 
