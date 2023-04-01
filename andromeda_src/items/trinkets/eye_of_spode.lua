@@ -86,9 +86,9 @@ function Trinket.postPEffectUpdate(player)
 			end
 		end
 
-		if trinketMultiplier > 1 then
+		if trinketMultiplier > 2 then
 			ANDROMEDA:GoToAbandonedPlanetarium(player, 0.333, true, true, shiftIndex)
-		elseif trinketMultiplier == 1 then
+		elseif trinketMultiplier == 2 then
 			ANDROMEDA:GoToAbandonedPlanetarium(player, 0.333, true, false, shiftIndex)
 		else
 			ANDROMEDA:GoToAbandonedPlanetarium(player, 0.333, false, false, shiftIndex)
