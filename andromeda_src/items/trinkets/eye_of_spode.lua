@@ -1,5 +1,4 @@
 local Enums = require("andromeda_src.enums")
-local Functions = require("andromeda_src.functions")
 local game = Game()
 local rng = RNG()
 local rewinding = false
@@ -34,13 +33,18 @@ function Trinket.postNewRoom()
 				and room:GetType() ~= RoomType.ROOM_SECRET
 				and room:GetType() ~= RoomType.ROOM_SUPERSECRET
 				then
-					local doorSprite = door:GetSprite()
-	
-					for i = 0, 4 do
-						doorSprite:ReplaceSpritesheet(i, "gfx/grid/andromeda_abandonedplanetariumdoor_out.png")
+					local roomIdx = door.TargetRoomIndex
+					local roomDesc = level:GetRoomByIdx(roomIdx, 0)
+
+					if roomDesc.VisitedCount == 0 then
+						local doorSprite = door:GetSprite()
+		
+						for i = 0, 4 do
+							doorSprite:ReplaceSpritesheet(i, "gfx/grid/andromeda_abandonedplanetariumdoor_out.png")
+						end
+						
+						doorSprite:LoadGraphics()
 					end
-					
-					doorSprite:LoadGraphics()
 				end
 			end
 		end
