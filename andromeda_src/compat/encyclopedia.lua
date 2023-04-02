@@ -236,7 +236,7 @@ if Encyclopedia then
 		STARBURST = {
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
-				{str = "Chance to shoot a tear that bursts into small damaging stars when it hits an enemy or obstacle."},
+				{str = "Chance to shoot a tear that bursts into small damaging stars when it hits an enemy or obstacle. The chance is unaffected by luck."},
 				{str = "The stars vary in damage and don't inherit tear effects."},
 				{str = "Tears won't burst when they fall at their max range, they have to collide with something in order to burst."},
 			},
