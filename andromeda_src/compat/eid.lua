@@ -82,7 +82,7 @@ if EID then
 	EID:addTrinket(Enums.Trinkets.SEXTANT, "{{Room}} Entering a new room has a chance to reveal more rooms that are nearby on the map#{{SecretRoom}} Can reveal Secret and Super Secret rooms#{{Planetarium}} Shows the location of the floor's Planetarium if there is one", "Sextant")
 	EID:addTrinket(Enums.Trinkets.ALIEN_TRANSMITTER, "Enemies have a chance to be abducted by aliens", "Alien Transmitter")
 	EID:addTrinket(Enums.Trinkets.POLARIS, "When a deal room doesn't appear after defeating the floor's boss, the boss item is turned into an angel item for sale or a devil deal#Taking a devil item this way won't lock you into devil deals", "Polaris")
-	EID:addTrinket(Enums.Trinkets.EYE_OF_SPODE, "{{AbPlanetarium}} Treasure rooms are converted into Abandoned Planetariums#Abandoned Planetariums can contain zodiac items or various other rewards#{{Planetarium}} +20% Planetarium chance next floor when a treasure room is converted into an Abandoned Planetarium", "Eye of Spode")
+	EID:addTrinket(Enums.Trinkets.EYE_OF_SPODE, "{{TreasureRoom}} Treasure rooms are converted into Abandoned Planetariums#{{AbPlanetarium}} Abandoned Planetariums can contain zodiac items or various other rewards#↑ +20% {{Planetarium}}Planetarium chance next floor when a treasure room is converted into an Abandoned Planetarium", "Eye of Spode")
 	--Cards/runes
 	EID:addCard(Enums.Cards.SOUL_OF_ANDROMEDA, "{{AbPlanetarium}} Teleports you to an Abandoned Planetarium", "Soul of Andromeda")
 	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} Activates a random tarot card effect, normal or reversed", "XXII - The Unknown")
@@ -130,7 +130,7 @@ if EID then
 	EID:addTrinket(Enums.Trinkets.SEXTANT, "При входе в комнату есть шанс показать ближайшие неизвестные комнаты на мини-карте#Может показать {{SecretRoom}} Секретные и {{SuperSecretRoom}} Супер Секретные комнаты#Показывает местоположение#{{Blank}} {{Planetarium}} Планетария, если он есть", "Секстант", "ru")
 	EID:addTrinket(Enums.Trinkets.ALIEN_TRANSMITTER, "С некоторым шансом враги могут быть утащенны пришельцами", "Внеземной Передатчик", "ru")
 	EID:addTrinket(Enums.Trinkets.POLARIS, "Если комната сделки после победы над боссом этажа не появляется, предмет босса заменяется либо на предмет ангела за деньги либо на сделку дьявола#Беря сделку дьявола таким образом вы не теряете шанс ангела", "Полярис", "ru")
-	EID:addTrinket(Enums.Trinkets.EYE_OF_SPODE, "{{AbPlanetarium}} Сокровищницы превращаются в Заброшенные Планетарии#Заброшенные Планетарии могут содержать предметы зодиака или различные награды#{{Planetarium}} +20% шанс Планетария на следующем этаже, когда Сокровищница была превращена в Заброшенный Планетарий", "Глаз Спория", "ru")
+	EID:addTrinket(Enums.Trinkets.EYE_OF_SPODE, "{{TreasureRoom}} Сокровищницы превращаются в Заброшенные Планетарии#{{AbPlanetarium}} Заброшенные Планетарии могут содержать предметы зодиака или различные награды#↑ +20% шанс Планетария на следующем этаже, когда Сокровищница была превращена в Заброшенный Планетарий", "Глаз Спория", "ru")
 	--Карты/руны
 	EID:addCard(Enums.Cards.SOUL_OF_ANDROMEDA, "{{AbPlanetarium}} Телепортирует игрока в Заброшенный Планетарий", "Душа Андромеды", "ru")
 	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} Активирует эффект случайной карты таро (обычной или перевёрнутой)", "XXII - Неизвестен", "ru")
