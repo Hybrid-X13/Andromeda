@@ -412,6 +412,7 @@ function Character.postEffectUpdate(effect)
 	
 	if effect.Variant == Enums.Effects.GRAV_SHIFT_INDICATOR then
 		effect.Position = player.Position
+		effect.SortingLayer = SortingLayer.SORTING_BACKGROUND
 
 		if (room:GetType() == RoomType.ROOM_TREASURE and (Functions.CheckAbandonedPlanetarium(roomIndex) or Functions.CheckTreasureTaken(roomIndex)))
 		or (room:GetType() == RoomType.ROOM_PLANETARIUM and SaveData.PlayerData.Andromeda.GravShift.Planetarium ~= 0)
