@@ -521,6 +521,27 @@ if Encyclopedia then
 				{str = "A sextant is a tool used in navigation for measuring the angle between the horizon and a celestial body to determine latitude and longitude."},
 			},
 		},
+		EYE_OF_SPODE = {
+			{ -- Effect
+				{str = "Effect", fsize = 2, clr = 3, halign = 0},
+				{str = "Treasure rooms are converted into Abandoned Planetariums when first visited."},
+				{str = "Abandoned Planetariums can contain zodiac items or various other rewards. More specifically, there's a 33% chance for an item layout with this trinket."},
+				{str = "+20% Planetarium chance next floor when a treasure room is converted into an Abandoned Planetarium."},
+				{str = "Planetarium chance is not increased if you're past depths or already entered a planetarium during the run."},
+			},
+			{ -- Synergies
+				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
+				{str = "Mom's Box/Golden Variant", clr = 3, halign = 0},
+				{str = "Chance to get a special, more rewarding Abandoned Planetarium layout."},
+				{str = "Mom's Box + Golden Variant", clr = 3, halign = 0},
+				{str = "Guarantees a special layout."},
+			},
+			{ -- Trivia
+				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
+				{str = "Spode is a deity in the game Spore, believed by a number of civilizations, especially zealots."},
+				{str = "Zealot civilizations of Spore tell people to seek the Eye of Spode, which refers to the galactic core."},
+			},
+		},
 		BETELGEUSE = {
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
@@ -933,6 +954,18 @@ if Encyclopedia then
 			end
 		end,
 	})
+	--[[Encyclopedia.AddTrinket({
+		Class = "Andromeda",
+		ModName = "Andromeda",
+		ID = Enums.Trinkets.EYE_OF_SPODE,
+		WikiDesc = Wiki.EYE_OF_SPODE,
+		UnlockFunc = function(self)
+			if not SaveData.UnlockData.T_Andromeda.Greed then
+				self.Desc = "Defeat ?????????????????????????????????????????????? as Tainted Andromeda."
+				return self
+			end
+		end,
+	})]]
 	Encyclopedia.AddRune({
 		Class = "Andromeda",
 		ModName = "Andromeda",
