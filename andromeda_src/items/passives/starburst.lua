@@ -161,13 +161,17 @@ function Item.entityTakeDmg(target, amount, flag, source, countdown)
 		local player = source.Entity:ToPlayer()
 		local rng = player:GetCollectibleRNG(Enums.Collectibles.STARBURST)
 		
-		if rng:RandomFloat() < 0.06 then
+		if player:HasCollectible(Enums.Collectibles.STARBURST)
+		and rng:RandomFloat() < 0.06
+		then
 			StarBurst(player, enemy.Position)
 		end
 	elseif source.Entity.SpawnerEntity then
 		local player = source.Entity.SpawnerEntity:ToPlayer()
 	
-		if player then
+		if player
+		and player:HasCollectible(Enums.Collectibles.STARBURST)
+		then
 			local rng = player:GetCollectibleRNG(Enums.Collectibles.STARBURST)
 
 			if rng:RandomFloat() < 0.06 then
@@ -181,4 +185,15 @@ function Item.entityTakeDmg(target, amount, flag, source, countdown)
 	end
 end
 
+function Item.useCard(card, player, flag)
+	if not player:HasCollectible(Enums.Collectibles.STARBURST) then return end
+	if flag & UseFlag.USE_MIMIC == UseFlag.USE_MIMIC then return end
+
+	if card == Enums.Cards.ALPHA_CENTAURI
+	or card == Enums.Cards.BETELGEUSE
+	or card == Enums.Cards.SIRIUS
+	then
+		StarBurst(player, player.Position)
+	end
+end
 return Item
