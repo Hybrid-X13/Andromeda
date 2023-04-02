@@ -196,4 +196,5 @@ function Item.useCard(card, player, flag)
 		StarBurst(player, player.Position)
 	end
 end
+
 return Item
