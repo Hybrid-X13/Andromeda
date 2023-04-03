@@ -6,7 +6,7 @@ local rng = RNG()
 
 if MinimapAPI then
 	local AbPlIcon = Sprite()
-	AbPlIcon:Load("gfx/ui/minimapapi/abandonedplanetariumicon.anm2", true)
+	AbPlIcon:Load("gfx/ui/minimapapi/andromeda_minimapapi.anm2", true)
 	AbPlIcon:SetFrame("AbandonedPlanetarium", 0)
 	MinimapAPI:AddIcon("AbandonedPlanetarium", AbPlIcon)
 end
