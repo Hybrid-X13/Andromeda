@@ -9,6 +9,14 @@ local itemPool = game:GetItemPool()
 
 local Beggar = {}
 
+if MinimapAPI then
+	local el_WiWiIcon = Sprite()
+	el_WiWiIcon:Load("gfx/ui/minimapapi/andromeda_minimapapi.anm2", true)
+	el_WiWiIcon:SetFrame("KingGizzardAndTheWispWizard", 0)
+	MinimapAPI:AddIcon("KingGizzardAndTheWispWizard", el_WiWiIcon)
+  MinimapAPI:AddPickup("WispWizard", "KingGizzardAndTheWispWizard", 6, 84, nil, MinimapAPI.PickupSlotMachineNotBroken, "slots", 0)
+end
+
 function Beggar.preRoomEntitySpawn(entity, variant, subType, gIndex, seed)
 	if entity ~= EntityType.ENTITY_SLOT then return end
 	if variant ~= Enums.Slots.KEY_MASTER then return end
