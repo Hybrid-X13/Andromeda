@@ -10,11 +10,11 @@ local itemPool = game:GetItemPool()
 local Beggar = {}
 
 if MinimapAPI then
-	local el_WiWiIcon = Sprite()
-	el_WiWiIcon:Load("gfx/ui/minimapapi/andromeda_minimapapi.anm2", true)
-	el_WiWiIcon:SetFrame("KingGizzardAndTheWispWizard", 0)
-	MinimapAPI:AddIcon("KingGizzardAndTheWispWizard", el_WiWiIcon)
-  MinimapAPI:AddPickup("WispWizard", "KingGizzardAndTheWispWizard", 6, 84, nil, MinimapAPI.PickupSlotMachineNotBroken, "slots", 0)
+	local wispWizardIcon = Sprite()
+	wispWizardIcon:Load("gfx/ui/minimapapi/andromeda_minimapapi.anm2", true)
+	wispWizardIcon:SetFrame("KingGizzardAndTheWispWizard", 0)
+	MinimapAPI:AddIcon("KingGizzardAndTheWispWizard", wispWizardIcon)
+  	MinimapAPI:AddPickup("WispWizard", "KingGizzardAndTheWispWizard", EntityType.ENTITY_SLOT, Enums.Slots.WISP_WIZARD, nil, MinimapAPI.PickupSlotMachineNotBroken, "slots")
 end
 
 function Beggar.preRoomEntitySpawn(entity, variant, subType, gIndex, seed)
@@ -136,6 +136,7 @@ function Beggar.postPEffectUpdate(player)
 					{Enums.Trinkets.MOON_STONE, SaveData.UnlockData.T_Andromeda.Satan},
 					{Enums.Trinkets.POLARIS, SaveData.UnlockData.T_Andromeda.BossRush},
 					{Enums.Trinkets.SEXTANT, SaveData.UnlockData.T_Andromeda.Greed},
+					--{Enums.Trinkets.EYE_OF_SPODE, },
 				}
 				local trinketPool = {}
 				
