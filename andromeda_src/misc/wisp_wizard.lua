@@ -10,10 +10,10 @@ local itemPool = game:GetItemPool()
 local Beggar = {}
 
 if MinimapAPI then
-	local wispWizardIcon = Sprite()
-	wispWizardIcon:Load("gfx/ui/minimapapi/andromeda_minimapapi.anm2", true)
-	wispWizardIcon:SetFrame("KingGizzardAndTheWispWizard", 0)
-	MinimapAPI:AddIcon("KingGizzardAndTheWispWizard", wispWizardIcon)
+	local WiWiIcon = Sprite()
+	WiWiIcon:Load("gfx/ui/minimapapi/andromeda_minimapapi.anm2", true)
+	WiWiIcon:SetFrame("KingGizzardAndTheWispWizard", 0)
+	MinimapAPI:AddIcon("KingGizzardAndTheWispWizard", WiWiIcon)
   	MinimapAPI:AddPickup("WispWizard", "KingGizzardAndTheWispWizard", EntityType.ENTITY_SLOT, Enums.Slots.WISP_WIZARD, nil, MinimapAPI.PickupSlotMachineNotBroken, "slots")
 end
 
