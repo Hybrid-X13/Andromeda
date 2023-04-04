@@ -10,10 +10,10 @@ local itemPool = game:GetItemPool()
 local Beggar = {}
 
 if MinimapAPI then
-	local WiWiIcon = Sprite()
-	WiWiIcon:Load("gfx/ui/minimapapi/andromeda_minimapapi.anm2", true)
-	WiWiIcon:SetFrame("KingGizzardAndTheWispWizard", 0)
-	MinimapAPI:AddIcon("KingGizzardAndTheWispWizard", WiWiIcon)
+	local wispWizardIcon = Sprite()
+	wispWizardIcon:Load("gfx/ui/minimapapi/andromeda_minimapapi.anm2", true)
+	wispWizardIcon:SetFrame("KingGizzardAndTheWispWizard", 0)
+	MinimapAPI:AddIcon("KingGizzardAndTheWispWizard", wispWizardIcon)
   	MinimapAPI:AddPickup("WispWizard", "KingGizzardAndTheWispWizard", EntityType.ENTITY_SLOT, Enums.Slots.WISP_WIZARD, nil, MinimapAPI.PickupSlotMachineNotBroken, "slots")
 end
 
@@ -69,12 +69,12 @@ function Beggar.prePlayerCollision(player, collider, low)
 	if player:GetNumCoins() == 0 then return end
 
 	rng:SetSeed(collider:GetDropRNG():Next(), 35)
-	local randNum = rng:RandomInt(100)
+	local randFloat = rng:RandomFloat()
 
 	player:AddCoins(-1)
 	sfx:Play(SoundEffect.SOUND_SCAMPER)
 	
-	if randNum < 35 then
+	if randFloat < 0.35 then
 		sprite:Play("PayPrize")
 		player:GetData().isPayoutTarget = true
 
