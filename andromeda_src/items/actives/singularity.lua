@@ -673,13 +673,13 @@ function Item.prePickupCollision(pickup, collider, low)
 							end
 						end
 					end
-
+					print("Supported pickup")
 					Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges + extraCharge)
 					break
-				elseif pickup.Variant == PickupVariant.PICKUP_COIN
-				or pickup.Variant == PickupVariant.PICKUP_KEY
-				or pickup.Variant == PickupVariant.PICKUP_BOMB
+				elseif i == #CustomData.SingularityPickups
+				and (pickup.Variant == PickupVariant.PICKUP_COIN or pickup.Variant == PickupVariant.PICKUP_KEY or pickup.Variant == PickupVariant.PICKUP_BOMB)
 				then
+					print("Modded pickup")
 					Functions.ChargeSingularity(player, 1)
 					break
 				end
