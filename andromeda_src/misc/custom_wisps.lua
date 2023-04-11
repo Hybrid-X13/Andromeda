@@ -36,13 +36,18 @@ end
 
 function Wisp.familiarInit(familiar)
 	if familiar.Variant ~= FamiliarVariant.WISP then return end
-	if familiar.SubType ~= Enums.Collectibles.GRAVITY_SHIFT then return end
-
-	RemoveWisps(Enums.Collectibles.GRAVITY_SHIFT)
 
 	local sprite = familiar:GetSprite()
-	sprite:Load("gfx/familiar/wisps/wisp_gravity.anm2", true)
-	sprite:Play("Idle")
+
+	if familiar.SubType == Enums.Collectibles.GRAVITY_SHIFT then
+		RemoveWisps(Enums.Collectibles.GRAVITY_SHIFT)
+
+		sprite:Load("gfx/familiar/wisps/wisp_gravity.anm2", true)
+		sprite:Play("Idle")
+	elseif familiar.SubType == Enums.Collectibles.SINGULARITY then
+		sprite:Load("gfx/familiar/wisps/singularity_wisp.anm2", true)
+		sprite:Play("Idle")
+	end
 end
 
 function Wisp.familiarUpdate(familiar)
