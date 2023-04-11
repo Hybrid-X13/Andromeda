@@ -197,6 +197,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	local room = game:GetRoom()
 	local roomType = room:GetType()
 	local level = game:GetLevel()
+	local roomIdx = level:GetCurrentRoomIndex()
 	local seed = rng:RandomInt(999999999)
 	local pool = game:GetItemPool():GetPoolForRoom(roomType, seed)
 	local numItems = 1
@@ -258,29 +259,20 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			end
 		end
 		
-		if player:HasTrinket(TrinketType.TRINKET_ADOPTION_PAPERS)
-		and roomType == RoomType.ROOM_SHOP
+		if roomType == RoomType.ROOM_TREASURE then
+			if game:IsGreedMode()
+			and roomIdx == 98
+			then
+				pool = ItemPoolType.POOL_GREED_BOSS
+			elseif player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN) then
+				pool = ItemPoolType.POOL_DEVIL
+			elseif player:HasTrinket(Isaac.GetTrinketIdByName("Angel's Crown")) then
+				pool = ItemPoolType.POOL_ANGEL
+			end
+		elseif roomType == RoomType.ROOM_SHOP
+		and player:HasTrinket(TrinketType.TRINKET_ADOPTION_PAPERS)
 		then
 			pool = ItemPoolType.POOL_BABY_SHOP
-		end
-
-		if game:IsGreedMode()
-		and roomType == RoomType.ROOM_TREASURE
-		and level:GetCurrentRoomIndex() == 98
-		then
-			pool = ItemPoolType.POOL_GREED_BOSS
-		end
-		
-		if player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN)
-		and roomType == RoomType.ROOM_TREASURE
-		then
-			pool = ItemPoolType.POOL_DEVIL
-		end
-		
-		if player:HasTrinket(Isaac.GetTrinketIdByName("Angel's Crown"))
-		and roomType == RoomType.ROOM_TREASURE
-		then
-			pool = ItemPoolType.POOL_ANGEL
 		end
 
 		--Chance to spawn a secret room item is halved every time Singularity is used in there
@@ -367,6 +359,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				
 				if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
 				and roomType == RoomType.ROOM_TREASURE
+				and (not game:IsGreedMode() or (game:IsGreedMode() and roomIdx ~= 98))
 				then
 					if player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN) then
 						local trinketMultiplier = player:GetTrinketMultiplier(TrinketType.TRINKET_DEVILS_CROWN)
