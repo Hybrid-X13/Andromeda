@@ -388,6 +388,14 @@ function Functions.ConvergingTears(entity, player, convergePos, convergeAngle, d
 	newTear.Color = entity.Color
 	newTear.WaitFrames = 0
 	newTear:GetData().convergingTear = true
+	newTear:GetData().starburstTear = entity:GetData().starburstTear
+
+	if entity:GetData().starburstTear then
+		local sprite = newTear:GetSprite()
+		sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_cosmic.png")
+		sprite:LoadGraphics()
+		newTear:GetData().starburstTear = true
+	end
 	
 	if player:GetPlayerType() == Enums.Characters.ANDROMEDA then
 		Functions.ChangeTear(newTear, player)

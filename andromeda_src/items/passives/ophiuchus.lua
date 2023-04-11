@@ -95,22 +95,28 @@ function Item.postPEffectUpdate(player)
 			pos = room:GetCenterPos()
 		end
 
-		local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, parentTear.Variant, parentTear.SubType, pos, parentTear.Velocity, player)
-		local barrageTear = tear:ToTear()
+		local tear = Isaac.Spawn(EntityType.ENTITY_TEAR, parentTear.Variant, parentTear.SubType, pos, parentTear.Velocity, player):ToTear()
 
-		Functions.ChangeTear(barrageTear, player)
+		Functions.ChangeTear(tear, player)
 
-		barrageTear:AddTearFlags(parentTear.TearFlags)
+		tear:AddTearFlags(parentTear.TearFlags)
 		tear:GetData().isBarrageTear = true
-		barrageTear.CollisionDamage = parentTear.CollisionDamage
-		barrageTear.Scale = parentTear.Scale
-		barrageTear.Color = parentTear.Color
-		barrageTear.FallingAcceleration = parentTear.FallingAcceleration
-		barrageTear.FallingSpeed = parentTear.FallingSpeed
-		barrageTear.Height = parentTear.Height
-		barrageTear.ParentOffset = parentTear.ParentOffset
-		barrageTear.PositionOffset = parentTear.PositionOffset
+		tear.CollisionDamage = parentTear.CollisionDamage
+		tear.Scale = parentTear.Scale
+		tear.Color = parentTear.Color
+		tear.FallingAcceleration = parentTear.FallingAcceleration
+		tear.FallingSpeed = parentTear.FallingSpeed
+		tear.Height = parentTear.Height
+		tear.ParentOffset = parentTear.ParentOffset
+		tear.PositionOffset = parentTear.PositionOffset
 		data.barrageNum = data.barrageNum - 1
+
+		if parentTear:GetData().starburstTear then
+			local sprite = tear:GetSprite()
+			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_cosmic.png")
+			sprite:LoadGraphics()
+			tear:GetData().starburstTear = true
+		end
 	end
 end
 
