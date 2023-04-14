@@ -57,4 +57,34 @@
     <entity name="Abduction Beam" anm2path="transmitterbeam.anm2" id="1000" variant="4441" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
         <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
     </entity>
+    <entity name="Starburst Trail" anm2path="tears/tears_starburst_trail.anm2" id="1000" variant="4442" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="Starburst Star Trail" anm2path="tears/tears_starburst_trail_stars.anm2" id="1000" variant="4443" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="Tainted Andromeda Tear Glow" anm2path="tears/solar/basic/solar_glow.anm2" id="1000" variant="4444" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="Tainted Andromeda Tear Glow (White)" anm2path="tears/solar/white/solar_glow.anm2" id="1000" variant="4445" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="Tainted Andromeda Tear Glow (Black)" anm2path="tears/solar/black/solar_glow.anm2" id="1000" variant="4446" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="Tainted Andromeda Tear Glow (Blue)" anm2path="tears/solar/blue/solar_glow.anm2" id="1000" variant="4447" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="Tainted Andromeda Tear Glow (Strawberry)" anm2path="tears/solar/strawberry/solar_glow.anm2" id="1000" variant="4448" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="Tainted Andromeda Tear Glow (Green)" anm2path="tears/solar/green/solar_glow.anm2" id="1000" variant="4449" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="Tainted Andromeda Tear Glow (Gray)" anm2path="tears/solar/gray/solar_glow.anm2" id="1000" variant="4450" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
+    <entity name="Tainted Andromeda Tear Glow (Blood)" anm2path="tears/solar/z blood (blank)/solar_glow.anm2" id="1000" variant="4451" baseHP="0" stageHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="45" collisionRadius="9" friction="1" numGridCollisionPoints="9" shadowSize="0">
+        <gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+    </entity>
 </entities>

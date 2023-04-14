@@ -91,6 +91,16 @@ Enums.Effects = {
 	LUMINARY_SUN = Isaac.GetEntityVariantByName("Luminary Flare"),
 	PLANETARIUM_ICON = Isaac.GetEntityVariantByName("Planetarium Asteroid Icon"),
 	ABDUCTION_BEAM = Isaac.GetEntityVariantByName("Abduction Beam"),
+	STARBURST_TRAIL = Isaac.GetEntityVariantByName("Starburst Trail"),
+	STARBURST_STAR_TRAIL = Isaac.GetEntityVariantByName("Starburst Star Trail"),
+	TEAR_GLOW = Isaac.GetEntityVariantByName("Tainted Andromeda Tear Glow"),
+	TEAR_GLOW_WHITE = Isaac.GetEntityVariantByName("Tainted Andromeda Tear Glow (White)"),
+	TEAR_GLOW_BLACK = Isaac.GetEntityVariantByName("Tainted Andromeda Tear Glow (Black)"),
+	TEAR_GLOW_BLUE = Isaac.GetEntityVariantByName("Tainted Andromeda Tear Glow (Blue)"),
+	TEAR_GLOW_RED = Isaac.GetEntityVariantByName("Tainted Andromeda Tear Glow (Strawberry)"),
+	TEAR_GLOW_GREEN = Isaac.GetEntityVariantByName("Tainted Andromeda Tear Glow (Green)"),
+	TEAR_GLOW_GRAY = Isaac.GetEntityVariantByName("Tainted Andromeda Tear Glow (Gray)"),
+	TEAR_GLOW_BLOOD = Isaac.GetEntityVariantByName("Tainted Andromeda Tear Glow (Blood)"),
 }
 
 Enums.Sounds = {
