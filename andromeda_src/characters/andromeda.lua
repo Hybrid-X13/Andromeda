@@ -231,6 +231,28 @@ function Character.entityTakeDmg(target, amount, flags, source, countdown)
 	then
 		room:MamaMegaExplosion(player.Position)
 	end
+
+	if player:HasTrinket(Isaac.GetTrinketIdByName("Birthcake")) then
+		Functions.StarBurst(player, player.Position)
+	end
+end
+
+function Character.postNPCDeath(npc)
+	for i = 0, game:GetNumPlayers() - 1 do
+		local player = Isaac.GetPlayer(i)
+
+		if player:GetPlayerType() == Enums.Characters.ANDROMEDA
+		and player:HasTrinket(Isaac.GetTrinketIdByName("Birthcake"))
+		then
+			local trinketMultiplier = player:GetTrinketMultiplier(Isaac.GetTrinketIdByName("Birthcake"))
+			local rng = player:GetTrinketRNG(Isaac.GetTrinketIdByName("Birthcake"))
+			local randFloat = rng:RandomFloat() / trinketMultiplier
+
+			if randFloat < 0.1 then
+				Functions.StarBurst(player, npc.Position)
+			end
+		end
+	end
 end
 
 function Character.preTearCollision(tear, collider, low)
@@ -411,7 +433,7 @@ function Character.postEffectUpdate(effect)
 	local roomIndex = level:GetCurrentRoomIndex()
 	
 	if effect.Variant == Enums.Effects.GRAV_SHIFT_INDICATOR then
-		effect.Position = player.Position
+		effect:FollowParent(player)
 		effect.SortingLayer = SortingLayer.SORTING_BACKGROUND
 
 		if (room:GetType() == RoomType.ROOM_TREASURE and (Functions.CheckAbandonedPlanetarium(roomIndex) or Functions.CheckTreasureTaken(roomIndex)))
