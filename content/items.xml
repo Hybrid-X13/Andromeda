@@ -32,4 +32,6 @@
 	<trinket name="Sextant" description="Navigate the unknown" gfx="andromeda_sextant.png" tags="nogreed" />
 	<trinket name="Alien Transmitter" description="It wasn't designed for your hand" gfx="andromeda_alientransmitter.png" />
 	<trinket name="Eye of Spode" description="42" gfx="andromeda_eyeofspode.png" />
+	<trinket name="Andromeda's Cake" description="Starry night" gfx="andromeda_birthcake.png" achievement="999" />
+	<trinket name="Tainted Andromeda's Cake" description="Appetite up" gfx="andromeda_birthcake_tainted.png" achievement="999" />
 </items>
