@@ -99,6 +99,10 @@ function Item.postPEffectUpdate(player)
 
 		Functions.ChangeTear(tear, player)
 
+		if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
+			Functions.AddLightToTear(player, tear)
+		end
+
 		tear:AddTearFlags(parentTear.TearFlags)
 		tear:GetData().isBarrageTear = true
 		tear.CollisionDamage = parentTear.CollisionDamage

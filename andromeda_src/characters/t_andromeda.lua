@@ -557,6 +557,8 @@ function Character.postFireTear(tear)
 	local room = game:GetRoom()
 	tear.Position = room:GetCenterPos()
 	tear.Scale = tear.Scale + 0.37
+
+	Functions.AddLightToTear(player, tear)
 	
 	--Tainted Andromeda Birthright effect. Spawn additional tears that converge toward the black hole
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
@@ -859,6 +861,20 @@ function Character.postEffectUpdate(effect)
 	and not player:HasCollectible(CollectibleType.COLLECTIBLE_PLAYDOUGH_COOKIE)
 	then
 		Functions.ChangeLaserColor(effect, player)
+	elseif effect.Variant == Enums.Effects.TEAR_GLOW
+	or effect.Variant == Enums.Effects.TEAR_GLOW_WHITE
+	or effect.Variant == Enums.Effects.TEAR_GLOW_BLACK
+	or effect.Variant == Enums.Effects.TEAR_GLOW_BLUE
+	or effect.Variant == Enums.Effects.TEAR_GLOW_RED
+	or effect.Variant == Enums.Effects.TEAR_GLOW_GREEN
+	or effect.Variant == Enums.Effects.TEAR_GLOW_GRAY
+	or effect.Variant == Enums.Effects.TEAR_GLOW_BLOOD
+	then
+		if effect.Parent == nil then
+			effect:Remove()
+		else
+			effect:FollowParent(effect.Parent)
+		end
 	end
 end
 
