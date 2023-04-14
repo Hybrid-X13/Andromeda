@@ -1,6 +1,5 @@
 local Enums = require("andromeda_src.enums")
 local SaveData = require("andromeda_src.savedata")
-local CustomData = require("andromeda_src.customdata")
 local game = Game()
 local sfx = SFXManager()
 local rng = RNG()
@@ -78,6 +77,33 @@ function Functions.AnyPlayerHasCollectible(itemID, ignoreModifiers)
 	end
 
 	return false
+end
+
+function Functions.AddLightToTear(player, tear)
+	local skinColor = player:GetHeadColor()
+	local lightEffects = {
+		Enums.Effects.TEAR_GLOW,
+		Enums.Effects.TEAR_GLOW_WHITE,
+		Enums.Effects.TEAR_GLOW_BLACK,
+		Enums.Effects.TEAR_GLOW_BLUE,
+		Enums.Effects.TEAR_GLOW_RED,
+		Enums.Effects.TEAR_GLOW_GREEN,
+		Enums.Effects.TEAR_GLOW_GRAY,
+	}
+	local light
+
+	if Functions.HasBloodTears(player) then
+		light = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.TEAR_GLOW_BLOOD, 0, tear.Position, tear.Velocity, player)
+	elseif not Functions.HasBloodTears(player) then
+		light = Isaac.Spawn(EntityType.ENTITY_EFFECT, lightEffects[skinColor + 2], 0, tear.Position, tear.Velocity, player)
+	end
+
+	light.Parent = tear
+
+	local sprite = light:GetSprite()
+	sprite:Play(tear:GetSprite():GetAnimation(), true)
+	sprite:ReplaceSpritesheet(0, "nothinglol.png")
+	sprite:LoadGraphics()
 end
 
 function Functions.AnyPlayerIsType(playerType)
@@ -392,7 +418,7 @@ function Functions.ConvergingTears(entity, player, convergePos, convergeAngle, d
 
 	if entity:GetData().starburstTear then
 		local sprite = newTear:GetSprite()
-		sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_cosmic.png")
+		sprite:ReplaceSpritesheet(0, "gfx/tears/tears_starburst.png")
 		sprite:LoadGraphics()
 		newTear:GetData().starburstTear = true
 	end
@@ -401,6 +427,7 @@ function Functions.ConvergingTears(entity, player, convergePos, convergeAngle, d
 		Functions.ChangeTear(newTear, player)
 	elseif player:GetPlayerType() == Enums.Characters.T_ANDROMEDA then
 		Functions.ChangeTear(newTear, player)
+		Functions.AddLightToTear(player, newTear)
 	elseif player:GetPlayerType() == Isaac.GetPlayerTypeByName("Mastema", false) then
 		local variant = {
 			[TearVariant.BLUE] = TearVariant.BLOOD,
@@ -826,6 +853,48 @@ function Functions.SpawnMeteor(player, rng)
 	meteor.FallingAcceleration = 1
 	meteor.SpawnerEntity = player
 	meteor.Color = Color(0.8, 0.6, 0.6, 1, 0, 0, 0)
+end
+
+function Functions.StarBurst(player, pos)
+	local rng = player:GetCollectibleRNG(Enums.Collectibles.STARBURST)
+	local numStars = rng:RandomInt(7) + 5
+	local LAST_FRAME = 26
+	local colors = {
+		"red",
+		"lightred",
+		"orange",
+		"yellow",
+		"blue",
+		"white",
+	}
+
+	for i = 1, numStars do
+		local velocity = RandomVector() * rng:RandomFloat() * (rng:RandomInt(15) + 1)
+		local starTear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, pos, velocity, player):ToTear()
+		local sprite = starTear:GetSprite()
+		local randNum = rng:RandomInt(#colors) + 1
+
+		sprite:Load("gfx/tears/tears_spode_" .. colors[randNum] .. ".anm2", true)
+		randNum = rng:RandomInt(LAST_FRAME) + 1
+			
+		for i = 1, randNum do
+			sprite:Update()
+		end
+
+		randNum = rng:RandomInt(30)  * rng:RandomFloat()
+		starTear:AddTearFlags(TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_PIERCING | TearFlags.TEAR_DECELERATE)
+		starTear.CollisionDamage = (player.Damage / 2) * rng:RandomFloat()
+
+		if starTear.CollisionDamage < (player.Damage / 10) then
+			starTear.CollisionDamage = player.Damage / 10
+		end
+
+		starTear.Scale = 0.5345 * math.sqrt(starTear.CollisionDamage)
+		starTear.FallingSpeed = starTear.FallingSpeed - randNum
+		starTear:GetData().isSpodeTear = true
+	end
+
+	sfx:Play(SoundEffect.SOUND_BLACK_POOF, 0.7, 2, false, 1.7)
 end
 
 function Functions.TearsUp(firedelay, val)
