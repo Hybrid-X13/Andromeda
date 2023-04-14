@@ -1,17 +1,6 @@
 local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
-local sfx = SFXManager()
 local rng = RNG()
-local LAST_FRAME = 26
-
-local colors = {
-	"red",
-	"lightred",
-	"orange",
-	"yellow",
-	"blue",
-	"white",
-}
 
 local Item = {}
 
@@ -27,34 +16,6 @@ local function HasTearCollided(tearTable, tear)
 	return false
 end
 
-local function StarBurst(player, pos)
-	local rng = player:GetCollectibleRNG(Enums.Collectibles.STARBURST)
-	local numStars = rng:RandomInt(7) + 5
-
-	for i = 1, numStars do
-		local velocity = RandomVector() * rng:RandomFloat() * (rng:RandomInt(15) + 1)
-		local starTear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, pos, velocity, player):ToTear()
-		local sprite = starTear:GetSprite()
-		local randNum = rng:RandomInt(#colors) + 1
-
-		sprite:Load("gfx/tears/tears_spode_" .. colors[randNum] .. ".anm2", true)
-		randNum = rng:RandomInt(LAST_FRAME) + 1
-			
-		for i = 1, randNum do
-			sprite:Update()
-		end
-
-		randNum = rng:RandomInt(30)  * rng:RandomFloat()
-		starTear:AddTearFlags(TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_PIERCING | TearFlags.TEAR_DECELERATE)
-		starTear.CollisionDamage = (player.Damage / 2) * rng:RandomFloat()
-		starTear.Scale = 0.5345 * math.sqrt(starTear.CollisionDamage)
-		starTear.FallingSpeed = starTear.FallingSpeed - randNum
-		starTear:GetData().isSpodeTear = true
-	end
-
-	sfx:Play(SoundEffect.SOUND_BLACK_POOF, 0.7, 2, false, 1.7)
-end
-
 function Item.postFireTear(tear)
 	if tear.SpawnerEntity == nil then return end
 	
@@ -68,7 +29,7 @@ function Item.postFireTear(tear)
 	local randFloat = rng:RandomFloat()
 	
 	if randFloat < 0.06 then
-		sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_cosmic.png")
+		sprite:ReplaceSpritesheet(0, "gfx/tears/tears_starburst.png")
 		sprite:LoadGraphics()
 		tear:GetData().starburstTear = true
 	end
@@ -84,7 +45,7 @@ function Item.postTearUpdate(tear)
 	if player:HasCurseMistEffect() then return end
 	if not tear:CollidesWithGrid() then return end
 	
-	StarBurst(player, tear.Position)
+	Functions.StarBurst(player, tear.Position)
 end
 
 function Item.preTearCollision(tear, collider, low)
@@ -105,7 +66,7 @@ function Item.preTearCollision(tear, collider, low)
 	
 	if HasTearCollided(collider:GetData().starburstTable, tear) then return end
 
-	StarBurst(player, tear.Position)
+	Functions.StarBurst(player, tear.Position)
 	table.insert(collider:GetData().starburstTable, tear.InitSeed)
 end
 
@@ -124,27 +85,36 @@ function Item.postBombUpdate(bomb)
 	if bomb:IsDead()
 	and randFloat < 0.06
 	then
-		StarBurst(player, bomb.Position)
+		Functions.StarBurst(player, bomb.Position)
 	end
 end
 
 function Item.postEffectUpdate(effect)
-	if effect.Variant ~= EffectVariant.ROCKET then return end
-	if effect.SpawnerEntity == nil then return end
+	if effect.Variant == EffectVariant.ROCKET then
+		if effect.SpawnerEntity == nil then return end
 
-	local player = Functions.GetPlayerFromSpawnerEntity(effect)
+		local player = Functions.GetPlayerFromSpawnerEntity(effect)
 
-  	if player == nil then return end
-	if not player:HasCollectible(Enums.Collectibles.STARBURST) then return end
+		if player == nil then return end
+		if not player:HasCollectible(Enums.Collectibles.STARBURST) then return end
 
-	local rng = player:GetCollectibleRNG(Enums.Collectibles.STARBURST)
-	local randFloat = rng:RandomFloat()
+		local rng = player:GetCollectibleRNG(Enums.Collectibles.STARBURST)
+		local randFloat = rng:RandomFloat()
 
-	if effect:IsDead()
-	and not effect:Exists()
-	and randFloat < 0.06
+		if effect:IsDead()
+		and not effect:Exists()
+		and randFloat < 0.06
+		then
+			Functions.StarBurst(player, effect.Position)
+		end
+	elseif effect.Variant == Enums.Effects.STARBURST_TRAIL
+	or effect.Variant == Enums.Effects.STARBURST_STAR_TRAIL
 	then
-		StarBurst(player, effect.Position)
+		local sprite = effect:GetSprite()
+
+		if sprite:IsFinished(sprite:GetAnimation()) then
+			effect:Remove()
+		end
 	end
 end
 
@@ -164,7 +134,7 @@ function Item.entityTakeDmg(target, amount, flag, source, countdown)
 		if player:HasCollectible(Enums.Collectibles.STARBURST)
 		and rng:RandomFloat() < 0.06
 		then
-			StarBurst(player, enemy.Position)
+			Functions.StarBurst(player, enemy.Position)
 		end
 	elseif source.Entity.SpawnerEntity then
 		local player = source.Entity.SpawnerEntity:ToPlayer()
@@ -178,7 +148,7 @@ function Item.entityTakeDmg(target, amount, flag, source, countdown)
 				if (source.Entity.Type == EntityType.ENTITY_TEAR and source.Entity:ToTear():HasTearFlags(TearFlags.TEAR_LUDOVICO))
 				or source.Entity.Type == EntityType.ENTITY_KNIFE
 				then
-					StarBurst(player, enemy.Position)
+					Functions.StarBurst(player, enemy.Position)
 				end
 			end
 		end
@@ -193,7 +163,7 @@ function Item.useCard(card, player, flag)
 	or card == Enums.Cards.BETELGEUSE
 	or card == Enums.Cards.SIRIUS
 	then
-		StarBurst(player, player.Position)
+		Functions.StarBurst(player, player.Position)
 	end
 end
 
