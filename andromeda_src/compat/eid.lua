@@ -104,7 +104,7 @@ if EID then
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.T_ANDROMEDA_BIRTHCAKE, "Every 4 enemies killed adds a charge", 0, 2)
 
 	--Русский EID
-	EID:addBirthright(Enums.Characters.ANDROMEDA, "Даёт {{ColorTransform}}трансформацию#{{Blank}} {{ColorTransform}}Спория{{ColorEIDText}} {{Spode}}, если её нет#Использование Грави-Сдвига в#{{Blank}} {{TreasureRoom}} Сокровищницах теперь переносит вас в настоящий#{{Blank}} {{Planetarium}} Планетарий#В режиме Жадности, предмет Планетария всегда есть на продажу", "Андромеда", "ru")
+	EID:addBirthright(Enums.Characters.ANDROMEDA, "Даёт {{ColorTransform}}трансформацию#{{Blank}} {{ColorTransform}}Спория{{ColorEIDText}} {{Spode}}, если её нет#{{AbPlanetarium}} Значительно улучшает комнаты Заброшенного Планетария", "Андромеда", "ru")
 	EID:addBirthright(Enums.Characters.T_ANDROMEDA, "Каждая выпущенная слеза создаёт еще одну, которая летит издалека прямо в Чёрную Дыру#Чёрная Дыра теперь засасывает врагов", "Порченый Андромеда", "ru")
 	--Активки
 	EID:addCollectible(Enums.Collectibles.SINGULARITY, "При активации создаёт случайный пикап, расходник или сундук#Имеет маленький шанс заспавнить предмет случайного пула#{{Warneeng}} {{ColorYellow}}Заряжается только подбирая пикапы или используя расходники", "Сингулярность", "ru")
@@ -135,6 +135,8 @@ if EID then
 	EID:addTrinket(Enums.Trinkets.ALIEN_TRANSMITTER, "С некоторым шансом враги могут быть утащенны пришельцами", "Внеземной Передатчик", "ru")
 	EID:addTrinket(Enums.Trinkets.POLARIS, "Если комната сделки после победы над боссом этажа не появляется, предмет босса заменяется либо на предмет ангела за деньги либо на сделку дьявола#Беря сделку дьявола таким образом вы не теряете шанс ангела", "Полярис", "ru")
 	EID:addTrinket(Enums.Trinkets.EYE_OF_SPODE, "{{TreasureRoom}} Сокровищницы превращаются в Заброшенные Планетарии#{{AbPlanetarium}} Заброшенные Планетарии могут содержать предметы зодиака или различные награды#↑ +20% шанс Планетария на следующем этаже, когда Сокровищница была превращена в Заброшенный Планетарий", "Глаз Спория", "ru")
+	EID:addTrinket(Enums.Trinkets.ANDROMEDA_BIRTHCAKE, "{{Planetarium}} Планетарии имеют экстра предмет на выбор#Дополнительно, при получении урона из вас вспыхивают звёзды, наносящие урон", "Пирожное Андромеды", "ru")
+	EID:addTrinket(Enums.Trinkets.T_ANDROMEDA_BIRTHCAKE, "Ваша чёрная дыра каждую секунду наносит ваш урон ближайшим врагам#За каждые 5 убитых врагов, Сингулярность получает заряд", "Пирожное Порченого Андромеды", "ru")
 	--Карты/руны
 	EID:addCard(Enums.Cards.SOUL_OF_ANDROMEDA, "{{AbPlanetarium}} Телепортирует игрока в Заброшенный Планетарий", "Душа Андромеды", "ru")
 	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} Активирует эффект случайной карты таро (обычной или перевёрнутой)", "XXII - Неизвестен", "ru")
@@ -144,6 +146,8 @@ if EID then
 	--Золотые триньки
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.POLARIS, "Предмет бесплатный", 0, 2, "ru")
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.EYE_OF_SPODE, "Шанс получить особые, более ценные награды", 0, 2, "ru")
+	EID:addGoldenTrinketMetadata(Enums.Trinkets.ANDROMEDA_BIRTHCAKE, "Добавляет 2 экстра предмета на выбор в планетарий", 0, 2)
+	EID:addGoldenTrinketMetadata(Enums.Trinkets.T_ANDROMEDA_BIRTHCAKE, "Каждые 4 убитых врага дают заряд", 0, 2)
 	
 	--Chinese EID by 汐何/Saurtya
 	EID:addBirthright(Enums.Characters.ANDROMEDA, "若角色未触发{{Spode}}{{ColorTransform}} Spode套装{{ColorEIDText}}效果，将获得{{Spode}}{{ColorTransform}} Spode套装{{ColorEIDText}}效果 #在 {{TreasureRoom}} 道具房使用第二主动将不再传送到 {{AbPlanetarium}} 遗弃星象房，而是传送到 {{Planetarium}} 星象房当中 #贪婪模式中，商店必定贩卖一个星象房道具", "Andromeda","zh_cn")
