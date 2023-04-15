@@ -12,7 +12,7 @@ function BirthcakeCompat.postGameStarted(isContinue)
         Birthcake.BirthcakeDescs[Enums.Characters.T_ANDROMEDA] = "Appetite up"
     
         Birthcake.TrinketDesc[Enums.Characters.ANDROMEDA] = {Normal = "{{Planetarium}} Planetariums have an extra choice item#Additionally, taking damage spawns a cluster of small damaging stars"}
-        Birthcake.TrinketDesc[Enums.Characters.T_ANDROMEDA] = {Normal = "Your black hole deals damage to enemies that are nearby#Enemies killed by the black hole add one charge to Singularity"}
+        Birthcake.TrinketDesc[Enums.Characters.T_ANDROMEDA] = {Normal = "Your black hole deals damage to nearby enemies every second#Every 5 enemies killed by the black hole adds one charge to Singularity"}
 
         birthcakeAdded = true
     end

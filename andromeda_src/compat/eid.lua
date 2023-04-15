@@ -46,7 +46,7 @@ if EID then
 	EID:addCardMetadata(Enums.Cards.ALPHA_CENTAURI, 6, true)
 
 	--English EID
-	EID:addBirthright(Enums.Characters.ANDROMEDA, "Grants the {{Spode}}{{ColorTransform}} Spode transformation{{ColorEIDText}} if you don't have it already#Using Gravity Shift in {{TreasureRoom}} Treasure rooms now turns it into a real#{{Blank}} {{Planetarium}} Planetarium#In Greed Mode, each shop has a Planetarium item for sale", "Andromeda")
+	EID:addBirthright(Enums.Characters.ANDROMEDA, "Grants the {{Spode}}{{ColorTransform}} Spode transformation{{ColorEIDText}} if you don't have it already#{{AbPlanetarium}} Greatly improves the layouts of Abandoned Planetariums", "Andromeda")
 	EID:addBirthright(Enums.Characters.T_ANDROMEDA, "Each tear fired creates an additional tear that starts from far away and is pulled in towards the black hole#Enemies can also be pulled in", "Tainted Andromeda")
 	--Actives
 	EID:addCollectible(Enums.Collectibles.SINGULARITY, "Upon use, spawns a random pickup or chest#All pickup variants and chests have an equal chance of spawning#10% chance to spawn an item from a random pool instead#{{Warneeng}} {{ColorYellow}}Only charges by collecting pickups and using consumables", "Singularity")
@@ -83,6 +83,8 @@ if EID then
 	EID:addTrinket(Enums.Trinkets.ALIEN_TRANSMITTER, "Enemies have a chance to be abducted by aliens", "Alien Transmitter")
 	EID:addTrinket(Enums.Trinkets.POLARIS, "When a deal room doesn't appear after defeating the floor's boss, the boss item is turned into an angel item for sale or a devil deal#Taking a devil item this way won't lock you into devil deals", "Polaris")
 	EID:addTrinket(Enums.Trinkets.EYE_OF_SPODE, "{{TreasureRoom}} Treasure rooms are converted into Abandoned Planetariums#{{AbPlanetarium}} Abandoned Planetariums can contain zodiac items or various other rewards#↑ +20% {{Planetarium}}Planetarium chance next floor when a treasure room is converted into an Abandoned Planetarium", "Eye of Spode")
+	EID:addTrinket(Enums.Trinkets.ANDROMEDA_BIRTHCAKE, "{{Planetarium}} Planetariums have an extra choice item#Additionally, taking damage spawns a cluster of small damaging stars", "Andromeda's Cake")
+	EID:addTrinket(Enums.Trinkets.T_ANDROMEDA_BIRTHCAKE, "Your black hole deals damage to nearby enemies every second#Every 5 enemies killed by the black hole adds one charge to Singularity", "Tainted Andromeda's Cake")
 	--Cards/runes
 	EID:addCard(Enums.Cards.SOUL_OF_ANDROMEDA, "{{AbPlanetarium}} Teleports you to an Abandoned Planetarium", "Soul of Andromeda")
 	EID:addCard(Enums.Cards.THE_UNKNOWN, "{{Card}} Activates a random tarot card effect, normal or reversed", "XXII - The Unknown")
@@ -98,6 +100,8 @@ if EID then
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.ALIEN_TRANSMITTER)
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.POLARIS, "The item won't have a cost", 0, 2)
 	EID:addGoldenTrinketMetadata(Enums.Trinkets.EYE_OF_SPODE, "Chance to get special, more rewarding layouts", 0, 2)
+	EID:addGoldenTrinketMetadata(Enums.Trinkets.ANDROMEDA_BIRTHCAKE, "Adds 2 extra item choices to planetariums", 0, 2)
+	EID:addGoldenTrinketMetadata(Enums.Trinkets.T_ANDROMEDA_BIRTHCAKE, "Every 4 enemies killed adds a charge", 0, 2)
 
 	--Русский EID
 	EID:addBirthright(Enums.Characters.ANDROMEDA, "Даёт {{ColorTransform}}трансформацию#{{Blank}} {{ColorTransform}}Спория{{ColorEIDText}} {{Spode}}, если её нет#Использование Грави-Сдвига в#{{Blank}} {{TreasureRoom}} Сокровищницах теперь переносит вас в настоящий#{{Blank}} {{Planetarium}} Планетарий#В режиме Жадности, предмет Планетария всегда есть на продажу", "Андромеда", "ru")

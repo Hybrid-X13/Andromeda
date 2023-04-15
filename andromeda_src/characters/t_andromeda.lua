@@ -519,19 +519,47 @@ end
 
 function Character.entityTakeDmg(target, amount, flags, source, countdown)
 	local player = target:ToPlayer()
+	local enemy = target:ToNPC()
 
-	if player == nil then return end
-	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
-	
-	local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_MY_REFLECTION)
-	local randNum = rng:RandomInt(20)
-	
-	--Built-in Marbles effect
-	if randNum == 0
-	and (player:GetTrinket(0) > 0 or player:GetTrinket(1) > 0)
+	if player ~= nil then
+		if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
+		
+		local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_MY_REFLECTION)
+		local randNum = rng:RandomInt(20)
+		
+		--Built-in Marbles effect
+		if randNum == 0
+		and (player:GetTrinket(0) > 0 or player:GetTrinket(1) > 0)
+		then
+			player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false)
+			sfx:Play(SoundEffect.SOUND_VAMP_GULP, 1, 2, false, 0.9)
+		end
+	elseif enemy ~= nil
+	and enemy.HitPoints - amount <= 0
+	and source.Entity
+	and source.Type == EntityType.ENTITY_EFFECT
+	and source.Variant == Enums.Effects.BLACK_HOLE
+	and source.Entity.SpawnerEntity
 	then
-		player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false)
-		sfx:Play(SoundEffect.SOUND_VAMP_GULP, 1, 2, false, 0.9)
+		player = source.Entity.SpawnerEntity:ToPlayer()
+		local numKills = 6 - player:GetTrinketMultiplier(Enums.Trinkets.T_ANDROMEDA_BIRTHCAKE)
+
+		if numKills < 0 then
+			numKills = 0
+		end
+
+		if player:GetData().blackHoleKills == nil then
+			player:GetData().blackHoleKills = 0
+		end
+		
+		if player:GetData().blackHoleKills < numKills then
+			player:GetData().blackHoleKills = player:GetData().blackHoleKills + 1
+		end
+
+		if player:GetData().blackHoleKills == numKills then
+			player:GetData().blackHoleKills = 0
+			Functions.ChargeSingularity(player, 1)
+		end
 	end
 end
 
@@ -828,6 +856,22 @@ function Character.postEffectUpdate(effect)
 		and not sprite:IsPlaying(blackHoleAnims[skinColor + 2])
 		then
 			sprite:Play(blackHoleAnims[skinColor + 2])
+		end
+
+		if player:HasTrinket(Enums.Trinkets.T_ANDROMEDA_BIRTHCAKE) then
+			local enemies = Isaac.FindInRadius(room:GetCenterPos(), 40, EntityPartition.ENEMY)
+
+			if #enemies > 0 then
+				for _, enemy in pairs(enemies) do
+					if not enemy:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
+					and enemy:IsActiveEnemy()
+					and enemy:IsVulnerableEnemy()
+					and effect.FrameCount % 30 == 0
+					then
+						enemy:TakeDamage(player.Damage, 0, EntityRef(effect), 0)
+					end
+				end
+			end
 		end
 
 		if #rituals > 0 then

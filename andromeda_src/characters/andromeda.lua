@@ -122,11 +122,49 @@ function Character.postNewRoom()
 				end
 			end
 
-			if room:GetType() == RoomType.ROOM_PLANETARIUM
-			and SaveData.PlayerData.Andromeda.GravShift.Planetarium == 0
-			and #Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE) > 0
-			then
-				Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, player)
+			if room:GetType() == RoomType.ROOM_PLANETARIUM then
+				local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
+				
+				if SaveData.PlayerData.Andromeda.GravShift.Planetarium == 0
+				and #items > 0
+				then
+					Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.GRAV_SHIFT_INDICATOR, 0, player.Position, Vector.Zero, player)
+				end
+
+				if room:IsFirstVisit()
+				and player:HasTrinket(Enums.Trinkets.ANDROMEDA_BIRTHCAKE)
+				then
+					local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.ANDROMEDA_BIRTHCAKE)
+					local seed = gameSeed:GetStartSeed()
+					local itemID
+					local pos
+					
+					for i = 1, trinketMultiplier do
+						if player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS) then
+							local rng = player:GetTrinketRNG(Enums.Trinkets.ANDROMEDA_BIRTHCAKE)
+							local pool = rng:RandomInt(ItemPoolType.NUM_ITEMPOOLS)
+							seed = rng:RandomInt(999999999)
+							itemID = itemPool:GetCollectible(pool, true, seed)
+						else
+							itemID = itemPool:GetCollectible(ItemPoolType.POOL_PLANETARIUM, true, seed)
+						end
+
+						if #items > 0 then
+							pos = Isaac.GetFreeNearPosition(items[1].Position, 40)
+
+							for i = 1, #items do
+								local item = items[i]:ToPickup()
+								item.OptionsPickupIndex = 42
+							end
+						elseif #items == 0 then
+							pos = room:FindFreePickupSpawnPosition(room:GetCenterPos(), 0)
+						end
+
+						local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, pos, Vector.Zero, nil):ToPickup()
+						collectible.OptionsPickupIndex = 42
+						Functions.StarBurst(player, collectible.Position)
+					end
+				end
 			end
 			
 			--Change backdrop of rooms where Gravity Shift was used
@@ -169,30 +207,6 @@ function Character.postNewRoom()
 			then
 				gameSeed:RemoveSeedEffect(SeedEffect.SEED_ICE_PHYSICS)
 			end
-			
-			--Add a planetarium item for sale in greed mode when Andromeda has Birthright
-			if game:IsGreedMode()
-			and room:GetType() == RoomType.ROOM_SHOP
-			and room:IsFirstVisit()
-			and player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-			then
-				local seed = gameSeed:GetStartSeed()
-				local itemID
-				
-				if player:HasCollectible(CollectibleType.COLLECTIBLE_CHAOS) then
-					local rng = player:GetCollectibleRNG(CollectibleType.COLLECTIBLE_BIRTHRIGHT)
-					local pool = rng:RandomInt(ItemPoolType.NUM_ITEMPOOLS)
-					seed = rng:RandomInt(999999999)
-					itemID = itemPool:GetCollectible(pool, true, seed)
-				else
-					itemID = itemPool:GetCollectible(ItemPoolType.POOL_PLANETARIUM, true, seed)
-				end
-				
-				local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, room:GetCenterPos(), Vector.Zero, nil)
-				local item = collectible:ToPickup()
-				item.Price = 15
-				item.ShopItemId = -1
-			end
 		end
 	end
 end
@@ -232,26 +246,8 @@ function Character.entityTakeDmg(target, amount, flags, source, countdown)
 		room:MamaMegaExplosion(player.Position)
 	end
 
-	if player:HasTrinket(Isaac.GetTrinketIdByName("Birthcake")) then
+	if player:HasTrinket(Enums.Trinkets.ANDROMEDA_BIRTHCAKE) then
 		Functions.StarBurst(player, player.Position)
-	end
-end
-
-function Character.postNPCDeath(npc)
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-
-		if player:GetPlayerType() == Enums.Characters.ANDROMEDA
-		and player:HasTrinket(Isaac.GetTrinketIdByName("Birthcake"))
-		then
-			local trinketMultiplier = player:GetTrinketMultiplier(Isaac.GetTrinketIdByName("Birthcake"))
-			local rng = player:GetTrinketRNG(Isaac.GetTrinketIdByName("Birthcake"))
-			local randFloat = rng:RandomFloat() / trinketMultiplier
-
-			if randFloat < 0.1 then
-				Functions.StarBurst(player, npc.Position)
-			end
-		end
 	end
 end
 
@@ -357,18 +353,6 @@ function Character.prePickupCollision(pickup, collider, low)
 		and SaveData.PlayerData.Andromeda.GravShift.Planetarium == 0
 		then
 			SaveData.PlayerData.Andromeda.GravShift.Planetarium = -1
-		end
-		
-		if game:IsGreedMode()
-		and room:GetType() == RoomType.ROOM_SHOP
-		and pickup.SubType == CollectibleType.COLLECTIBLE_BIRTHRIGHT
-		then
-			local seed = game:GetSeeds():GetStartSeed()
-			local itemID = game:GetItemPool():GetCollectible(ItemPoolType.POOL_PLANETARIUM, true, seed)
-			local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, room:GetCenterPos(), Vector.Zero, nil)
-			local item = collectible:ToPickup()
-			item.Price = 15
-			item.ShopItemId = -1
 		end
 	else
 		if room:GetType() == RoomType.ROOM_SHOP
