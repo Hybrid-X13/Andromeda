@@ -42,6 +42,8 @@ Enums.Trinkets = {
 	ALIEN_TRANSMITTER = Isaac.GetTrinketIdByName("Alien Transmitter"),
 	POLARIS = Isaac.GetTrinketIdByName("Polaris"),
 	EYE_OF_SPODE = Isaac.GetTrinketIdByName("Eye of Spode"),
+	ANDROMEDA_BIRTHCAKE = Isaac.GetTrinketIdByName("Andromeda's Cake"),
+	T_ANDROMEDA_BIRTHCAKE = Isaac.GetTrinketIdByName("Tainted Andromeda's Cake"),
 }
 
 Enums.Cards = {

@@ -3,6 +3,7 @@ local Andromeda = require("andromeda_src.characters.andromeda")
 local T_Andromeda = require("andromeda_src.characters.t_andromeda")
 local Juno = require("andromeda_src.items.passives.juno")
 local Spode = require("andromeda_src.misc.spode")
+local BirthcakeCompat = require("andromeda_src.compat.birthcake")
 
 local function MC_POST_PLAYER_UPDATE(_, player)
 	UnlockManager.postPlayerUpdate(player)
@@ -13,6 +14,8 @@ local function MC_POST_PLAYER_UPDATE(_, player)
 	Juno.postPlayerUpdate(player)
 
 	Spode.postPlayerUpdate(player)
+
+	BirthcakeCompat.postPlayerUpdate(player)
 end
 
 return MC_POST_PLAYER_UPDATE
