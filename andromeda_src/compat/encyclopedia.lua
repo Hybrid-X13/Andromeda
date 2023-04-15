@@ -54,8 +54,7 @@ if Encyclopedia then
 			{ -- Birthright
 				{str = "Birthright", fsize = 2, clr = 3, halign = 0},
 				{str = "Grants the Spode transformation if you don't have it already."},
-				{str = "Using Gravity Shift in treasure rooms now turns it into a real Planetarium."},
-				{str = "In Greed Mode, each shop has a Planetarium item for sale."},
+				{str = "Greatly improves the layouts of Abandoned Planetariums."},
 			},
 			{ -- Trivia
 				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
