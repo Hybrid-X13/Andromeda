@@ -839,9 +839,10 @@ end
 function Functions.SpawnMeteor(player, rng)
 	local room = game:GetRoom()
 	local randNum = rng:RandomInt(4) + rng:RandomFloat()
-	local spawnMeteor = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, room:GetRandomPosition(0), RandomVector() * randNum, player)
-	local meteor = spawnMeteor:ToTear()
+	local meteor = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, room:GetRandomPosition(0), RandomVector() * randNum, player):ToTear()
+	local sprite = meteor:GetSprite()
 	local randFloat = rng:RandomFloat() + rng:RandomFloat()
+	local easterEggChance = 0.05
 	
 	meteor:GetData().isMeteor = true
 	meteor:AddTearFlags(TearFlags.TEAR_BURN | TearFlags.TEAR_SPECTRAL)
@@ -852,7 +853,18 @@ function Functions.SpawnMeteor(player, rng)
 	meteor.FallingSpeed = 100
 	meteor.FallingAcceleration = 1
 	meteor.SpawnerEntity = player
-	meteor.Color = Color(0.8, 0.6, 0.6, 1, 0, 0, 0)
+
+	if player:HasCollectible(Isaac.GetItemIdByName("Emoji Glasses")) then
+		easterEggChance = 0.75
+	end
+
+	if rng:RandomFloat() < easterEggChance then
+		sprite:ReplaceSpritesheet(0, "gfx/tears/meteorite_rocks2.png")
+	else
+		sprite:ReplaceSpritesheet(0, "gfx/tears/meteorite_rocks.png")
+	end
+	
+	sprite:LoadGraphics()
 end
 
 function Functions.StarBurst(player, pos)
