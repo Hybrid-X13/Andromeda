@@ -1,5 +1,6 @@
 local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
+local game = Game()
 local rng = RNG()
 
 local Item = {}
@@ -28,7 +29,8 @@ function Item.postFireTear(tear)
 	local rng = player:GetCollectibleRNG(Enums.Collectibles.STARBURST)
 	local randFloat = rng:RandomFloat()
 	
-	if randFloat < 0.06 then
+	--if randFloat < 0.06 then
+	if randFloat < 1 then
 		sprite:ReplaceSpritesheet(0, "gfx/tears/tears_starburst.png")
 		sprite:LoadGraphics()
 		tear:GetData().starburstTear = true
@@ -43,9 +45,35 @@ function Item.postTearUpdate(tear)
 	
 	if player == nil then return end
 	if player:HasCurseMistEffect() then return end
-	if not tear:CollidesWithGrid() then return end
+
+	local rng = player:GetCollectibleRNG(Enums.Collectibles.STARBURST)
+	local randNum = rng:RandomInt(5) + 8
 	
-	Functions.StarBurst(player, tear.Position)
+	if game:GetFrameCount() % randNum == 0 then
+		local starTrail = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.STARBURST_STAR_TRAIL, 0, tear.Position, tear.Velocity * Vector(0.3, 0.3), tear)
+		local sprite = starTrail:GetSprite()
+		randNum = rng:RandomInt(5) + 1
+
+		sprite:Play("Shiny " .. randNum)
+		starTrail.PositionOffset = tear.PositionOffset
+		starTrail.Parent = tear
+		starTrail.Color = Color(rng:RandomFloat(), rng:RandomFloat(), rng:RandomFloat(), 1, 0, 0, 0)
+	end
+
+	randNum = rng:RandomInt(4) + 3
+
+	if game:GetFrameCount() % 5 == 0 then
+		local trailEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.STARBURST_TRAIL, 0, tear.Position, Vector.Zero, tear)
+		local sprite = trailEffect:GetSprite()
+
+		sprite:Play(tear:GetSprite():GetAnimation())
+		trailEffect.PositionOffset = tear.PositionOffset
+		trailEffect.Parent = tear
+	end
+
+	if tear:CollidesWithGrid() then
+		Functions.StarBurst(player, tear.Position)
+	end
 end
 
 function Item.preTearCollision(tear, collider, low)
@@ -90,6 +118,8 @@ function Item.postBombUpdate(bomb)
 end
 
 function Item.postEffectUpdate(effect)
+	local sprite = effect:GetSprite()
+	
 	if effect.Variant == EffectVariant.ROCKET then
 		if effect.SpawnerEntity == nil then return end
 
@@ -107,14 +137,10 @@ function Item.postEffectUpdate(effect)
 		then
 			Functions.StarBurst(player, effect.Position)
 		end
-	elseif effect.Variant == Enums.Effects.STARBURST_TRAIL
-	or effect.Variant == Enums.Effects.STARBURST_STAR_TRAIL
+	elseif (effect.Variant == Enums.Effects.STARBURST_TRAIL or effect.Variant == Enums.Effects.STARBURST_STAR_TRAIL)
+	and sprite:IsFinished(sprite:GetAnimation())
 	then
-		local sprite = effect:GetSprite()
-
-		if sprite:IsFinished(sprite:GetAnimation()) then
-			effect:Remove()
-		end
+		effect:Remove()
 	end
 end
 
