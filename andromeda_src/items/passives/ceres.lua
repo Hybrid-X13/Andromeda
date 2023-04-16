@@ -111,9 +111,9 @@ function Item.postEffectUpdate(effect)
 	
 	local sprite = effect:GetSprite()
 
-	if not sprite:IsFinished("Ceres") then return end
-	
-	effect:Remove()
+	if sprite:IsFinished(sprite:GetAnimation()) then
+		effect:Remove()
+	end
 end
 
 return Item
