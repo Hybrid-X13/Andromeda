@@ -1,5 +1,5 @@
 <players nameimageroot="gfx/ui/boss/" portraitroot="gfx/ui/stage/" root="gfx/characters/costumes/">
-	<player hp="0" armor="6" birthright="Coming home" name="Andromeda"
+	<player hp="0" armor="6" birthright="Not so empty space" name="Andromeda"
 	nameimage="playername_andromeda.png" portrait="playerportrait_andromeda.png" skin="character_andromeda.png" skinColor="2" costumeSuffix="andromeda"
 	/>
 	<player hp="0" black="6" birthright="Fall in the void" bSkinParent="Andromeda" name="AndromedaB"
