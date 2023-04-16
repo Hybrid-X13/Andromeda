@@ -106,3 +106,4 @@ mod:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, CallbackPriority.LATE, 
 require("andromeda_src.compat.eid")
 require("andromeda_src.compat.encyclopedia")
 require("andromeda_src.compat.pog")
+require("andromeda_src.compat.epiphany")
