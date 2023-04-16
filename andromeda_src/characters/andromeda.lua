@@ -232,6 +232,8 @@ function Character.entityTakeDmg(target, amount, flags, source, countdown)
 	if player:GetPlayerType() ~= Enums.Characters.ANDROMEDA then return end
 	
 	local room = game:GetRoom()
+	local rng = player:GetCollectibleRNG(Enums.Collectibles.STARBURST)
+	local numStars = rng:RandomInt(4) + 2
 	local totalHearts = player:GetHearts() + player:GetSoulHearts() + player:GetBoneHearts()
 		
 	if player:GetEffectiveMaxHearts() < 1
@@ -244,6 +246,20 @@ function Character.entityTakeDmg(target, amount, flags, source, countdown)
 	and amount >= totalHearts
 	then
 		room:MamaMegaExplosion(player.Position)
+	end
+
+	for i = 1, numStars do
+		local randMulti = rng:RandomInt(3) + 4
+		local pos = player.Position - Vector(0, player.Size * 2)
+		local star = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.STARBURST_STAR_TRAIL, 0, pos, RandomVector() * randMulti, player)
+		local sprite = star:GetSprite()
+		local randNum = rng:RandomInt(5) + 1
+
+		sprite:Play("Shiny " .. randNum)
+		star.PositionOffset = player.PositionOffset
+		star.SpriteScale = Vector(1.25, 1.25)
+		star.DepthOffset = 1
+		star.Color = Color(rng:RandomFloat(), rng:RandomFloat(), rng:RandomFloat(), 1, 0, 0, 0)
 	end
 
 	if player:HasTrinket(Enums.Trinkets.ANDROMEDA_BIRTHCAKE) then
