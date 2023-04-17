@@ -29,8 +29,7 @@ function Item.postFireTear(tear)
 	local rng = player:GetCollectibleRNG(Enums.Collectibles.STARBURST)
 	local randFloat = rng:RandomFloat()
 	
-	--if randFloat < 0.06 then
-	if randFloat < 1 then
+	if randFloat < 0.06 then
 		sprite:ReplaceSpritesheet(0, "gfx/tears/tears_starburst.png")
 		sprite:LoadGraphics()
 		tear:GetData().starburstTear = true
