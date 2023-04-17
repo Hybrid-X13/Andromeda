@@ -512,7 +512,6 @@ if Encyclopedia then
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
 				{str = "Entering a new room has a chance to reveal more rooms that are nearby on the map."},
-				{str = "Can reveal Secret and Super Secret rooms."},
 				{str = "Shows the location of the floor's Planetarium if there is one."},
 			},
 			{ -- Trivia
