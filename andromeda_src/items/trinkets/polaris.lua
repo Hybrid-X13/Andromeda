@@ -7,6 +7,22 @@ local frameCount = 0
 
 local Trinket = {}
 
+local function HasDealRoomSpawned()
+	local room = game:GetRoom()
+	
+	for i = 0, DoorSlot.NUM_DOOR_SLOTS do
+		local door = room:GetDoor(i)
+		
+		if door
+		and (door.TargetRoomType == RoomType.ROOM_DEVIL or door.TargetRoomType == RoomType.ROOM_ANGEL)
+		then
+			return true
+		end
+	end
+
+	return false
+end
+
 function Trinket.preSpawnCleanAward()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
@@ -48,7 +64,6 @@ function Trinket.postPEffectUpdate(player)
 	local gameFrame = game:GetFrameCount()
 	local rng = player:GetTrinketRNG(Enums.Trinkets.POLARIS)
 	local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.POLARIS)
-	local noDealDoor = true
 	local maxRedHearts = player:GetEffectiveMaxHearts()
 	
 	if bossRoomCleared
@@ -57,18 +72,7 @@ function Trinket.postPEffectUpdate(player)
 	then
 		local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
 		
-		--Check if an angel or devil room spawned after defeating the boss
-		for i = 0, DoorSlot.NUM_DOOR_SLOTS do
-			local door = room:GetDoor(i)
-			
-			if door
-			and (door.TargetRoomType == RoomType.ROOM_DEVIL or door.TargetRoomType == RoomType.ROOM_ANGEL)
-			then
-				noDealDoor = false
-			end
-		end
-		
-		if noDealDoor
+		if HasDealRoomSpawned()
 		and #items > 0
 		then
 			for i = 1, #items do
@@ -145,7 +149,7 @@ function Trinket.postPEffectUpdate(player)
 	if room:GetType() == RoomType.ROOM_BOSS then
 		local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
 		
-		for i, j in pairs(items) do
+		for _, j in pairs(items) do
 			local collectible = j:ToPickup()
 			
 			if collectible.SubType > 0 then
