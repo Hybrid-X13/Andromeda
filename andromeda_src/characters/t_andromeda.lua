@@ -323,16 +323,18 @@ function Character.preRoomEntitySpawn(entity, variant, subType, gIndex, seed)
 
 	if entity == EntityType.ENTITY_PICKUP
 	and variant == PickupVariant.PICKUP_COLLECTIBLE
-	and roomType ~= RoomType.ROOM_DUNGEON
-	and roomType ~= RoomType.ROOM_ULTRASECRET
-	and roomType ~= RoomType.ROOM_CHALLENGE
-	and not room:IsMirrorWorld()
-	and not room:HasCurseMist()
 	then
-		return {0, 0, 0}
+		local itemConfig = Isaac.GetItemConfig():GetCollectible(subType)
+
+		if itemConfig.Tags & ItemConfig.TAG_QUEST ~= ItemConfig.TAG_QUEST
+		and roomType ~= RoomType.ROOM_DUNGEON
+		and roomType ~= RoomType.ROOM_ULTRASECRET
+		and roomType ~= RoomType.ROOM_CHALLENGE
+		then
+			return {0, 0, 0}
+		end
 	end
 
-	--Remove restock boxes
 	if entity == EntityType.ENTITY_SLOT
 	and variant == Enums.Slots.RESTOCK
 	and (roomType == RoomType.ROOM_SHOP or roomType == RoomType.ROOM_BLACK_MARKET or roomType == RoomType.ROOM_TREASURE)
@@ -608,6 +610,7 @@ function Character.preTearCollision(tear, collider, low)
 
 	if (collider:IsActiveEnemy() and not collider:IsVulnerableEnemy())
 	or collider.Type == EntityType.ENTITY_MINECART
+	or (collider.Type == EntityType.ENTITY_FIREPLACE and collider.Variant == 13)
 	or (#bishops > 0 and collider.Type ~= EntityType.ENTITY_BISHOP and collider:IsEnemy())
 	then
 		return true
