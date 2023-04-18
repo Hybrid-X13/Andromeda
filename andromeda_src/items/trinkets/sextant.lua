@@ -71,33 +71,39 @@ end
 
 function Trinket.postNewRoom()
 	local room = game:GetRoom()
-	local level = game:GetLevel()
+
+	if not room:IsFirstVisit() then return end
 	
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		
 		if player:HasTrinket(Enums.Trinkets.SEXTANT) then
-			local findRoom = level:QueryRoomTypeIndex(RoomType.ROOM_PLANETARIUM, true, rng, true)
-			local planetarium = level:GetRoomByIdx(findRoom)
 			local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.SEXTANT)
 			local rng = player:GetTrinketRNG(Enums.Trinkets.SEXTANT)
 			rng:SetSeed(room:GetDecorationSeed(), 35)
 			local randFloat = rng:RandomFloat() / trinketMultiplier
 			
-			if planetarium.Data
-			and planetarium.Data.Type == RoomType.ROOM_PLANETARIUM
-			and planetarium.DisplayFlags & 5 == 0
-			then
-				planetarium.DisplayFlags = planetarium.DisplayFlags | 5
-				level:UpdateVisibility()
-			end
-			
-			if room:IsFirstVisit()
-			and randFloat < 0.15
-			then
+			if randFloat < 0.2 then
 				RevealNearbyRooms()
 			end
 		end
+	end
+end
+
+function Trinket.postPEffectUpdate(player)
+	if not player:HasTrinket(Enums.Trinkets.SEXTANT) then return end
+
+	local level = game:GetLevel()
+	local rng = player:GetTrinketRNG(Enums.Trinkets.SEXTANT)
+	local findRoom = level:QueryRoomTypeIndex(RoomType.ROOM_PLANETARIUM, true, rng, true)
+	local planetarium = level:GetRoomByIdx(findRoom)
+
+	if planetarium.Data
+	and planetarium.Data.Type == RoomType.ROOM_PLANETARIUM
+	and planetarium.DisplayFlags & 5 == 0
+	then
+		planetarium.DisplayFlags = planetarium.DisplayFlags | 5
+		level:UpdateVisibility()
 	end
 end
 
