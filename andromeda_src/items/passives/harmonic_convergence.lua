@@ -5,6 +5,26 @@ local convergence = 0
 
 local Item = {}
 
+local function SpawnConvergingTears(entity, player, dmgDivider)
+	local angle = 0
+
+	if convergence % 2 ~= 0 then
+		angle = 45
+	end
+
+	if entity.Type == EntityType.ENTITY_LASER
+	and entity.Variant == LaserVariant.THIN_RED
+	then
+		dmgDivider = 4
+	end
+
+	for i = 0, 3 do
+		angle = angle + (90 * i)
+		Functions.ConvergingTears(entity, player, player.Position, angle, dmgDivider, false)
+	end
+	convergence = convergence + 1
+end
+
 function Item.postFireTear(tear)
 	if not tear.Visible then return end
 	if tear.SpawnerEntity == nil then return end
@@ -13,18 +33,8 @@ function Item.postFireTear(tear)
 
 	if player == nil then return end
 	if not player:HasCollectible(Enums.Collectibles.HARMONIC_CONVERGENCE) then return end
-	
-	local angle = 0
-	
-	if convergence % 2 ~= 0 then
-		angle = 45
-	end
-	
-	for i = 0, 3 do
-		angle = angle + (90 * i)
-		Functions.ConvergingTears(tear, player, player.Position, angle, 4, false)
-	end
-	convergence = convergence + 1
+
+	SpawnConvergingTears(tear, player, 4)
 end
 
 function Item.postLaserInit(laser)
@@ -40,23 +50,7 @@ function Item.postLaserInit(laser)
 	and laser.Variant ~= LaserVariant.LIGHT_RING
 	and laser.Variant ~= LaserVariant.ELECTRIC
 	then
-		local angle = 0
-	
-		if convergence % 2 ~= 0 then
-			angle = 45
-		end
-		
-		for i = 0, 3 do
-			local dmgDivider = 1
-			angle = angle + (90 * i)
-			
-			if laser.Variant == LaserVariant.THIN_RED then
-				dmgDivider = 4
-			end
-			
-			Functions.ConvergingTears(laser, player, player.Position, angle, dmgDivider, false)
-		end
-		convergence = convergence + 1
+		SpawnConvergingTears(laser, player, 1)
 	end
 end
 
@@ -70,17 +64,7 @@ function Item.postBombUpdate(bomb)
 	if player == nil then return end
 	if not player:HasCollectible(Enums.Collectibles.HARMONIC_CONVERGENCE) then return end
 
-	local angle = 0
-	
-	if convergence % 2 ~= 0 then
-		angle = 45
-	end
-	
-	for i = 0, 3 do
-		angle = angle + (90 * i)
-		Functions.ConvergingTears(bomb, player, player.Position, angle, 4, false)
-	end
-	convergence = convergence + 1
+	SpawnConvergingTears(bomb, player, 4)
 end
 
 function Item.postEffectUpdate(effect)
@@ -95,19 +79,7 @@ function Item.postEffectUpdate(effect)
 	if effect:IsDead()
 	and not effect:Exists()
 	then
-		local angle = 0
-		
-		if convergence % 2 ~= 0 then
-			angle = 45
-		end
-		
-		for i = 0, 3 do
-			local dmgDivider = 1
-			angle = angle + (90 * i)
-			
-			Functions.ConvergingTears(effect, player, player.Position, angle, dmgDivider, false)
-		end
-		convergence = convergence + 1
+		SpawnConvergingTears(effect, player, 4)
 	end
 end
 
