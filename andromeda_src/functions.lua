@@ -386,8 +386,7 @@ function Functions.ConvergingTears(entity, player, convergePos, convergeAngle, d
 	end
 	
 	local velocity = -Vector.FromAngle(convergeAngle) * player.TearRange * 0.035
-	local spawnTear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, pos, velocity, player)
-	local newTear = spawnTear:ToTear()
+	local newTear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, pos, velocity, player):ToTear()
 	
 	if entity.Type == EntityType.ENTITY_TEAR then
 		newTear:AddTearFlags(entity.TearFlags | TearFlags.TEAR_SPECTRAL)
@@ -396,6 +395,11 @@ function Functions.ConvergingTears(entity, player, convergePos, convergeAngle, d
 	else
 		newTear:AddTearFlags(player.TearFlags | TearFlags.TEAR_SPECTRAL)
 		newTear.CollisionDamage = player.Damage / dmgDivider
+
+		if entity.Type == EntityType.ENTITY_LASER then
+			newTear:ClearTearFlags(TearFlags.TEAR_LASERSHOT)
+			newTear:AddTearFlags(TearFlags.TEAR_PIERCING)
+		end
 	end
 	
 	if tAndromedaBR then

@@ -13,7 +13,7 @@ local function SpawnConvergingTears(entity, player, dmgDivider)
 	end
 
 	if entity.Type == EntityType.ENTITY_LASER
-	and entity.Variant == LaserVariant.THIN_RED
+	and (entity.Variant == LaserVariant.THIN_RED or entity.Variant == LaserVariant.SHOOP)
 	then
 		dmgDivider = 4
 	end
@@ -45,8 +45,7 @@ function Item.postLaserInit(laser)
 	if player == nil then return end
 	if not player:HasCollectible(Enums.Collectibles.HARMONIC_CONVERGENCE) then return end
 	
-	if laser.Variant ~= LaserVariant.SHOOP
-	and laser.Variant ~= LaserVariant.TRACTOR_BEAM
+	if laser.Variant ~= LaserVariant.TRACTOR_BEAM
 	and laser.Variant ~= LaserVariant.LIGHT_RING
 	and laser.Variant ~= LaserVariant.ELECTRIC
 	then
