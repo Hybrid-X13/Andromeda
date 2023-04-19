@@ -42,8 +42,7 @@ local function CosmicTears(entity, player, pos)
 		velocity = RandomVector() * rng:RandomFloat() * (rng:RandomInt(15) + 1)
 	end
 	
-	local spawnTear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, pos, velocity, player)
-	local newTear = spawnTear:ToTear()
+	local newTear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, pos, velocity, player):ToTear()
 	local sprite = newTear:GetSprite()
 	local randNum = rng:RandomInt(#colors) + 1
 	
@@ -69,6 +68,10 @@ local function CosmicTears(entity, player, pos)
 	if entity.Type == EntityType.ENTITY_TEAR then
 		newTear.FallingAcceleration = entity.FallingAcceleration
 		newTear.FallingSpeed = entity.FallingSpeed
+
+		if entity:GetData().starburstTear then
+			newTear:GetData().starburstTear = true
+		end
 	elseif entity.Type == EntityType.ENTITY_EFFECT
 	or entity.Type == EntityType.ENTITY_BOMB
 	then
@@ -82,6 +85,13 @@ local function CosmicTears(entity, player, pos)
 	else
 		newTear.FallingAcceleration = 0
 		newTear.FallingSpeed = -3
+	end
+
+	if entity.Type ~= EntityType.ENTITY_TEAR
+	and player:HasCollectible(Enums.Collectibles.STARBURST)
+	and rng:RandomFloat() < 0.06
+	then
+		newTear:GetData().starburstTear = true
 	end
 end
 
