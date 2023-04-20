@@ -1,0 +1,34 @@
+<locusts gfxroot="gfx/familiar/locusts/">
+	<!--
+		Color presets
+	-->
+	<!-- Default Vals -->
+	<color name="default" />
+	<color name="fly_red" r="768" g="512" b="512" or="0" og="-255" ob="-255"/>
+	<color name="fly_green" r="512" g="768" b="512" or="-255" og="0" ob="-255"/>
+	<color name="fly_blue" r="512" g="512" b="768" or="-255" og="-255" ob="0"/>
+	<color name="fly_yellow" r="1024" g="768" b="512" or="0" og="0" ob="-255"/>
+	<color name="fly_orange" r="1024" g="512" b="512" or="0" og="0" ob="-255"/>
+	<color name="fly_black" r="255" g="255" b="255"/>
+	<color name="fly_purple" r="768" g="512" b="1024" or="0" og="-255" ob="0"/>
+	<color name="fly_pink" r="1024" g="512" b="768" or="0" og="-255" ob="0"/>
+	<color name="fly_cyan" r="680" g="1024" b="1024" or="0" og="0" ob="0"/>
+	<!-- Abyss++ -->
+	<color name="fly_white" r="768" g="768" b="768"/>
+	<color name="fly_gray" r="384" g="384" b="384"/>
+	<color name="fly_brown" r="296" g="204" b="196" or="0" og="0" ob="0" />
+	<color name="fly_lightblue" r="680" g="680" b="1024" or="-100" og="0" ob="0"/>
+	<color name="fly_tan" r="844" g="752" b="640" or="0" og="0" ob="0"/>
+	<color name="fly_lightgreen" r="544" g="916" b="420" or="0" og="0" ob="0"/>
+	<color name="fly_pale" r="828" g="624" b="620" or="0" og="0" ob="0"/>
+	<color name="fly_darkpurple" r="472" g="284" b="692" or="0" og="-128" ob="0"/>
+	<!-- FF -->
+	<color name="fly_shadyred" r="-255" g="-255" b="-255" or="255" og="0" ob="0"/>
+	<color name="fly_bruise" r="178" g="178" b="178" or="40" og="0" ob="40"/>
+	<color name="fly_bruise5" r="127" g="77" b="127" or="40" og="0" ob="40"/>
+	<color name="fly_crucifix" r="255" g="255" b="255" or="50" og="120" ob="160"/>
+	<color name="fly_sleepy" r="64" g="51" b="153" or="20" og="20" ob="40"/>
+	<color name="fly_doom" r="102" g="90" b="90" or="-25" og="-35" ob="-35"/>
+	
+	<!-- Starburst -->	<locust id="18" color="fly_cyan" />
+</locusts>

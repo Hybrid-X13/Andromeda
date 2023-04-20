@@ -247,6 +247,10 @@ if Encyclopedia then
 				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
 				{str = "Starburst galaxies are a type of galaxy that have a much higher rate of star formation than normal."},
 			},
+			{ -- Abyss Locust
+				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
+				{str = "A cyan locust that deals 1x damage and has a chance to spawn a burst of stars when damaging an enemy."},
+			},
 		},
 		BOOK_OF_COSMOS = {
 			{ -- Effect
