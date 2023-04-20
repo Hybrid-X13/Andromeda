@@ -3,7 +3,7 @@
 	<active id="2" name="Singularity" description="Infinite possibilities" gfx="andromeda_singularity.png" maxcharges="12" chargetype="special" quality="4" tags="offensive" />
 	<active id="3" name="Extinction Event" description="The sky is falling!" gfx="andromeda_meteorshower.png" maxcharges="4" quality="2" tags="offensive" />
 	<active id="4" name="Book of Cosmos" description="A universe of knowledge" gfx="andromeda_bookofcosmos.png" maxcharges="4" quality="2" tags="book offensive" />
-	<active id="17" name="The Sporepedia" description="A universe of creatures" gfx="andromeda_thesporepedia.png" maxcharges="2" quality="1" tags="book offensive" tags="hidden" hidden="true" />
+	<active id="17" name="The Sporepedia" description="A universe of creatures" gfx="andromeda_thesporepedia.png" cache="familiars" maxcharges="2" quality="1" tags="book offensive" tags="hidden" hidden="true" />
 	
 	<passive id="5" name="Juno" description="Until death brings us closer" gfx="andromeda_juno.png" soulhearts="2" quality="3" tags="summonable offensive stars" />
 	<passive id="6" name="Pallas" description="Wisdom is power" gfx="andromeda_pallas.png" quality="3" tags="summonable offensive nocantrip stars" />
@@ -20,8 +20,8 @@
 	<passive id="31" name="Andromeda TechX" description="Laser ring tears" gfx="collectibles_395_techx.png" cache="firedelay tearflag" quality="4" tags="hidden" hidden="true" />
 	
 	<familiar id="11" name="Baby Pluto" description="Orbiting around your heart" gfx="andromeda_babypluto.png" quality="2" tags="summonable baby monstermanual" />
-	<familiar id="12" name="Planet 10" description="???" gfx="andromeda_plutonium.png" quality="3" tags="baby nocantrip hidden" hidden="true" />
-	<familiar id="13" name="Planet 11" description="???" gfx="andromeda_megaplutonium.png" quality="4" tags="baby nocantrip hidden" hidden="true" />
+	<familiar id="12" name="Plutonium" description="???" gfx="andromeda_plutonium.png" quality="3" tags="baby nocantrip hidden" hidden="true" />
+	<familiar id="13" name="Mega Plutonium" description="???" gfx="andromeda_megaplutonium.png" quality="4" tags="baby nocantrip hidden" hidden="true" />
 	<familiar id="15" name="Celestial Crown" description="Ruler of the cosmos" gfx="andromeda_celestialcrown.png" quality="3" tags="summonable offensive" />
 	
 	<trinket name="Stardust" description="It twinkles like a clear night sky" gfx="andromeda_stardust.png" />
