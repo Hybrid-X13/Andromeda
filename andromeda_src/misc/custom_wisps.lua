@@ -38,6 +38,7 @@ function Wisp.familiarInit(familiar)
 	if familiar.Variant ~= FamiliarVariant.WISP then return end
 
 	local sprite = familiar:GetSprite()
+	rng:SetSeed(familiar.InitSeed, 35)
 
 	if familiar.SubType == Enums.Collectibles.GRAVITY_SHIFT then
 		RemoveWisps(Enums.Collectibles.GRAVITY_SHIFT)
@@ -47,6 +48,16 @@ function Wisp.familiarInit(familiar)
 	elseif familiar.SubType == Enums.Collectibles.SINGULARITY then
 		sprite:Load("gfx/familiar/wisps/singularity_wisp.anm2", true)
 		sprite:Play("Idle")
+
+		if rng:RandomFloat() < 0.67 then
+			if rng:RandomInt(2) == 0 then
+				sprite:ReplaceSpritesheet(0, "gfx/familiar/wisps/singularity_core2.png")
+			else
+				sprite:ReplaceSpritesheet(0, "gfx/familiar/wisps/singularity_core3.png")
+			end
+
+			sprite:LoadGraphics()
+		end
 	end
 end
 
@@ -91,6 +102,8 @@ function Wisp.postTearInit(tear)
 	if familiar.Variant ~= FamiliarVariant.WISP then return end
 
 	local sprite = tear:GetSprite()
+	local player = familiar.Player
+	rng:SetSeed(tear.InitSeed, 35)
 	
 	if familiar.SubType == Enums.Collectibles.SINGULARITY then
 		sprite:ReplaceSpritesheet(0, "gfx/tears/solar/basic/tears_solar.png")
@@ -102,6 +115,26 @@ function Wisp.postTearInit(tear)
 		local randNum = rng:RandomInt(#colors) + 1
 		sprite:Load("gfx/tears/tears_spode_" .. colors[randNum] .. ".anm2", true)
 		tear:GetData().isSpodeTear = true
+
+		if familiar.SubType == Enums.Collectibles.BOOK_OF_COSMOS
+		and rng:RandomFloat() < 0.06
+		then
+			tear:GetData().starburstTear = true
+		end
+	elseif familiar.SubType == Enums.Collectibles.EXTINCTION_EVENT then
+		local easterEggChance = 0.05
+		
+		if player:HasCollectible(Isaac.GetItemIdByName("Emoji Glasses")) then
+			easterEggChance = 0.75
+		end
+	
+		if rng:RandomFloat() < easterEggChance then
+			sprite:ReplaceSpritesheet(0, "gfx/tears/meteorite_rocks2.png")
+		else
+			sprite:ReplaceSpritesheet(0, "gfx/tears/meteorite_rocks.png")
+		end
+
+		sprite:LoadGraphics()
 	end
 end
 

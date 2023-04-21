@@ -261,7 +261,7 @@ if Encyclopedia then
 			{ -- Synergies
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
 				{str = "Book of Virtues", clr = 3, halign = 0},
-				{str = "Spawns a star wisp that shoots homing stars."},
+				{str = "Spawns a star wisp that shoots homing stars which have a chance of bursting into more stars when hitting an enemy."},
 			},
 		},
 		THE_SPOREPEDIA = {
