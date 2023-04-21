@@ -85,7 +85,6 @@ function Item.preTearCollision(tear, collider, low)
 	local player = Functions.GetPlayerFromSpawnerEntity(tear)
 	
 	if player == nil then return end
-	if not player:HasCollectible(Enums.Collectibles.STARBURST) then return end
 
 	if collider:GetData().starburstTable == nil then
 		collider:GetData().starburstTable = {}
