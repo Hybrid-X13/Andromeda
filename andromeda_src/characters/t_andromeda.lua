@@ -869,9 +869,9 @@ function Character.postEffectUpdate(effect)
 					if not enemy:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
 					and enemy:IsActiveEnemy()
 					and enemy:IsVulnerableEnemy()
-					and effect.FrameCount % 30 == 0
+					and effect.FrameCount % 6 == 0
 					then
-						enemy:TakeDamage(player.Damage, 0, EntityRef(effect), 0)
+						enemy:TakeDamage(player.Damage / 5, 0, EntityRef(effect), 0)
 					end
 				end
 			end
