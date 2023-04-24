@@ -544,10 +544,11 @@ function Character.entityTakeDmg(target, amount, flags, source, countdown)
 	and source.Entity.SpawnerEntity
 	then
 		player = source.Entity.SpawnerEntity:ToPlayer()
-		local numKills = 6 - player:GetTrinketMultiplier(Enums.Trinkets.T_ANDROMEDA_BIRTHCAKE)
+		local trinketMultiplier = player:GetTrinketMultiplier(Enums.Trinkets.T_ANDROMEDA_BIRTHCAKE)
+		local numKills = 10
 
-		if numKills < 0 then
-			numKills = 0
+		if trinketMultiplier > 1 then
+			numKills = 5
 		end
 
 		if player:GetData().blackHoleKills == nil then
