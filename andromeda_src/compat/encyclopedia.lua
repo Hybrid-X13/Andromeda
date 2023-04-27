@@ -124,6 +124,10 @@ if Encyclopedia then
 				{str = "Book of Virtues", clr = 3, halign = 0},
 				{str = "Spawns a stationary gravitational field that can't shoot but causes all enemy projectiles that get near it to stop in midair. Only one of these can exist at a time and it does not persist between rooms."},
 			},
+			{ -- Abyss Locust
+				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
+				{str = "A blue locust that deals no damage but stops enemy projectiles it gets close to when charging."},
+			},
 		},
 		EXTINCTION_EVENT = {
 			{ -- Effect
