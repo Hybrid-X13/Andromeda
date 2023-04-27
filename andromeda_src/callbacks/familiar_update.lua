@@ -7,6 +7,7 @@ local Nix = require("andromeda_src.items.familiars.nix")
 local CelestialCrown = require("andromeda_src.items.passives.celestial_crown")
 local Vesta = require("andromeda_src.items.passives.vesta")
 local Wisp = require("andromeda_src.misc.custom_wisps")
+local Locust = require("andromeda_src.misc.custom_locusts")
 
 local function MC_FAMILIAR_UPDATE(_, familiar)
 	T_Andromeda.familiarUpdate(familiar)
@@ -21,6 +22,7 @@ local function MC_FAMILIAR_UPDATE(_, familiar)
 	Vesta.familiarUpdate(familiar)
 
 	Wisp.familiarUpdate(familiar)
+	Locust.familiarUpdate(familiar)
 end
 
 return MC_FAMILIAR_UPDATE

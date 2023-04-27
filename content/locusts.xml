@@ -30,5 +30,6 @@
 	<color name="fly_sleepy" r="64" g="51" b="153" or="20" og="20" ob="40"/>
 	<color name="fly_doom" r="102" g="90" b="90" or="-25" og="-35" ob="-35"/>
 	
-	<!-- Starburst -->	<locust id="18" color="fly_cyan" />
+	<!-- Gravity Shift -->	<locust id="1" damageMultiplier="0" color="fly_blue" />
+	<!-- Starburst -->		<locust id="18" color="fly_cyan" />
 </locusts>
