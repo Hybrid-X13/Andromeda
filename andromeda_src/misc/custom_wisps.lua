@@ -81,10 +81,6 @@ function Wisp.familiarUpdate(familiar)
 			projectile:AddProjectileFlags(ProjectileFlags.CANT_HIT_PLAYER | ProjectileFlags.HIT_ENEMIES)
 			sprite:ReplaceSpritesheet(0, "gfx/tears/cosmic/tears_cosmic.png")
 			sprite:LoadGraphics()
-
-			if player:HasCollectible(CollectibleType.COLLECTIBLE_CAR_BATTERY) then
-				projectile.FallingSpeed = projectile.FallingSpeed - 1.5
-			end
 		end
 	end
 end
