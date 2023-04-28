@@ -7,6 +7,7 @@ local Nix = require("andromeda_src.items.familiars.nix")
 local CelestialCrown = require("andromeda_src.items.passives.celestial_crown")
 local Vesta = require("andromeda_src.items.passives.vesta")
 local Wisp = require("andromeda_src.misc.custom_wisps")
+local Locust = require("andromeda_src.misc.custom_locusts")
 
 local function MC_FAMILIAR_INIT(_, familiar)
 	TheSporepedia.familiarInit(familiar)
@@ -21,6 +22,7 @@ local function MC_FAMILIAR_INIT(_, familiar)
 	Vesta.familiarInit(familiar)
 
 	Wisp.familiarInit(familiar)
+	Locust.familiarInit(familiar)
 end
 
 return MC_FAMILIAR_INIT

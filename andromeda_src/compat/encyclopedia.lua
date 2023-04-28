@@ -126,7 +126,7 @@ if Encyclopedia then
 			},
 			{ -- Abyss Locust
 				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
-				{str = "A blue locust that deals no damage but stops enemy projectiles it gets close to when charging."},
+				{str = "A blue locust that deals no damage but stops enemy projectiles it gets into contact with when charging."},
 			},
 		},
 		EXTINCTION_EVENT = {
@@ -163,6 +163,10 @@ if Encyclopedia then
 				{str = "Interactions", fsize = 2, clr = 3, halign = 0},
 				{str = "Each tear can only gain up to 1 extra effect, even if it passes through multiple stars of different colors."},
 				{str = "Has no effect on lasers, knives, or melee weapons."},
+			},
+			{ -- Abyss Locust
+				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
+				{str = "4 locusts that deal minimal damage but add a status effect to enemies they come into contact with depending on the locust's color. The color of each locust changes per room."},
 			},
 		},
 		BABY_PLUTO = {
@@ -204,6 +208,10 @@ if Encyclopedia then
 				{str = "Juno is one of the 4 major asteroids in our solar system, named after the Roman goddess of marriage. Juno was the wife of Jupiter."},
 				{str = "This item's description and effect are a reference to the wedding vow: Until death do us part."},
 				{str = "The item's costume took some inspiration from the Rebekah mod."},
+			},
+			{ -- Abyss Locust
+				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
+				{str = "A pink locust that deals 1x damage, has a chance to charm enemies, and enemies killed by the locust have a chance to revive as friendly."},
 			},
 		},
 		PALLAS = {
