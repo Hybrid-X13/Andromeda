@@ -153,6 +153,8 @@ function Locust.familiarUpdate(familiar)
 				end
 			end
 		end
+	elseif familiar.SubType == Enums.Collectibles.BABY_PLUTO then
+		familiar.SpriteScale = Vector(0.5, 0.5)
 	end
 end
 

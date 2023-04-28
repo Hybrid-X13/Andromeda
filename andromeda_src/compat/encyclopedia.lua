@@ -177,6 +177,10 @@ if Encyclopedia then
 				{str = "Does not deal contact damage."},
 				{str = "Has a unique interaction with a peculiar stone."},
 			},
+			{ -- Abyss Locust
+				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
+				{str = "A tiny gray locust that deals 1% damage (that's what you get for Abyssing Baby Pluto, you monster)."},
+			},
 		},
 		HARMONIC_CONVERGENCE = {
 			{ -- Effect
