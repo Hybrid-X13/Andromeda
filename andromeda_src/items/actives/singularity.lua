@@ -614,8 +614,36 @@ function Item.postPEffectUpdate(player)
 end
 
 function Item.prePickupCollision(pickup, collider, low)
+	if pickup.Variant ~= PickupVariant.PICKUP_HEART then return end
+	if pickup.Wait ~= 0 then return end
+
+	local player = collider:ToPlayer()
+
+	if player == nil then return end
+	if not player:HasCollectible(Enums.Collectibles.SINGULARITY) then return end
+	if player:IsCoopGhost() or (player.SubType == 59 and player.Parent ~= nil) then return end
+
+	ANDROMEDA.player = player
+
+	if (player:IsHoldingItem() and pickup.Price == 0)
+	or (not player:IsHoldingItem() and player:GetNumCoins() >= pickup.Price)
+	then
+		for i = 1, #CustomData.SingularityPickups do
+			if CustomData.SingularityPickups[i].Variant == pickup.Variant
+			and CustomData.SingularityPickups[i].SubType == pickup.SubType
+			and CustomData.SingularityPickups[i].CanPickUp()
+			then
+				Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges)
+				break
+			end
+		end
+	end
+end
+
+function Item.prePickupCollisionLate(pickup, collider, low)
 	if pickup.SubType == 0 then return end
 	if pickup.Variant == PickupVariant.PICKUP_COIN and pickup.SubType == CoinSubType.COIN_STICKYNICKEL then return end
+	if pickup.Variant == PickupVariant.PICKUP_HEART then return end
 	
 	local player = collider:ToPlayer()
 

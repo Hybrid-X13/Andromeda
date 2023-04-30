@@ -99,8 +99,10 @@ mod:AddCallback(ModCallbacks.MC_EXECUTE_CMD, executeCMD)
 
 --Priority Callbacks
 local entityTakeDmgLate = require("andromeda_src.callbacks.priority.entity_take_dmg")
+local prePickupCollisionLate = require("andromeda_src.callbacks.priority.pre_pickup_collision")
 
 mod:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, CallbackPriority.LATE, entityTakeDmgLate)
+mod:AddPriorityCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, CallbackPriority.LATE, prePickupCollisionLate)
 
 --Mod Compat
 require("andromeda_src.compat.eid")
