@@ -163,7 +163,7 @@ function Wisp.postTearUpdate(tear)
 
 		sprite:Load("gfx/tears/tears_spode_" .. colors[randNum] .. ".anm2", true)
 		starTear:AddTearFlags(TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_HOMING)
-		starTear.CollisionDamage = 3
+		starTear.CollisionDamage = tear.CollisionDamage
 		starTear.Scale = tear.Scale
 		starTear.FallingSpeed = starTear.FallingSpeed - 1
 		starTear:GetData().isSpodeTear = true

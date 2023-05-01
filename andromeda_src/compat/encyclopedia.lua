@@ -582,7 +582,7 @@ if Encyclopedia then
 				{str = "- Quality 1: A red star wisp that blocks projectiles and deals contact damage but can't shoot."},
 				{str = "- Quality 2: An orange star wisp that blocks projectiles, deals contact damage, and shoots tears that deal 3 damage."},
 				{str = "- Quality 3: A blue star wisp that blocks projectiles, deals contact damage, and shoots homing tears that deal 3 damage."},
-				{str = "- Quality 4: A yellow star wisp that blocks projectiles, deals contact damage, shoots homing star tears that deal 3 damage, and tears shot by the wisp have a chance to spawn additional homing star tears (similar to Spode)."},
+				{str = "- Quality 4: A yellow star wisp that blocks projectiles, deals contact damage, shoots homing star tears that deal 3.5 damage, and tears shot by the wisp have a chance to spawn additional homing star tears (similar to Spode)."},
 			},
 			{ -- Trivia
 				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
