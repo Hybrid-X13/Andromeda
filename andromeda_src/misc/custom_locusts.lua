@@ -9,6 +9,15 @@ local LocustState = {
 	CHARGING = -1,
 }
 
+local starColors = {
+	"red",
+	"lightred",
+	"orange",
+	"yellow",
+	"blue",
+	"white",
+}
+
 local colors = {
 	"Red",
 	"Orange",
@@ -112,6 +121,7 @@ function Locust.familiarUpdate(familiar)
 
 	local room = game:GetRoom()
 	local sprite = familiar:GetSprite()
+	local player = familiar.Player
 
 	if familiar.SubType == Enums.Collectibles.GRAVITY_SHIFT
 	and familiar.State == LocustState.CHARGING
@@ -155,6 +165,23 @@ function Locust.familiarUpdate(familiar)
 		end
 	elseif familiar.SubType == Enums.Collectibles.BABY_PLUTO then
 		familiar.SpriteScale = Vector(0.5, 0.5)
+	elseif familiar.SubType == Enums.Collectibles.BOOK_OF_COSMOS
+	and familiar.State == LocustState.CHARGING
+	then
+		local randNum = rng:RandomInt(25)
+
+		if randNum == 0 then
+			local starTear = Isaac.Spawn(EntityType.ENTITY_TEAR, 0, 0, familiar.Position, Vector.Zero, nil):ToTear()
+			local starSprite = starTear:GetSprite()
+			randNum = rng:RandomInt(#starColors) + 1
+
+			starSprite:Load("gfx/tears/tears_spode_" .. starColors[randNum] .. ".anm2", true)
+			starTear:AddTearFlags(TearFlags.TEAR_SPECTRAL | TearFlags.TEAR_HOMING)
+			starTear.CollisionDamage = player.Damage / 4
+			starTear.Scale = 0.5345 * math.sqrt(starTear.CollisionDamage)
+			starTear.FallingSpeed = starTear.FallingSpeed - 1
+			starTear:GetData().isSpodeTear = true
+		end
 	end
 end
 

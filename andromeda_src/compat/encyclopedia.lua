@@ -126,7 +126,7 @@ if Encyclopedia then
 			},
 			{ -- Abyss Locust
 				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
-				{str = "A blue locust that deals no damage but stops enemy projectiles it gets into contact with when charging."},
+				{str = "A light blue locust that deals no damage but stops enemy projectiles it gets into contact with when charging."},
 			},
 		},
 		EXTINCTION_EVENT = {
@@ -278,6 +278,10 @@ if Encyclopedia then
 				{str = "Synergies", fsize = 2, clr = 3, halign = 0},
 				{str = "Book of Virtues", clr = 3, halign = 0},
 				{str = "Spawns a star wisp that shoots homing stars which have a chance of bursting into more stars when hitting an enemy."},
+			},
+			{ -- Abyss Locust
+				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
+				{str = "A blue locust that deals 1x damage and has a chance of spawning homing star tears when charging."},
 			},
 		},
 		THE_SPOREPEDIA = {

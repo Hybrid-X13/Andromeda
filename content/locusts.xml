@@ -30,10 +30,10 @@
 	<color name="fly_sleepy" r="64" g="51" b="153" or="20" og="20" ob="40"/>
 	<color name="fly_doom" r="102" g="90" b="90" or="-25" og="-35" ob="-35"/>
 	
-	<!-- Gravity Shift -->		<locust id="1" damageMultiplier="0" color="fly_blue" />
+	<!-- Gravity Shift -->		<locust id="1" damageMultiplier="0" color="fly_lightblue" />
 	<!-- Singularity 			<locust id="2" color="fly_black" /> -->
 	<!-- Extinction Event 		<locust id="3"  /> -->
-	<!-- Book of Cosmos 		<locust id="4"  /> -->
+	<!-- Book of Cosmos -->		<locust id="4" color="fly_blue" />
 	<!-- Juno -->				<locust id="5" color="fly_pink" tearFlags2="13" procChance="0.1" />
 	<!-- Pallas 				<locust id="6"  /> -->
 	<!-- Ceres 					<locust id="7"  /> -->
@@ -43,7 +43,7 @@
 	<!-- Baby Pluto -->			<locust id="11" damageMultiplier="0.01" color="fly_gray" />
 	<!-- Harmonic Convergence 	<locust id="14"  /> -->
 	<!-- Celestial Crown -->	<locust id="15" damageMultiplier="0.1" count="4" color="fly_white" />
-	<!-- Luminary Flare 		<locust id="16"  /> -->
+	<!-- Luminary Flare 		<locust id="16" color="fly_orange" /> -->
 	<!-- The Sporepedia 		<locust id="17"  /> -->
 	<!-- Starburst -->			<locust id="18" color="fly_cyan" />
 </locusts>
