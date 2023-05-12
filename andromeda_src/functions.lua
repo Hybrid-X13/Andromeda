@@ -124,7 +124,7 @@ function Functions.CanPickUpItem(player, pickup)
     if player.ItemHoldCooldown > 0 then return false end
     if player:IsHoldingItem() then return false end
     if pickup.Wait > 0 then return false end
-	if not player:IsExtraAnimationFinished() then return end
+	if not player:IsExtraAnimationFinished() then return false end
 	
 	if pickup.Price > 0 and player:GetNumCoins() < pickup.Price then return false end
 	if pickup.Price == PickupPrice.PRICE_ONE_HEART and player:GetEffectiveMaxHearts() < 2 then return false end
