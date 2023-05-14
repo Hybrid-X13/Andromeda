@@ -182,6 +182,24 @@ function Locust.familiarUpdate(familiar)
 			starTear.FallingSpeed = starTear.FallingSpeed - 1
 			starTear:GetData().isSpodeTear = true
 		end
+	elseif familiar.SubType == Enums.Collectibles.LUMINARY_FLARE
+	and familiar.State == LocustState.CHARGING
+	then
+		local enemies = Isaac.FindInRadius(familiar.Position, 20, EntityPartition.ENEMY)
+
+		if #enemies == 0 then return end
+
+		for _, enemy in pairs(enemies) do
+			local enemy = enemy:ToNPC()
+
+			if not enemy:HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
+			and not enemy:HasEntityFlags(EntityFlag.FLAG_BURN)
+			and enemy:IsActiveEnemy()
+			and enemy:IsVulnerableEnemy()
+			then
+				enemy:AddBurn(EntityRef(player), 60, player.Damage)
+			end
+		end
 	end
 end
 

@@ -319,6 +319,10 @@ if Encyclopedia then
 				{str = "A solar flare is an eruption of electromagnetic radiation in the sun's atmosphere."},
 				{str = "Solar flares that are strong enough can sometimes cause radio frequencies to completely black out."},
 			},
+			{ -- Abyss Locust
+				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
+				{str = "An orange locust that deals 1x damage and burns enemies in a small radius around it when charging."},
+			},
 		},
 		SINGULARITY = {
 			{ -- Effect
