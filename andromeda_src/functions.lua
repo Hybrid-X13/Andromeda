@@ -712,6 +712,10 @@ function Functions.IsInvulnerableEnemy(npc)
 	return false
 end
 
+function Functions.IsKeeper(player)
+	return player:GetPlayerType() == PlayerType.PLAYER_KEEPER or player:GetPlayerType() == PlayerType.PLAYER_KEEPER_B
+end
+
 function Functions.IsSoulHeartCharacter(player)
 	local chars = {
 		PlayerType.PLAYER_BLUEBABY,
