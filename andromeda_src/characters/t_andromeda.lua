@@ -411,7 +411,7 @@ function Character.postNewRoom()
 				
 				if #items > 0
 				and not Functions.ContainsQuestItem()
-				and Functions.GetDimension(roomDesc) ~= 2
+				and Functions.GetDimension(roomDesc) ~= Enums.Dimensions.DEATH_CERTIFICATE
 				and roomIndex ~= GridRooms.ROOM_GENESIS_IDX
 				then
 					for _, collectible in pairs(items) do
@@ -777,7 +777,7 @@ function Character.postPEffectUpdate(player)
 	--For modded items that add additional items when entering rooms
 	if room:IsFirstVisit()
 	and room:GetFrameCount() == 1
-	and Functions.GetDimension(roomDesc) ~= 2
+	and Functions.GetDimension(roomDesc) ~= Enums.Dimensions.DEATH_CERTIFICATE
 	and level:GetCurrentRoomIndex() ~= GridRooms.ROOM_GENESIS_IDX
 	then
 		Functions.RemoveAllCollectibles()
