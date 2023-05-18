@@ -143,6 +143,10 @@ if Encyclopedia then
 				{str = "Book of Virtues", clr = 3, halign = 0},
 				{str = "Spawns a rock wisp that shoots fire mind tears which vary in damage."},
 			},
+			{ -- Abyss Locust
+				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
+				{str = "A flaming rock wisp that deals 1x damage, burns enemies, and has increased speed."},
+			},
 		},
 		CELESTIAL_CROWN = {
 			{ -- Effect
