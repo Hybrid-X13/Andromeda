@@ -43,7 +43,8 @@
 	<!-- Baby Pluto -->			<locust id="11" damageMultiplier="0.01" color="fly_gray" />
 	<!-- Harmonic Convergence 	<locust id="14"  /> -->
 	<!-- Celestial Crown -->	<locust id="15" damageMultiplier="0.1" count="4" color="fly_white" />
-	<!-- Luminary Flare -->		<locust id="16" color="fly_orange" />
-	<!-- The Sporepedia 		<locust id="17"  /> -->
+	<!-- Luminary Flare -->		<locust id="16" color="fly_orange" backGfx="andromeda/aura.png" />
+	<!-- Primordial Cetus 		<locust id="17"  /> -->
 	<!-- Starburst -->			<locust id="18" color="fly_cyan" />
+	<!-- The Sporepedia 		<locust id="19"  /> -->
 </locusts>
