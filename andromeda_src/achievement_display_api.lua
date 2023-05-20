@@ -39,8 +39,8 @@ local oldTimer
 local overwritePause = false
 local overrideControls = false
 
-function script.playAchievement(gfxroot, duration)
-	table.insert(achievementQueue, {GfxRoot = gfxroot, Duration = duration or 90})
+function script.playAchievement(gfxroot, duration, paperGFX)
+	table.insert(achievementQueue, {GfxRoot = gfxroot, Duration = duration or 90, Paper = paperGFX})
 end
 
 function script.isPlaying()
@@ -163,6 +163,11 @@ local function postRender()
 				ACHIEVEMENT_SPRITE:Play("Appear", true)
 				achievementQueue[1].Appear = true
 				
+				if achievementQueue[1].Paper ~= nil then
+					ACHIEVEMENT_SPRITE:ReplaceSpritesheet(2, achievementQueue[1].Paper)
+					ACHIEVEMENT_SPRITE:LoadGraphics()
+				end
+
 				if achievementQueue[1].GfxRoot then
 					ACHIEVEMENT_SPRITE:ReplaceSpritesheet(3, achievementQueue[1].GfxRoot)
 					ACHIEVEMENT_SPRITE:LoadGraphics()
