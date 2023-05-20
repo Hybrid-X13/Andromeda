@@ -7,75 +7,75 @@ local sfx = SFXManager()
 local rng = RNG()
 local getHeldPill = 0
 
-local goodPills = {
-	PillEffect.PILLEFFECT_HEALTH_UP,
-	PillEffect.PILLEFFECT_RANGE_UP,
-	PillEffect.PILLEFFECT_TEARS_UP,
-	PillEffect.PILLEFFECT_LUCK_UP,
-	PillEffect.PILLEFFECT_SPEED_UP,
-	PillEffect.PILLEFFECT_SHOT_SPEED_UP,
-	PillEffect.PILLEFFECT_BALLS_OF_STEEL,
-	PillEffect.PILLEFFECT_SEE_FOREVER,
-	PillEffect.PILLEFFECT_PERCS,
-	PillEffect.PILLEFFECT_EXPERIMENTAL,
-	PillEffect.PILLEFFECT_POWER,
-	PillEffect.PILLEFFECT_GULP,
-	PillEffect.PILLEFFECT_PRETTY_FLY,
-	PillEffect.PILLEFFECT_FULL_HEALTH,
-	PillEffect.PILLEFFECT_INFESTED_EXCLAMATION,
-	PillEffect.PILLEFFECT_INFESTED_QUESTION,
-	PillEffect.PILLEFFECT_SUNSHINE,
+local IsGoodPill = {
+	[PillEffect.PILLEFFECT_HEALTH_UP] = true,
+	[PillEffect.PILLEFFECT_RANGE_UP] = true,
+	[PillEffect.PILLEFFECT_TEARS_UP] = true,
+	[PillEffect.PILLEFFECT_LUCK_UP] = true,
+	[PillEffect.PILLEFFECT_SPEED_UP] = true,
+	[PillEffect.PILLEFFECT_SHOT_SPEED_UP] = true,
+	[PillEffect.PILLEFFECT_BALLS_OF_STEEL] = true,
+	[PillEffect.PILLEFFECT_SEE_FOREVER] = true,
+	[PillEffect.PILLEFFECT_PERCS] = true,
+	[PillEffect.PILLEFFECT_EXPERIMENTAL] = true,
+	[PillEffect.PILLEFFECT_POWER] = true,
+	[PillEffect.PILLEFFECT_GULP] = true,
+	[PillEffect.PILLEFFECT_PRETTY_FLY] = true,
+	[PillEffect.PILLEFFECT_FULL_HEALTH] = true,
+	[PillEffect.PILLEFFECT_INFESTED_EXCLAMATION] = true,
+	[PillEffect.PILLEFFECT_INFESTED_QUESTION] = true,
+	[PillEffect.PILLEFFECT_SUNSHINE] = true,
 }
 
-local badPills = {
-	PillEffect.PILLEFFECT_BAD_TRIP,
-	PillEffect.PILLEFFECT_HEALTH_DOWN,
-	PillEffect.PILLEFFECT_RANGE_DOWN,
-	PillEffect.PILLEFFECT_SPEED_DOWN,
-	PillEffect.PILLEFFECT_TEARS_DOWN,
-	PillEffect.PILLEFFECT_LUCK_DOWN,
-	PillEffect.PILLEFFECT_SHOT_SPEED_DOWN,
-	PillEffect.PILLEFFECT_EXPERIMENTAL,
-	PillEffect.PILLEFFECT_WIZARD,
-	PillEffect.PILLEFFECT_AMNESIA,
-	PillEffect.PILLEFFECT_PARALYSIS,
-	PillEffect.PILLEFFECT_ADDICTED,
-	PillEffect.PILLEFFECT_IM_EXCITED,
-	PillEffect.PILLEFFECT_RETRO_VISION,
-	PillEffect.PILLEFFECT_QUESTIONMARK,
+local IsBadPill = {
+	[PillEffect.PILLEFFECT_BAD_TRIP] = true,
+	[PillEffect.PILLEFFECT_HEALTH_DOWN] = true,
+	[PillEffect.PILLEFFECT_RANGE_DOWN] = true,
+	[PillEffect.PILLEFFECT_SPEED_DOWN] = true,
+	[PillEffect.PILLEFFECT_TEARS_DOWN] = true,
+	[PillEffect.PILLEFFECT_LUCK_DOWN] = true,
+	[PillEffect.PILLEFFECT_SHOT_SPEED_DOWN] = true,
+	[PillEffect.PILLEFFECT_EXPERIMENTAL] = true,
+	[PillEffect.PILLEFFECT_WIZARD] = true,
+	[PillEffect.PILLEFFECT_AMNESIA] = true,
+	[PillEffect.PILLEFFECT_PARALYSIS] = true,
+	[PillEffect.PILLEFFECT_ADDICTED] = true,
+	[PillEffect.PILLEFFECT_IM_EXCITED] = true,
+	[PillEffect.PILLEFFECT_RETRO_VISION] = true,
+	[PillEffect.PILLEFFECT_QUESTIONMARK] = true,
 }
 
-local buffedCards = {
-	Card.CARD_MAGICIAN,
-	Card.CARD_HIGH_PRIESTESS,
-	Card.CARD_EMPRESS,
-	Card.CARD_EMPEROR,
-	Card.CARD_HIEROPHANT,
-	Card.CARD_LOVERS,
-	Card.CARD_CHARIOT,
-	Card.CARD_JUSTICE,
-	Card.CARD_HERMIT,
-	Card.CARD_WHEEL_OF_FORTUNE,
-	Card.CARD_STRENGTH,
-	Card.CARD_DEATH,
-	Card.CARD_TEMPERANCE,
-	Card.CARD_DEVIL,
-	Card.CARD_TOWER,
-	Card.CARD_STARS,
-	Card.CARD_SUN,
-	Card.CARD_JUDGEMENT,
-	Card.CARD_REVERSE_FOOL,
-	Card.CARD_REVERSE_EMPRESS,
-	Card.CARD_REVERSE_HIEROPHANT,
-	Card.CARD_REVERSE_LOVERS,
-	Card.CARD_REVERSE_JUSTICE,
-	Card.CARD_REVERSE_WHEEL_OF_FORTUNE,
-	Card.CARD_REVERSE_HANGED_MAN,
-	Card.CARD_REVERSE_TEMPERANCE,
-	Card.CARD_REVERSE_TOWER,
-	Card.CARD_REVERSE_STARS,
-	Card.CARD_REVERSE_JUDGEMENT,
-	Enums.Cards.THE_UNKNOWN,
+local IsBuffedCard = {
+	[Card.CARD_MAGICIAN] = true,
+	[Card.CARD_HIGH_PRIESTESS] = true,
+	[Card.CARD_EMPRESS] = true,
+	[Card.CARD_EMPEROR] = true,
+	[Card.CARD_HIEROPHANT] = true,
+	[Card.CARD_LOVERS] = true,
+	[Card.CARD_CHARIOT] = true,
+	[Card.CARD_JUSTICE] = true,
+	[Card.CARD_HERMIT] = true,
+	[Card.CARD_WHEEL_OF_FORTUNE] = true,
+	[Card.CARD_STRENGTH] = true,
+	[Card.CARD_DEATH] = true,
+	[Card.CARD_TEMPERANCE] = true,
+	[Card.CARD_DEVIL] = true,
+	[Card.CARD_TOWER] = true,
+	[Card.CARD_STARS] = true,
+	[Card.CARD_SUN] = true,
+	[Card.CARD_JUDGEMENT] = true,
+	[Card.CARD_REVERSE_FOOL] = true,
+	[Card.CARD_REVERSE_EMPRESS] = true,
+	[Card.CARD_REVERSE_HIEROPHANT] = true,
+	[Card.CARD_REVERSE_LOVERS] = true,
+	[Card.CARD_REVERSE_JUSTICE] = true,
+	[Card.CARD_REVERSE_WHEEL_OF_FORTUNE] = true,
+	[Card.CARD_REVERSE_HANGED_MAN] = true,
+	[Card.CARD_REVERSE_TEMPERANCE] = true,
+	[Card.CARD_REVERSE_TOWER] = true,
+	[Card.CARD_REVERSE_STARS] = true,
+	[Card.CARD_REVERSE_JUDGEMENT] = true,
+	[Enums.Cards.THE_UNKNOWN] = true,
 }
 
 local Item = {}
@@ -136,33 +136,6 @@ local function SingularityConditions()
 		end
 	end
 
-	return false
-end
-
-local function IsGoodPill(pill)
-	for i = 1, #goodPills do
-		if pill == goodPills[i] then
-			return true
-		end
-	end
-	return false
-end
-
-local function IsBadPill(pill)
-	for i = 1, #badPills do
-		if pill == badPills[i] then
-			return true
-		end
-	end
-	return false
-end
-
-local function IsBuffedCard(card)
-	for i = 1, #buffedCards do
-		if card == buffedCards[i] then
-			return true
-		end
-	end
 	return false
 end
 
@@ -489,16 +462,16 @@ function Item.usePill(pill, player, flag)
 		
 		if randNum == 0 then
 			if getHeldPill == PillColor.PILL_GOLD + PillColor.PILL_GIANT_FLAG then
-				if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill(pill))
-				or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill(pill))
+				if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill[pill])
+				or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill[pill])
 				then
 					Functions.ChargeSingularity(player, 4)
 				else
 					Functions.ChargeSingularity(player, 2)
 				end
 			else
-				if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill(pill))
-				or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill(pill))
+				if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill[pill])
+				or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill[pill])
 				then
 					Functions.ChargeSingularity(player, 2)
 				else
@@ -507,16 +480,16 @@ function Item.usePill(pill, player, flag)
 			end
 		end
 	elseif getHeldPill > PillColor.PILL_GIANT_FLAG then
-		if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill(pill))
-		or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill(pill))
+		if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill[pill])
+		or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill[pill])
 		then
 			Functions.ChargeSingularity(player, 4)
 		else
 			Functions.ChargeSingularity(player, 2)
 		end
 	else
-		if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill(pill))
-		or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill(pill))
+		if (player:HasCollectible(CollectibleType.COLLECTIBLE_PHD) and IsGoodPill[pill])
+		or (player:HasCollectible(CollectibleType.COLLECTIBLE_FALSE_PHD) and IsBadPill[pill])
 		then
 			Functions.ChargeSingularity(player, 2)
 		else
@@ -562,7 +535,7 @@ function Item.useCard(card, player, flag)
 		end
 	else
 		if player:HasCollectible(CollectibleType.COLLECTIBLE_TAROT_CLOTH)
-		and IsBuffedCard(card)
+		and IsBuffedCard[card]
 		then
 			Functions.ChargeSingularity(player, 2)
 		else
