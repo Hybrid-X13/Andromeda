@@ -70,123 +70,66 @@ local colors = {
 	"_grey",
 }
 
-local itemCostumes = {
-	CollectibleType.COLLECTIBLE_PENTAGRAM,
-	CollectibleType.COLLECTIBLE_SAD_ONION,
-	CollectibleType.COLLECTIBLE_SPELUNKER_HAT,
-	CollectibleType.COLLECTIBLE_SPOON_BENDER,
-	CollectibleType.COLLECTIBLE_XRAY_VISION,
-	CollectibleType.COLLECTIBLE_PYRO,
-	CollectibleType.COLLECTIBLE_HALO,
-	CollectibleType.COLLECTIBLE_MITRE,
-	CollectibleType.COLLECTIBLE_HOT_BOMBS,
-	CollectibleType.COLLECTIBLE_FIRE_MIND,
-	CollectibleType.COLLECTIBLE_MISSING_NO,
-	CollectibleType.COLLECTIBLE_ROBO_BABY_2,
-	CollectibleType.COLLECTIBLE_ARIES,
-	CollectibleType.COLLECTIBLE_AQUARIUS,
-	CollectibleType.COLLECTIBLE_BLUE_CAP,
-	CollectibleType.COLLECTIBLE_MATCH_BOOK,
-	CollectibleType.COLLECTIBLE_DEAD_EYE,
-	CollectibleType.COLLECTIBLE_HOST_HAT,
-	CollectibleType.COLLECTIBLE_TECH_X,
-	Enums.Collectibles.ANDROMEDA_TECHX,
-	CollectibleType.COLLECTIBLE_TRACTOR_BEAM,
-	CollectibleType.COLLECTIBLE_NIGHT_LIGHT,
-	CollectibleType.COLLECTIBLE_BELLY_BUTTON,
-	CollectibleType.COLLECTIBLE_LITTLE_HORN,
-	CollectibleType.COLLECTIBLE_TECHNOLOGY_ZERO,
-	CollectibleType.COLLECTIBLE_PARASITE,
-	CollectibleType.COLLECTIBLE_MAGIC_8_BALL,
-	CollectibleType.COLLECTIBLE_SCAPULAR,
-	CollectibleType.COLLECTIBLE_TECH_5,
-	CollectibleType.COLLECTIBLE_JACOBS_LADDER,
-	CollectibleType.COLLECTIBLE_BAR_OF_SOAP,
-	CollectibleType.COLLECTIBLE_IMMACULATE_HEART,
-	CollectibleType.COLLECTIBLE_VENUS,
-	CollectibleType.COLLECTIBLE_OCULAR_RIFT,
-	CollectibleType.COLLECTIBLE_TROPICAMIDE,
-	CollectibleType.COLLECTIBLE_GUPPYS_EYE,
-	CollectibleType.COLLECTIBLE_GLASS_EYE,
-	CollectibleType.COLLECTIBLE_MONSTRANCE,
-	CollectibleType.COLLECTIBLE_MERCURIUS,
-	CollectibleType.COLLECTIBLE_BLOOD_BOMBS,
-	CollectibleType.COLLECTIBLE_CRACKED_ORB,
-	CollectibleType.COLLECTIBLE_SOUL_LOCKET,
-	CollectibleType.COLLECTIBLE_CARD_READING,
-	CollectibleType.COLLECTIBLE_EYE_OF_THE_OCCULT,
-	Enums.Collectibles.CELESTIAL_CROWN,
-	Enums.Collectibles.HARMONIC_CONVERGENCE,
-	Enums.Collectibles.JUNO,
-	
-	CollectibleType.COLLECTIBLE_INNER_EYE,
-	CollectibleType.COLLECTIBLE_MUTANT_SPIDER,
-	CollectibleType.COLLECTIBLE_THERES_OPTIONS,
-	CollectibleType.COLLECTIBLE_PUPULA_DUPLEX,
-	CollectibleType.COLLECTIBLE_MORE_OPTIONS,
-	CollectibleType.COLLECTIBLE_OPTIONS,
-}
-
-local costumeFileNames = {
-	"costume_054_pentagram",
-	"costume_058_sadonion",
-	"costume_063_spelunkerhat",
-	"costume_065_spoonbender",
-	"costume_077_xrayvision",
-	"costume_107_pyro",
-	"costume_119_halo",
-	"costume_173_mitre",
-	"costume_256_hotbombs",
-	"costume_257_firemind",
-	"costume_258_missingno",
-	"costume_267_robobaby20",
-	"costume_300_aries",
-	"costume_308_aquarius",
-	"costume_342_bluecap",
-	"costume_344_matchbook",
-	"costume_373_deadeye",
-	"costume_375_hosthat",
-	"costume_395_techx",
-	"costume_395_techx",
-	"costume_397_tractorbeam",
-	"costume_425_nightlight",
-	"costume_458_bellybutton",
-	"costume_503_littlehorn",
-	"costume_524_technology0",
-	"costume_053_parasite",
-	"costume_097_magic8ball",
-	"costume_109_scapular",
-	"costume_244_tech05",
-	"costume_494_jacobsladder",
-	"costume_011x_soap",
-	"costume_020x_immaculateheart",
-	"costume_038x_venus",
-	"costume_053x_oculusrift",
-	"costume_106x_tropicamide",
-	"costume_665_guppyseye",
-	"costume_730_glasseye",
-	"costume_021x_monstrance",
-	"costume_037x_mercurius",
-	"costume_061x_bloodbombs",
-	"costume_675_crackedorb",
-	"costume_686_soullocket",
-	"costume_660_card_reading",
-	"costume_019x_occulteye",
-	"spacetume_celestialcrown",
-	"spacetume_harmonicconvergence",
-	"spacetume_juno",
-	--48
-	"costume_029_theinnereye",
-	"costume_103_mutantspider",
-	"costume_249_theresoptions",
-	"costume_379_pupuladuplex",
-	"costume_414_moreoptions",
-	"costume_670_options",
+local Costumes = {
+	{Item = CollectibleType.COLLECTIBLE_PENTAGRAM, 			Path = "costume_054_pentagram"},
+	{Item = CollectibleType.COLLECTIBLE_SAD_ONION, 			Path = "costume_058_sadonion"},
+	{Item = CollectibleType.COLLECTIBLE_SPELUNKER_HAT, 		Path = "costume_063_spelunkerhat"},
+	{Item = CollectibleType.COLLECTIBLE_SPOON_BENDER, 		Path = "costume_063_spelunkerhat"},
+	{Item = CollectibleType.COLLECTIBLE_XRAY_VISION, 		Path = "costume_077_xrayvision"},
+	{Item = CollectibleType.COLLECTIBLE_PYRO, 				Path = "costume_107_pyro"},
+	{Item = CollectibleType.COLLECTIBLE_HALO, 				Path = "costume_119_halo"},
+	{Item = CollectibleType.COLLECTIBLE_MITRE, 				Path = "costume_173_mitre"},
+	{Item = CollectibleType.COLLECTIBLE_HOT_BOMBS, 			Path = "costume_256_hotbombs"},
+	{Item = CollectibleType.COLLECTIBLE_FIRE_MIND, 			Path = "costume_257_firemind"},
+	{Item = CollectibleType.COLLECTIBLE_MISSING_NO, 		Path = "costume_258_missingno"},
+	{Item = CollectibleType.COLLECTIBLE_ROBO_BABY_2, 		Path = "costume_267_robobaby20"},
+	{Item = CollectibleType.COLLECTIBLE_ARIES, 				Path = "costume_300_aries"},
+	{Item = CollectibleType.COLLECTIBLE_AQUARIUS, 			Path = "costume_308_aquarius"},
+	{Item = CollectibleType.COLLECTIBLE_BLUE_CAP, 			Path = "costume_342_bluecap"},
+	{Item = CollectibleType.COLLECTIBLE_MATCH_BOOK, 		Path = "costume_344_matchbook"},
+	{Item = CollectibleType.COLLECTIBLE_DEAD_EYE, 			Path = "costume_373_deadeye"},
+	{Item = CollectibleType.COLLECTIBLE_HOST_HAT, 			Path = "costume_375_hosthat"},
+	{Item = CollectibleType.COLLECTIBLE_TECH_X, 			Path = "costume_395_techx"},
+	{Item = Enums.Collectibles.ANDROMEDA_TECHX, 			Path = "costume_395_techx"},
+	{Item = CollectibleType.COLLECTIBLE_TRACTOR_BEAM, 		Path = "costume_397_tractorbeam"},
+	{Item = CollectibleType.COLLECTIBLE_NIGHT_LIGHT, 		Path = "costume_425_nightlight"},
+	{Item = CollectibleType.COLLECTIBLE_BELLY_BUTTON, 		Path = "costume_458_bellybutton"},
+	{Item = CollectibleType.COLLECTIBLE_LITTLE_HORN, 		Path = "costume_503_littlehorn"},
+	{Item = CollectibleType.COLLECTIBLE_TECHNOLOGY_ZERO,	Path = "costume_524_technology0"},
+	{Item = CollectibleType.COLLECTIBLE_PARASITE,			Path = "costume_053_parasite"},
+	{Item = CollectibleType.COLLECTIBLE_MAGIC_8_BALL,		Path = "costume_097_magic8ball"},
+	{Item = CollectibleType.COLLECTIBLE_SCAPULAR,			Path = "costume_109_scapular"},
+	{Item = CollectibleType.COLLECTIBLE_TECH_5,				Path = "costume_244_tech05"},
+	{Item = CollectibleType.COLLECTIBLE_JACOBS_LADDER,		Path = "costume_494_jacobsladder"},
+	{Item = CollectibleType.COLLECTIBLE_BAR_OF_SOAP,		Path = "costume_011x_soap"},
+	{Item = CollectibleType.COLLECTIBLE_IMMACULATE_HEART,	Path = "costume_020x_immaculateheart"},
+	{Item = CollectibleType.COLLECTIBLE_VENUS,				Path = "costume_038x_venus"},
+	{Item = CollectibleType.COLLECTIBLE_OCULAR_RIFT,		Path = "costume_053x_oculusrift"},
+	{Item = CollectibleType.COLLECTIBLE_TROPICAMIDE,		Path = "costume_106x_tropicamide"},
+	{Item = CollectibleType.COLLECTIBLE_GUPPYS_EYE,			Path = "costume_665_guppyseye"},
+	{Item = CollectibleType.COLLECTIBLE_GLASS_EYE,			Path = "costume_730_glasseye"},
+	{Item = CollectibleType.COLLECTIBLE_MONSTRANCE,			Path = "costume_021x_monstrance"},
+	{Item = CollectibleType.COLLECTIBLE_MERCURIUS,			Path = "costume_037x_mercurius"},
+	{Item = CollectibleType.COLLECTIBLE_BLOOD_BOMBS,		Path = "costume_061x_bloodbombs"},
+	{Item = CollectibleType.COLLECTIBLE_CRACKED_ORB,		Path = "costume_675_crackedorb"},
+	{Item = CollectibleType.COLLECTIBLE_SOUL_LOCKET,		Path = "costume_686_soullocket"},
+	{Item = CollectibleType.COLLECTIBLE_CARD_READING,		Path = "costume_660_card_reading"},
+	{Item = CollectibleType.COLLECTIBLE_EYE_OF_THE_OCCULT,	Path = "costume_019x_occulteye"},
+	{Item = Enums.Collectibles.CELESTIAL_CROWN,				Path = "spacetume_celestialcrown"},
+	{Item = Enums.Collectibles.HARMONIC_CONVERGENCE,		Path = "spacetume_harmonicconvergence"},
+	{Item = Enums.Collectibles.JUNO,						Path = "spacetume_juno"},
+	--Costumes that need to be null costumes
+	{Item = CollectibleType.COLLECTIBLE_INNER_EYE,			Path = "costume_029_theinnereye", 	Special = true},
+	{Item = CollectibleType.COLLECTIBLE_MUTANT_SPIDER,		Path = "costume_103_mutantspider", 	Special = true},
+	{Item = CollectibleType.COLLECTIBLE_THERES_OPTIONS,		Path = "costume_249_theresoptions", Special = true},
+	{Item = CollectibleType.COLLECTIBLE_PUPULA_DUPLEX,		Path = "costume_379_pupuladuplex", 	Special = true},
+	{Item = CollectibleType.COLLECTIBLE_MORE_OPTIONS,		Path = "costume_414_moreoptions", 	Special = true},
+	{Item = CollectibleType.COLLECTIBLE_OPTIONS,			Path = "costume_670_options", 		Special = true},
 }
 
 local Character = {}
 
---Handles swapping of item costumes with and without skin alts for T Andromeda's costumes
+--Handles swapping of item costumes with and without skin alts for T Andromeda
 local function ChangeCostume(player)
 	local skinColor = player:GetHeadColor()
 	
@@ -204,57 +147,57 @@ local function ChangeCostume(player)
 		SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] = 0
 	end
 	
-	for i = 1, #itemCostumes do
-		local itemConfig = Isaac.GetItemConfig():GetCollectible(itemCostumes[i])
+	for i = 1, #Costumes do
+		local itemConfig = Isaac.GetItemConfig():GetCollectible(Costumes[i].Item)
 		local itemName = itemConfig.Name
 		local hasSkinAlt = itemConfig.Costume.HasSkinAlt
 		
-		if player:HasCollectible(itemCostumes[i]) then
-			if itemCostumes[i] == Enums.Collectibles.ANDROMEDA_TECHX then
+		if player:HasCollectible(Costumes[i].Item) then
+			if Costumes[i].Item == Enums.Collectibles.ANDROMEDA_TECHX then
 				itemConfig = Isaac.GetItemConfig():GetCollectible(CollectibleType.COLLECTIBLE_TECH_X)
 			end
 			
 			if SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] == 1
 			and SaveData.PlayerData.T_Andromeda.Costumes[itemName] ~= 10
 			then
-				if i < 48 then
-					player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. costumeFileNames[i] .. "_blood.png", itemCostumes[i])
-				else
+				if Costumes[i].Special then
 					if not hasSkinAlt then
 						player:RemoveCostume(itemConfig)
-						player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/" .. costumeFileNames[i] .. "_blood.anm2"))
+						player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/" .. Costumes[i].Path .. "_blood.anm2"))
 					else
-						player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. costumeFileNames[i] .. "_blood.png", itemCostumes[i])
+						player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. Costumes[i].Path .. "_blood.png", Costumes[i].Item)
 					end
+				else
+					player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. Costumes[i].Path .. "_blood.png", Costumes[i].Item)
 				end
 				SaveData.PlayerData.T_Andromeda.Costumes[itemName] = 10
 			elseif SaveData.PlayerData.T_Andromeda.Costumes["DEFAULT"] ~= 1
 			and SaveData.PlayerData.T_Andromeda.Costumes[itemName] ~= skinColor + 2
 			then
-				if i < 48 then
-					if skinColor == SkinColor.SKIN_PINK then
-						player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. costumeFileNames[i] .. ".png", itemCostumes[i])
-					else
-						player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. costumeFileNames[i] .. colors[skinColor + 2] .. ".png", itemCostumes[i])
-					end
-				else
+				if Costumes[i].Special then
 					if not hasSkinAlt then
 						player:RemoveCostume(itemConfig)
-						player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/" .. costumeFileNames[i] .. ".anm2"))
+						player:AddNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/" .. Costumes[i].Path .. ".anm2"))
 					else
 						if skinColor == SkinColor.SKIN_PINK then
-							player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. costumeFileNames[i] .. ".png", itemCostumes[i])
+							player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. Costumes[i].Path .. ".png", Costumes[i].Item)
 						else
-							player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. costumeFileNames[i] .. colors[skinColor + 2] .. ".png", itemCostumes[i])
+							player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. Costumes[i].Path .. colors[skinColor + 2] .. ".png", Costumes[i].Item)
 						end
+					end
+				else
+					if skinColor == SkinColor.SKIN_PINK then
+						player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. Costumes[i].Path .. ".png", Costumes[i].Item)
+					else
+						player:ReplaceCostumeSprite(itemConfig, "gfx/characters/costumes_andromedab/" .. Costumes[i].Path .. colors[skinColor + 2] .. ".png", Costumes[i].Item)
 					end
 				end
 				SaveData.PlayerData.T_Andromeda.Costumes[itemName] = skinColor + 2
 			end
 		else
 			if SaveData.PlayerData.T_Andromeda.Costumes[itemName] ~= 0 then
-				player:TryRemoveNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/" .. costumeFileNames[i] .. ".anm2"))
-				player:TryRemoveNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/" .. costumeFileNames[i] .. "_blood.anm2"))
+				player:TryRemoveNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/" .. Costumes[i].Path .. ".anm2"))
+				player:TryRemoveNullCostume(Isaac.GetCostumeIdByPath("gfx/characters/" .. Costumes[i].Path .. "_blood.anm2"))
 				SaveData.PlayerData.T_Andromeda.Costumes[itemName] = 0
 			end
 		end
