@@ -93,24 +93,30 @@ function ANDROMEDA:GoToAbandonedPlanetarium(player, itemLayoutChance, includeSpe
 	local itemRoomIDs = {}
 	local rewardRoomIDs = {}
 	local randFloat = rng:RandomFloat()
+	local isVerticalRoom = false
+	local isHorizontalRoom = false
 
 	if itemLayoutChance == nil then
 		itemLayoutChance = 0.333
 	end
 
+	if roomIdx then
+		if level:GetRoomByIdx(roomIdx, 0).Data.Shape == RoomShape.ROOMSHAPE_IV then
+			isVerticalRoom = true
+		elseif level:GetRoomByIdx(roomIdx, 0).Data.Shape == RoomShape.ROOMSHAPE_IH then
+			isHorizontalRoom = true
+		end
+	end
+
 	if not forceSpecial then
-		if roomIdx
-		and level:GetRoomByIdx(roomIdx, 0).Data.Shape == RoomShape.ROOMSHAPE_IV
-		then
+		if isVerticalRoom then
 			for i = 4342, 4346 do
 				table.insert(itemRoomIDs, i)
 			end
 			for i = 4542, 4546 do
 				table.insert(rewardRoomIDs, i)
 			end
-		elseif roomIdx
-		and level:GetRoomByIdx(roomIdx, 0).Data.Shape == RoomShape.ROOMSHAPE_IH
-		then
+		elseif isHorizontalRoom then
 			for i = 4347, 4351 do
 				table.insert(itemRoomIDs, i)
 			end
@@ -141,11 +147,28 @@ function ANDROMEDA:GoToAbandonedPlanetarium(player, itemLayoutChance, includeSpe
 	if forceSpecial
 	or includeSpecial
 	then
-		for i = 4842, 4854 do
-			table.insert(itemRoomIDs, i)
-		end
-		for i = 4642, 4654 do
-			table.insert(rewardRoomIDs, i)
+		if isVerticalRoom then
+			table.insert(itemRoomIDs, 4853)
+			table.insert(rewardRoomIDs, 4653)
+		elseif isHorizontalRoom then
+			table.insert(itemRoomIDs, 4854)
+			table.insert(rewardRoomIDs, 4654)
+		else
+			--Normal rooms
+			for i = 4842, 4852 do
+				table.insert(itemRoomIDs, i)
+			end
+			for i = 4642, 4652 do
+				table.insert(rewardRoomIDs, i)
+			end
+
+			--Closet rooms
+			if roomIdx == nil then
+				table.insert(itemRoomIDs, 4853)
+				table.insert(itemRoomIDs, 4854)
+				table.insert(rewardRoomIDs, 4653)
+				table.insert(rewardRoomIDs, 4654)
+			end
 		end
 	end
 
