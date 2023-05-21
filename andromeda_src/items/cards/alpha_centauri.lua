@@ -36,6 +36,7 @@ function Consumable.useCard(card, player, flag)
 
 	local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1)
 	local rng = player:GetCardRNG(Enums.Cards.ALPHA_CENTAURI)
+	local playSound = false
 
 	Functions.PlayVoiceline(Enums.Voicelines.ALPHA_CENTAURI, flag, rng:RandomInt(2))
 	
@@ -57,6 +58,7 @@ function Consumable.useCard(card, player, flag)
 				player:AddWisp(wisps[quality], pickup.Position, true, false)
 				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, pickup)
 				pickup:Remove()
+				playSound = true
 			elseif IsValidPickup(pickup) then
 				local randNum = rng:RandomInt(2)
 				
@@ -72,10 +74,14 @@ function Consumable.useCard(card, player, flag)
 
 				Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, pickup.Position, Vector.Zero, pickup)
 				pickup:Remove()
+				playSound = true
 			end
 		end
 	end
-	sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
+
+	if playSound then
+		sfx:Play(SoundEffect.SOUND_CANDLE_LIGHT)
+	end
 end
 
 return Consumable
