@@ -118,6 +118,7 @@ local Costumes = {
 	{Item = Enums.Collectibles.CELESTIAL_CROWN,				Path = "spacetume_celestialcrown"},
 	{Item = Enums.Collectibles.HARMONIC_CONVERGENCE,		Path = "spacetume_harmonicconvergence"},
 	{Item = Enums.Collectibles.JUNO,						Path = "spacetume_juno"},
+	{Item = Enums.Collectibles.PALLAS,						Path = "spacetume_pallas"},
 	--Costumes that need to be null costumes
 	{Item = CollectibleType.COLLECTIBLE_INNER_EYE,			Path = "costume_029_theinnereye", 	Special = true},
 	{Item = CollectibleType.COLLECTIBLE_MUTANT_SPIDER,		Path = "costume_103_mutantspider", 	Special = true},
