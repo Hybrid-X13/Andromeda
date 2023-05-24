@@ -139,6 +139,16 @@ local function SingularityConditions()
 	return false
 end
 
+local function IsModdedPickup(pickup)
+	if pickup.Variant == PickupVariant.PICKUP_COIN then
+		return pickup.SubType > CoinSubType.COIN_GOLDEN
+	elseif pickup.Variant == PickupVariant.PICKUP_BOMB then
+		return pickup.SubType > BombSubType.BOMB_GIGA
+	elseif pickup.Variant == PickupVariant.PICKUP_KEY then
+		return pickup.SubType > KeySubType.KEY_CHARGED
+	end
+end
+
 function Item.preUseItem(item, rng, player, flags, activeSlot, customVarData)
 	if game:GetFrameCount() == 0 then return end
 	if item ~= CollectibleType.COLLECTIBLE_SMELTER then return end
@@ -587,7 +597,7 @@ function Item.postPEffectUpdate(player)
 end
 
 function Item.prePickupCollision(pickup, collider, low)
-	if pickup.Variant ~= PickupVariant.PICKUP_HEART then return end
+	if pickup.Variant ~= PickupVariant.PICKUP_HEART and not IsModdedPickup(pickup) then return end
 	if pickup.Wait ~= 0 then return end
 
 	local player = collider:ToPlayer()
@@ -608,6 +618,11 @@ function Item.prePickupCollision(pickup, collider, low)
 			then
 				Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges)
 				break
+			elseif i == #CustomData.SingularityPickups
+			and IsModdedPickup(pickup)
+			then
+				Functions.ChargeSingularity(player, 1)
+				break
 			end
 		end
 	end
@@ -617,6 +632,7 @@ function Item.prePickupCollisionLate(pickup, collider, low)
 	if pickup.SubType == 0 then return end
 	if pickup.Variant == PickupVariant.PICKUP_COIN and pickup.SubType == CoinSubType.COIN_STICKYNICKEL then return end
 	if pickup.Variant == PickupVariant.PICKUP_HEART then return end
+	if IsModdedPickup(pickup) then return end
 	
 	local player = collider:ToPlayer()
 
@@ -667,12 +683,8 @@ function Item.prePickupCollisionLate(pickup, collider, low)
 							end
 						end
 					end
+					
 					Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges + extraCharge)
-					break
-				elseif i == #CustomData.SingularityPickups
-				and (pickup.Variant == PickupVariant.PICKUP_COIN or pickup.Variant == PickupVariant.PICKUP_KEY or pickup.Variant == PickupVariant.PICKUP_BOMB)
-				then
-					Functions.ChargeSingularity(player, 1)
 					break
 				end
 			end
