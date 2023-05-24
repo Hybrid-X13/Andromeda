@@ -2740,6 +2740,7 @@
 		<door exists="True" x="6" y="7"/>
 		<spawn x="4" y="0">
 			<entity type="5" variant="10" subtype="8" weight="1.0"/>
+			<entity type="1940" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 		<spawn x="5" y="0">
 			<entity type="1901" variant="0" subtype="0" weight="1.0"/>
@@ -2749,6 +2750,7 @@
 		</spawn>
 		<spawn x="8" y="0">
 			<entity type="5" variant="10" subtype="8" weight="1.0"/>
+			<entity type="1940" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 		<spawn x="4" y="1">
 			<entity type="33" variant="4" subtype="0" weight="1.0"/>
@@ -2774,9 +2776,6 @@
 		<spawn x="4" y="5">
 			<entity type="33" variant="4" subtype="0" weight="1.0"/>
 		</spawn>
-		<spawn x="5" y="5">
-			<entity type="1940" variant="0" subtype="0" weight="1.0"/>
-		</spawn>
 		<spawn x="7" y="5">
 			<entity type="1940" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
@@ -2785,6 +2784,7 @@
 		</spawn>
 		<spawn x="4" y="6">
 			<entity type="5" variant="10" subtype="8" weight="1.0"/>
+			<entity type="1940" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 		<spawn x="5" y="6">
 			<entity type="1901" variant="0" subtype="0" weight="1.0"/>
@@ -2794,6 +2794,7 @@
 		</spawn>
 		<spawn x="8" y="6">
 			<entity type="5" variant="10" subtype="8" weight="1.0"/>
+			<entity type="1940" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
 	<room variant="4347" name="Abandoned Planetarium ClosetH1" type="21" subtype="0" shape="2" width="13" height="7" difficulty="0" weight="0.0">
