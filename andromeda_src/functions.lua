@@ -690,6 +690,14 @@ function Functions.HasFullCompletion(andromeda)
 	return true
 end
 
+function Functions.IsGreedTreasureRoom()
+	local room = game:GetRoom()
+	local level = game:GetLevel()
+	local roomIdx = level:GetCurrentRoomIndex()
+
+	return game:IsGreedMode() and room:GetType() == RoomType.ROOM_TREASURE and roomIdx == 98
+end
+
 function Functions.IsInvulnerableEnemy(npc)
 	local blacklist = {
 		EntityType.ENTITY_STONEY,

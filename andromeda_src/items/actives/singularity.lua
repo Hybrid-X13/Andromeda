@@ -243,9 +243,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 		end
 		
 		if roomType == RoomType.ROOM_TREASURE then
-			if game:IsGreedMode()
-			and roomIdx == 98
-			then
+			if Functions.IsGreedTreasureRoom() then
 				pool = ItemPoolType.POOL_GREED_BOSS
 			elseif player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN) then
 				pool = ItemPoolType.POOL_DEVIL
@@ -342,7 +340,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				
 				if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
 				and roomType == RoomType.ROOM_TREASURE
-				and (not game:IsGreedMode() or (game:IsGreedMode() and roomIdx ~= 98))
+				and not Functions.IsGreedTreasureRoom()
 				then
 					if player:HasTrinket(TrinketType.TRINKET_DEVILS_CROWN) then
 						local trinketMultiplier = player:GetTrinketMultiplier(TrinketType.TRINKET_DEVILS_CROWN)
