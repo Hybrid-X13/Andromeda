@@ -205,19 +205,6 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			Functions.ChargeSingularity(player, 1)
 		end
 	end
-
-	if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
-	and roomType == RoomType.ROOM_PLANETARIUM
-	then
-		if SaveData.PlayerData.T_Andromeda.PlanetariumChance == 100 then
-			Functions.SetAbandonedPlanetarium(player, true)
-			sfx:Play(SoundEffect.SOUND_MIRROR_BREAK)
-		else
-			if planetariumRNG > SaveData.PlayerData.T_Andromeda.PlanetariumChance then
-				forcePickup = true
-			end
-		end
-	end
 	
 	--Spawn an item from the current room's pool
 	if ((player:GetPlayerType() == Enums.Characters.T_ANDROMEDA and SingularityConditions()) or randNum == 0)
@@ -274,17 +261,20 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 				end
 				SaveData.PlayerData.T_Andromeda.SecretChance = math.ceil(SaveData.PlayerData.T_Andromeda.SecretChance / 2)
 			elseif roomType == RoomType.ROOM_PLANETARIUM then
-				if SaveData.PlayerData.T_Andromeda.PlanetariumChance < 100 then
-					if #CustomData.AbPlPoolCopy > 0 then
-						local itemID = ANDROMEDA:PullFromAbandonedPlanetariumPool(rng)
-						Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, spawnpos, Vector.Zero, nil)
-						SingularityPortal(spawnpos)
-						pool = ItemPoolType.POOL_NULL
-					else
-						pool = ItemPoolType.POOL_TREASURE
-					end
+				if SaveData.PlayerData.T_Andromeda.PlanetariumChance < 100
+				and planetariumRNG > SaveData.PlayerData.T_Andromeda.PlanetariumChance
+				then
+					local wispID = game:GetItemPool():GetCollectible(pool, false, seed)
+					player:AddItemWisp(wispID, spawnpos, true)
+					SingularityPortal(spawnpos)
+					pool = ItemPoolType.POOL_NULL
 				end
 				SaveData.PlayerData.T_Andromeda.PlanetariumChance = math.ceil(SaveData.PlayerData.T_Andromeda.PlanetariumChance / 2)
+			elseif ANDROMEDA:IsAbandonedPlanetarium() then
+				local wispID = ANDROMEDA:PullFromAbandonedPlanetariumPool(rng, false)
+				player:AddItemWisp(wispID, spawnpos, true)
+				SingularityPortal(spawnpos)
+				pool = ItemPoolType.POOL_NULL
 			end
 		end
 		
@@ -327,15 +317,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			
 			for i = 1, numItems do
 				spawnpos = Isaac.GetFreeNearPosition(player.Position, 40)
-				local itemID
-				
-				--Spawn zodiac item if used in abandoned planetarium
-				if ANDROMEDA:IsAbandonedPlanetarium() then
-					itemID = ANDROMEDA:PullFromAbandonedPlanetariumPool(rng)
-				else
-					itemID = game:GetItemPool():GetCollectible(pool, true, seed)
-				end
-				
+				local itemID = game:GetItemPool():GetCollectible(pool, true, seed)
 				local collectible = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, itemID, spawnpos, Vector.Zero, nil):ToPickup()
 				
 				if player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
@@ -432,13 +414,8 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			randNum = rng:RandomInt(#chestType) + 1
 			Isaac.Spawn(EntityType.ENTITY_PICKUP, chestType[randNum], 0, spawnpos, Vector.Zero, nil)
 		end
+
 		SingularityPortal(spawnpos)
-		
-		if roomType == RoomType.ROOM_PLANETARIUM
-		and player:GetPlayerType() == Enums.Characters.T_ANDROMEDA
-		then
-			SaveData.PlayerData.T_Andromeda.PlanetariumChance = math.ceil(SaveData.PlayerData.T_Andromeda.PlanetariumChance / 2)
-		end
 	end
 	return true
 end

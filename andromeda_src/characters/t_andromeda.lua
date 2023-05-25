@@ -10,6 +10,8 @@ local SINGULARITY_MAX = 12
 
 local frameCount = 0
 local bossRoomCleared = false
+local rewinding = false
+local shiftIndex = 0
 
 local headCostume = Isaac.GetCostumeIdByPath("gfx/characters/andromedabhead.anm2")
 local eyeCostume = Isaac.GetCostumeIdByPath("gfx/characters/andromedabheadeyes.anm2")
@@ -267,9 +269,10 @@ function Character.preRoomEntitySpawn(entity, variant, subType, gIndex, seed)
 
 	if entity == EntityType.ENTITY_PICKUP
 	and variant == PickupVariant.PICKUP_COLLECTIBLE
+	and subType ~= 0
 	then
 		local itemConfig = Isaac.GetItemConfig():GetCollectible(subType)
-
+		
 		if itemConfig.Tags & ItemConfig.TAG_QUEST ~= ItemConfig.TAG_QUEST
 		and roomType ~= RoomType.ROOM_DUNGEON
 		and roomType ~= RoomType.ROOM_ULTRASECRET
@@ -308,21 +311,29 @@ function Character.postNewRoom()
 				sprite:Play(blackHoleAnims[skinColor + 2])
 			end
 
-			if SaveData.PlayerData.T_Andromeda.PlanetariumChance < 100 then
-				if room:GetType() == RoomType.ROOM_PLANETARIUM then
-					Functions.SetAbandonedPlanetarium(player, true)
+			if not player:HasTrinket(Enums.Trinkets.EYE_OF_SPODE)
+			and not game:IsGreedMode()
+			and not Functions.ContainsQuestItem()
+			and not (room:IsMirrorWorld() or (StageAPI and StageAPI:IsMirrorDimension()))
+			then
+				if room:GetType() == RoomType.ROOM_TREASURE then
+					player:UseActiveItem(CollectibleType.COLLECTIBLE_GLOWING_HOUR_GLASS, false)
+					local blackout = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.BLACK_HOLE, 0, Vector(320, 400), Vector.Zero, nil)
+					blackout.SpriteScale = Vector(50, 50)
+					rewinding = true
+					shiftIndex = roomIndex
 				end
-
+				
 				for i = 0, DoorSlot.NUM_DOOR_SLOTS do
 					local door = room:GetDoor(i)
-					
+			
 					if door
-					and door.TargetRoomType == RoomType.ROOM_PLANETARIUM
+					and door.TargetRoomType == RoomType.ROOM_TREASURE
 					and room:GetType() ~= RoomType.ROOM_SECRET
 					and room:GetType() ~= RoomType.ROOM_SUPERSECRET
 					then
 						local doorSprite = door:GetSprite()
-
+		
 						for i = 0, 4 do
 							doorSprite:ReplaceSpritesheet(i, "gfx/grid/andromeda_abandonedplanetariumdoor_out.png")
 						end
@@ -398,7 +409,7 @@ function Character.postNewLevel()
 	if not Functions.AnyPlayerIsType(Enums.Characters.T_ANDROMEDA) then return end
 	
 	SaveData.PlayerData.T_Andromeda.PlanetariumChance = 100
-
+	--[[
 	if game:IsGreedMode() then return end
 	
 	local room = game:GetRoom()
@@ -436,7 +447,7 @@ function Character.postNewLevel()
 		then
 			room:RemoveDoor(i)
 		end
-	end
+	end]]
 end
 
 function Character.preSpawnCleanAward()
@@ -693,9 +704,59 @@ function Character.postPEffectUpdate(player)
 	local room = game:GetRoom()
 	local level = game:GetLevel()
 	local roomDesc = level:GetCurrentRoomDesc()
+	local roomIndex = level:GetCurrentRoomIndex()
 	local timer = frameCount + 4
 	local gameFrame = game:GetFrameCount()
 	local pickups = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1)
+
+	if rewinding
+	and roomIndex ~= shiftIndex
+	then
+		player:StopExtraAnimation()
+		local blackHole = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.BLACK_HOLE, 0, Vector(320, 400), Vector.Zero, nil)
+		blackHole.SpriteScale = Vector(50, 50)
+		
+		if (level:GetStage() ~= LevelStage.STAGE1_1 and not game:IsGreedMode())
+		or (game:IsGreedMode() and shiftIndex ~= 98)
+		then
+			local hasStars = false
+			
+			for i = 0, 3 do
+				if player:GetCard(i) == Card.CARD_STARS then
+					player:SetCard(i, 0)
+					hasStars = true
+				end
+			end
+
+			if not hasStars then
+				if player:HasCollectible(CollectibleType.COLLECTIBLE_PAY_TO_PLAY)
+				and player:GetNumCoins() > 0
+				then
+					player:AddCoins(-1)
+				elseif player:GetNumKeys() > 0
+				and not player:HasGoldenKey()
+				then
+					player:AddKeys(-1)
+				end
+			end
+		end
+
+		if room:GetRoomShape() == RoomShape.ROOMSHAPE_IH then
+			Isaac.ExecuteCommand("goto s.dice.4899")
+		elseif room:GetRoomShape() == RoomShape.ROOMSHAPE_IV then
+			Isaac.ExecuteCommand("goto s.dice.4898")
+		else
+			Isaac.ExecuteCommand("goto s.dice.4897")
+		end
+
+		local data = level:GetRoomByIdx(GridRooms.ROOM_DEBUG_IDX, 0).Data
+		local treasureDesc = level:GetRoomByIdx(shiftIndex, 0)
+		treasureDesc.Data = data
+		game:StartRoomTransition(shiftIndex, Direction.NO_DIRECTION, RoomTransitionAnim.FADE_MIRROR, player)
+
+		rewinding = false
+		shiftIndex = 0
+	end
 			
 	--Update costumes to match head color
 	ChangeCostume(player)
@@ -751,14 +812,6 @@ function Character.postPEffectUpdate(player)
 
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
 		game:UpdateStrangeAttractor(room:GetCenterPos(), 6.5, 9999)
-	end
-	
-	if room:GetType() == RoomType.ROOM_PLANETARIUM
-	and SaveData.PlayerData.T_Andromeda.PlanetariumChance < 100
-	and MusicManager():GetCurrentMusicID() ~= Enums.Music.EDGE_OF_THE_UNIVERSE
-	then
-		MusicManager():Play(Enums.Music.EDGE_OF_THE_UNIVERSE, 0)
-		MusicManager():UpdateVolume()
 	end
 end
 
