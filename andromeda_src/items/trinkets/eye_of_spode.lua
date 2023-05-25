@@ -16,7 +16,7 @@ function Trinket.postNewRoom()
 		local player = Isaac.GetPlayer(i)
 		
 		if player:HasTrinket(Enums.Trinkets.EYE_OF_SPODE)
-		and not room:IsMirrorWorld()
+		and not (room:IsMirrorWorld() or (StageAPI and StageAPI:IsMirrorDimension()))
 		then
 			if room:IsFirstVisit()
 			and room:GetType() == RoomType.ROOM_TREASURE
