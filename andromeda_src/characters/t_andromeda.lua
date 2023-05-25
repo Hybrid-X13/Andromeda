@@ -409,45 +409,6 @@ function Character.postNewLevel()
 	if not Functions.AnyPlayerIsType(Enums.Characters.T_ANDROMEDA) then return end
 	
 	SaveData.PlayerData.T_Andromeda.PlanetariumChance = 100
-	--[[
-	if game:IsGreedMode() then return end
-	
-	local room = game:GetRoom()
-	local level = game:GetLevel()
-	local rooms = level:GetRooms()
-	local player = Isaac.GetPlayer(0)
-
-	for i = rooms.Size, 0, -1 do
-		local roomDesc = rooms:Get(i - 1)
-
-		if roomDesc
-		and roomDesc.Data
-		and roomDesc.Data.Type == RoomType.ROOM_TREASURE
-		then
-			Isaac.ExecuteCommand("goto s.secret.9440")
-			local data = level:GetRoomByIdx(GridRooms.ROOM_DEBUG_IDX, 0).Data
-			local treasureDesc = level:GetRoomByIdx(roomDesc.SafeGridIndex, 0)
-			treasureDesc.Data = data
-			treasureDesc.DisplayFlags = 1 << -1
-			game:StartRoomTransition(level:GetStartingRoomIndex(), Direction.NO_DIRECTION, RoomTransitionAnim.FADE, player)
-			level:UpdateVisibility()
-
-			if MinimapAPI then
-				local roomIndex = MinimapAPI:GetRoomByIdx(roomDesc.SafeGridIndex)
-				roomIndex.Hidden = true
-			end
-		end
-	end
-	
-	for i = 0, DoorSlot.NUM_DOOR_SLOTS do
-		local door = room:GetDoor(i)
-
-		if door
-		and door.TargetRoomType == RoomType.ROOM_TREASURE
-		then
-			room:RemoveDoor(i)
-		end
-	end]]
 end
 
 function Character.preSpawnCleanAward()
