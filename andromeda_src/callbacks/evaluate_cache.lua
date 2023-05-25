@@ -1,5 +1,6 @@
 local Andromeda = require("andromeda_src.characters.andromeda")
 local T_Andromeda = require("andromeda_src.characters.t_andromeda")
+local TheSporepedia = require("andromeda_src.items.actives.the_sporepedia")
 local BabyPluto = require("andromeda_src.items.familiars.baby_pluto")
 local Plutonium = require("andromeda_src.items.familiars.plutonium")
 local MegaPlutonium = require("andromeda_src.items.familiars.mega_plutonium")
@@ -13,6 +14,8 @@ local Spode = require("andromeda_src.misc.spode")
 local function MC_EVALUATE_CACHE(_, player, cacheFlag)
 	Andromeda.evaluateCache(player, cacheFlag)
 	T_Andromeda.evaluateCache(player, cacheFlag)
+	
+	TheSporepedia.evaluateCache(player, cacheFlag)
 
 	BabyPluto.evaluateCache(player, cacheFlag)
 	Plutonium.evaluateCache(player, cacheFlag)
