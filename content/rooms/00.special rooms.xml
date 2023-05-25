@@ -135,12 +135,6 @@
 			<entity type="1940" variant="0" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
-	<room variant="9440" name="[Andromeda] ???" type="7" subtype="1" shape="1" width="13" height="7" difficulty="0" weight="0.0">
-		<door exists="True" x="-1" y="3"/>
-		<door exists="True" x="6" y="-1"/>
-		<door exists="True" x="6" y="7"/>
-		<door exists="True" x="13" y="3"/>
-	</room>
 	<room variant="4242" name="Abandoned Planetarium Item1" type="21" subtype="0" shape="1" width="13" height="7" difficulty="0" weight="0.0">
 		<door exists="True" x="-1" y="3"/>
 		<door exists="True" x="6" y="-1"/>
@@ -8920,6 +8914,65 @@
 		</spawn>
 		<spawn x="12" y="4">
 			<entity type="1901" variant="0" subtype="0" weight="1.0"/>
+		</spawn>
+	</room>
+	<room variant="4897" name="Abandoned Planetarium" type="21" subtype="0" shape="1" width="13" height="7" difficulty="0" weight="0.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="6" y="3">
+			<entity type="5" variant="10" subtype="0" weight="1.0"/>
+			<entity type="5" variant="20" subtype="0" weight="1.0"/>
+			<entity type="5" variant="30" subtype="0" weight="1.0"/>
+			<entity type="5" variant="40" subtype="0" weight="1.0"/>
+			<entity type="5" variant="70" subtype="0" weight="1.0"/>
+			<entity type="5" variant="300" subtype="0" weight="1.0"/>
+			<entity type="5" variant="69" subtype="0" weight="1.0"/>
+			<entity type="5" variant="50" subtype="0" weight="0.5"/>
+			<entity type="5" variant="60" subtype="0" weight="0.33"/>
+			<entity type="5" variant="360" subtype="0" weight="0.33"/>
+			<entity type="5" variant="51" subtype="0" weight="0.33"/>
+			<entity type="5" variant="53" subtype="0" weight="0.2"/>
+			<entity type="5" variant="55" subtype="0" weight="0.1"/>
+		</spawn>
+	</room>
+	<room variant="4898" name="Abandoned Planetarium" type="21" subtype="0" shape="3" width="13" height="7" difficulty="0" weight="0.0">
+		<door exists="True" x="6" y="-1"/>
+		<door exists="True" x="6" y="7"/>
+		<spawn x="6" y="3">
+			<entity type="5" variant="40" subtype="0" weight="0.33"/>
+			<entity type="5" variant="69" subtype="0" weight="0.33"/>
+			<entity type="5" variant="360" subtype="0" weight="0.5"/>
+			<entity type="5" variant="50" subtype="0" weight="0.1"/>
+			<entity type="5" variant="70" subtype="0" weight="1.0"/>
+			<entity type="5" variant="53" subtype="0" weight="1.0"/>
+			<entity type="5" variant="300" subtype="0" weight="0.2"/>
+			<entity type="5" variant="55" subtype="0" weight="1.0"/>
+			<entity type="5" variant="60" subtype="0" weight="0.1"/>
+			<entity type="5" variant="10" subtype="0" weight="0.1"/>
+			<entity type="5" variant="20" subtype="0" weight="0.33"/>
+			<entity type="5" variant="30" subtype="0" weight="0.33"/>
+			<entity type="5" variant="51" subtype="0" weight="0.33"/>
+		</spawn>
+	</room>
+	<room variant="4899" name="Abandoned Planetarium" type="21" subtype="0" shape="2" width="13" height="7" difficulty="0" weight="0.0">
+		<door exists="True" x="-1" y="3"/>
+		<door exists="True" x="13" y="3"/>
+		<spawn x="6" y="3">
+			<entity type="5" variant="51" subtype="0" weight="0.33"/>
+			<entity type="5" variant="55" subtype="0" weight="0.1"/>
+			<entity type="5" variant="53" subtype="0" weight="0.2"/>
+			<entity type="5" variant="60" subtype="0" weight="0.33"/>
+			<entity type="5" variant="50" subtype="0" weight="0.5"/>
+			<entity type="5" variant="40" subtype="0" weight="1.0"/>
+			<entity type="5" variant="20" subtype="0" weight="1.0"/>
+			<entity type="5" variant="300" subtype="0" weight="1.0"/>
+			<entity type="5" variant="360" subtype="0" weight="0.33"/>
+			<entity type="5" variant="70" subtype="0" weight="1.0"/>
+			<entity type="5" variant="69" subtype="0" weight="1.0"/>
+			<entity type="5" variant="30" subtype="0" weight="1.0"/>
+			<entity type="5" variant="10" subtype="0" weight="1.0"/>
 		</spawn>
 	</room>
 </rooms>
