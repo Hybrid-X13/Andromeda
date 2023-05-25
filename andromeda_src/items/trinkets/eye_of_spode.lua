@@ -1,4 +1,5 @@
 local Enums = require("andromeda_src.enums")
+local Functions = require("andromeda_src.functions")
 local game = Game()
 local rng = RNG()
 local rewinding = false
@@ -14,9 +15,12 @@ function Trinket.postNewRoom()
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
 		
-		if player:HasTrinket(Enums.Trinkets.EYE_OF_SPODE) then
+		if player:HasTrinket(Enums.Trinkets.EYE_OF_SPODE)
+		and not room:IsMirrorWorld()
+		then
 			if room:IsFirstVisit()
 			and room:GetType() == RoomType.ROOM_TREASURE
+			and not Functions.ContainsQuestItem()
 			then
 				player:UseActiveItem(CollectibleType.COLLECTIBLE_GLOWING_HOUR_GLASS, false)
 				local blackHole = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.BLACK_HOLE, 0, Vector(320, 400), Vector.Zero, nil)
