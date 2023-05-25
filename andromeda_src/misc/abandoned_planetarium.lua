@@ -62,6 +62,7 @@ function Room.postNewRoom()
 	
 	local roomDesc = level:GetCurrentRoomDesc()
 	local roomConfig = roomDesc.Data
+	local roomVariant = roomConfig.Variant
 
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
@@ -73,14 +74,14 @@ function Room.postNewRoom()
 
 		if not room:IsFirstVisit() then return end
 
-		if (roomConfig.Variant > 4241 and roomConfig.Variant < 4400)
-		or (roomConfig.Variant > 4841 and roomConfig.Variant < 4900)
+		if (roomVariant > 4241 and roomVariant < 4400)
+		or (roomVariant > 4841 and roomVariant < 4900)
 		then
 			local dollar = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, CollectibleType.COLLECTIBLE_DOLLAR)
 			
 			--Celestial shop
-			if roomConfig.Variant == 4281
-			or roomConfig.Variant == 4849
+			if roomVariant == 4281
+			or roomVariant == 4849
 			then
 				local pickups = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1)
 
@@ -95,7 +96,7 @@ function Room.postNewRoom()
 					pickup.ShopItemId = -1
 				end
 
-				if roomConfig.Variant == 4849
+				if roomVariant == 4849
 				and SaveData.UnlockData.T_Andromeda.MegaSatan
 				then
 					local shopkeeper = Isaac.FindByType(EntityType.ENTITY_SHOPKEEPER, -1)
@@ -116,28 +117,28 @@ function Room.postNewRoom()
 				end
 
 				if #dollar > 1
-				and roomConfig.Variant ~= 4281
-				and roomConfig.Variant ~= 4849
+				and roomVariant ~= 4281
+				and roomVariant ~= 4849
 				then
 					item.OptionsPickupIndex = 42
 				end
 			end
-		elseif (roomConfig.Variant > 4400 and roomConfig.Variant < 4600)
-		or (roomConfig.Variant > 4600 and roomConfig.Variant < 4800)
+		elseif (roomVariant > 4400 and roomVariant < 4600)
+		or (roomVariant > 4600 and roomVariant < 4800)
 		then
-			if roomConfig.Variant == 4443
-			or roomConfig.Variant == 4459
-			or roomConfig.Variant == 4642
-			or roomConfig.Variant == 4654
+			if roomVariant == 4443
+			or roomVariant == 4459
+			or roomVariant == 4642
+			or roomVariant == 4654
 			then
 				room:TurnGold()
 			elseif (
-				roomConfig.Variant == 4444
-				or roomConfig.Variant == 4445
-				or roomConfig.Variant == 4471
-				or roomConfig.Variant == 4487
-				or roomConfig.Variant == 4545
-				or roomConfig.Variant == 4649
+				roomVariant == 4444
+				or roomVariant == 4445
+				or roomVariant == 4471
+				or roomVariant == 4487
+				or roomVariant == 4545
+				or roomVariant == 4649
 			)
 			and SaveData.UnlockData.T_Andromeda.MegaSatan
 			then
@@ -148,10 +149,10 @@ function Room.postNewRoom()
 					slot[1]:Remove()
 					Isaac.Spawn(EntityType.ENTITY_SLOT, Enums.Slots.WISP_WIZARD, 0, room:GetCenterPos(), Vector.Zero, nil)
 				end
-			elseif roomConfig.Variant == 4451
-			or roomConfig.Variant == 4452
-			or roomConfig.Variant == 4465
-			or roomConfig.Variant == 4648
+			elseif roomVariant == 4451
+			or roomVariant == 4452
+			or roomVariant == 4465
+			or roomVariant == 4648
 			then
 				local lightWisp = rng:RandomInt(20) + 1
 				
@@ -159,11 +160,11 @@ function Room.postNewRoom()
 					Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.WISP, 0, room:GetRandomPosition(0), Vector.Zero, nil)
 				end
 				
-				if roomConfig.Variant == 4451 then
+				if roomVariant == 4451 then
 					for i = 1, 6 do
 						player:AddWisp(0, room:GetCenterPos(), true, false)
 					end
-				elseif roomConfig.Variant == 4452 then
+				elseif roomVariant == 4452 then
 					for i = 1, 3 do
 						player:AddWisp(0, Vector(400, 280), true, false)
 					end
@@ -171,14 +172,14 @@ function Room.postNewRoom()
 					for i = 1, 3 do
 						player:AddWisp(0, Vector(240, 280), true, false)
 					end
-				elseif roomConfig.Variant == 4465 then
+				elseif roomVariant == 4465 then
 					local pos = {Vector(560, 400), Vector(80, 400), Vector(80, 160), Vector(560, 160)}
 					
 					for i = 1, #pos do
 						player:AddWisp(0, pos[i], true, false)
 					end
 					player:AddWisp(CollectibleType.COLLECTIBLE_TELEPATHY_BOOK, room:GetCenterPos(), true, false)
-				elseif roomConfig.Variant == 4648 then
+				elseif roomVariant == 4648 then
 					local pos = {Vector(560, 400), Vector(80, 400), Vector(80, 160), Vector(560, 160)}
 					
 					for i = 1, #pos do
@@ -187,7 +188,7 @@ function Room.postNewRoom()
 					player:AddWisp(CollectibleType.COLLECTIBLE_BIBLE, Vector(400, 280), true, false)
 					player:AddWisp(CollectibleType.COLLECTIBLE_BIBLE, Vector(240, 280), true, false)
 				end
-			elseif roomConfig.Variant == 4652
+			elseif roomVariant == 4652
 			and player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA
 			then
 				Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.BLACK_HOLE, 0, room:GetCenterPos() + Vector(0, -20), Vector.Zero, player)
@@ -195,8 +196,8 @@ function Room.postNewRoom()
 			
 			--True random layout
 			if useD20 == 20
-			and roomConfig.Variant ~= 4281
-			and roomConfig.Variant ~= 4849
+			and roomVariant ~= 4281
+			and roomVariant ~= 4849
 			then
 				player:UseActiveItem(CollectibleType.COLLECTIBLE_D20, false)
 			end
