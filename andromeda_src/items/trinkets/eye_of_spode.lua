@@ -2,6 +2,7 @@ local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
 local game = Game()
 local rng = RNG()
+local sfx = SFXManager()
 local rewinding = false
 local shiftIndex = 0
 
@@ -23,6 +24,7 @@ function Trinket.postNewRoom()
 			and not Functions.ContainsQuestItem()
 			then
 				player:UseActiveItem(CollectibleType.COLLECTIBLE_GLOWING_HOUR_GLASS, false)
+				sfx:Stop(SoundEffect.SOUND_HELL_PORTAL2)
 				local blackHole = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.BLACK_HOLE, 0, Vector(320, 400), Vector.Zero, nil)
 				blackHole.SpriteScale = Vector(50, 50)
 				rewinding = true
