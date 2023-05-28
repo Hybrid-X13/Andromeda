@@ -318,6 +318,7 @@ function Character.postNewRoom()
 			then
 				if room:GetType() == RoomType.ROOM_TREASURE then
 					player:UseActiveItem(CollectibleType.COLLECTIBLE_GLOWING_HOUR_GLASS, false)
+					sfx:Stop(SoundEffect.SOUND_HELL_PORTAL2)
 					local blackout = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.BLACK_HOLE, 0, Vector(320, 400), Vector.Zero, nil)
 					blackout.SpriteScale = Vector(50, 50)
 					rewinding = true
