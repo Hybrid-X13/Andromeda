@@ -519,7 +519,7 @@ end
 function Character.preTearCollision(tear, collider, low)
 	if tear.SpawnerEntity == nil then return end
 
-	local player = tear.SpawnerEntity:ToPlayer()
+	local player = Functions.GetPlayerFromSpawnerEntity(tear)
 
 	if player == nil then return end
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
