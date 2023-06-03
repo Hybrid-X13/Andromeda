@@ -250,12 +250,18 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 			if roomType == RoomType.ROOM_SECRET
 			or roomType == RoomType.ROOM_SUPERSECRET
 			then
-				if secretRNG >= SaveData.PlayerData.T_Andromeda.SecretChance then
-					if SaveData.PlayerData.T_Andromeda.SecretChance == 1 then
-						Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_GOLDENTROLL, spawnpos, Vector.Zero, nil)
-					else
-						Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_TROLL, spawnpos, Vector.Zero, nil)
+				if secretRNG > SaveData.PlayerData.T_Andromeda.SecretChance then
+					local collectible = game:GetItemPool():GetCollectible(pool, false, seed)
+					local itemConfig = Isaac.GetItemConfig():GetCollectible(collectible)
+					
+					--Loop until a passive item is chosen
+					while itemConfig.Type == ItemType.ITEM_ACTIVE do
+						seed = rng:RandomInt(999999999)
+						collectible = game:GetItemPool():GetCollectible(pool, false, seed)
+						itemConfig = Isaac.GetItemConfig():GetCollectible(collectible)
 					end
+
+					player:AddItemWisp(collectible, spawnpos, true)
 					SingularityPortal(spawnpos)
 					pool = ItemPoolType.POOL_NULL
 				end
