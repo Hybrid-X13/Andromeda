@@ -12,6 +12,7 @@ local frameCount = 0
 local bossRoomCleared = false
 local rewinding = false
 local shiftIndex = 0
+local roomShape = 0
 
 local headCostume = Isaac.GetCostumeIdByPath("gfx/characters/andromedabhead.anm2")
 local eyeCostume = Isaac.GetCostumeIdByPath("gfx/characters/andromedabheadeyes.anm2")
@@ -323,6 +324,7 @@ function Character.postNewRoom()
 					blackout.SpriteScale = Vector(50, 50)
 					rewinding = true
 					shiftIndex = roomIndex
+					roomShape = room:GetRoomShape()
 				end
 				
 				for i = 0, DoorSlot.NUM_DOOR_SLOTS do
@@ -703,9 +705,9 @@ function Character.postPEffectUpdate(player)
 			end
 		end
 
-		if room:GetRoomShape() == RoomShape.ROOMSHAPE_IH then
+		if roomShape == RoomShape.ROOMSHAPE_IH then
 			Isaac.ExecuteCommand("goto s.dice.4899")
-		elseif room:GetRoomShape() == RoomShape.ROOMSHAPE_IV then
+		elseif roomShape == RoomShape.ROOMSHAPE_IV then
 			Isaac.ExecuteCommand("goto s.dice.4898")
 		else
 			Isaac.ExecuteCommand("goto s.dice.4897")
@@ -718,6 +720,7 @@ function Character.postPEffectUpdate(player)
 
 		rewinding = false
 		shiftIndex = 0
+		roomShape = 0
 	end
 			
 	--Update costumes to match head color
