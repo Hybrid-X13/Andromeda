@@ -39,7 +39,7 @@ end
 	- You need to pass a table that has all the pickups you're adding, each with four keys:
 		- Variant: The variant of your pickup.
 		- SubType: The subtype of your pickup.
-		- NumCharges: The number of charges the pickup should add to Singularity when collected.
+		- NumCharges: The number of charges the pickup should add to Singularity when collected. Can be a number or a function that returns an int.
 		- CanPickUp: A function with the conditions for checking whether or not the player can collect your pickup when they collide with it.
 	- Example:
 		if ANDROMEDA then
@@ -55,7 +55,13 @@ end
 				{
 					Variant = PickupVariant.PICKUP_HEART,
 					SubType = myPickup.SubType,
-					NumCharges = 1,
+					NumCharges = function()
+						if ANDROMEDA.player:HasTrinket(TrinketType.TRINKET_MOMS_LOCKET) then
+							return 2
+						end
+
+						return 1
+					end,
 					CanPickUp = function()
 						return ANDROMEDA.player:CanPickRedHearts() or ANDROMEDA.player:HasTrinket(TrinketType.TRINKET_APPLE_OF_SODOM)
 					end,
@@ -235,6 +241,8 @@ function ANDROMEDA:IsItemUnlocked(itemID)
 		[Enums.Trinkets.SEXTANT] = SaveData.UnlockData.T_Andromeda.Greed,
 		[Enums.Cards.THE_UNKNOWN] = SaveData.UnlockData.T_Andromeda.Greedier,
 		[Enums.Collectibles.CHIRON] = Functions.HasFullCompletion(Enums.Characters.T_ANDROMEDA),
+		[Enums.Collectibles.STARBURST] = SaveData.UnlockData.Secrets.Starburst,
+		[Enums.Trinkets.EYE_OF_SPODE] = SaveData.UnlockData.Secrets.EyeOfSpode,
 	}
 
 	return unlocks[itemID]
@@ -243,12 +251,17 @@ end
 --[[
 	- Returns the item ID of an item from the Abandoned Planetarium pool.
 	- Pass an RNG object and a boolean of whether to remove the item from the pool or not (defaults to true).
+	- ignoreChaos: A boolean to ignore the effect of Chaos to guarantee an item is pulled from the Abandoned Planetarium pool (defaults to false).
 ]]
-function ANDROMEDA:PullFromAbandonedPlanetariumPool(rng, decrease)
+function ANDROMEDA:PullFromAbandonedPlanetariumPool(rng, decrease, ignoreChaos)
 	local itemPool = game:GetItemPool()
 	
 	if decrease == nil then
 		decrease = true
+	end
+
+	if ignoreChaos == nil then
+		ignoreChaos = false
 	end
 
 	if #CustomData.AbPlPoolCopy > 0 then
@@ -263,7 +276,9 @@ function ANDROMEDA:PullFromAbandonedPlanetariumPool(rng, decrease)
 		end
 	end
 	
-	if Functions.AnyPlayerHasCollectible(CollectibleType.COLLECTIBLE_CHAOS) then
+	if Functions.AnyPlayerHasCollectible(CollectibleType.COLLECTIBLE_CHAOS)
+	and not ignoreChaos
+	then
 		local pool = rng:RandomInt(ItemPoolType.NUM_ITEMPOOLS)
 		local seed = rng:RandomInt(999999999)
 

@@ -541,6 +541,14 @@ function Item.postPEffectUpdate(player)
 
 	getHeldPill = player:GetPill(0)
 
+	if player:GetData().singularityHeartCounter == nil then
+		player:GetData().singularityHeartCounter = 0
+	end
+
+	if player:GetData().singularityCoinCounter == nil then
+		player:GetData().singularityCoinCounter = 0
+	end
+
 	if not player:HasTrinket(TrinketType.TRINKET_SAFETY_SCISSORS) then return end
 
 	local bombBums = Isaac.FindByType(EntityType.ENTITY_SLOT, Enums.Slots.BOMB_BUM)
@@ -598,7 +606,12 @@ function Item.prePickupCollision(pickup, collider, low)
 			and CustomData.SingularityPickups[i].SubType == pickup.SubType
 			and CustomData.SingularityPickups[i].CanPickUp()
 			then
-				Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges)
+				if type(CustomData.SingularityPickups[i].NumCharges) == "number" then
+					Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges)
+				else
+					Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges())
+				end
+				
 				break
 			elseif i == #CustomData.SingularityPickups
 			and IsModdedPickup(pickup)
@@ -610,6 +623,7 @@ function Item.prePickupCollision(pickup, collider, low)
 	end
 end
 
+--Items and vanilla pickups that aren't hearts need to be checked later to avoid mod conflicts
 function Item.prePickupCollisionLate(pickup, collider, low)
 	if pickup.SubType == 0 then return end
 	if pickup.Variant == PickupVariant.PICKUP_COIN and pickup.SubType == CoinSubType.COIN_STICKYNICKEL then return end
@@ -631,7 +645,12 @@ function Item.prePickupCollisionLate(pickup, collider, low)
 				and CustomData.SingularityPickups[i].SubType == pickup.SubType
 				and CustomData.SingularityPickups[i].CanPickUp()
 				then
-					Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges)
+					if type(CustomData.SingularityPickups[i].NumCharges) == "number" then
+						Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges)
+					else
+						Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges())
+					end
+
 					break
 				end
 			end
@@ -666,7 +685,12 @@ function Item.prePickupCollisionLate(pickup, collider, low)
 						end
 					end
 					
-					Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges + extraCharge)
+					if type(CustomData.SingularityPickups[i].NumCharges) == "number" then
+						Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges)
+					else
+						Functions.ChargeSingularity(player, CustomData.SingularityPickups[i].NumCharges())
+					end
+
 					break
 				end
 			end
