@@ -130,7 +130,7 @@ local function AddEffect(familiar, entity, rng)
 			else
 				entity.Color = StarEffects[curAnim].Variant[randNum]
 			end
-		elseif entity.Type == EntityType.ENTITY_BOMB then
+		else
 			if varType == "table" then
 				entity.Color = StarEffects[curAnim].Variant[randNum][2]
 			elseif varType ~= "number" then
@@ -177,6 +177,7 @@ function Item.familiarUpdate(familiar)
 
 	local tears = Isaac.FindInRadius(familiar.Position, radius, EntityPartition.TEAR)
 	local bombs = Isaac.FindByType(EntityType.ENTITY_BOMB)
+	local lasers = Isaac.FindByType(EntityType.ENTITY_LASER)
 	local rng = player:GetCollectibleRNG(Enums.Collectibles.CELESTIAL_CROWN)
 	local randNum
 	
@@ -192,23 +193,30 @@ function Item.familiarUpdate(familiar)
 		sprite:Play(starColors[randNum])
 	end
 	
-	if #tears > 0 then
-		for _, tear in ipairs(tears) do
-			local tear = tear:ToTear()
+	for _, tear in ipairs(tears) do
+		local tear = tear:ToTear()
 
-			AddEffect(familiar, tear, rng)
+		AddEffect(familiar, tear, rng)
+	end
+
+	for _, bomb in ipairs(bombs) do
+		local bomb = bomb:ToBomb()
+
+		if bomb.IsFetus
+		and bomb.Position:Distance(familiar.Position) < radius
+		then
+			AddEffect(familiar, bomb, rng)
 		end
 	end
 
-	if #bombs > 0 then
-		for _, bomb in ipairs(bombs) do
-			local bomb = bomb:ToBomb()
+	for _, laser in ipairs(lasers) do
+		local laser = laser:ToLaser()
 
-			if bomb.IsFetus
-			and bomb.Position:Distance(familiar.Position) < radius
-			then
-				AddEffect(familiar, bomb, rng)
-			end
+		if laser.SpawnerType
+		and laser.SpawnerType == EntityType.ENTITY_PLAYER
+		and laser.Position:Distance(familiar.Position) < radius
+		then
+			AddEffect(familiar, laser, rng)
 		end
 	end
 end
