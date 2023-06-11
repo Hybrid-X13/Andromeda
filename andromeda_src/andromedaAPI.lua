@@ -198,10 +198,11 @@ function ANDROMEDA:IsAbandonedPlanetarium()
 	local level = game:GetLevel()
 	local roomDesc = level:GetCurrentRoomDesc()
 	local roomConfig = roomDesc.Data
+	local roomVariant = roomConfig.Variant
 
 	if room:GetType() == RoomType.ROOM_DICE
-	and roomConfig.Variant >= 4242
-	and roomConfig.Variant < 4900
+	and roomVariant >= 4242
+	and roomVariant < 4900
 	then
 		return true
 	end
@@ -246,6 +247,23 @@ function ANDROMEDA:IsItemUnlocked(itemID)
 	}
 
 	return unlocks[itemID]
+end
+
+function ANDROMEDA:IsSpecialAbandonedPlanetarium()
+	local room = game:GetRoom()
+	local level = game:GetLevel()
+	local roomDesc = level:GetCurrentRoomDesc()
+	local roomConfig = roomDesc.Data
+	local roomVariant = roomConfig.Variant
+
+	if room:GetType() == RoomType.ROOM_DICE
+	and roomVariant >= 4642
+	and roomVariant < 4855
+	then
+		return true
+	end
+
+	return false
 end
 
 --[[
