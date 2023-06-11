@@ -63,6 +63,32 @@ function Functions.RemoveInnateItem(collectibleID)
 	end
 end
 
+function Functions.AddSmeltedTrinket(player, trinket, firstTimePickingUp)
+	if firstTimePickingUp == nil then
+		firstTimePickingUp = false
+	end
+	
+	local trinket0 = player:GetTrinket(0)
+    local trinket1 = player:GetTrinket(1)
+
+	if trinket0 ~= 0 then
+        player:TryRemoveTrinket(trinket0)
+    end
+    if trinket1 ~= 0 then
+        player:TryRemoveTrinket(trinket1)
+    end
+
+	player:AddTrinket(trinket, firstTimePickingUp)
+	player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false)
+
+	if trinket0 ~= 0 then
+        player:AddTrinket(trinket0, false)
+    end
+    if trinket1 ~= 0 then
+        player:AddTrinket(trinket1, false)
+    end
+end
+
 function Functions.AnyPlayerHasCollectible(itemID, ignoreModifiers)
 	if ignoreModifiers == nil then
 		ignoreModifiers = false

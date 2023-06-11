@@ -393,13 +393,11 @@ function Character.postPEffectUpdate(player)
 	end
 	
 	if not player:HasTrinket(TrinketType.TRINKET_TELESCOPE_LENS, false) then
-		player:AddTrinket(TrinketType.TRINKET_TELESCOPE_LENS)
-		player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false)
+		Functions.AddSmeltedTrinket(player, TrinketType.TRINKET_TELESCOPE_LENS)
 	end
 	
 	if not player:HasTrinket(TrinketType.TRINKET_FRIENDSHIP_NECKLACE, false) then
-		player:AddTrinket(TrinketType.TRINKET_FRIENDSHIP_NECKLACE)
-		player:UseActiveItem(CollectibleType.COLLECTIBLE_SMELTER, false)
+		Functions.AddSmeltedTrinket(player, TrinketType.TRINKET_FRIENDSHIP_NECKLACE)
 	end
 end
 
