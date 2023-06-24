@@ -249,7 +249,7 @@ function Character.postPlayerInit(player)
 	
 	local level = game:GetLevel()
 	local roomIndex = level:GetCurrentRoomIndex()
-	local startRoomIndex = level:GetStartingRoomIndex()
+	local startRoomIndex = 84
 	
 	if roomIndex == startRoomIndex
 	or level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX
