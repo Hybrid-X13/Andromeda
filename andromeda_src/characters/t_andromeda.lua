@@ -248,8 +248,10 @@ function Character.postPlayerInit(player)
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
 	
 	local level = game:GetLevel()
+	local roomIndex = level:GetCurrentRoomIndex()
+	local startRoomIndex = level:GetStartingRoomIndex()
 	
-	if game:GetFrameCount() == 0
+	if roomIndex == startRoomIndex
 	or level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX
 	then
 		for i = 1, #Blacklist do
