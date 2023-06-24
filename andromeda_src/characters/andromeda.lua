@@ -76,7 +76,7 @@ function Character.postPlayerInit(player)
 	local roomIndex = level:GetCurrentRoomIndex()
 	local startRoomIndex = 84
 	
-	if roomIndex == startRoomIndex
+	if (game:GetFrameCount() == 0 or roomIndex == startRoomIndex)
 	or level:GetCurrentRoomIndex() == GridRooms.ROOM_GENESIS_IDX
 	then
 		for i = 1, #Blacklist.Items do
