@@ -204,6 +204,10 @@ if Encyclopedia then
 				{str = "Interactions", fsize = 2, clr = 3, halign = 0},
 				{str = "Overridden by the Ludovico Technique and Mom's Knife."},
 			},
+			{ -- Abyss Locust
+				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
+				{str = "A white locust with a blue aura that deals 1x damage and causes a set of 4 tears to converge at the enemy's position with each damage tick."},
+			},
 		},
 		JUNO = {
 			{ -- Effect

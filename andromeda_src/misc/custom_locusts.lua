@@ -222,6 +222,24 @@ function Locust.entityTakeDmg(target, amount, flags, source, countdown)
 		if rng:RandomFloat() < 0.1 then
 			Functions.StarBurst(player, enemy.Position)
 		end
+	elseif locust == Enums.Collectibles.HARMONIC_CONVERGENCE then
+		local angle = 0
+
+		if enemy:GetData().convergeAngle == nil then
+			enemy:GetData().convergeAngle = false
+		end
+
+		if enemy:GetData().convergeAngle then
+			angle = 45
+			enemy:GetData().convergeAngle = false
+		else
+			enemy:GetData().convergeAngle = true
+		end
+
+		for i = 0, 3 do
+			angle = angle + (90 * i)
+			Functions.ConvergingTears(familiar, player, enemy.Position, angle, 4, false)
+		end
 	elseif locust == Enums.Collectibles.JUNO
 	and (enemy.HitPoints - amount) <= 0
 	then
