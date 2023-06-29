@@ -499,6 +499,7 @@ function Item.useCard(card, player, flag)
 	if card == Isaac.GetCardIdByName("Storage Battery (2)") then return end
 	if card == Isaac.GetCardIdByName("Storage Battery (Full)") then return end
 	if card == Isaac.GetCardIdByName("Corroded Battery") then return end
+	if card == Isaac.GetCardIdByName("Pot of Greed") then return end
 	if card == Isaac.GetCardIdByName("Denial's D9") then return end
 
 	if card == Isaac.GetCardIdByName("Quasar Shard") then
