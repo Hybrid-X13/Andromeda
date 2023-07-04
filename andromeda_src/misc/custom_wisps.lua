@@ -42,6 +42,7 @@ function Wisp.familiarInit(familiar)
 
 	if familiar.SubType == Enums.Collectibles.GRAVITY_SHIFT then
 		RemoveWisps(Enums.Collectibles.GRAVITY_SHIFT)
+		familiar:AddEntityFlags(EntityFlag.FLAG_NO_KNOCKBACK)
 
 		sprite:Load("gfx/familiar/wisps/wisp_gravity.anm2", true)
 		sprite:Play("Idle")
