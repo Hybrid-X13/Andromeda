@@ -26,7 +26,6 @@ Enums.Collectibles = {
 	CELESTIAL_CROWN = Isaac.GetItemIdByName("Celestial Crown"),
 	LUMINARY_FLARE = Isaac.GetItemIdByName("Luminary Flare"),
 	STARBURST = Isaac.GetItemIdByName("Starburst"),
-	PRIMORDIAL_CETUS = Isaac.GetItemIdByName("Primordial Cetus"),
 	--Andromeda Synergies
 	ANDROMEDA_TECHX = Isaac.GetItemIdByName("Andromeda TechX"),
 	ANDROMEDA_BRIMSTONE = Isaac.GetItemIdByName("Andromeda Brimstone"),
