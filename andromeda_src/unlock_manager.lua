@@ -2,6 +2,7 @@ local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
 local SaveData = require("andromeda_src.savedata")
 local CustomData = require("andromeda_src.customdata")
+local AchievementDisplay = require("andromeda_src.achievement_display_api")
 local game = Game()
 local rng = RNG()
 local Character = Enums.Characters
@@ -10,6 +11,7 @@ local Trinket = Enums.Trinkets
 local Consumable = Enums.Cards
 local blueBabyDead = false
 local lambDead = false
+local paper = "gfx/ui/andromeda_achievements/andromepaper.png"
 
 local collectibleUnlocks = {
 	[Collectible.GRAVITY_SHIFT] = {
@@ -70,6 +72,14 @@ local collectibleUnlocks = {
 		end,
 		Tainted = true,
 	},
+	[Collectible.STARBURST] = {
+		Secret = "Starburst"
+	},
+	--[[
+	[Collectible.CETUS] = {
+		Secret = "Cetus"
+	},
+	]]
 }
 
 local trinketUnlocks = {
@@ -100,6 +110,9 @@ local trinketUnlocks = {
 	[Trinket.SEXTANT] = {
 		Unlock = "Greed",
 		Tainted = true,
+	},
+	[Trinket.EYE_OF_SPODE] = {
+		Secret = "EyeOfSpode"
 	},
 }
 
@@ -136,7 +149,7 @@ local function UpdateCompletion(str1, str2, tainted)
 			else
 				SaveData.UnlockData.Andromeda.Greed = true
 			end
-			CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/achievement_" .. str1 .. ".png")
+			AchievementDisplay.playAchievement("gfx/ui/andromeda_achievements/achievement_" .. str1 .. ".png", 90, paper)
 		elseif game.Difficulty == Difficulty.DIFFICULTY_GREEDIER then
 			if tainted then
 				SaveData.UnlockData.T_Andromeda.Greed = true
@@ -145,21 +158,21 @@ local function UpdateCompletion(str1, str2, tainted)
 				SaveData.UnlockData.Andromeda.Greed = true
 				SaveData.UnlockData.Andromeda.Greedier = true
 			end
-			CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/achievement_" .. str1 .. ".png")
-			CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/achievement_" .. str2 .. ".png")
+			AchievementDisplay.playAchievement("gfx/ui/andromeda_achievements/achievement_" .. str1 .. ".png", 90, paper)
+			AchievementDisplay.playAchievement("gfx/ui/andromeda_achievements/achievement_" .. str2 .. ".png", 90, paper)
 		end
 	else
-		CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/achievement_" .. str1 .. ".png")
+		AchievementDisplay.playAchievement("gfx/ui/andromeda_achievements/achievement_" .. str1 .. ".png", 90, paper)
 	end
-
+	
 	if not tainted
 	and Functions.HasFullCompletion(Enums.Characters.ANDROMEDA)
 	then
-		CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/achievement_worshipper.png")
+		AchievementDisplay.playAchievement("gfx/ui/andromeda_achievements/achievement_worshipper.png", 90, paper)
 	elseif tainted
 	and Functions.HasFullCompletion(Enums.Characters.T_ANDROMEDA)
 	then
-		CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/achievement_chiron.png")
+		AchievementDisplay.playAchievement("gfx/ui/andromeda_achievements/achievement_chiron.png", 90, paper)
 	end
 
 	SaveData.SaveModData()
@@ -208,8 +221,7 @@ local function RunesAreUnlocked()
 end
 
 function UnlockManager.postEntityKill(entity)
-	if game.Challenge > 0 then return end
-	if game:GetVictoryLap() > 0 then return end
+	if game.Challenge > 0 or game:GetVictoryLap() > 0 then return end
 	if entity.Type ~= EntityType.ENTITY_BEAST then return end
 	if entity.Variant ~= 0 then return end
 	
@@ -218,26 +230,21 @@ function UnlockManager.postEntityKill(entity)
 		local playerType = player:GetPlayerType()
 		
 		if playerType == Character.ANDROMEDA
-		or playerType == Character.T_ANDROMEDA
+		and not SaveData.UnlockData.Andromeda.Beast
 		then
-			if playerType == Character.ANDROMEDA
-			and not SaveData.UnlockData.Andromeda.Beast
-			then
-				SaveData.UnlockData.Andromeda.Beast = true
-				UpdateCompletion("pallas", "", false)
-			elseif playerType == Character.T_ANDROMEDA
-			and not SaveData.UnlockData.T_Andromeda.Beast
-			then
-				SaveData.UnlockData.T_Andromeda.Beast = true
-				UpdateCompletion("vesta", "", true)
-			end
+			SaveData.UnlockData.Andromeda.Beast = true
+			UpdateCompletion("pallas", "", false)
+		elseif playerType == Character.T_ANDROMEDA
+		and not SaveData.UnlockData.T_Andromeda.Beast
+		then
+			SaveData.UnlockData.T_Andromeda.Beast = true
+			UpdateCompletion("vesta", "", true)
 		end
 	end
 end
 
 function UnlockManager.postNPCDeath(npc)
-	if game.Challenge > 0 then return end
-	if game:GetVictoryLap() > 0 then return end
+	if game.Challenge > 0 or game:GetVictoryLap() > 0 then return end
 
 	for i = 0, game:GetNumPlayers() - 1 do
 		local player = Isaac.GetPlayer(i)
@@ -309,6 +316,18 @@ function UnlockManager.postNPCDeath(npc)
 						SaveData.UnlockData.T_Andromeda.MegaSatan = true
 						UpdateCompletion("wispwiz", "", true)
 					end
+				--[[elseif npc.Type == Isaac.GetEntityTypeByName("Sol") then
+					if playerType == Character.ANDROMEDA
+					and not SaveData.UnlockData.Secrets.Starburst
+					then
+						SaveData.UnlockData.Secrets.Starburst = true
+						UpdateCompletion("starburst", "", false)
+					elseif playerType == Character.T_ANDROMEDA
+					and not SaveData.UnlockData.Secrets.EyeOfSpode
+					then
+						SaveData.UnlockData.Secrets.EyeOfSpode = true
+						UpdateCompletion("eyeofspode", "", true)
+					end]]
 				end
 			elseif levelStage == LevelStage.STAGE7
 			and npc.Type == EntityType.ENTITY_DELIRIUM
@@ -345,8 +364,7 @@ function UnlockManager.postNPCDeath(npc)
 end
 
 function UnlockManager.postPEffectUpdate(player)
-	if game.Challenge > 0 then return end
-	if game:GetVictoryLap() > 0 then return end
+	if game.Challenge > 0 or game:GetVictoryLap() > 0 then return end
 	
 	local playerType = player:GetPlayerType()
 
@@ -471,7 +489,9 @@ function UnlockManager.postPlayerInit(player)
 		local prefix = ""
 		local unlocked = false
 
-		if tab.Special then
+		if tab.Secret then
+			unlocked = SaveData.UnlockData.Secrets[tab.Secret]
+		elseif tab.Special then
 			unlocked = tab.Special()
 		else
 			if tab.Tainted then
@@ -489,10 +509,14 @@ function UnlockManager.postPlayerInit(player)
 		local prefix = ""
 		local unlocked = false
 
-		if tab.Tainted then
-			prefix = "T_"
+		if tab.Secret then
+			unlocked = SaveData.UnlockData.Secrets[tab.Secret]
+		else
+			if tab.Tainted then
+				prefix = "T_"
+			end
+			unlocked = SaveData.UnlockData[prefix .. "Andromeda"][tab.Unlock]
 		end
-		unlocked = SaveData.UnlockData[prefix .. "Andromeda"][tab.Unlock]
 
 		if not unlocked then
 			game:GetItemPool():RemoveTrinket(trinket)
@@ -507,6 +531,8 @@ end
 function UnlockManager.postPickupInit(pickup)
 	local room = game:GetRoom()
 	local roomType = room:GetType()
+	local level = game:GetLevel()
+	local roomDesc = level:GetCurrentRoomDesc()
 	rng:SetSeed(pickup.InitSeed, 35)
 
 	if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
@@ -516,7 +542,9 @@ function UnlockManager.postPickupInit(pickup)
 
 		if tab == nil then return end
 
-		if tab.Special then
+		if tab.Secret then
+			unlocked = SaveData.UnlockData.Secrets[tab.Secret]
+		elseif tab.Special then
 			unlocked = tab.Special()
 		else
 			if tab.Tainted then
@@ -556,9 +584,13 @@ function UnlockManager.postPickupInit(pickup)
 				end
 			end
 			
-			local newItem = game:GetItemPool():GetCollectible(pool, true, pickup.InitSeed)
-			game:GetItemPool():RemoveCollectible(pickup.SubType)
-			pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
+			if Functions.GetDimension(roomDesc) == Enums.Dimensions.DEATH_CERTIFICATE then
+				pickup:Remove()
+			else
+				local newItem = game:GetItemPool():GetCollectible(pool, true, pickup.InitSeed)
+				game:GetItemPool():RemoveCollectible(pickup.SubType)
+				pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
+			end
 		end
 	elseif pickup.Variant == PickupVariant.PICKUP_TRINKET then
 		local tab = trinketUnlocks[pickup.SubType]
@@ -575,10 +607,14 @@ function UnlockManager.postPickupInit(pickup)
 
 		if tab == nil then return end
 
-		if tab.Tainted then
-			prefix = "T_"
+		if tab.Secret then
+			unlocked = SaveData.UnlockData.Secrets[tab.Secret]
+		else
+			if tab.Tainted then
+				prefix = "T_"
+			end
+			unlocked = SaveData.UnlockData[prefix .. "Andromeda"][tab.Unlock]
 		end
-		unlocked = SaveData.UnlockData[prefix .. "Andromeda"][tab.Unlock]
 		
 		if not unlocked then
 			local newTrinket = game:GetItemPool():GetTrinket(false)
@@ -631,7 +667,9 @@ function UnlockManager.postPlayerUpdate(player)
 
 		if tab == nil then return end
 
-		if tab.Special then
+		if tab.Secret then
+			unlocked = SaveData.UnlockData.Secrets[tab.Secret]
+		elseif tab.Special then
 			unlocked = tab.Special()
 		else
 			if tab.Tainted then
@@ -672,10 +710,14 @@ function UnlockManager.postPlayerUpdate(player)
 
 		if tab == nil then return end
 
-		if tab.Tainted then
-			prefix = "T_"
+		if tab.Secret then
+			unlocked = SaveData.UnlockData.Secrets[tab.Secret]
+		else
+			if tab.Tainted then
+				prefix = "T_"
+			end
+			unlocked = SaveData.UnlockData[prefix .. "Andromeda"][tab.Unlock]
 		end
-		unlocked = SaveData.UnlockData[prefix .. "Andromeda"][tab.Unlock]
 		
 		if player:HasTrinket(trinket)
 		and not unlocked

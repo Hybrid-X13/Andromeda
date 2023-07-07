@@ -37,6 +37,8 @@ SaveData.UnlockData ={
 	},
 	Secrets = {
 		Cetus = false,
+		Starburst = false,
+		EyeOfSpode = false,
 	},
 }
 
@@ -137,6 +139,8 @@ function SaveData.postPlayerInit(player)
 			if SAVE_STATE.UnlockData.Secrets == nil then
 				SaveData.UnlockData.Secrets = {
 					Cetus = false,
+					Starburst = false,
+					EyeOfSpode = false,
 				}
 			else
 				for key, val in pairs(SaveData.UnlockData.Secrets) do

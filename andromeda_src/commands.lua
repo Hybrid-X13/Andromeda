@@ -11,6 +11,7 @@ function Commands.executeCMD(cmd)
 		print("tandromedamarks: Check progress for Tainted Andromeda's completion marks")
 		print("andromedaunlockall: Unlocks all items for both characters")
 		print("andromedareset: Resets item progress for both characters")
+		print("andromedaunlockheaven: Unlocks the exclusive items for Heaven's Call")
 	elseif string == "andromedamarks"
 	or string == "tandromedamarks"
 	then
@@ -120,8 +121,17 @@ function Commands.executeCMD(cmd)
 				SaveData.UnlockData.T_Andromeda[key] = false
 			end
 		end
+		for key, val in pairs(SaveData.UnlockData.Secrets) do
+			if val then
+				SaveData.UnlockData.Secrets[key] = false
+			end
+		end
 		SaveData.SaveModData()
 		print("Completion mark progress for both characters has been reset")
+	elseif string == "andromedaunlockheaven" then
+		SaveData.UnlockData.Secrets.Starburst = true
+		SaveData.UnlockData.Secrets.EyeOfSpode = true
+		print("Unlocked Starburst and Eye of Spode")
 	elseif string == "andromedaunlock" then
 		CCO.AchievementDisplayAPI.PlayAchievement("gfx/ui/andromeda_achievements/old/achievement_enterplanetariumforfirsttime.png")
 	elseif string == "tandromedaunlock" then
