@@ -136,7 +136,7 @@ function Beggar.postPEffectUpdate(player)
 					{Enums.Trinkets.MOON_STONE, SaveData.UnlockData.T_Andromeda.Satan},
 					{Enums.Trinkets.POLARIS, SaveData.UnlockData.T_Andromeda.BossRush},
 					{Enums.Trinkets.SEXTANT, SaveData.UnlockData.T_Andromeda.Greed},
-					--{Enums.Trinkets.EYE_OF_SPODE, },
+					{Enums.Trinkets.EYE_OF_SPODE, SaveData.UnlockData.Secrets.EyeOfSpode},
 				}
 				local trinketPool = {}
 				
