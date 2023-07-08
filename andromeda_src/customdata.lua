@@ -148,7 +148,7 @@ CustomData.SingularityPickups = {
 	{
 		Variant = PickupVariant.PICKUP_HEART,
 		SubType = HeartSubType.HEART_BLACK,
-		NumCharges = 1,
+		NumCharges = 2,
 		CanPickUp = function()
 			return ANDROMEDA.player:CanPickBlackHearts()
 		end,
@@ -156,7 +156,7 @@ CustomData.SingularityPickups = {
 	{
 		Variant = PickupVariant.PICKUP_HEART,
 		SubType = HeartSubType.HEART_BONE,
-		NumCharges = 1,
+		NumCharges = 2,
 		CanPickUp = function()
 			return ANDROMEDA.player:CanPickBoneHearts()
 		end,

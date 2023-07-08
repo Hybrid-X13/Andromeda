@@ -363,7 +363,7 @@ if Encyclopedia then
 				{str = "Adds 2 charges on use."},
 				{str = "Golden Horse Pill", clr = 3, halign = 0},
 				{str = "50% chance to add 2 charges on use."},
-				{str = "Nickels/Doublepacks/48 Hour Energy", clr = 3, halign = 0},
+				{str = "Nickels/Doublepacks/48 Hour Energy/Bone & Black Hearts", clr = 3, halign = 0},
 				{str = "Adds 2 charges."},
 				{str = "Smelter/Gulp Pills", clr = 3, halign = 0},
 				{str = "Adds 1 additional charge for each trinket consumed."},
