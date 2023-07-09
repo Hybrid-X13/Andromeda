@@ -231,7 +231,7 @@ if Encyclopedia then
 			{ -- Effect
 				{str = "Effect", fsize = 2, clr = 3, halign = 0},
 				{str = "Damage up for each new room explored."},
-				{str = "Planetariums, abandoned planetariums, libraries, secret, super secret, and ultra secret rooms add +0.6 damage. All other special rooms add +0.4 damage. Default rooms add +0.2 damage."},
+				{str = "Planetariums, abandoned planetariums, libraries, secret, super secret, and ultra secret rooms add +0.6 damage. All other special rooms add +0.4 damage. Normal rooms add +0.2 damage."},
 				{str = "The damage bonus resets when moving to the next floor."},
 				{str = "Grants immunity to Curse of the Lost."},
 			},
