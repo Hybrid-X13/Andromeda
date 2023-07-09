@@ -67,7 +67,6 @@ SaveData.ItemData = {
 	},
 	Pallas = {
 		newRoomDMG = 0,
-		newFloorDMG = 0,
 	},
 }
 
@@ -178,7 +177,6 @@ function SaveData.postPlayerInit(player)
 				},
 				Pallas = {
 					newRoomDMG = 0,
-					newFloorDMG = 0,
 				},
 			}
 			

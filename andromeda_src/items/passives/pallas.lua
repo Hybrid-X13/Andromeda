@@ -12,13 +12,13 @@ function Item.evaluateCache(player, cacheFlag)
 	local itemNum = player:GetCollectibleNum(Enums.Collectibles.PALLAS)
 
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK) then
-		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.2 * itemNum) + (SaveData.ItemData.Pallas.newFloorDMG * 0.2)
+		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.2 * itemNum)
 	elseif player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK) then
-		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.3 * itemNum) + (SaveData.ItemData.Pallas.newFloorDMG * 0.3)
+		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.3 * itemNum)
 	elseif player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) then
-		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.8 * itemNum) + (SaveData.ItemData.Pallas.newFloorDMG * 0.8)
+		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.8 * itemNum)
 	else
-		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * itemNum) + SaveData.ItemData.Pallas.newFloorDMG
+		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * itemNum)
 	end
 end
 
@@ -44,19 +44,6 @@ function Item.postNewRoom()
 			else
 				SaveData.ItemData.Pallas.newRoomDMG = SaveData.ItemData.Pallas.newRoomDMG + 1
 			end
-			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
-			player:EvaluateItems()
-		end
-	end
-end
-
-function Item.postNewLevel()
-	for i = 0, game:GetNumPlayers() - 1 do
-		local player = Isaac.GetPlayer(i)
-		
-		if SaveData.ItemData.Pallas.newRoomDMG > 0 then
-			SaveData.ItemData.Pallas.newFloorDMG = SaveData.ItemData.Pallas.newFloorDMG + ((SaveData.ItemData.Pallas.newRoomDMG - 1) * 0.2 * 0.1)
-			SaveData.ItemData.Pallas.newRoomDMG = 0
 			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
 			player:EvaluateItems()
 		end
