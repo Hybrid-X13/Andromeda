@@ -22,6 +22,18 @@ function Item.evaluateCache(player, cacheFlag)
 	end
 end
 
+function Item.postNewLevel()
+	for i = 0, game:GetNumPlayers() - 1 do
+		local player = Isaac.GetPlayer(i)
+
+		if SaveData.ItemData.Pallas.newRoomDMG > 0 then
+			SaveData.ItemData.Pallas.newRoomDMG = 0
+			player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+			player:EvaluateItems()
+		end
+	end
+end
+
 function Item.postNewRoom()
 	local room = game:GetRoom()
 	
