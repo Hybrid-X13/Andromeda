@@ -363,8 +363,8 @@ function Character.postNewRoom()
 			end
 
 			if room:IsFirstVisit() then
-				--Charge Singularity when entering boss rush and error rooms
-				if (room:GetType() == RoomType.ROOM_BOSSRUSH or room:GetType() == RoomType.ROOM_ERROR)
+				--Charge Singularity when entering boss rush
+				if room:GetType() == RoomType.ROOM_BOSSRUSH
 				and player:GetActiveCharge(ActiveSlot.SLOT_POCKET) < SINGULARITY_MAX * 2
 				then
 					Functions.ChargeSingularity(player, 12)
