@@ -415,6 +415,10 @@ if Encyclopedia then
 				{str = "Trivia", fsize = 2, clr = 3, halign = 0},
 				{str = "The singularity of a black hole is its center point, where density and gravity become infinite and the laws of physics as we know them cease to exist."},
 			},
+			{ -- Abyss Locust
+				{str = "Abyss Locust", fsize = 2, clr = 3, halign = 0},
+				{str = "A black locust that deals 1.42x damage and enemies killed by the locust activate a weaker Singularity effect, spawning a random pickup."},
+			},
 		},
 		CERES = {
 			{ -- Effect

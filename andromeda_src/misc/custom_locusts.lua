@@ -1,6 +1,7 @@
 local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
 local game = Game()
+local sfx = SFXManager()
 local rng = RNG()
 local initSeeds = {}
 
@@ -36,6 +37,16 @@ local colorVals = {
 	Color(1, 1, 1, 1, 0, 0, 0),
 	Color(1, 0, 1, 1, 0, 0, 0),
 	Color(0, 1, 0, 1, 0, 0, 0),
+}
+
+local pickups = {
+	PickupVariant.PICKUP_COIN,
+	PickupVariant.PICKUP_KEY,
+	PickupVariant.PICKUP_BOMB,
+	PickupVariant.PICKUP_HEART,
+	PickupVariant.PICKUP_TAROTCARD,
+	PickupVariant.PICKUP_PILL,
+	PickupVariant.PICKUP_TRINKET,
 }
 
 local Locust = {}
@@ -240,7 +251,7 @@ function Locust.entityTakeDmg(target, amount, flags, source, countdown)
 			angle = angle + (90 * i)
 			Functions.ConvergingTears(familiar, player, enemy.Position, angle, 4, false)
 		end
-	elseif locust == Enums.Collectibles.JUNO
+	elseif (locust == Enums.Collectibles.JUNO or locust == Enums.Collectibles.SINGULARITY)
 	and (enemy.HitPoints - amount) <= 0
 	then
 		table.insert(initSeeds, enemy.InitSeed)
@@ -254,26 +265,38 @@ function Locust.postNPCDeath(npc)
 	if IsBlacklistedEnemy(npc) then return end
 	if not ShouldTriggerOnDeathEffect(npc) then return end
 
-	local locusts = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABYSS_LOCUST, Enums.Collectibles.JUNO)
-
-	if #locusts == 0 then return end
-	
-	local familiar = locusts[1]:ToFamiliar()
-	local player = familiar.Player
 	rng:SetSeed(npc.InitSeed, 35)
+	local junoLocusts = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABYSS_LOCUST, Enums.Collectibles.JUNO)
+	local singularityLocusts = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABYSS_LOCUST, Enums.Collectibles.SINGULARITY)
+
+	if #singularityLocusts > 0 then
+		local randNum = rng:RandomInt(#pickups) + 1
+
+		Isaac.Spawn(EntityType.ENTITY_PICKUP, pickups[randNum], 0, npc.Position, Vector.Zero, nil)
+
+		local portal = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BRIMSTONE_SWIRL, 0, npc.Position, Vector.Zero, nil)
+		local sprite = portal:GetSprite()
+		portal.SpriteScale = Vector(0.8, 0.8)
+		sprite.Color = Color(0, 0, 0, 1, 0, 0, 0)
+		sfx:Play(SoundEffect.SOUND_LAZARUS_FLIP_ALIVE, 1.3, 2, false, 0.5)
+	elseif #junoLocusts > 0 then
+		local familiar = junoLocusts[1]:ToFamiliar()
+		local player = familiar.Player
+		
+		if rng:RandomFloat() < 0.2 then
+			local revivedEnemy = Isaac.Spawn(npc.Type, npc.Variant, npc.SubType, npc.Position, Vector.Zero, player)
+			revivedEnemy:AddCharmed(EntityRef(player), -1)
 			
-	if rng:RandomFloat() < 0.2 then
-		local revivedEnemy = Isaac.Spawn(npc.Type, npc.Variant, npc.SubType, npc.Position, Vector.Zero, player)
-		revivedEnemy:AddCharmed(EntityRef(player), -1)
-		
-		if npc:IsChampion() then
-			local champColor = npc:GetChampionColorIdx()
-			revivedEnemy:ToNPC():MakeChampion(npc.InitSeed, champColor)
+			if npc:IsChampion() then
+				local champColor = npc:GetChampionColorIdx()
+				revivedEnemy:ToNPC():MakeChampion(npc.InitSeed, champColor)
+			end
+			
+			revivedEnemy:SetColor(Color(1, 1, 1, 0.4, 0.2, 0, 0.2), 99999, 1, false, false)
+			revivedEnemy:GetData().junoFriendly = true
 		end
-		
-		revivedEnemy:SetColor(Color(1, 1, 1, 0.4, 0.2, 0, 0.2), 99999, 1, false, false)
-		revivedEnemy:GetData().junoFriendly = true
 	end
+	
 end
 
 return Locust
