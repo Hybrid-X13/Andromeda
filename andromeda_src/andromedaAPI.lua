@@ -214,39 +214,55 @@ end
 	- Checks if a certain item from this mod is unlocked.
 	- Make sure to only use this function inside a callback instead of when your mod is loaded.
 ]]
-function ANDROMEDA:IsItemUnlocked(itemID)
-	local unlocks = {
-		[Enums.Trinkets.CRYING_PEBBLE] = SaveData.UnlockData.Andromeda.Isaac,
-		[Enums.Collectibles.GRAVITY_SHIFT] = SaveData.UnlockData.Andromeda.BlueBaby,
-		[Enums.Trinkets.METEORITE] = SaveData.UnlockData.Andromeda.Satan,
-		[Enums.Collectibles.EXTINCTION_EVENT] = SaveData.UnlockData.Andromeda.TheLamb,
-		[Enums.Cards.BETELGEUSE] = SaveData.UnlockData.Andromeda.BossRush,
-		[Enums.Cards.ALPHA_CENTAURI] = SaveData.UnlockData.Andromeda.BossRush,
-		[Enums.Collectibles.CELESTIAL_CROWN] = SaveData.UnlockData.Andromeda.Hush,
-		[Enums.Collectibles.BABY_PLUTO] = SaveData.UnlockData.Andromeda.MegaSatan,
-		[Enums.Collectibles.HARMONIC_CONVERGENCE] = SaveData.UnlockData.Andromeda.Delirium,
-		[Enums.Collectibles.JUNO] = SaveData.UnlockData.Andromeda.Mother,
-		[Enums.Collectibles.PALLAS] = SaveData.UnlockData.Andromeda.Beast,
-		[Enums.Trinkets.STARDUST] = SaveData.UnlockData.Andromeda.Greed,
-		[Enums.Collectibles.OPHIUCHUS] = SaveData.UnlockData.Andromeda.Greedier,
-		[Enums.Trinkets.ALIEN_TRANSMITTER] = SaveData.UnlockData.T_Andromeda.Isaac,
-		[Enums.Collectibles.BOOK_OF_COSMOS] = SaveData.UnlockData.T_Andromeda.BlueBaby,
-		[Enums.Trinkets.MOON_STONE] = SaveData.UnlockData.T_Andromeda.Satan,
-		[Enums.Collectibles.LUMINARY_FLARE] = SaveData.UnlockData.T_Andromeda.TheLamb,
-		[Enums.Cards.SIRIUS] = SaveData.UnlockData.T_Andromeda.BossRush,
-		[Enums.Trinkets.POLARIS] = SaveData.UnlockData.T_Andromeda.BossRush,
-		[Enums.Cards.SOUL_OF_ANDROMEDA] = SaveData.UnlockData.T_Andromeda.Hush,
-		[Enums.Collectibles.SINGULARITY] = SaveData.UnlockData.T_Andromeda.Delirium,
-		[Enums.Collectibles.CERES] = SaveData.UnlockData.T_Andromeda.Mother,
-		[Enums.Collectibles.VESTA] = SaveData.UnlockData.T_Andromeda.Beast,
-		[Enums.Trinkets.SEXTANT] = SaveData.UnlockData.T_Andromeda.Greed,
-		[Enums.Cards.THE_UNKNOWN] = SaveData.UnlockData.T_Andromeda.Greedier,
-		[Enums.Collectibles.CHIRON] = Functions.HasFullCompletion(Enums.Characters.T_ANDROMEDA),
-		[Enums.Collectibles.STARBURST] = SaveData.UnlockData.Secrets.Starburst,
-		[Enums.Trinkets.EYE_OF_SPODE] = SaveData.UnlockData.Secrets.EyeOfSpode,
-	}
+function ANDROMEDA:IsItemUnlocked(itemID, variant)
+	if variant == nil then
+		variant = PickupVariant.PICKUP_COLLECTIBLE
+	end
 
-	return unlocks[itemID]
+	if variant == PickupVariant.PICKUP_COLLECTIBLE then
+		local unlocks = {
+			[Enums.Collectibles.GRAVITY_SHIFT] = SaveData.UnlockData.Andromeda.BlueBaby,
+			[Enums.Collectibles.EXTINCTION_EVENT] = SaveData.UnlockData.Andromeda.TheLamb,
+			[Enums.Collectibles.CELESTIAL_CROWN] = SaveData.UnlockData.Andromeda.Hush,
+			[Enums.Collectibles.BABY_PLUTO] = SaveData.UnlockData.Andromeda.MegaSatan,
+			[Enums.Collectibles.HARMONIC_CONVERGENCE] = SaveData.UnlockData.Andromeda.Delirium,
+			[Enums.Collectibles.JUNO] = SaveData.UnlockData.Andromeda.Mother,
+			[Enums.Collectibles.PALLAS] = SaveData.UnlockData.Andromeda.Beast,
+			[Enums.Collectibles.OPHIUCHUS] = SaveData.UnlockData.Andromeda.Greedier,
+			[Enums.Collectibles.BOOK_OF_COSMOS] = SaveData.UnlockData.T_Andromeda.BlueBaby,
+			[Enums.Collectibles.LUMINARY_FLARE] = SaveData.UnlockData.T_Andromeda.TheLamb,
+			[Enums.Collectibles.SINGULARITY] = SaveData.UnlockData.T_Andromeda.Delirium,
+			[Enums.Collectibles.CERES] = SaveData.UnlockData.T_Andromeda.Mother,
+			[Enums.Collectibles.VESTA] = SaveData.UnlockData.T_Andromeda.Beast,
+			[Enums.Collectibles.CHIRON] = Functions.HasFullCompletion(Enums.Characters.T_ANDROMEDA),
+			[Enums.Collectibles.STARBURST] = SaveData.UnlockData.Secrets.Starburst,
+		}
+
+		return unlocks[itemID]
+	elseif variant == PickupVariant.PICKUP_TRINKET then
+		local unlocks = {
+			[Enums.Trinkets.CRYING_PEBBLE] = SaveData.UnlockData.Andromeda.Isaac,
+			[Enums.Trinkets.METEORITE] = SaveData.UnlockData.Andromeda.Satan,
+			[Enums.Trinkets.STARDUST] = SaveData.UnlockData.Andromeda.Greed,
+			[Enums.Trinkets.ALIEN_TRANSMITTER] = SaveData.UnlockData.T_Andromeda.Isaac,
+			[Enums.Trinkets.MOON_STONE] = SaveData.UnlockData.T_Andromeda.Satan,
+			[Enums.Trinkets.POLARIS] = SaveData.UnlockData.T_Andromeda.BossRush,
+			[Enums.Trinkets.SEXTANT] = SaveData.UnlockData.T_Andromeda.Greed,
+			[Enums.Trinkets.EYE_OF_SPODE] = SaveData.UnlockData.Secrets.EyeOfSpode,
+		}
+
+		return unlocks[itemID]
+	elseif variant == PickupVariant.PICKUP_TAROTCARD then
+		local unlocks = {
+			[Enums.Cards.BETELGEUSE] = SaveData.UnlockData.Andromeda.BossRush,
+			[Enums.Cards.ALPHA_CENTAURI] = SaveData.UnlockData.Andromeda.BossRush,
+			[Enums.Cards.SIRIUS] = SaveData.UnlockData.T_Andromeda.BossRush,
+			[Enums.Cards.SOUL_OF_ANDROMEDA] = SaveData.UnlockData.T_Andromeda.Hush,
+			[Enums.Cards.THE_UNKNOWN] = SaveData.UnlockData.T_Andromeda.Greedier,
+		}
+
+		return unlocks[itemID]
+	end
 end
 
 function ANDROMEDA:IsSpecialAbandonedPlanetarium()
