@@ -37,6 +37,7 @@ Enums.Trinkets = {
 	STARDUST = Isaac.GetTrinketIdByName("Stardust"),
 	METEORITE = Isaac.GetTrinketIdByName("Meteorite"),
 	CRYING_PEBBLE = Isaac.GetTrinketIdByName("Crying Pebble"),
+	MOONSTONE = Isaac.GetTrinketIdByName("Moon Stone"),  -- Legacy
 	MOON_STONE = Isaac.GetTrinketIdByName("Moon Stone"),
 	SEXTANT = Isaac.GetTrinketIdByName("Sextant"),
 	ALIEN_TRANSMITTER = Isaac.GetTrinketIdByName("Alien Transmitter"),
