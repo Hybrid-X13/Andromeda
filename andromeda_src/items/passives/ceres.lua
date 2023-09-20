@@ -67,23 +67,23 @@ function Item.postPickupInit(pickup)
 
 	if randFloat < 0.2 then
 		if pickup.Variant == PickupVariant.PICKUP_BOMB
-	        and pickup.SubType == BombSubType.BOMB_GOLDEN
-	        and hasGoldenBomb
-	        then
-	            SpawnIcon(pickup)
-	            pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_GIGA, true, false, false)
-	        elseif pickup.Variant == PickupVariant.PICKUP_KEY
-	        and pickup.SubType == KeySubType.KEY_GOLDEN
-	        and hasGoldenKey
-	        then
-	            SpawnIcon(pickup)
-	            pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_CRACKED_KEY, true, false, false)
-	        elseif map[pickup.Variant]
-	        and map[pickup.Variant][pickup.SubType]
-	        then
-	            SpawnIcon(pickup)
-	            pickup:Morph(EntityType.ENTITY_PICKUP, pickup.Variant, map[pickup.Variant][pickup.SubType], true, false, false)
-	        end
+		and pickup.SubType == BombSubType.BOMB_GOLDEN
+		and hasGoldenBomb
+		then
+			SpawnIcon(pickup)
+			pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, BombSubType.BOMB_GIGA, true, false, false)
+		elseif pickup.Variant == PickupVariant.PICKUP_KEY
+		and pickup.SubType == KeySubType.KEY_GOLDEN
+		and hasGoldenKey
+		then
+			SpawnIcon(pickup)
+			pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_CRACKED_KEY, true, false, false)
+		elseif map[pickup.Variant]
+		and map[pickup.Variant][pickup.SubType]
+		then
+			SpawnIcon(pickup)
+			pickup:Morph(EntityType.ENTITY_PICKUP, pickup.Variant, map[pickup.Variant][pickup.SubType], true, false, false)
+		end
 	end
 end
 
