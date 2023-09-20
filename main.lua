@@ -1,9 +1,3 @@
---[[
-    Shoutout to AgentCucco for making the Job Mod: https://steamcommunity.com/sharedfiles/filedetails/?id=2567634705
-    All of Andromeda's code was completely restructured and revised to follow Job's structuring. 
-    Check out Job if you haven't already, it's one of the best character mods out there.
-]]
-
 if not REPENTANCE then return end
 
 print("[Andromeda] Type `andromedahelp` for a list of commands")
