@@ -1,6 +1,7 @@
 local Enums = require("andromeda_src.enums")
 local Functions = require("andromeda_src.functions")
 local SaveData = require("andromeda_src.savedata")
+local CustomData = require("andromeda_src.customdata")
 local game = Game()
 local rng = RNG()
 
@@ -205,7 +206,16 @@ function Room.postNewRoom()
 	end
 end
 
---Any red hearts are converted into soul hearts in the Abandoned Planetarium
+function Room.preGetCollectible(pool, decrease, seed)
+	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
+	if pool ~= ItemPoolType.POOL_TREASURE then return end
+    	if #CustomData.AbPlPoolCopy == 0 then return end
+	
+	rng:SetSeed(seed, 35)
+	
+	return ANDROMEDA:PullFromAbandonedPlanetariumPool(rng)
+end
+
 function Room.postPickupInit(pickup)
 	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
 	if pickup.Variant ~= PickupVariant.PICKUP_HEART then return end
