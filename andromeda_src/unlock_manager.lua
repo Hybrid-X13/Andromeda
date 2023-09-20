@@ -316,7 +316,7 @@ function UnlockManager.postNPCDeath(npc)
 						SaveData.UnlockData.T_Andromeda.MegaSatan = true
 						UpdateCompletion("wispwiz", "", true)
 					end
-				--[[elseif npc.Type == Isaac.GetEntityTypeByName("Sol") then
+				elseif npc.Type == Isaac.GetEntityTypeByName("Sol the Absolute") then
 					if playerType == Character.ANDROMEDA
 					and not SaveData.UnlockData.Secrets.Starburst
 					then
@@ -327,7 +327,7 @@ function UnlockManager.postNPCDeath(npc)
 					then
 						SaveData.UnlockData.Secrets.EyeOfSpode = true
 						UpdateCompletion("eyeofspode", "", true)
-					end]]
+					end
 				end
 			elseif levelStage == LevelStage.STAGE7
 			and npc.Type == EntityType.ENTITY_DELIRIUM
