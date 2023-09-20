@@ -209,7 +209,7 @@ end
 function Room.preGetCollectible(pool, decrease, seed)
 	if not ANDROMEDA:IsAbandonedPlanetarium() then return end
 	if pool ~= ItemPoolType.POOL_TREASURE then return end
-    	if #CustomData.AbPlPoolCopy == 0 then return end
+    if #CustomData.AbPlPoolCopy == 0 then return end
 	
 	rng:SetSeed(seed, 35)
 	
