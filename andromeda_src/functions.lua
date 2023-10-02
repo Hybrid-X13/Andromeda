@@ -120,7 +120,7 @@ function Functions.AddLightToTear(player, tear)
 
 	if Functions.HasBloodTears(player) then
 		light = Isaac.Spawn(EntityType.ENTITY_EFFECT, Enums.Effects.TEAR_GLOW_BLOOD, 0, tear.Position, tear.Velocity, player)
-	elseif not Functions.HasBloodTears(player) then
+	else
 		light = Isaac.Spawn(EntityType.ENTITY_EFFECT, lightEffects[skinColor + 2], 0, tear.Position, tear.Velocity, player)
 	end
 
@@ -692,6 +692,7 @@ function Functions.HasBloodTears(player)
 	or tearVariant == TearVariant.KEY_BLOOD
 	or player:HasCollectible(CollectibleType.COLLECTIBLE_LEAD_PENCIL)
 	or player:HasCollectible(CollectibleType.COLLECTIBLE_HAEMOLACRIA)
+	or player:HasCollectible(CollectibleType.COLLECTIBLE_APPLE)
 	then
 		return true
 	end
