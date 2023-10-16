@@ -787,7 +787,7 @@ if Encyclopedia then
 			end
 		end,
 	})
-	--[[Encyclopedia.AddItem({
+	Encyclopedia.AddItem({
 		Class = "Andromeda",
 		ModName = "Andromeda",
 		ID = Enums.Collectibles.STARBURST,
@@ -797,12 +797,12 @@ if Encyclopedia then
 			Encyclopedia.ItemPools.POOL_GREED_TREASURE,
 		},
 		UnlockFunc = function(self)
-			if not SaveData.UnlockData.Andromeda.Greedier then
-				self.Desc = "Defeat ???????????????????????????????? as Andromeda."
+			if not SaveData.UnlockData.Secrets.Starburst then
+				self.Desc = "Defeat Sol the Absolute as Andromeda."
 				return self
 			end
 		end,
-	})]]
+	})
 	Encyclopedia.AddItem({
 		Class = "Andromeda",
 		ModName = "Andromeda",
@@ -993,18 +993,18 @@ if Encyclopedia then
 			end
 		end,
 	})
-	--[[Encyclopedia.AddTrinket({
+	Encyclopedia.AddTrinket({
 		Class = "Andromeda",
 		ModName = "Andromeda",
 		ID = Enums.Trinkets.EYE_OF_SPODE,
 		WikiDesc = Wiki.EYE_OF_SPODE,
 		UnlockFunc = function(self)
-			if not SaveData.UnlockData.T_Andromeda.Greed then
-				self.Desc = "Defeat ?????????????????????????????????????????????? as Tainted Andromeda."
+			if not SaveData.UnlockData.Secrets.EyeOfSpode then
+				self.Desc = "Defeat Sol the Absolute as Tainted Andromeda."
 				return self
 			end
 		end,
-	})]]
+	})
 	Encyclopedia.AddRune({
 		Class = "Andromeda",
 		ModName = "Andromeda",
