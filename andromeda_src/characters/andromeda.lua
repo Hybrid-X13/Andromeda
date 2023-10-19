@@ -260,7 +260,7 @@ function Character.entityTakeDmg(target, amount, flags, source, countdown)
 
 		sprite:Play("Shiny " .. randNum)
 		star.PositionOffset = player.PositionOffset
-		star.SpriteScale = Vector(1.25, 1.25)
+		star.SpriteScale = Vector(player.SpriteScale.X + 0.25, player.SpriteScale.Y + 0.25)
 		star.DepthOffset = 1
 		star.Color = Color(rng:RandomFloat(), rng:RandomFloat(), rng:RandomFloat(), 1, 0, 0, 0)
 	end
