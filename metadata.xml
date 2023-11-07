@@ -9,7 +9,7 @@ Here’s a quick look at what this mod has to offer:
 [*] Andromeda, a unique character based around Planetariums with a tainted version
 [*] Full unlocks for both characters, including new items, trinkets, runes, and more
 [*] Hundreds of custom costumes
-[*] Mod support for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=836319872&amp;searchtext=eid]EID[/url] (ENG and RUS), [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2376005362&amp;searchtext=encyclopedia]Encyclopedia[/url], and [url= https://steamcommunity.com/sharedfiles/filedetails/?id=2490515687&amp;searchtext=pog]POG for Good Items[/url]
+[*] Mod support for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=836319872&amp;searchtext=eid]EID[/url] (ENG, RUS, KOR, CHN), [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2376005362&amp;searchtext=encyclopedia]Encyclopedia[/url], and [url= https://steamcommunity.com/sharedfiles/filedetails/?id=2490515687&amp;searchtext=pog]POG for Good Items[/url]
 [/list]
 
 [b]Make sure you've unlocked Planetariums before trying this character![/b]
@@ -23,7 +23,7 @@ Andromeda starts with a new item called Gravity Shift, which can stop all tears 
 When a massive star dies, it collapses onto itself and creates a black hole...
 
 [h1][b]Unlocks[/b][/h1]
-Just like the vanilla game, each character has unlocks for getting completion marks, which includes:
+Just like the vanilla game, each character has their own set of unlocks for getting completion marks, which includes:
 [list] 
 [*] 14 items, including 5 new Planetarium items
 [*] 7 trinkets
@@ -32,32 +32,34 @@ Just like the vanilla game, each character has unlocks for getting completion ma
 [*] And more!
 [/list] 
 
-You can track your progress with any mod that does so, such as [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2376005362&amp;searchtext=encyclopedia]Encyclopedia[/url] or [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2503022727]Completion Marks for All Modded Characters[/url]. There’s also built-in commands. Open the debug console and type [b]andromedahelp[/b] for the full command list.
-- The mod also has its own Fandom wiki for all the content, check it out [url=https://andromeda-mod.fandom.com/wiki/Andromeda_Mod_Wiki] here[/url] (eng). 
+You can track your progress with any mod that does so, such as [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2376005362&amp;searchtext=encyclopedia]Encyclopedia[/url] or [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2503022727]Completion Marks for All Modded Characters[/url]. There’s also built-in commands. Open the debug console and type [i]andromedahelp[/i] for the full command list.
 
-[h1][b]Additional Known Mod Compatabilities:[/b][/h1]
+[h1][b]Wiki[/b][/h1]
+Wanna have the most up to date info on all the mod's content? Then check out our wiki [url=https://andromeda-mod.fandom.com/wiki/Andromeda_Mod_Wiki] here![/url]
+
+[h1][b]Additional Mod Compatibility[/b][/h1]
 [list]
 [*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2658281562]Character Portrait Overhaul[/url] (only regular Andromeda)
-[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2690434875]Unique Birthrights[/url]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2690434875]Unique Birthright Sprites[/url]
 [*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2622137368]Unique Minisaacs[/url]
 [*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2697721144]Unique MEGAIsaacs[/url]
 [*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2826041132]MORE No More Symbols[/url] (Addon which adds modded symbols for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2553379545]No More Symbols[/url])
 [*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2814218324]Unique Animated Spirit Swords[/url]
 [*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2796769583]Custom Character Menu[/url]
 [*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2748584047]Planetariums in Greed Mode[/url]
-[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2487456972]Better Doors [Repentance][/url]
+[*] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2873579538]Better Doors[/url]
 [/list]
 
-[b]For another cool character, check out[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2548070298] Mastema[/url].
+[b]For another cool character, check out[/b] [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2548070298] Mastema[/url]!
 
 [h1][b]Credits[/b][/h1]
 [b]Hybrid:[/b] Coder and original idea behind the mod.
 [b]Warhamm2000:[/b] Designer and spriter for all the mod’s art.
 [b]Pupzables:[/b] Thumbnail artist.
 [b]DejuiceTD:[/b] Artist for regular Andromeda’s boss portrait. 
-[b]Nihil:[/b] Made the custom room song titled &quot;Gazing At the End Of The Universe&quot;, which can be found [url=https://soundcloud.com/user-433732349/sets/the-planetarium-collection]here on Soundcloud[/url].
+[b]Nihil:[/b] Made the custom room song titled &quot;Gazing at the End of the Universe&quot;, which can be found on [url=https://www.youtube.com/watch?v=hU0MiQomyx0]Youtube[/url] and [url=https://soundcloud.com/user-433732349/sets/the-planetarium-collection]Soundcloud[/url].
 [b]Ridiculon[/b]: Voiceovers for all of the mod's consumables (and [b]popjam[/b] for help commissioning him!).</description>
-    <version>1.46</version>
+    <version>1.47</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Items"/>
