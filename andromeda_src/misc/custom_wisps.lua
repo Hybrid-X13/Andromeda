@@ -65,8 +65,6 @@ end
 function Wisp.familiarUpdate(familiar)
 	if familiar.Variant ~= FamiliarVariant.WISP then return end
 
-	local player = familiar.Player
-
 	if familiar.SubType == Enums.Collectibles.JUNO then
 		familiar.CollisionDamage = 0
 	elseif familiar.SubType == Enums.Collectibles.GRAVITY_SHIFT then
