@@ -131,7 +131,6 @@ function Locust.familiarUpdate(familiar)
 	if familiar.Variant ~= FamiliarVariant.ABYSS_LOCUST then return end
 
 	local room = game:GetRoom()
-	local sprite = familiar:GetSprite()
 	local player = familiar.Player
 
 	if familiar.SubType == Enums.Collectibles.GRAVITY_SHIFT
