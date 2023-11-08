@@ -189,15 +189,13 @@ function Spode.postLaserUpdate(laser)
 	end
 	
 	if randNum == 0 then
-		local pos
+		local pos = player.Position + Vector.FromAngle(randNum):Resized(40)
 		randNum = rng:RandomInt(360)
 		
 		if player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)
 		or player:HasCollectible(Enums.Collectibles.ANDROMEDA_TECHX)
 		then
 			pos = laser.Position
-		else
-			pos = player.Position + Vector.FromAngle(randNum):Resized(40)
 		end
 		
 		CosmicTears(laser, player, pos)
