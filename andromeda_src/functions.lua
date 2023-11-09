@@ -506,6 +506,18 @@ function Functions.GetCurrentModPath()
 	return modPath
 end
 
+function Functions.GetDamageMultiplier(player)
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK) then
+        return 0.2
+    elseif player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK) then
+        return 0.3
+    elseif player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) then
+        return 0.8
+    end
+
+    return 1
+end
+
 --By DeadInfinity
 function Functions.GetDimension(roomDesc)
 	local level = game:GetLevel()
