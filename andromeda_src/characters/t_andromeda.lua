@@ -212,15 +212,7 @@ function Character.evaluateCache(player, cacheFlag)
 	if player:GetPlayerType() ~= Enums.Characters.T_ANDROMEDA then return end
 
 	if cacheFlag == CacheFlag.CACHE_DAMAGE then
-		if player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK) then
-			player.Damage = player.Damage + (Stats.DMG * 0.2)
-		elseif player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK) then
-			player.Damage = player.Damage + (Stats.DMG * 0.3)
-		elseif player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) then
-			player.Damage = player.Damage + (Stats.DMG * 0.8)
-		else
-			player.Damage = player.Damage + Stats.DMG
-		end
+		player.Damage = player.Damage + (Stats.DMG * Functions.GetDamageMultiplier(player))
 	end
 	if cacheFlag == CacheFlag.CACHE_FIREDELAY then
 		player.MaxFireDelay = player.MaxFireDelay * Stats.Tears
