@@ -265,6 +265,10 @@ function ANDROMEDA:IsItemUnlocked(itemID, variant)
 	end
 end
 
+function ANDROMEDA:IsWispWizardUnlocked()
+    return SaveData.UnlockData.T_Andromeda.MegaSatan
+end
+
 function ANDROMEDA:IsSpecialAbandonedPlanetarium()
 	local room = game:GetRoom()
 	local level = game:GetLevel()
