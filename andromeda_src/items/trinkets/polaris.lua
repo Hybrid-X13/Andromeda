@@ -72,7 +72,7 @@ function Trinket.postPEffectUpdate(player)
 	then
 		local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
 		
-		if HasDealRoomSpawned()
+		if not HasDealRoomSpawned()
 		and #items > 0
 		then
 			for i = 1, #items do
