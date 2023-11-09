@@ -1,4 +1,5 @@
 local Enums = require("andromeda_src.enums")
+local Functions = require("moreunlocks_src.functions")
 local SaveData = require("andromeda_src.savedata")
 local game = Game()
 local rng = RNG()
@@ -11,15 +12,7 @@ function Item.evaluateCache(player, cacheFlag)
 	
 	local itemNum = player:GetCollectibleNum(Enums.Collectibles.PALLAS)
 
-	if player:HasCollectible(CollectibleType.COLLECTIBLE_SOY_MILK) then
-		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.2 * itemNum)
-	elseif player:HasCollectible(CollectibleType.COLLECTIBLE_ALMOND_MILK) then
-		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.3 * itemNum)
-	elseif player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) then
-		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * 0.8 * itemNum)
-	else
-		player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * itemNum)
-	end
+	player.Damage = player.Damage + (0.2 * SaveData.ItemData.Pallas.newRoomDMG * itemNum * Functions.GetDamageMultiplier(player))
 end
 
 function Item.postNewLevel()
