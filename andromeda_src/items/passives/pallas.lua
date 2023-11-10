@@ -1,5 +1,5 @@
 local Enums = require("andromeda_src.enums")
-local Functions = require("moreunlocks_src.functions")
+local Functions = require("andromeda_src.functions")
 local SaveData = require("andromeda_src.savedata")
 local game = Game()
 local rng = RNG()
