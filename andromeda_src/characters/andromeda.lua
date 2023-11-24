@@ -179,6 +179,7 @@ function Character.postNewRoom()
 				game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.SuperSecret)
 				sfx:Stop(SoundEffect.SOUND_DEATH_CARD)
 			elseif room:GetType() == RoomType.ROOM_ANGEL
+			and level:GetCurrentRoomIndex() ~= GridRooms.ROOM_ANGEL_SHOP_IDX
 			and SaveData.PlayerData.Andromeda.GravShift.Angel > 0
 			then
 				game:ShowHallucination(0, SaveData.PlayerData.Andromeda.GravShift.Angel)
