@@ -217,6 +217,7 @@ function Item.useItem(item, rng, player, flags, activeSlot, customVarData)
 	
 		--Gain 2 Bible wisps for each angel item in the room
 		if room:GetType() == RoomType.ROOM_ANGEL
+		and level:GetCurrentRoomIndex() ~= GridRooms.ROOM_ANGEL_SHOP_IDX
 		and SaveData.PlayerData.Andromeda.GravShift.Angel == 0
 		then
 			local items = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE)
