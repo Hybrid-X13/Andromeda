@@ -101,6 +101,7 @@ local StarEffects = {
 local Item = {}
 
 local function AddEffect(familiar, entity, rng)
+	if not entity then return end
 	if entity:GetData().addedEffect then return end
 	if not entity.Visible then return end
 
